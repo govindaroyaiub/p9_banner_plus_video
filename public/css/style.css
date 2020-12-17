@@ -1,0 +1,71 @@
+.video-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+.aspect-ratio-16-9 {
+    padding-top: 56.25%;
+}
+
+.aspect-ratio-1-1 {
+    padding-top: 100%;
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.companion-banner {
+    width: 300px;
+    height: auto;
+}
+
+
+.main {
+    min-height: 89vh;
+}
+
+.drag-n-drop-area {
+    padding: 3em;
+    position: relative;
+    transition: all .2s;
+}
+
+.drag-n-drop-area:hover,
+.drag-n-drop-area.dragging,
+.drag-n-drop-area.uploading {
+    opacity: 1;
+}
+
+.drag-n-drop-area.uploading {
+    border: dashed 1px #34495e;
+    border-radius: 1rem;
+}
+
+.drag-n-drop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.sidebar {
+    min-height: 87vh;
+}
+
+@media screen and (max-width: 576px) {
+    .sidebar {
+        min-height: auto;
+    }
+
+    .dropdown {
+        width: 60%;
+        right: 0;
+    }
+}
