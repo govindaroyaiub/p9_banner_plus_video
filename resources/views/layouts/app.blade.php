@@ -136,14 +136,6 @@
             .columns.adjust();
     });
 
-    $(document).ready(function () {
-        var table = $('#banner_sizes').DataTable({
-            responsive: true,
-            paging: false
-        })
-            .columns.adjust();
-    });
-
     $(document).ready(function() {
         $('#banner_size_id').select2();
     });
