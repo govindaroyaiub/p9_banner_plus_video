@@ -109,6 +109,7 @@ class HomeController extends Controller
         $main_project->color = $request->color;
         $main_project->is_logo = 1;
         $main_project->is_footer = 1;
+        $main_project->project_type = 1;
         $main_project->save();
 
         $sub_project = new SubProject;
@@ -124,7 +125,7 @@ class HomeController extends Controller
         $sub_project->video_path = $video_name;
         $sub_project->save();
 
-        return redirect('/project/view/'.$main_project->id);
+        return redirect('/project/video/view/'.$main_project->id);
     }
 
     public function project_edit($id)
@@ -191,7 +192,7 @@ class HomeController extends Controller
 
             SubProject::where('id', $sub_project->id)->update($new_sub_details);
         }
-        return redirect('/project')->with('success', $project_name.' has been updated!');
+        return redirect('/video')->with('success', $project_name.' has been updated!');
     }
 
     public function project_addon($id)
@@ -245,7 +246,7 @@ class HomeController extends Controller
         $sub_project->video_path = $video_name;
         $sub_project->save();
 
-        return redirect('/project/view/'.$main_project_id);
+        return redirect('/project/video/view/'.$main_project_id);
     }
 
     public function video_edit($id)
@@ -353,7 +354,7 @@ class HomeController extends Controller
         ];
 
         SubProject::where('id', $sub_project_id)->update($sub_project_details);
-        return redirect('/project/view/'.$main_project_info['id']);
+        return redirect('/project/video/view/'.$main_project_info['id']);
 
     }
 
@@ -375,7 +376,7 @@ class HomeController extends Controller
         }
         SubProject::where('id', $id)->delete();
 
-        return redirect('/project/view/'.$sub_project_info['project_id']);
+        return redirect('/project/video/view/'.$sub_project_info['project_id']);
     }
 
     public function project_delete($id)
@@ -399,7 +400,7 @@ class HomeController extends Controller
             SubProject::where('id', $sub_project->id)->delete();
         }
         MainProject::where('id', $id)->delete();
-        return redirect('/project')->with('danger', $main_project_info['name'].' been deleted along with assets!');
+        return redirect('/video')->with('danger', $main_project_info['name'].' been deleted along with assets!');
     }
 
     public function client()

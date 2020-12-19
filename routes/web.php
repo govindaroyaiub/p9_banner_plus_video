@@ -35,13 +35,13 @@ Route::get('/banner/addon/{id}', 'BannerController@project_addon')->name('banner
 Route::post('/banner/addon/{id}', 'BannerController@project_addon_post')->name('banner_addon_post');
 
 Route::get('/video', 'HomeController@project')->name('project');
-Route::get('/video/add', 'HomeController@project_add')->name('project_add');
-Route::post('/video/add', 'HomeController@project_add_post')->name('project_add_post');
-Route::get('/video/edit/{id}', 'HomeController@project_edit')->name('project_edit');
-Route::post('/video/edit/{id}', 'HomeController@project_edit_post')->name('project_edit_post');
-Route::get('/video/delete/{id}', 'HomeController@project_delete')->name('project_delete');
-Route::get('/video/addon/{id}', 'HomeController@project_addon')->name('project_addon');
-Route::post('/video/addon/{id}', 'HomeController@project_addon_post')->name('project_addon_post');
+Route::get('/project/video/add', 'HomeController@project_add')->name('project_add');
+Route::post('/project/video/add', 'HomeController@project_add_post')->name('project_add_post');
+Route::get('/project/video/edit/{id}', 'HomeController@project_edit')->name('project_edit');
+Route::post('/project/video/edit/{id}', 'HomeController@project_edit_post')->name('project_edit_post');
+Route::get('/project/video/delete/{id}', 'HomeController@project_delete')->name('project_delete');
+Route::get('/project/video/addon/{id}', 'HomeController@project_addon')->name('project_addon');
+Route::post('/project/video/addon/{id}', 'HomeController@project_addon_post')->name('project_addon_post');
 
 Route::get('/logo', 'HomeController@client')->name('logo');
 Route::get('/logo/add', 'HomeController@client_add')->name('logo_add');

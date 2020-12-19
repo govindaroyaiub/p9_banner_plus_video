@@ -3,10 +3,10 @@
         <li class="{{ request()->is('/') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/">Dashboard</a>
         </li>
-        <li class="{{ request()->is('banner') || request()->is('banner/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
+        <li class="{{ request()->is('banner') || request()->is('project/banner/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner">Banners</a>
         </li>
-        <li class="{{ request()->is('video') || request()->is('video/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
+        <li class="{{ request()->is('video') || request()->is('project/video/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/video">Videos</a>
         </li>
         <li class="{{ request()->is('banner_sizes') || request()->is('banner_sizes/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
@@ -19,6 +19,7 @@
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/logo">Logos</a>
         </li>
     </ul>
+    
 
     <div class="text-center text-sm text-gray-700 mb-2">&copy; Planetnine - <?= Date('Y') ?></div>
 </div>

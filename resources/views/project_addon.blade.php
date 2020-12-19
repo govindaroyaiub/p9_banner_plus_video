@@ -8,7 +8,7 @@
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide">Add Video</h3>
             <br>
-            <form method="POST" action="/project/addon/{{ $main_project_id }}" enctype="multipart/form-data">
+            <form method="POST" action="/project/video/addon/{{ $main_project_id }}" enctype="multipart/form-data">
                 @csrf
                 <label class="text-primary font-light">Video Title (example: Pre-Roll/Bumper Interstitial for Youtube)</label><br>
                 <input type='text' placeholder="Enter Video Title" name="title"

@@ -9,7 +9,7 @@
                 @include('alert')
                 <h3 class="text-xl font-semibold tracking-wide mb-4">Add Project</h3>
 
-                <form id="project-add-form" class="max-w-xl" method="POST" action="/project/add"
+                <form id="project-add-form" class="max-w-xl" method="POST" action="/project/video/add"
                       enctype="multipart/form-data">
                     @csrf
 

@@ -15,7 +15,7 @@
             <br>
             <div class="flex justify-between w-full">
                 <h3 class="text-xl font-semibold tracking-wide">Videos</h3>
-                <a href="/project/add">
+                <a href="/project/video/add">
                     <button type="button"
                         class="leading-tight bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">Add
                         Video</Button>
@@ -39,7 +39,7 @@
                         <td class="border px-4 py-2">{{ $video->name }}</td>
                         <td class="border px-4 py-2">{{ $video->client_name }}</td>
                         <td class="border px-4 py-2">
-                            <a href="/video/view/{{$video->id}}" target="_blank">
+                            <a href="/project/video/view/{{$video->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,7 +48,7 @@
                                     </svg>
                                 </button>
                             </a>
-                            <a href="/video/edit/{{$video->id}}">
+                            <a href="/project/video/edit/{{$video->id}}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,7 +57,7 @@
                                 </button>
                             </a>
 
-                            <a href="/video/delete/{{$video->id}}">
+                            <a href="/project/video/delete/{{$video->id}}">
                                 <button type="button"
                                     class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
