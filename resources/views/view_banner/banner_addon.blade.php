@@ -8,7 +8,7 @@
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide">Add Video</h3>
             <br>
-            <form id="project-add-form" class="max-w-xl" method="POST" action="/banner/addon/{{ $main_project_id }}"
+            <form id="project-add-form" class="max-w-xl" method="POST" action="/project/banner/addon/{{ $main_project_id }}"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="mb-4">

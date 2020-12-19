@@ -15,7 +15,7 @@
             <br>
             <div class="flex justify-between w-full">
                 <h3 class="text-xl font-semibold tracking-wide">Banners</h3>
-                <a href="/banner/add">
+                <a href="/project/banner/add">
                     <button type="button"
                         class="leading-tight bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">Add
                         Banner</Button>
@@ -48,7 +48,7 @@
                                     </svg>
                                 </button>
                             </a>
-                            <a href="/banner/edit/{{$banner->id}}">
+                            <a href="/project/banner/edit/{{$banner->id}}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,7 +57,7 @@
                                 </button>
                             </a>
 
-                            <a href="/banner/delete/{{$banner->id}}">
+                            <a href="/project/banner/delete/{{$banner->id}}">
                                 <button type="button"
                                     class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

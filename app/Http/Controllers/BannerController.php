@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use ZipArchive;
 use App\User;
 use App\MainProject;
 use App\Comments;
@@ -65,6 +67,18 @@ class BannerController extends Controller
         $sub_project->file_path = $file_name;
         $sub_project->save();
 
+        $zip = new ZipArchive();
+        $file_path = str_replace(".zip","", $sub_project->file_path);
+        $directory = 'banner_collection/'.$file_path;
+        if(!is_dir($directory))
+        {
+            if ($zip->open('banner_collection/'.$sub_project->file_path) === TRUE) 
+            { 
+                // Unzip Path 
+                $zip->extractTo($directory); 
+                $zip->close(); 
+            } 
+        }
         return redirect('/project/banner/view/'.$main_project->id);
     }
 
@@ -119,6 +133,51 @@ class BannerController extends Controller
         $sub_project->file_path = $file_name;
         $sub_project->save();
 
+        $zip = new ZipArchive();
+        $file_path = str_replace(".zip","", $sub_project->file_path);
+        $directory = 'banner_collection/'.$file_path;
+        if(!is_dir($directory))
+        {
+            if ($zip->open('banner_collection/'.$sub_project->file_path) === TRUE) 
+            { 
+                // Unzip Path 
+                $zip->extractTo($directory); 
+                $zip->close(); 
+            } 
+        }
+
         return redirect('/project/banner/view/'.$main_project_id);
+    }
+
+    public function banner_delete_all($id)
+    {
+        $main_project_info = MainProject::where('id', $id)->first();
+
+        $sub_project_info = BannerProject::where('project_id', $id)->get();
+        if(($sub_project_info->count() != 0))
+        {
+            foreach($sub_project_info as $sub_project)
+            {
+                $file_path = public_path() . '/banner_collection/'.str_replace(".zip","", $sub_project['file_path']);
+                unlink('banner_collection/'.$sub_project['file_path']);
+                $files = File::deleteDirectory($file_path);
+
+                BannerProject::where('id', $id)->delete();
+            }
+        }
+        MainProject::where('id', $id)->delete();
+        return redirect('/banner')->with('danger', $main_project_info['name'].' been deleted along with assets!');
+    }
+
+    public function banner_delete($id)
+    {
+        $sub_project = BannerProject::where('id', $id)->first();
+
+        $file_path = public_path() . '/banner_collection/'.str_replace(".zip","", $sub_project['file_path']);
+        unlink('banner_collection/'.$sub_project['file_path']);
+        $files = File::deleteDirectory($file_path);
+
+        BannerProject::where('id', $id)->delete();
+        return back();
     }
 }
