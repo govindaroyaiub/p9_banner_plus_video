@@ -370,7 +370,7 @@
                     <small class="mx-auto text-red-700">{{ $project->size }}</small>
                     <iframe src="{{ asset($directory.'/index.html') }}" width="{{ $project->width }}"
                         height="{{ $project->height }}" frameBorder="0" scrolling="no" id="rel{{ $project->id }}"></iframe>
-                    <ul class="flex space-x-2">
+                    <ul class="flex space-x-2" style="color:{{ $main_project_info['color'] }};">
                         <li><i id="relBt{{ $project->id }}"
                                 class="color-primary underline flex mt-2">
                                 <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
