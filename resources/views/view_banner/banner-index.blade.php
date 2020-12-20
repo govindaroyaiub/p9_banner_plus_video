@@ -79,6 +79,15 @@
             cursor: pointer;
         }
 
+        .single-div{
+            display: inline-block;
+            padding: 0 7px;
+        }
+
+        .size_text{
+            float: right!important;
+        }
+
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
@@ -365,9 +374,9 @@
                     $file_path = str_replace(".zip","", $project->file_path);
                     $directory = 'banner_collection/'.$file_path;
                 ?>
-                <div>
+                <div class="single-div">
                     <small>{{ $project->width }}x{{ $project->height }}</small>
-                    <small class="mx-auto text-red-700">{{ $project->size }}</small>
+                    <small class="mx-auto text-red-700 size_text">{{ $project->size }}</small>
                     <iframe src="{{ asset($directory.'/index.html') }}" width="{{ $project->width }}"
                         height="{{ $project->height }}" frameBorder="0" scrolling="no" id="rel{{ $project->id }}"></iframe>
                     <ul class="flex space-x-2" style="color:{{ $main_project_info['color'] }};">
