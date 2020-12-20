@@ -27,8 +27,8 @@
                 <label class="text-primary font-light">Change Admin Status</label><br>
                 <select class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" name="is_admin" required>
                     <option value=" " class="py-2">Select Option</option>
-                    <option value="1" class="py-1" @if($user_info['is_admin']==1) selected @endif>Yes</option>
-                    <option value="0" class="py-1" @if($user_info['is_admin']==0) selected @endif>No</option>
+                    <option value="1" class="py-1" @if($user_info['is_admin']==1) selected @endif>Admin</option>
+                    <option value="0" class="py-1" @if($user_info['is_admin']==0) selected @endif>User</option>
                 </select>
                 <br>
                 <div class="flex space-x-4">

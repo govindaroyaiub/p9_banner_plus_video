@@ -35,7 +35,7 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="text-primary font-light block mb-3">Select Logo</label>
-                                <select name="logo_id"
+                                <select name="logo_id" id="logo_id"
                                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                                 >
                                     <option value="0" class="py-2">Select Logo</option>
@@ -68,7 +68,7 @@
 
                     <div class="mb-4">
                         <label class="text-primary font-light block">Advertising Format</label>
-                        <select name="size_id"
+                        <select name="size_id" id="size_id"
                                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                             <option value="0" class="py-2">Select Size</option>
                             @foreach($size_list as $size)

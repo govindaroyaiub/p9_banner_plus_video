@@ -138,6 +138,7 @@
 
     $(document).ready(function() {
         $('#banner_size_id').select2();
+        $('#size_id').select2();
     });
     // DND
     var upload = document.querySelector('.drag-n-drop');
