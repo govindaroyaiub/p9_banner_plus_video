@@ -157,6 +157,10 @@
                     window.alert('File type ' + file.type + ' not supported');
                 }
             }
+            else
+            {
+                window.alert('File type ' + file.type + ' not supported');
+            }
         }
 
         upload.addEventListener('dragenter', function (e) {

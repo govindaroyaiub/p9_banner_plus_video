@@ -138,11 +138,6 @@ class HomeController extends Controller
 
     public function project_edit_post(Request $request, $id)
     {
-        $validator = $request->validate([
-            'poster' => 'mimes:jpeg,png,jpg,gif',
-            'video' => 'required|mimes:mp4',
-        ]);
-
         $main_project_id = $id;
         $pro_name = $request->project_name;
         $project_name = str_replace(" ","_", $request->project_name);

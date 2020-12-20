@@ -8,7 +8,7 @@
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide">Add Project</h3>
             <br>
-            <form method="POST" action="/project/edit/{{$id}}" enctype="multipart/form-data">
+            <form method="POST" action="/project/video/edit/{{$id}}" enctype="multipart/form-data">
                 @csrf
                 <label class="text-primary font-light">Project Name</label><br>
                 <input type='text' placeholder="Enter Project Name" name="project_name" value="{{ $project_info['name'] }}"

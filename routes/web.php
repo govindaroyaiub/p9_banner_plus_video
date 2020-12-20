@@ -36,8 +36,8 @@ Route::get('/project/banner/delete/{id}', 'BannerController@banner_delete_all')-
 Route::get('/project/banner/addon/{id}', 'BannerController@project_addon')->name('banner_addon');
 Route::post('/project/banner/addon/{id}', 'BannerController@project_addon_post')->name('banner_addon_post');
 
-// Route::get('/banner/edit/{id}', 'HomeController@video_edit')->name('video_edit');
-// Route::post('/banner/edit/{id}', 'HomeController@video_edit_post')->name('video_edit_post');
+Route::get('/banner/edit/{id}', 'BannerController@banner_edit')->name('banner_edit');
+Route::post('/banner/edit/{id}', 'BannerController@banner_edit_post')->name('banner_edit_post');
 
 Route::get('/banner/delete/{id}', 'BannerController@banner_delete')->name('banner_delete');
 
