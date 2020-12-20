@@ -195,11 +195,9 @@ class BannerController extends Controller
 
     public function banner_edit_post(Request $request, $id)
     {
-        dd($request->upload);
         $validator = $request->validate([
             'upload' => 'required|file|mimes:zip'
         ]);
-        
 
         $banner_id = $id;
         $banner_info = BannerProject::where('id', $banner_id)->first();
@@ -241,5 +239,77 @@ class BannerController extends Controller
             } 
         }
         return redirect('/project/banner/view/'.$project_info['id']);
+    }
+
+    public function project_edit($id)
+    {
+        $logo_list = Logo::get();
+        $size_list = BannerSizes::orderBy('width', 'DESC')->get();
+        $project_info = MainProject::where('id', $id)->first();
+        return view('view_banner.edit_project', compact('logo_list', 'size_list', 'project_info', 'id'));
+    }
+
+    public function project_edit_post(Request $request, $id)
+    {
+        $main_project_id = $id;
+        $pro_name = $request->project_name;
+        $project_name = str_replace(" ","_", $request->project_name);
+        $sub_projects = BannerProject::where('project_id', $main_project_id)->get();
+
+        $main_project_details = [
+            'name' => $pro_name,
+            'client_name' => $request->client_name,
+            'logo_id' => $request->logo_id,
+            'color' => $request->color,
+            'is_logo' => $request->is_logo,
+            'is_footer' => $request->is_footer
+        ];
+
+        MainProject::where('id', $main_project_id)->update($main_project_details);
+
+        foreach($sub_projects as $sub_project)
+        {
+            $size_info = BannerSizes::where('id', $sub_project['size_id'])->first();
+
+            $old_sub_project_name = $sub_project->name;
+            $old_file_path = $sub_project->file_path;
+
+            $new_sub_project_name = $project_name.'_'.$size_info['width'].'x'.$size_info['height'];
+
+            if($old_file_path != NULL)
+            {
+                $rest_file_path = trim($old_file_path, $old_sub_project_name);
+                $new_file_path = $new_sub_project_name.'_'.$rest_file_path;
+            }
+            else
+            {
+                $new_file_path = NULL;
+            }
+            $old_directory = public_path() . '/banner_collection/'.str_replace(".zip","", $sub_project['file_path']);
+            $old_files = File::deleteDirectory($old_directory);
+
+            rename('banner_collection/'.$old_file_path, 'banner_collection/'.$new_file_path);
+
+            $new_sub_details = [
+                'name' => $new_sub_project_name,
+                'file_path' => $new_file_path,
+            ];
+
+            $zip = new ZipArchive();
+            $file_path = str_replace(".zip","", $new_file_path);
+            $directory = 'banner_collection/'.$file_path;
+            if(!is_dir($directory))
+            {
+                if ($zip->open('banner_collection/'.$new_file_path) === TRUE) 
+                { 
+                    // Unzip Path 
+                    $zip->extractTo($directory); 
+                    $zip->close(); 
+                } 
+            }
+
+            BannerProject::where('id', $sub_project->id)->update($new_sub_details);
+        }
+        return redirect('/banner')->with('success', $project_name.' has been updated!');
     }
 }
