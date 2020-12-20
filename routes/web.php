@@ -25,11 +25,10 @@ Route::get('/change-password', 'HomeController@change_password')->name('change_p
 Route::post('/change-password', 'HomeController@change_password_post')->name('change_password_post');
 Route::post('/change_mail_status', 'HomeController@change_mail_status')->name('change_mail_status');
 
+//banner functions and routes
 Route::get('/banner', 'BannerController@index')->name('banner');
 Route::get('/project/banner/add', 'BannerController@banner_add')->name('banner_add');
 Route::post('/project/banner/add', 'BannerController@banner_add_post')->name('banner_add_post');
-
-//banner functions and routes
 Route::get('/project/banner/edit/{id}', 'BannerController@project_edit')->name('project_edit');
 Route::post('/project/banner/edit/{id}', 'BannerController@project_edit_post')->name('project_edit_post');
 Route::get('/project/banner/delete/{id}', 'BannerController@banner_delete_all')->name('banner_delete_all');
@@ -38,6 +37,12 @@ Route::post('/project/banner/addon/{id}', 'BannerController@project_addon_post')
 Route::get('/banner/edit/{id}', 'BannerController@banner_edit')->name('banner_edit');
 Route::post('/banner/edit/{id}', 'BannerController@banner_edit_post')->name('banner_edit_post');
 Route::get('/banner/delete/{id}', 'BannerController@banner_delete')->name('banner_delete');
+
+Route::get('/banner_sizes', 'BannerController@sizes')->name('banner_sizes');
+Route::get('/banner_sizes/add', 'BannerController@size_add')->name('banner_sizes_add');
+Route::post('/banner_sizes/add', 'BannerController@size_add_post')->name('banner_sizes_add_post');
+Route::get('/banner_sizes/delete/{id}', 'BannerController@size_delete')->name('banner_sizes_delete');
+//banner functions and routes end
 
 //video functions and routes
 Route::get('/video', 'HomeController@project')->name('project');
@@ -52,17 +57,13 @@ Route::get('/video/edit/{id}', 'HomeController@video_edit')->name('video_edit');
 Route::post('/video/edit/{id}', 'HomeController@video_edit_post')->name('video_edit_post');
 Route::get('/video/delete/{id}', 'HomeController@video_delete')->name('video_delete');
 
-Route::get('/logo', 'HomeController@client')->name('logo');
-Route::get('/logo/add', 'HomeController@client_add')->name('logo_add');
-Route::post('/logo/add', 'HomeController@logo_add_post')->name('logo_add_post');
-Route::get('/logo/delete/{id}', 'HomeController@logo_delete')->name('logo_delete');
-
-Route::get('/banner_sizes', 'BannerController@sizes')->name('banner_sizes');
-Route::get('/banner_sizes/add', 'BannerController@size_add')->name('banner_sizes_add');
-Route::post('/banner_sizes/add', 'BannerController@size_add_post')->name('banner_sizes_add_post');
-Route::get('/banner_sizes/delete/{id}', 'BannerController@size_delete')->name('banner_sizes_delete');
-
 Route::get('/sizes', 'HomeController@sizes')->name('sizes');
 Route::get('/sizes/add', 'HomeController@size_add')->name('size_add');
 Route::post('/sizes/add', 'HomeController@size_add_post')->name('size_add_post');
 Route::get('/sizes/delete/{id}', 'HomeController@size_delete')->name('size_delete');
+//video functions and routes end
+
+Route::get('/logo', 'HomeController@client')->name('logo');
+Route::get('/logo/add', 'HomeController@client_add')->name('logo_add');
+Route::post('/logo/add', 'HomeController@logo_add_post')->name('logo_add_post');
+Route::get('/logo/delete/{id}', 'HomeController@logo_delete')->name('logo_delete');
