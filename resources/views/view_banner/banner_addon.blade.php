@@ -14,7 +14,7 @@
                 <div class="mb-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="text-primary font-light block mb-3">Banner Width x Height</label>
+                            <label class="text-primary font-light block mb-3">Select Banner Width x Height</label>
                             <select name="banner_size_id"
                                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" id="banner_size_id">
                                 <option value="0" class="py-2">Select Size</option>
