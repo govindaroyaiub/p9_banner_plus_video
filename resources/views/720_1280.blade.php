@@ -17,7 +17,7 @@
 
             <ul class="flex space-x-4" style="color: {{ $main_project_info['color'] }};">
                 <li><a href="{{ asset('/banner_videos/'.$project->video_path) }}"
-                    class="color-primary underline flex mt-4" download>Download Video
+                    class="color-primary underline flex mt-4" download>Download
                         <svg class="w-6 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
