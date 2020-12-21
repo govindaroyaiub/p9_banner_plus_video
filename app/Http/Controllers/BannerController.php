@@ -166,7 +166,7 @@ class BannerController extends Controller
                 unlink('banner_collection/'.$sub_project['file_path']);
                 $files = File::deleteDirectory($file_path);
 
-                BannerProject::where('id', $id)->delete();
+                BannerProject::where('id', $sub_project->id)->delete();
             }
         }
         MainProject::where('id', $id)->delete();
