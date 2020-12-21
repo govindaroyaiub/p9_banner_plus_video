@@ -95,16 +95,20 @@
                     </div>
 
                     <div>
-                        <label class="text-primary font-light block">Select Companion Banner Poster  (if any)</label>
-                        <div class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-full">
-                            <input type="file" name="poster" class="drag-n-drop absolute mx-auto text-center" id="upload"/>
+                        <label class="text-primary font-light block">Select Companion Banner Poster (if any)</label>
+                        <div
+                            class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-full">
+                            <input type="file" name="poster" class="drag-n-drop absolute mx-auto text-center"
+                                   id="upload"/>
                         </div>
                     </div>
 
                     <div>
                         <label class="text-primary font-light block">Select Banner Video</label>
-                        <div class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-full">
-                            <input type="file" name="video" class="drag-n-drop absolute mx-auto text-center" required id="upload"/>
+                        <div
+                            class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-full">
+                            <input type="file" name="video" class="drag-n-drop absolute mx-auto text-center" required
+                                   id="upload"/>
                         </div>
                     </div>
 

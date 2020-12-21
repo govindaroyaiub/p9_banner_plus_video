@@ -8,12 +8,14 @@
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
     <title>P9 Previewer</title>
-    <link rel="shortcut icon" href="https://www.planetnine.com/wp-content/uploads/2020/06/cropped-favicon-32x32.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://www.planetnine.com/wp-content/uploads/2020/06/cropped-favicon-32x32.png"
+          type="image/x-icon">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css">
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <style>
         /*Form fields*/
         .dataTables_wrapper select,
@@ -79,51 +81,55 @@
     @yield('styles')
 </head>
 <body class="bg-gray-100 min-h-screen font-body">
-<nav class="bg-white">
-    <div class="relative container mx-auto px-4 py-3 flex justify-between items-center">
-        @if(Auth::user())
-            <a class="text-xl font-semibold" href="{{ url('/') }}">
-                <img src="{{ asset('/images/logo.png') }}" style="max-width: 20.6%">
-            </a>
-        @endif
+<div id="app">
+    <nav class="bg-white">
+        <div class="relative container mx-auto px-4 py-3 flex justify-between items-center">
+            @if(Auth::user())
+                <a class="text-xl font-semibold" href="{{ url('/') }}">
+                    <img src="{{ asset('/images/logo.png') }}" style="max-width: 20.6%">
+                </a>
+            @endif
 
-        <ul class="flex space-x-4">
-            @guest
+            <ul class="flex space-x-4">
+                @guest
 
-            @else
-                <div x-data="{ logout: false}">
+                @else
+                    <div x-data="{ logout: false}">
 
-                    <button @click="logout = true" class="focus:outline-none">{{ Auth::user()->name }}</button>
+                        <button @click="logout = true" class="focus:outline-none">{{ Auth::user()->name }}</button>
 
-                    <div class="dropdown absolute bg-white shadow-md rounded-lg p-6" x-show="logout"
-                         @click.away="logout = false">
-                        <a href="/change-password">
-                            Change Password
-                        </a>
-                        <hr>
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
+                        <div class="dropdown absolute bg-white shadow-md rounded-lg p-6" x-show="logout"
+                             @click.away="logout = false">
+                            <a href="/change-password">
+                                Change Password
+                            </a>
+                            <hr>
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+                                {{ __('Logout') }}
+                            </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            @csrf
-                        </form>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                @csrf
+                            </form>
+                        </div>
                     </div>
-                </div>
-            @endguest
-        </ul>
-    </div>
-</nav>
+                @endguest
+            </ul>
+        </div>
+    </nav>
 
-<main class="py-4">
-    @yield('content')
-</main>
+    <main class="py-4">
+        @yield('content')
+    </main>
+</div>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 <script>
     $(document).ready(function () {
         var table = $('#datatable').DataTable({
@@ -136,22 +142,20 @@
             .columns.adjust();
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#banner_size_id').select2();
         $('#size_id').select2();
     });
     // DND
     var upload = document.querySelector('.drag-n-drop');
 
-    if(upload)
-    {
+    if (upload) {
         function onFile() {
-        var me = this,
-            file = upload.files[0],
-            name = file.name.replace(/\.[^/.]+$/, '');
+            var me = this,
+                file = upload.files[0],
+                name = file.name.replace(/\.[^/.]+$/, '');
 
-            if (file.type === '' || file.type === 'video/mp4' || file.type === 'image/gif' || file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'application/zip') 
-            {
+            if (file.type === '' || file.type === 'video/mp4' || file.type === 'image/gif' || file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'application/zip') {
                 if (file.size < (500000 * 1024)) {
                     upload.parentNode.className = 'drag-n-drop-area uploading';
                 } else {
@@ -178,74 +182,58 @@
     }
 </script>
 <script>
-$('#show_password').click(function(e)
-{
-    var current_password = $('#current_password').val().length;
-    var repeat_password = $('#repeat_password').val().length;
-    var new_password = $('#new_password').val().length;
+    $('#show_password').click(function (e) {
+        var current_password = $('#current_password').val().length;
+        var repeat_password = $('#repeat_password').val().length;
+        var new_password = $('#new_password').val().length;
 
-	if(document.getElementById('show_password').checked)
-    {
-        if(current_password == 0)
-        {
-            alert('Enter Current Password!');
-            e.preventDefault();
+        if (document.getElementById('show_password').checked) {
+            if (current_password == 0) {
+                alert('Enter Current Password!');
+                e.preventDefault();
+            }
+            if (new_password == 0) {
+                alert('Enter New Password!');
+                e.preventDefault();
+            }
+            if (repeat_password == 0) {
+                alert('Enter Repeat Password!');
+                e.preventDefault();
+            } else {
+                $('#current_password').get(0).type = 'text';
+                $('#new_password').get(0).type = 'text';
+                $('#repeat_password').get(0).type = 'text';
+            }
+        } else {
+            $('#current_password').get(0).type = 'password';
+            $('#new_password').get(0).type = 'password';
+            $('#repeat_password').get(0).type = 'password';
         }
-        if(new_password == 0)
-        {
-            alert('Enter New Password!');
-            e.preventDefault();
-        }
-        if(repeat_password == 0)
-        {
-            alert('Enter Repeat Password!');
-            e.preventDefault();
-        }
-        else
-        {
-            $('#current_password').get(0).type = 'text';
-            $('#new_password').get(0).type = 'text';
-            $('#repeat_password').get(0).type = 'text';
-        }
-    }
-    else
-    {
-        $('#current_password').get(0).type = 'password';
-        $('#new_password').get(0).type = 'password';
-        $('#repeat_password').get(0).type = 'password';
-    }
-});
+    });
 
     $('.switch').change(function (e) {
         var id = $(this).attr("id");
         var _token = $('input[name="_token"]').val();
         var switch_button = document.getElementsByClassName("switch");
 
-        if ($(this).is(":checked"))
-        {
+        if ($(this).is(":checked")) {
             var status = 1; //checked
-        }
-        else
-        {
+        } else {
             var status = 0; //checked
         }
         $.ajax({
             url: "{{route('change_mail_status')}}",
             method: "POST",
             data:
-            {
-                id: id,
-                status: status,
-                _token
-            },
-            success: function (result)
-            {
-                if(result == 'true')
                 {
+                    id: id,
+                    status: status,
+                    _token
+                },
+            success: function (result) {
+                if (result == 'true') {
                     alert('Mail Feedback Enabled!');
-                }
-                else
-                {
+                } else {
                     alert('Mail Feedback Disabled!')
                 }
             }
