@@ -14,9 +14,6 @@
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
-    <link rel="stylesheet"
-          href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css">
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <style>
         /*Form fields*/
         .dataTables_wrapper select,
@@ -154,8 +151,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 <script>
     $(document).ready(function () {
         var table = $('#datatable').DataTable({
