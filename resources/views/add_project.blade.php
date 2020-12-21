@@ -31,7 +31,6 @@
 
 
                     <div class="mb-4">
-
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="text-primary font-light block mb-3">Select Logo</label>
@@ -94,23 +93,18 @@
                                required/>
                     </div>
 
-                    <div>
-                        <label class="text-primary font-light block">Select Companion Banner Poster (if any)</label>
-                        <div
-                            class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-full">
-                            <input type="file" name="poster" class="drag-n-drop absolute mx-auto text-center"
-                                   id="upload"/>
-                        </div>
+                    <div
+                        class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
+                        <span class="drop-zone__prompt">Drop Poster Image here (Optional)</span>
+                        <input type="file" name="poster" class="drop-zone__input hidden">
                     </div>
-
-                    <div>
-                        <label class="text-primary font-light block">Select Banner Video</label>
-                        <div
-                            class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-full">
-                            <input type="file" name="video" class="drag-n-drop absolute mx-auto text-center" required
-                                   id="upload"/>
-                        </div>
+                    <br>
+                    <div
+                        class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
+                        <span class="drop-zone__prompt">Drop Video File Here</span>
+                        <input type="file" name="video" class="drop-zone__input hidden">
                     </div>
+                    <br>
 
                     <div class="flex space-x-4 mt-4">
                         <button type="submit"

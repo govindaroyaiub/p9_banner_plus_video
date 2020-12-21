@@ -12,28 +12,23 @@
                 enctype="multipart/form-data">
                 @csrf
                 <div class="mb-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="text-primary font-light block mb-3">Select Size</label>
-                            <select name="banner_size_id"
-                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" id="banner_size_id">
-                                <option value="0" class="py-2">Select Logo</option>
-                                @foreach($size_list as $size)
-                                <option value="{{ $size->id }}" class="py-2">{{ $size->width }}x{{ $size->height }} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                    <label class="text-primary font-light block mb-3">Select Size</label>
+                    <select name="banner_size_id"
+                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" id="banner_size_id">
+                        <option value="0" class="py-2">Select Logo</option>
+                        @foreach($size_list as $size)
+                        <option value="{{ $size->id }}" class="py-2">{{ $size->width }}x{{ $size->height }} </option>
+                        @endforeach
+                    </select>
                 </div>
-
-                <div>
-                    <label class="text-primary font-light block">Upload Banner (ZIP file)</label>
-                    <div
-                        class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-full">
-                        <input type="file" name="upload" class="drag-n-drop absolute mx-auto text-center" required
-                            id="upload" />
-                    </div>
+                
+                {{-- Drag and Drop --}}
+                <div
+                class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
+                    <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                    <input type="file" name="upload" class="drop-zone__input hidden">
                 </div>
+                {{-- Drag and Drop --}}
 
                 <div class="flex space-x-4 mt-4">
                     <button type="submit"

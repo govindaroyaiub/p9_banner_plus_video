@@ -37,19 +37,17 @@
                         class="w-1/3 mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" required/>
                 </div>
 
-                <div>
-                        <label class="text-primary font-light block">Select Companion Banner Poster  (if any)</label>
-                        <div class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-2/3">
-                            <input type="file" name="poster" class="drag-n-drop absolute mx-auto text-center" id="upload"/>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="text-primary font-light block">Select Banner Video</label>
-                        <div class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-2/3">
-                            <input type="file" name="video" class="drag-n-drop absolute mx-auto text-center" id="upload"/>
-                        </div>
-                    </div>
+                <div class="w-2/3 drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
+                    <span class="drop-zone__prompt">Drop Poster Image here (Optional)</span>
+                    <input type="file" name="poster" class="drop-zone__input hidden">
+                </div>
+                <br>
+                <div
+                    class="w-2/3 drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
+                    <span class="drop-zone__prompt">Drop Video File Here (Optional)</span>
+                    <input type="file" name="video" class="drop-zone__input hidden">
+                </div>
+                <br>
 
                 <div class="flex mb-4">
                     <button type="submit"
