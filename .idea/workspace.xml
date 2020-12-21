@@ -24,14 +24,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9ef6b3bb-66c5-4ed6-83e0-5acc4f27af81" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/add_project.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/add_project.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BannerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BannerController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/view_banner/banner_add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/view_banner/banner_add.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +202,7 @@
       <workItem from="1602653647255" duration="5246000" />
       <workItem from="1602740828137" duration="940000" />
       <workItem from="1603263765845" duration="3973000" />
-      <workItem from="1608531973770" duration="7052000" />
+      <workItem from="1608531973770" duration="8954000" />
     </task>
     <servers />
   </component>
@@ -232,11 +227,11 @@
     </state>
     <state x="298" y="27" key="SettingsEditor/0.25.1280.733@0.25.1280.733" timestamp="1602513996872" />
     <state x="298" y="27" key="SettingsEditor/0.25.1280.775@0.25.1280.775" timestamp="1608537251001" />
-    <state x="330" y="62" width="672" height="717" key="search.everywhere.popup" timestamp="1608542357845">
+    <state x="330" y="62" width="672" height="717" key="search.everywhere.popup" timestamp="1608545476581">
       <screen x="0" y="25" width="1280" height="775" />
     </state>
     <state x="620" y="59" width="672" height="740" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1602154720120" />
     <state x="330" y="60" width="672" height="678" key="search.everywhere.popup/0.25.1280.733@0.25.1280.733" timestamp="1603264946488" />
-    <state x="330" y="62" width="672" height="717" key="search.everywhere.popup/0.25.1280.775@0.25.1280.775" timestamp="1608542357845" />
+    <state x="330" y="62" width="672" height="717" key="search.everywhere.popup/0.25.1280.775@0.25.1280.775" timestamp="1608545476581" />
   </component>
 </project>
