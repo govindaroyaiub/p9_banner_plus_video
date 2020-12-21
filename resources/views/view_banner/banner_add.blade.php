@@ -59,8 +59,7 @@
                                 id="banner_size_id">
                             <option value="0" class="py-2">Select Size</option>
                             @foreach($size_list as $size)
-                                <option value="{{ $size->id }}" class="py-2">{{ $size->width }}
-                                    x{{ $size->height }}</option>
+                                <option value="{{ $size->id }}" class="py-2">{{ $size->width }}x{{ $size->height }}</option>
                             @endforeach
                         </select>
                     </div>
