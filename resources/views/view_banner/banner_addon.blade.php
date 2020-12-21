@@ -25,7 +25,7 @@
                 {{-- Drag and Drop --}}
                 <div
                 class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
-                    <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                    <span class="drop-zone__prompt">Drop Zip File Here or Click to Upload</span>
                     <input type="file" name="upload" class="drop-zone__input hidden">
                 </div>
                 {{-- Drag and Drop --}}

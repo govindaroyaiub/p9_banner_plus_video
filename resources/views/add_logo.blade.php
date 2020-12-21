@@ -13,11 +13,10 @@
                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                            required/>
                     
-                    <div>
-                        <label class="text-primary font-light block">Select Logo</label>
-                        <div class="drag-n-drop-area relative opacity-50 border border-dashed border-primary rounded-lg w-full">
-                            <input type="file" name="logo_file" class="drag-n-drop absolute mx-auto text-center" required id="upload"/>
-                        </div>
+                    <div
+                        class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
+                        <span class="drop-zone__prompt">Drop Logo Here or Click to Upload</span>
+                        <input type="file" name="logo_file" class="drop-zone__input hidden" required>
                     </div>
                     <br>
 
