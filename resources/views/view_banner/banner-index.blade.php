@@ -367,7 +367,9 @@
     @if($sub_project_info->count() == 0)
     <main class="main">
         <div class="container mx-auto px-4 py-4">
-        <label style="color: red">Please Add Banner or Delete This Project.</label>
+            <label class="text-red-700">No Banner Found!</label>
+            <br>
+            <label class="text-red-700">Please Add Banner or Delete This Project.</label>
         </div>
     </main>
     

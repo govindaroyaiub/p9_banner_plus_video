@@ -333,7 +333,16 @@
         </ul>
     @endif
 </div>
-
+@if($sub_project_info->count() == 0)
+    <main class="main">
+        <div class="container mx-auto px-4 py-4">
+            <label class="text-red-700">No Video Found!</label>
+            <br>
+            <label class="text-red-700">Please Add Video or Delete This Project.</label>
+        </div>
+    </main>
+    
+@else
 <main class="main">
     @foreach($sub_project_info as $project)
         <div class="container mx-auto px-4 py-10">
@@ -424,6 +433,7 @@
         </div>
     @endforeach
 </main>
+@endif
 
 @if($main_project_info->is_footer == 1)
     <footer class="footer" style="background-color: {{ $main_project_info['color'] }}">
