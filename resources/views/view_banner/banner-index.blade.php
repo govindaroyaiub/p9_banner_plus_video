@@ -364,7 +364,14 @@
         </ul>
         @endif
     </div>
-
+    @if($sub_project_info->count() == 0)
+    <main class="main">
+        <div class="container mx-auto px-4 py-4">
+        <label style="color: red">Please Add Banner or Delete This Project.</label>
+        </div>
+    </main>
+    
+    @else
     <main class="main">
         <div class="container mx-auto px-4 py-4">
             <div class="banners">
@@ -425,6 +432,7 @@
             </div>
         </div>
     </main>
+    @endif
 
     @if($main_project_info->is_footer == 1)
     <footer class="footer" style="background-color: {{ $main_project_info['color'] }}">
