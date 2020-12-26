@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Session;
 use App\User;
 use App\MainProject;
 use App\SubProject;
@@ -31,31 +32,60 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user_list = User::orderBy('name', 'ASC')->get();
-        $total_banners = MainProject::where('project_type', 0)->get()->count();
-        $total_videos = MainProject::where('project_type', 1)->get()->count();
-        $total_comments = Comments::get()->count();
-        $video_sizes = SubProject::select('size')->get();
-        $total_size = array();
-
-        foreach($video_sizes as $video)
+        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') == 'http://localhost:8000' && $get_verifycation['website'] != 'http://localhost:8000')
         {
-            $size_text = $video->size;
-            $size_number = trim($size_text," MB");
-
-            array_push($total_size, floatval($size_number));
+            Session::flush(); 
+            return view('illigal');
         }
-
-        $total_size = array_sum($total_size);
-        if($total_size <= 1024)
+        else
         {
-            $total_number = round($total_size, 2).' MB';
+            if(url('/') != 'http://localhost:8000')
+            {
+                $company_id = Auth::user()->company_id;
+                $user_list = User::select('id', 'name as username', 'email', 'is_send_mail', 'is_admin')
+                                ->where('company_id', $company_id)->orderBy('name', 'ASC')->get();
+            }
+            else
+            {
+                $user_list = User::join('logo', 'logo.id', 'users.company_id')
+                                ->select(
+                                    'users.id', 
+                                    'users.name as username',
+                                    'users.email',
+                                    'users.is_send_mail',
+                                    'users.is_admin',
+                                    'logo.name as logoname'
+                                    )
+                                ->orderBy('users.name', 'ASC')
+                                ->get();
+            }
+            
+            $total_banners = MainProject::where('project_type', 0)->get()->count();
+            $total_videos = MainProject::where('project_type', 1)->get()->count();
+            $total_comments = Comments::get()->count();
+            $video_sizes = SubProject::select('size')->get();
+            $total_size = array();
+    
+            foreach($video_sizes as $video)
+            {
+                $size_text = $video->size;
+                $size_number = trim($size_text," MB");
+    
+                array_push($total_size, floatval($size_number));
+            }
+    
+            $total_size = array_sum($total_size);
+            if($total_size <= 1024)
+            {
+                $total_number = round($total_size, 2).' MB';
+            }
+            if($total_size > 1024 && $total_size <= 2048)
+            {
+                $total_number = round($total_size/1024,2).' GB';
+            }
+            return view('home', compact('user_list', 'total_banners', 'total_videos', 'total_comments', 'total_number'));
         }
-        if($total_size > 1024 && $total_size <= 2048)
-        {
-            $total_number = round($total_size/1024,2).' GB';
-        }
-        return view('home', compact('user_list', 'total_banners', 'total_videos', 'total_comments', 'total_number'));
     }
 
     public function project()
@@ -412,7 +442,7 @@ class HomeController extends Controller
     public function logo_add_post(Request $request)
     {
         $request->validate([
-            'logo_file' => 'required|image|mimes:jpeg,png,jpg',
+            'logo_file' => 'required|image|mimes:jpeg,png,jpg,svg',
         ]);
 
         $imageName = $request->company_name.'_'.time().'.'.$request->logo_file->extension();
@@ -471,7 +501,8 @@ class HomeController extends Controller
     {
         if(Auth::user()->is_admin == 1)
         {
-            return view('add_user');
+            $client_list = Logo::orderBy('name', 'ASC')->get();
+            return view('add_user', compact('client_list'));
         }
         else
         {
@@ -485,6 +516,7 @@ class HomeController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->is_admin = $request->is_admin;
+        $user->company_id = $request->company_id;
         $user->password = Hash::make('password');
         $user->save();
 
@@ -526,7 +558,8 @@ class HomeController extends Controller
     public function edit_user($id)
     {
         $user_info = User::where('id', $id)->first();
-        return view('user_edit', compact('user_info', 'id'));
+        $client_list = Logo::orderBy('name', 'ASC')->get();
+        return view('user_edit', compact('user_info', 'id', 'client_list'));
     }
 
     public function edit_user_post(Request $request, $id)
@@ -534,6 +567,7 @@ class HomeController extends Controller
         $user_info = [
             'name' => $request->name,
             'email' => $request->email,
+            'company_id' => $request->company_id,
             'is_admin' => $request->is_admin
         ];
         User::where('id', $id)->update($user_info);

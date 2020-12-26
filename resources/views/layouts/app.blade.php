@@ -17,14 +17,34 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
     @yield('styles')
+
+    @if(url('/') == 'http://localhost:9000')
+        <style>
+            .bg-primary, .hover\:bg-primary:hover{
+                background-color: #339ad5;
+            }
+            .border-primary, .focus\:border-primary:focus {
+                border-color: #339ad5;
+            }
+            .text-primary {
+                color: #339ad5;
+            }
+        </style>
+    @endif
 </head>
 <body class="bg-gray-100 min-h-screen font-body">
 <nav class="bg-white">
     <div class="relative container mx-auto px-4 py-3 flex justify-between items-center">
         @if(Auth::user())
+            @if(url('/') == 'http://localhost:8000')
             <a class="text-xl font-semibold" href="{{ url('/') }}">
                 <img src="{{ asset('/images/logo.png') }}" style="max-width: 20.6%">
             </a>
+            @elseif(url('/') == 'http://localhost:9000')
+            <a class="text-xl font-semibold" href="{{ url('/') }}">
+                <img src="{{ asset('/images/dmm.svg') }}" style="max-width: 20.6%">
+            </a>
+            @endif
         @endif
 
         <ul class="flex space-x-4">
@@ -79,11 +99,17 @@
     $(document).ready(function () {
         $('#banner_size_id').select2();
         $('#size_id').select2();
+        $('#company_id').select2();
     });
 </script>
-
 <script>
-
+function copy_color_code(x) 
+{
+    var copyText = document.getElementById("color_code");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied the text: " + copyText.value);
+}
 </script>
 <script>
     $('#show_password').click(function (e) {
@@ -113,35 +139,6 @@
             $('#new_password').get(0).type = 'password';
             $('#repeat_password').get(0).type = 'password';
         }
-    });
-
-    $('.switch').change(function (e) {
-        var id = $(this).attr("id");
-        var _token = $('input[name="_token"]').val();
-        var switch_button = document.getElementsByClassName("switch");
-
-        if ($(this).is(":checked")) {
-            var status = 1; //checked
-        } else {
-            var status = 0; //checked
-        }
-        $.ajax({
-            url: "{{route('change_mail_status')}}",
-            method: "POST",
-            data:
-                {
-                    id: id,
-                    status: status,
-                    _token
-                },
-            success: function (result) {
-                if (result == 'true') {
-                    alert('Mail Feedback Enabled!');
-                } else {
-                    alert('Mail Feedback Disabled!')
-                }
-            }
-        })
     });
 
     // Drag and drop

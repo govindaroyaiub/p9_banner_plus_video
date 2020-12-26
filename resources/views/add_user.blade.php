@@ -23,6 +23,22 @@
                     class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                     required />
 
+                @if(url('/') == 'http://localhost:8000')
+                <label class="text-primary font-light">Select User Company</label><br>
+                <select
+                    class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                    name="company_id" id="company_id" required>
+                    <option value=" " class="py-2">Select Option</option>
+                    @foreach($client_list as $client)
+                    <option value="{{ $client->id }}" class="py-1">{{ $client->name }}</option>
+                    @endforeach
+                </select>
+                <br>
+                <br>
+                @else
+                <input type="hidden" name="company_id" value="{{ Auth::user()->company_id }}">
+                @endif
+
                 <label class="text-primary font-light">User is Admin?</label><br>
                 <select
                     class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"

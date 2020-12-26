@@ -17,6 +17,8 @@ class Logo extends Migration
             $table->id();
             $table->string('name');
             $table->string('path');
+            $table->string('website');
+            $table->string('default_color');
             $table->timestamps();
         });
     }

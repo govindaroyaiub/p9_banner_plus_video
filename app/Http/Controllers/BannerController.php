@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use ZipArchive;
+use Session;
 use App\User;
 use App\MainProject;
 use App\Comments;

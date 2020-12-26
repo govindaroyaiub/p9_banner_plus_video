@@ -8,10 +8,11 @@ Route::get('/', function () {
 
 Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('banner_view');
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');
-Route::get('/get_comments/{id}', 'ProjectConTroller@get_comments')->name('get_comments');
 Route::get('/get_colors/{id}', 'ProjectConTroller@get_colors')->name('get_colors');
 Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
-Route::post('/store_comments/{id}', 'ProjectConTroller@store_comments')->name('store_comments');
+
+// Route::get('/get_comments/{id}', 'ProjectConTroller@get_comments')->name('get_comments');
+// Route::post('/store_comments/{id}', 'ProjectConTroller@store_comments')->name('store_comments');
 
 Auth::routes(['register' => false]);
 Route::get('/', 'HomeController@index')->name('home');
@@ -23,7 +24,8 @@ Route::post('/user/edit/{id}', 'HomeController@edit_user_post')->name('edit_user
 Route::get('/user/delete/{id}', 'HomeController@delete_user')->name('delete_user');
 Route::get('/change-password', 'HomeController@change_password')->name('change_password');
 Route::post('/change-password', 'HomeController@change_password_post')->name('change_password_post');
-Route::post('/change_mail_status', 'HomeController@change_mail_status')->name('change_mail_status');
+
+// Route::post('/change_mail_status', 'HomeController@change_mail_status')->name('change_mail_status');
 
 //banner functions and routes
 Route::get('/banner', 'BannerController@index')->name('banner');

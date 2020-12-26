@@ -1,4 +1,208 @@
 <!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <title>P9 Previewer</title>
+    <link rel="shortcut icon" href="https://www.planetnine.com/wp-content/uploads/2020/06/cropped-favicon-32x32.png"
+          type="image/x-icon">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+    <link href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="{{ asset('/css/datatable.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
+    @yield('styles')
+</head>
+<body class="bg-gray-100 min-h-screen font-body">
+<nav class="bg-white">
+    <div class="relative container mx-auto px-4 py-3 flex justify-between items-center">
+        @if(Auth::user())
+            <a class="text-xl font-semibold" href="{{ url('/') }}">
+                <img src="{{ asset('/images/logo.png') }}" style="max-width: 20.6%">
+            </a>
+        @endif
+
+        <ul class="flex space-x-4">
+            @guest
+
+            @else
+                <div x-data="{ logout: false}">
+
+                    <button @click="logout = true" class="focus:outline-none">{{ Auth::user()->name }}</button>
+
+                    <div class="dropdown absolute bg-white shadow-md rounded-lg p-6" x-show="logout"
+                         @click.away="logout = false">
+                        <a href="/change-password">
+                            Change Password
+                        </a>
+                        <hr>
+                        <a href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                            @csrf
+                        </form>
+                    </div>
+                </div>
+            @endguest
+        </ul>
+    </div>
+</nav>
+
+<main class="py-4">
+    @yield('content')
+</main>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#datatable').DataTable({
+            responsive: true,
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ]
+        })
+            .columns.adjust();
+    });
+
+    $(document).ready(function () {
+        $('#banner_size_id').select2();
+        $('#size_id').select2();
+    });
+</script>
+
+<script>
+
+</script>
+<script>
+    $('#show_password').click(function (e) {
+        var current_password = $('#current_password').val().length;
+        var repeat_password = $('#repeat_password').val().length;
+        var new_password = $('#new_password').val().length;
+
+        if (document.getElementById('show_password').checked) {
+            if (current_password == 0) {
+                alert('Enter Current Password!');
+                e.preventDefault();
+            }
+            if (new_password == 0) {
+                alert('Enter New Password!');
+                e.preventDefault();
+            }
+            if (repeat_password == 0) {
+                alert('Enter Repeat Password!');
+                e.preventDefault();
+            } else {
+                $('#current_password').get(0).type = 'text';
+                $('#new_password').get(0).type = 'text';
+                $('#repeat_password').get(0).type = 'text';
+            }
+        } else {
+            $('#current_password').get(0).type = 'password';
+            $('#new_password').get(0).type = 'password';
+            $('#repeat_password').get(0).type = 'password';
+        }
+    });
+
+    $('.switch').change(function (e) {
+        var id = $(this).attr("id");
+        var _token = $('input[name="_token"]').val();
+        var switch_button = document.getElementsByClassName("switch");
+
+        if ($(this).is(":checked")) {
+            var status = 1; //checked
+        } else {
+            var status = 0; //checked
+        }
+        $.ajax({
+            url: "{{route('change_mail_status')}}",
+            method: "POST",
+            data:
+                {
+                    id: id,
+                    status: status,
+                    _token
+                },
+            success: function (result) {
+                if (result == 'true') {
+                    alert('Mail Feedback Enabled!');
+                } else {
+                    alert('Mail Feedback Disabled!')
+                }
+            }
+        })
+    });
+
+    // Drag and drop
+    document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+        const dropZoneElement = inputElement.closest(".drop-zone");
+        dropZoneElement.addEventListener("click", (e) => {
+            inputElement.click();
+        });
+        inputElement.addEventListener("change", (e) => {
+            if (inputElement.files.length) {
+                updateThumbnail(dropZoneElement, inputElement.files[0]);
+            }
+        });
+        dropZoneElement.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropZoneElement.classList.add("drop-zone--over");
+        });
+        ["dragleave", "dragend"].forEach((type) => {
+            dropZoneElement.addEventListener(type, (e) => {
+                dropZoneElement.classList.remove("drop-zone--over");
+            });
+        });
+        dropZoneElement.addEventListener("drop", (e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files.length) {
+                inputElement.files = e.dataTransfer.files;
+                updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+            }
+            dropZoneElement.classList.remove("drop-zone--over");
+        });
+    });
+
+    function updateThumbnail(dropZoneElement, file) {
+        let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+        if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+            dropZoneElement.querySelector(".drop-zone__prompt").remove();
+        }
+        if (!thumbnailElement) {
+            thumbnailElement = document.createElement("div");
+            thumbnailElement.classList.add("drop-zone__thumb");
+            dropZoneElement.appendChild(thumbnailElement);
+        }
+        thumbnailElement.dataset.label = file.name;
+        if (file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+            };
+        } else {
+            thumbnailElement.style.backgroundImage = null;
+        }
+    }
+</script>
+@yield('script')
+</body>
+</html>
+
+
+
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -12,6 +216,35 @@
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #4c4f6d;
+            width: 80px;
+            height: 80px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+            margin: 0 auto !important;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         .logo-main {
           width: 200px;
           height: 45px;
@@ -35,6 +268,20 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
+        function list_comments() {
+            $(".loader").hide();
+            $.ajax({
+                url: '/get_comments/' +{{ $main_project_id }},
+                type: 'get',
+                success: function (result) {
+                    if (result) {
+                        $("#not_needed").css("display", "none");
+                        $('.comment_listing').html(result);
+                    }
+                }
+            })
+        }
+
         function rgb2hex(rgb) {
             if (  rgb.search("rgb") == -1 ) {
                 return rgb;
@@ -165,6 +412,40 @@
                 })
             });
         });
+
+        $(function () {
+            list_comments();
+            setInterval(function () {
+                list_comments();
+            }, 6000);
+            $('.submit').click(function () {
+                var comment = $('.comment').val();
+                show_loader();
+                $.ajax({
+                    url: '/store_comments/' +{{ $main_project_id }},
+                    data: {
+                        comment: comment,
+                        _token: '{{csrf_token()}}'
+                    },
+                    type: 'post',
+                    success: function () {
+                        $('.comment').val('').change();
+                        list_comments();
+                    }
+                })
+            })
+        })
+
+        function show_loader() {
+            $("#comment_button").hide();
+            setTimeout(hide_loader, 4500);
+            $(".loader").show();
+        }
+
+        function hide_loader() {
+            $(".loader").hide();
+            $("#comment_button").show();
+        }
     </script>
 </head>
 
@@ -183,6 +464,48 @@
             @else
 
             @endif
+            <div x-data="{ commentModal: false }">
+                <svg @click.transition="commentModal = true" class="w-8 h-8 text-primary" fill="none"
+                     stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
+                    </path>
+                </svg>
+
+                <div x-show="commentModal" @click.away="commentModal = false"
+                     class="h-screen bg-white shadow absolute top-0 right-0 w-64 p-4 rounded-lg">
+                    <svg class="w-8 h-8 text-red-400 font-semibold" @click="commentModal = false" fill="none"
+                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div x-show="commentModal" @click.away="commentModal = false"
+                         class="h-screen bg-white shadow absolute top-0 right-0 w-64 p-4 rounded-lg" id="comment_modal">
+                        <svg class="w-8 h-8 text-red-400 font-semibold" @click="commentModal = false" fill="none"
+                             stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+
+                        <div id="not_needed">
+                            <p class="my-4">If you like this video feel free to feedback us!</p>
+                        </div>
+                        <div>
+                            <p class="my-4" style="text-decoration: underline;">Comments:</p>
+                            <div class="comment_listing">
+                            </div>
+                            <textarea name="comment_content" id="comment" cols="5" rows="5"
+                                      class="comment w-full border border-gray-600 focus:outline-none rounded-lg"></textarea>
+                            <br>
+                            <a href="javascript:void(0)" id="comment_button"
+                               class="submit bg-primary px-20 py-2 rounded-lg w-full text-white mt-2">Comment
+                            </a>
+                            <br>
+                            <div class="loader"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 </header>
 
