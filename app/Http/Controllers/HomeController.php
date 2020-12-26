@@ -431,18 +431,8 @@ class HomeController extends Controller
 
     public function client()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            $logo_list = Logo::get();
-            return view('client_list', compact('logo_list'));
-        }
+        $logo_list = Logo::get();
+        return view('client_list', compact('logo_list'));
     }
 
     public function client_add()
