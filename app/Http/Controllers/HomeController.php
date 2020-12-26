@@ -33,10 +33,11 @@ class HomeController extends Controller
     public function index()
     {
         $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') == 'http://localhost:8000' && $get_verifycation['website'] != 'http://localhost:8000')
+        if(url('/') != $get_verifycation['website'])
         {
-            Session::flush(); 
-            return view('illigal');
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
         }
         else
         {
@@ -430,8 +431,18 @@ class HomeController extends Controller
 
     public function client()
     {
-        $logo_list = Logo::get();
-        return view('client_list', compact('logo_list'));
+        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $get_verifycation['website'])
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
+        else
+        {
+            $logo_list = Logo::get();
+            return view('client_list', compact('logo_list'));
+        }
     }
 
     public function client_add()

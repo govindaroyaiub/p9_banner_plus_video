@@ -17,10 +17,35 @@ use App\BannerProject;
 
 class BannerController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index()
     {
-        $banner_list = MainProject::where('project_type', 0)->orderBy('created_at', 'DESC')->get();
-        return view('view_banner.banner', compact('banner_list'));
+        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $get_verifycation['website'])
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
+        else
+        {
+            $banner_list = MainProject::where('project_type', 0)->orderBy('created_at', 'DESC')->get();
+            return view('view_banner.banner', compact('banner_list'));
+        }
     }
 
     public function banner_add()
@@ -32,9 +57,6 @@ class BannerController extends Controller
 
     public function banner_add_post(Request $request)
     {
-
-//        dd(request()->all());
-
         $validator = $request->validate([
             'upload' => 'required|file|mimes:zip'
         ]);
