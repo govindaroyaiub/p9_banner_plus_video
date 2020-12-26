@@ -43,7 +43,19 @@ class BannerController extends Controller
         }
         else
         {
-            $banner_list = MainProject::where('project_type', 0)->orderBy('created_at', 'DESC')->get();
+            if(Auth::user()->company_id == 1)
+            {
+                $banner_list = MainProject::where('project_type', 0)
+                                        ->orderBy('created_at', 'DESC')
+                                        ->get();
+            }
+            else
+            {
+                $banner_list = MainProject::where('project_type', 0)
+                                        ->where('logo_id', Auth::user()->company_id)
+                                        ->orderBy('created_at', 'DESC')
+                                        ->get();
+            }
             return view('view_banner.banner', compact('banner_list'));
         }
     }
@@ -61,7 +73,9 @@ class BannerController extends Controller
         {
             $logo_list = Logo::get();
             $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-            return view('view_banner.banner_add', compact('logo_list', 'size_list'));
+            $company_details = Logo::where('id', Auth::user()->company_id)->first();
+            $color = $company_details['default_color'];
+            return view('view_banner.banner_add', compact('logo_list', 'size_list', 'color'));
         }
     }
 
@@ -93,6 +107,7 @@ class BannerController extends Controller
         $main_project->is_logo = 1;
         $main_project->is_footer = 1;
         $main_project->project_type = 0;
+        $main_project->is_planetnine = $request->is_planetnine;
         $main_project->save();
 
         $sub_project = new BannerProject;

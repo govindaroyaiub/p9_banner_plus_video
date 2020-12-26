@@ -276,6 +276,7 @@
                                 </svg>
                             </i></li>
                         @if(Auth::user())
+                    
                         <li><a href="{{ asset('/banner_collection/'.$project->file_path) }}"
                             class="color-primary underline flex mt-2" download>
                             <svg class="w-5 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"

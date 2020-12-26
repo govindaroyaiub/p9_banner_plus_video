@@ -48,6 +48,7 @@
                                     </svg>
                                 </button>
                             </a>
+                           
                             <a href="/project/banner/edit/{{$banner->id}}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
@@ -65,6 +66,10 @@
                                     </svg>
                                 </button>
                             </a>
+                            @if(Auth::user()->company_id == 1 && $banner->is_planetnine != 1)
+                            <br>
+                            <label class="text-red-700">Careful! Not Uploaded By Planetnine</label>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

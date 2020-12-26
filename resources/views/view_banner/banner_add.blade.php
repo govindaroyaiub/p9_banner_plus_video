@@ -20,44 +20,49 @@
                                required/>
                     </div>
 
-
                     <div class="mb-4">
                         <label class="text-primary font-light block">Client Name</label>
                         <input type='text' placeholder="Enter Client Name" name="client_name"
                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                                required/>
-
                     </div>
-
+                    
+                    @if(url('/') == 'http://localhost:8000')
                     <div class="mb-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="text-primary font-light block mb-3">Select Logo</label>
+                                <label class="text-primary font-light block mb-3">Select Logo/Company</label>
                                 <select name="logo_id" id="logo_id"
                                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
-                                    <option value="0" class="py-2">Select Logo</option>
+                                    <option value="0" class="py-2">Select Option</option>
                                     @foreach($logo_list as $logo)
                                         <option value="{{ $logo->id }}" class="py-2">{{ $logo->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-
                             <div>
                                 <label class="text-primary font-light block">Select Color</label>
                                 <small class="text-xs text-gray-600">(Default selected Color is PlanetNine Logo
                                     Color)</small>
-                                <input type='color' name="color" value="#4c4f6d"
+                                <input type='color' name="color" value="#{{ $color }}"
                                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg" required/>
                             </div>
+                            
                         </div>
                     </div>
+                    <input type="hidden" name="is_planetnine" value="1">
+                    @else
+                    <input type="hidden" name="logo_id" id="logo_id" value="{{ Auth::user()->company_id }}">
+                    <input type="hidden" name="color" id="color" value="#{{ $color }}">
+                    <input type="hidden" name="is_planetnine" value="0">
+                    @endif
 
                     <div class="mb-4">
                         <label class="text-primary font-light block mb-3">Select Banner Width x Height</label>
                         <select name="banner_size_id"
                                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                                 id="banner_size_id">
-                            <option value="0" class="py-2">Select Size</option>
+                            <option value="0" class="py-2">Select Option</option>
                             @foreach($size_list as $size)
                                 <option value="{{ $size->id }}" class="py-2">{{ $size->width }}x{{ $size->height }}</option>
                             @endforeach

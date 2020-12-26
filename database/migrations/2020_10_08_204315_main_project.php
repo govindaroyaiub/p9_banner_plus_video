@@ -22,6 +22,7 @@ class MainProject extends Migration
             $table->integer('project_type'); //0 = banner, 1 = video
             $table->integer('is_logo');
             $table->integer('is_footer');
+            $table->integer('is_planetnine');
             $table->timestamps();
         });
     }
