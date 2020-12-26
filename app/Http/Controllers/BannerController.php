@@ -50,9 +50,19 @@ class BannerController extends Controller
 
     public function banner_add()
     {
-        $logo_list = Logo::get();
-        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-        return view('view_banner.banner_add', compact('logo_list', 'size_list'));
+        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $get_verifycation['website'])
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
+        else
+        {
+            $logo_list = Logo::get();
+            $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+            return view('view_banner.banner_add', compact('logo_list', 'size_list'));
+        }
     }
 
     public function banner_add_post(Request $request)
@@ -108,13 +118,33 @@ class BannerController extends Controller
 
     public function sizes()
     {
-        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-        return view('view_banner.banner_sizes', compact('size_list'));
+        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $get_verifycation['website'])
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
+        else
+        {
+            $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+            return view('view_banner.banner_sizes', compact('size_list'));
+        }
     }
 
     public function size_add()
     {
-        return view('view_banner.banner_add_size');
+        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $get_verifycation['website'])
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
+        else
+        {
+            return view('view_banner.banner_add_size');
+        }
     }
 
     public function size_add_post(Request $request)
@@ -129,9 +159,19 @@ class BannerController extends Controller
 
     public function project_addon($id)
     {
-        $main_project_id = $id;
-        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-        return view('view_banner.banner_addon', compact('size_list', 'main_project_id'));
+        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $get_verifycation['website'])
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
+        else
+        {
+            $main_project_id = $id;
+            $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+            return view('view_banner.banner_addon', compact('size_list', 'main_project_id'));
+        }
     }
 
     public function project_addon_post(Request $request, $id)
