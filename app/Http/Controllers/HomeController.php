@@ -32,8 +32,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -91,8 +91,8 @@ class HomeController extends Controller
 
     public function project()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -441,8 +441,8 @@ class HomeController extends Controller
 
     public function client()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -457,8 +457,8 @@ class HomeController extends Controller
 
     public function client_add()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -501,8 +501,8 @@ class HomeController extends Controller
 
     public function sizes()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -517,8 +517,8 @@ class HomeController extends Controller
 
     public function size_add()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -550,8 +550,8 @@ class HomeController extends Controller
 
     public function add_user()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();

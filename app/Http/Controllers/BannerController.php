@@ -34,8 +34,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -50,8 +50,8 @@ class BannerController extends Controller
 
     public function banner_add()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -118,8 +118,8 @@ class BannerController extends Controller
 
     public function sizes()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -134,8 +134,8 @@ class BannerController extends Controller
 
     public function size_add()
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
@@ -159,8 +159,8 @@ class BannerController extends Controller
 
     public function project_addon($id)
     {
-        $get_verifycation = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $get_verifycation['website'])
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') != $verification['website'])
         {
             Session::flush();
             Auth::logout();
