@@ -66,11 +66,6 @@
                                     </svg>
                                 </button>
                             </a>
-                            {{-- if the user is from planetnine and project is not uploaded from planetnine show careful message --}}
-                            @if(Auth::user()->company_id == 1 && $banner->is_planetnine != 1) 
-                            <br>
-                            <label class="text-red-700">Careful! Not Uploaded By Planetnine</label>
-                            @endif
                         </td>
                     </tr>
                     @endforeach

@@ -46,13 +46,14 @@ class BannerController extends Controller
             if(Auth::user()->company_id == 1)
             {
                 $banner_list = MainProject::where('project_type', 0)
+                                        ->where('uploaded_by_company_id', Auth::user()->company_id)
                                         ->orderBy('created_at', 'DESC')
                                         ->get();
             }
             else
             {
                 $banner_list = MainProject::where('project_type', 0)
-                                        ->where('logo_id', Auth::user()->company_id)
+                                        ->where('uploaded_by_company_id', Auth::user()->company_id)
                                         ->orderBy('created_at', 'DESC')
                                         ->get();
             }
@@ -107,7 +108,8 @@ class BannerController extends Controller
         $main_project->is_logo = 1;
         $main_project->is_footer = 1;
         $main_project->project_type = 0;
-        $main_project->is_planetnine = $request->is_planetnine;
+        $main_project->uploaded_by_user_id = Auth::user()->id;
+        $main_project->uploaded_by_company_id = Auth::user()->company_id;
         $main_project->save();
 
         $sub_project = new BannerProject;

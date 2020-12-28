@@ -21,13 +21,13 @@
     @if(url('/') == 'http://localhost:9000')
         <style>
             .bg-primary, .hover\:bg-primary:hover{
-                background-color: #339ad5;
+                background-color: #339ad5!important;
             }
             .border-primary, .focus\:border-primary:focus {
-                border-color: #339ad5;
+                border-color: #339ad5!important;
             }
             .text-primary {
-                color: #339ad5;
+                color: #339ad5!important;
             }
         </style>
     @endif
@@ -42,7 +42,7 @@
             </a>
             @elseif(url('/') == 'http://localhost:9000')
             <a class="text-xl font-semibold" href="{{ url('/') }}">
-                <img src="{{ asset('/images/dmm.svg') }}" style="max-width: 20.6%">
+                <img src="{{ asset('/images/dmm.svg') }}" style="max-width: 18%">
             </a>
             @endif
         @endif

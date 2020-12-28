@@ -12,6 +12,7 @@ use App\SubProject;
 use App\Comments;
 use App\Sizes;
 use App\Logo;
+use App\BannerProject;
 
 class HomeController extends Controller
 {
@@ -61,12 +62,34 @@ class HomeController extends Controller
                                 ->orderBy('users.name', 'ASC')
                                 ->get();
             }
-            
-            $total_banners = MainProject::where('project_type', 0)->get()->count();
-            $total_videos = MainProject::where('project_type', 1)->get()->count();
             $total_comments = Comments::get()->count();
-            $video_sizes = SubProject::select('size')->get();
+            
+            $video_sizes = SubProject::join('main_project', 'main_project.id', 'sub_project.project_id')
+                                    ->select('size')
+                                    ->where('main_project.project_type', 1)
+                                    ->where('main_project.uploaded_by_company_id', Auth::user()->company_id)
+                                    ->get();
+
+            $banner_sizes = BannerProject::join('main_project', 'main_project.id', 'banner_projects.project_id')
+                                    ->select('size')
+                                    ->where('main_project.project_type', 0)
+                                    ->where('main_project.uploaded_by_company_id', Auth::user()->company_id)
+                                    ->get();
+
+            $total_banner_projects = MainProject::where('project_type', 0)
+                                                ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                                ->count();
+
+            $total_video_projects = MainProject::where('project_type', 1)
+                                                ->where('project_type', 1)
+                                                ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                                ->count();
+
+            $total_videos = $video_sizes->count();
+            $total_banners = $banner_sizes->count();
+
             $total_size = array();
+            $total_banner_size = array();
     
             foreach($video_sizes as $video)
             {
@@ -85,7 +108,10 @@ class HomeController extends Controller
             {
                 $total_number = round($total_size/1024,2).' GB';
             }
-            return view('home', compact('user_list', 'total_banners', 'total_videos', 'total_comments', 'total_number'));
+
+            
+
+            return view('home', compact('user_list', 'total_banners', 'total_videos', 'total_banner_projects', 'total_video_projects', 'total_number'));
         }
     }
 
@@ -100,7 +126,7 @@ class HomeController extends Controller
         }
         else
         {
-            $project_list = MainProject::where('project_type', 1)->orderBy('created_at', 'DESC')->get();
+            $project_list = MainProject::where('project_type', 1)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
             return view('project', compact('project_list'));
         }
     }
@@ -151,6 +177,8 @@ class HomeController extends Controller
         $main_project->is_logo = 1;
         $main_project->is_footer = 1;
         $main_project->project_type = 1;
+        $main_project->uploaded_by_user_id = Auth::user()->id;
+        $main_project->uploaded_by_company_id = Auth::user()->company_id;
         $main_project->save();
 
         $sub_project = new SubProject;

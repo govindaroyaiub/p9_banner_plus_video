@@ -35,17 +35,17 @@
                     <input type='text' placeholder="Enter Frame Per Second" name="fps"
                         class="w-1/3 mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" required/>
                 </div>
-
-                <div class="w-2/3 drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
-                    <span class="drop-zone__prompt">Drop Poster Image here or Click to Upload (Optional)</span>
-                    <input type="file" name="poster" class="drop-zone__input hidden">
-                </div>
-                <br>
                 <div
                     class="w-2/3 drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
                     <span class="drop-zone__prompt">Drop Video File Here or Click to Upload</span>
                     <input type="file" name="video" class="drop-zone__input hidden">
                 </div>
+                <br>
+                <div class="w-2/3 drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
+                    <span class="drop-zone__prompt">Drop Poster Image here or Click to Upload (Optional)</span>
+                    <input type="file" name="poster" class="drop-zone__input hidden">
+                </div>
+                
                 <br>
 
                 <div class="flex mb-4">
