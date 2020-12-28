@@ -23,7 +23,6 @@
             grid-template-columns: repeat(5, minmax(0, 1fr));
         }
     </style>
-
     @if(url('/') == 'http://localhost:9000')
         <style>
             .bg-primary, .hover\:bg-primary:hover{
@@ -36,6 +35,14 @@
                 color: #339ad5!important;
             }
         </style>
+    @endif
+    
+    @if(request()->is('/') || request()->is('/home'))
+    <style>
+    .mx-4{
+        margin-left: 0rem;
+    }
+    </style>
     @endif
 </head>
 <body class="bg-gray-100 min-h-screen font-body">
