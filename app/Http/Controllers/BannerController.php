@@ -121,17 +121,7 @@ class BannerController extends Controller
 
     public function size_add()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            return view('view_banner.banner_add_size');
-        }
+        return view('view_banner.banner_add_size');
     }
 
     public function size_add_post(Request $request)
