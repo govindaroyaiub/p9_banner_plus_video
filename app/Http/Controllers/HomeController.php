@@ -34,15 +34,7 @@ class HomeController extends Controller
     public function index()
     {
         $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            if(url('/') != 'http://localhost:8000')
+        if(url('/') != 'http://localhost:8000')
             {
                 $company_id = Auth::user()->company_id;
                 $user_list = User::select('id', 'name as username', 'email', 'is_send_mail', 'is_admin')
@@ -112,7 +104,6 @@ class HomeController extends Controller
             
 
             return view('home', compact('user_list', 'total_banners', 'total_videos', 'total_banner_projects', 'total_video_projects', 'total_number'));
-        }
     }
 
     public function project()
