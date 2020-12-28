@@ -34,13 +34,7 @@ class HomeController extends Controller
     public function index()
     {
         $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
+        if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
         {
             if(url('/') != 'http://localhost:8000')
             {
@@ -116,6 +110,12 @@ class HomeController extends Controller
                 'total_banner_projects', 
                 'total_video_projects', 
                 'total_number'));
+        }
+        else
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
         }
     }
 
