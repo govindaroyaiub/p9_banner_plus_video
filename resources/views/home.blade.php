@@ -12,6 +12,7 @@
             @include('sidebar')
             <div class="md:w-3/4 mx-4">
                 @include('alert')
+                <h3 class="text-xl font-semibold tracking-wide">Overview</h3>
                 <div class="md:grid grid-cols-4 gap-8 mt-4">
                     <div class="mb-4 md:mb-0 bg-blue-400 p-2 rounded-lg text-center shadow-sm">
                         <h3 class="text-gray-800 text-2xl">Banner Projects</h3>
@@ -25,9 +26,13 @@
                         <h3 class="text-gray-800 text-2xl">Total Banners</h3>
                         <h2 class="text-green-800 text-3xl font-bold">{{ $total_banners }}</h2>
                     </div>
-                    <div class="mb-4 md:mb-0 bg-purple-600 p-2 rounded-lg text-center shadow-sm">
-                        <h3 class="text-gray-800 text-2xl">Total Video Size</h3>
-                        <h2 class="text-blue-800 text-3xl font-bold">{{ $total_number }}</h2>
+                    <div class="mb-4 md:mb-0 bg-red-400 p-2 rounded-lg text-center shadow-sm">
+                        <h3 class="text-gray-800 text-2xl">Total Videos</h3>
+                        <h2 class="text-red-800 text-3xl font-bold">{{ $total_videos }}</h2>
+                    </div>
+                    <div class="mb-4 md:mb-0 bg-red-400 p-2 rounded-lg text-center shadow-sm">
+                        <h3 class="text-red-800 text-2xl">Total Video Size</h3>
+                        <h2 class="text-red-800 text-3xl font-bold">{{ $total_number }}</h2>
                     </div>
                 </div>
                 <br>
