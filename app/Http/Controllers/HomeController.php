@@ -122,18 +122,8 @@ class HomeController extends Controller
 
     public function project()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            $project_list = MainProject::where('project_type', 1)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
-            return view('project', compact('project_list'));
-        }
+        $project_list = MainProject::where('project_type', 1)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+        return view('project', compact('project_list'));
     }
 
     public function project_add()
@@ -474,33 +464,13 @@ class HomeController extends Controller
 
     public function client()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            $logo_list = Logo::get();
-            return view('client_list', compact('logo_list'));
-        }
+        $logo_list = Logo::get();
+        return view('client_list', compact('logo_list'));
     }
 
     public function client_add()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            return view('add_logo');
-        }
+        return view('add_logo');
     }
 
     public function logo_add_post(Request $request)
@@ -534,33 +504,13 @@ class HomeController extends Controller
 
     public function sizes()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            $size_list = Sizes::orderBy('width', 'DESC')->get();
-            return view('sizes', compact('size_list'));
-        }
+        $size_list = Sizes::orderBy('width', 'DESC')->get();
+        return view('sizes', compact('size_list'));
     }
 
     public function size_add()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            return view('add_size');
-        }
+        return view('add_size');
     }
 
     public function size_add_post(Request $request)
@@ -583,24 +533,14 @@ class HomeController extends Controller
 
     public function add_user()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
+        if(Auth::user()->is_admin == 1)
         {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+            $client_list = Logo::orderBy('name', 'ASC')->get();
+            return view('add_user', compact('client_list'));
         }
         else
         {
-            if(Auth::user()->is_admin == 1)
-            {
-                $client_list = Logo::orderBy('name', 'ASC')->get();
-                return view('add_user', compact('client_list'));
-            }
-            else
-            {
-                return redirect('/')->with('danger', 'Sorry You do not have Admin Privileges!');
-            }
+            return redirect('/')->with('danger', 'Sorry You do not have Admin Privileges!');
         }
     }
 

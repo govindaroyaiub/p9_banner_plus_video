@@ -34,50 +34,30 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
+        if(Auth::user()->company_id == 1)
         {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+            $banner_list = MainProject::where('project_type', 0)
+                                    ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                    ->orderBy('created_at', 'DESC')
+                                    ->get();
         }
         else
         {
-            if(Auth::user()->company_id == 1)
-            {
-                $banner_list = MainProject::where('project_type', 0)
-                                        ->where('uploaded_by_company_id', Auth::user()->company_id)
-                                        ->orderBy('created_at', 'DESC')
-                                        ->get();
-            }
-            else
-            {
-                $banner_list = MainProject::where('project_type', 0)
-                                        ->where('uploaded_by_company_id', Auth::user()->company_id)
-                                        ->orderBy('created_at', 'DESC')
-                                        ->get();
-            }
-            return view('view_banner.banner', compact('banner_list'));
+            $banner_list = MainProject::where('project_type', 0)
+                                    ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                    ->orderBy('created_at', 'DESC')
+                                    ->get();
         }
+        return view('view_banner.banner', compact('banner_list'));
     }
 
     public function banner_add()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            $logo_list = Logo::get();
-            $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-            $company_details = Logo::where('id', Auth::user()->company_id)->first();
-            $color = $company_details['default_color'];
-            return view('view_banner.banner_add', compact('logo_list', 'size_list', 'color'));
-        }
+        $logo_list = Logo::get();
+        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+        $company_details = Logo::where('id', Auth::user()->company_id)->first();
+        $color = $company_details['default_color'];
+        return view('view_banner.banner_add', compact('logo_list', 'size_list', 'color'));
     }
 
     public function banner_add_post(Request $request)
@@ -135,18 +115,8 @@ class BannerController extends Controller
 
     public function sizes()
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-            return view('view_banner.banner_sizes', compact('size_list'));
-        }
+        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+        return view('view_banner.banner_sizes', compact('size_list'));
     }
 
     public function size_add()
@@ -176,19 +146,9 @@ class BannerController extends Controller
 
     public function project_addon($id)
     {
-        $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != $verification['website'])
-        {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
-        }
-        else
-        {
-            $main_project_id = $id;
-            $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-            return view('view_banner.banner_addon', compact('size_list', 'main_project_id'));
-        }
+        $main_project_id = $id;
+        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+        return view('view_banner.banner_addon', compact('size_list', 'main_project_id'));
     }
 
     public function project_addon_post(Request $request, $id)
