@@ -18,6 +18,12 @@
     <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
     @yield('styles')
 
+    <style>
+        .grid-cols-5 {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+    </style>
+
     @if(url('/') == 'http://localhost:9000')
         <style>
             .bg-primary, .hover\:bg-primary:hover{

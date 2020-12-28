@@ -1,4 +1,4 @@
-<div class="sidebar md:w-1/6 mx-4 bg-gray-200 rounded-lg md:flex flex-col justify-between">
+<div class="sidebar mx-4 bg-gray-200 rounded-lg md:flex flex-col justify-between">
     <ul class="space-y-2">
         <li class="{{ request()->is('/') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/">Dashboard</a>
