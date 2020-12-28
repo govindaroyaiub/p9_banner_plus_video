@@ -109,7 +109,13 @@ class HomeController extends Controller
                 $total_number = round($total_size/1024,2).' GB';
             }
 
-            return view('home', compact('user_list', 'total_banners', 'total_videos', 'total_banner_projects', 'total_video_projects', 'total_number'));
+            return view('home', compact(
+                'user_list', 
+                'total_banners', 
+                'total_videos', 
+                'total_banner_projects', 
+                'total_video_projects', 
+                'total_number'));
         }
     }
 
