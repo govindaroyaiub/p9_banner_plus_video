@@ -33,6 +33,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $verification = Logo::where('id', Auth::user()->company_id)->first();
         if(url('/') != 'http://localhost:8000')
             {
@@ -44,7 +45,7 @@ class HomeController extends Controller
             {
                 $user_list = User::join('logo', 'logo.id', 'users.company_id')
                                 ->select(
-                                    'users.id', 
+                                    'users.id',
                                     'users.name as username',
                                     'users.email',
                                     'users.is_send_mail',
@@ -55,7 +56,7 @@ class HomeController extends Controller
                                 ->get();
             }
             $total_comments = Comments::get()->count();
-            
+
             $video_sizes = SubProject::join('main_project', 'main_project.id', 'sub_project.project_id')
                                     ->select('size')
                                     ->where('main_project.project_type', 1)
@@ -82,15 +83,15 @@ class HomeController extends Controller
 
             $total_size = array();
             $total_banner_size = array();
-    
+
             foreach($video_sizes as $video)
             {
                 $size_text = $video->size;
                 $size_number = trim($size_text," MB");
-    
+
                 array_push($total_size, floatval($size_number));
             }
-    
+
             $total_size = array_sum($total_size);
             if($total_size <= 1024)
             {
@@ -101,7 +102,7 @@ class HomeController extends Controller
                 $total_number = round($total_size/1024,2).' GB';
             }
 
-            
+
 
             return view('home', compact('user_list', 'total_banners', 'total_videos', 'total_banner_projects', 'total_video_projects', 'total_number'));
     }
@@ -138,7 +139,7 @@ class HomeController extends Controller
 
         $pro_name = $request->project_name;
         $project_name = str_replace(" ","_", $request->project_name);
-        
+
         $size_info = Sizes::where('id', $request->size_id)->first();
         $sub_project_name = $project_name.'_'.$size_info['width'].'x'.$size_info['height'];
 
@@ -616,7 +617,7 @@ class HomeController extends Controller
         $new_password = $request->new_password;
         $repeat_password = $request->repeat_password;
 
-        if (Hash::check($current_password, Auth::user()->password)) 
+        if (Hash::check($current_password, Auth::user()->password))
         {
             if($new_password == $repeat_password)
             {
@@ -632,7 +633,7 @@ class HomeController extends Controller
         else
         {
             return back()->with('info', 'Current Password is not matched! Are you high?');
-        }    
+        }
     }
 
     public function edit_user($id)
