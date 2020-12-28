@@ -35,7 +35,15 @@ class HomeController extends Controller
     {
 
         $verification = Logo::where('id', Auth::user()->company_id)->first();
-        if(url('/') != 'http://localhost:8000')
+        if(url('/') != $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
+        else
+        {
+            if(url('/') != 'http://localhost:8000')
             {
                 $company_id = Auth::user()->company_id;
                 $user_list = User::select('id', 'name as username', 'email', 'is_send_mail', 'is_admin')
@@ -102,9 +110,14 @@ class HomeController extends Controller
                 $total_number = round($total_size/1024,2).' GB';
             }
 
-
-
-            return view('home', compact('user_list', 'total_banners', 'total_videos', 'total_banner_projects', 'total_video_projects', 'total_number'));
+            return view('home', compact(
+                'user_list', 
+                'total_banners', 
+                'total_videos', 
+                'total_banner_projects', 
+                'total_video_projects', 
+                'total_number'));
+        }
     }
 
     public function project()
