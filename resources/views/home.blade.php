@@ -8,7 +8,7 @@
             </div>
         @endif
 
-        <div class="md:flex -mx-4">
+        <div class="md:flex mx-4">
             @include('sidebar')
             <div class="flex-1 mx-4">
                 @include('alert')
@@ -18,17 +18,17 @@
                         <h3 class="text-gray-800 text-2xl">Banner Projects</h3>
                         <h2 class="text-blue-800 text-3xl font-bold">{{ $total_banner_projects }}</h2>
                     </div>
-                    <div class="mb-4 md:mb-0 bg-red-400 p-2 rounded-lg text-center shadow-sm">
+                    <div class="mb-4 md:mb-0 bg-yellow-400 p-2 rounded-lg text-center shadow-sm">
                         <h3 class="text-gray-800 text-2xl">Video Projects</h3>
-                        <h2 class="text-red-800 text-3xl font-bold">{{ $total_video_projects }}</h2>
+                        <h2 class="text-yellow-600 text-3xl font-bold">{{ $total_video_projects }}</h2>
                     </div>
                     <div class="mb-4 md:mb-0 bg-green-400 p-2 rounded-lg text-center shadow-sm">
                         <h3 class="text-gray-800 text-2xl">Total Banners</h3>
                         <h2 class="text-green-800 text-3xl font-bold">{{ $total_banners }}</h2>
                     </div>
-                    <div class="mb-4 md:mb-0 bg-red-400 p-2 rounded-lg text-center shadow-sm">
+                    <div class="mb-4 md:mb-0 bg-teal-200 p-2 rounded-lg text-center shadow-sm">
                         <h3 class="text-gray-800 text-2xl">Total Videos</h3>
-                        <h2 class="text-red-800 text-3xl font-bold">{{ $total_videos }}</h2>
+                        <h2 class="text-teal-600 text-3xl font-bold">{{ $total_videos }}</h2>
                     </div>
                     <div class="mb-4 md:mb-0 bg-red-400 p-2 rounded-lg text-center shadow-sm">
                         <h3 class="text-red-800 text-2xl">Total Video Size</h3>
