@@ -318,8 +318,8 @@ class BannerController extends Controller
     
                 if ($old_file_path != NULL)
                 {
-                    $rest_file_path = trim($old_file_path, $old_sub_project_name);
-                    $new_file_path = $new_sub_project_name . '_' . $rest_file_path.'p';
+                    //str_replace($search,$replace,$subject)
+                    $new_file_path = str_replace($old_sub_project_name,$new_sub_project_name,$old_file_path);
                 } 
                 else 
                 {

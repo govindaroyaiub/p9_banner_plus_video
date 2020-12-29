@@ -251,16 +251,16 @@ class HomeController extends Controller
 
             if($old_poster_path != NULL)
             {
-                $rest_poster_path = trim($old_poster_path, $old_sub_project_name);
-                $new_poster_path = $new_sub_project_name.'_'.$rest_poster_path;
+                //str_replace($search,$replace,$subject)
+                $new_poster_path = str_replace($old_sub_project_name,$new_sub_project_name,$old_poster_path);
             }
             else
             {
                 $new_poster_path = NULL;
             }
+            //str_replace($search,$replace,$subject)
+            $new_video_path = str_replace($old_sub_project_name,$new_sub_project_name,$old_video_path);
 
-            $rest_video_path = trim($old_video_path, $old_sub_project_name);
-            $new_video_path = $new_sub_project_name.'_'.$rest_video_path;
             rename('poster_images/'.$old_poster_path, 'poster_images/'.$new_poster_path);
             rename('banner_videos/'.$old_video_path, 'banner_videos/'.$new_video_path);
 
