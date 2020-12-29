@@ -34,30 +34,40 @@ class BannerController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->company_id == 1)
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
         {
             $banner_list = MainProject::where('project_type', 0)
-                                    ->where('uploaded_by_company_id', Auth::user()->company_id)
-                                    ->orderBy('created_at', 'DESC')
-                                    ->get();
+                                        ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                        ->orderBy('created_at', 'DESC')
+                                        ->get();
+            return view('view_banner.banner', compact('banner_list'));
         }
         else
         {
-            $banner_list = MainProject::where('project_type', 0)
-                                    ->where('uploaded_by_company_id', Auth::user()->company_id)
-                                    ->orderBy('created_at', 'DESC')
-                                    ->get();
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
         }
-        return view('view_banner.banner', compact('banner_list'));
     }
 
     public function banner_add()
     {
-        $logo_list = Logo::get();
-        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-        $company_details = Logo::where('id', Auth::user()->company_id)->first();
-        $color = $company_details['default_color'];
-        return view('view_banner.banner_add', compact('logo_list', 'size_list', 'color'));
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
+        {
+            $logo_list = Logo::get();
+            $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+            $company_details = Logo::where('id', Auth::user()->company_id)->first();
+            $color = $company_details['default_color'];
+            return view('view_banner.banner_add', compact('logo_list', 'size_list', 'color'));
+        }
+        else
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
     }
 
     public function banner_add_post(Request $request)
@@ -278,7 +288,10 @@ class BannerController extends Controller
     {
         $main_project_id = $id;
         $pro_name = $request->project_name;
+        $old_project_details = MainProject::where('id', $id)->where('project_type', 0)->first();
         $project_name = str_replace(" ", "_", $request->project_name);
+        $old_project_name = str_replace(" ", "_", $old_project_details['name']);
+
         $sub_projects = BannerProject::where('project_id', $main_project_id)->get();
 
         $main_project_details = [
@@ -292,42 +305,49 @@ class BannerController extends Controller
 
         MainProject::where('id', $main_project_id)->update($main_project_details);
 
-        foreach ($sub_projects as $sub_project) {
-            $size_info = BannerSizes::where('id', $sub_project['size_id'])->first();
-
-            $old_sub_project_name = $sub_project->name;
-            $old_file_path = $sub_project->file_path;
-
-            $new_sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
-
-            if ($old_file_path != NULL) {
-                $rest_file_path = trim($old_file_path, $old_sub_project_name);
-                $new_file_path = $new_sub_project_name . '_' . $rest_file_path;
-            } else {
-                $new_file_path = NULL;
-            }
-            $old_directory = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
-            $old_files = File::deleteDirectory($old_directory);
-
-            rename('banner_collection/' . $old_file_path, 'banner_collection/' . $new_file_path);
-
-            $new_sub_details = [
-                'name' => $new_sub_project_name,
-                'file_path' => $new_file_path,
-            ];
-
-            $zip = new ZipArchive();
-            $file_path = str_replace(".zip", "", $new_file_path);
-            $directory = 'banner_collection/' . $file_path;
-            if (!is_dir($directory)) {
-                if ($zip->open('banner_collection/' . $new_file_path) === TRUE) {
-                    // Unzip Path
-                    $zip->extractTo($directory);
-                    $zip->close();
+        if($old_project_name != $project_name)
+        {
+            foreach ($sub_projects as $sub_project) 
+            {
+                $size_info = BannerSizes::where('id', $sub_project['size_id'])->first();
+    
+                $old_sub_project_name = $sub_project->name;
+                $old_file_path = $sub_project->file_path;
+    
+                $new_sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
+    
+                if ($old_file_path != NULL)
+                {
+                    $rest_file_path = trim($old_file_path, $old_sub_project_name);
+                    $new_file_path = $new_sub_project_name . '_' . $rest_file_path.'p';
+                } 
+                else 
+                {
+                    $new_file_path = NULL;
                 }
+                $old_directory = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
+                $old_files = File::deleteDirectory($old_directory);
+    
+                rename('banner_collection/' . $old_file_path, 'banner_collection/' . $new_file_path);
+    
+                $new_sub_details = [
+                    'name' => $new_sub_project_name,
+                    'file_path' => $new_file_path,
+                ];
+    
+                $zip = new ZipArchive();
+                $file_path = str_replace(".zip", "", $new_file_path);
+                $directory = 'banner_collection/' . $file_path;
+                if (!is_dir($directory)) {
+                    if ($zip->open('banner_collection/' . $new_file_path) === TRUE) {
+                        // Unzip Path
+                        $zip->extractTo($directory);
+                        $zip->close();
+                    }
+                }
+    
+                BannerProject::where('id', $sub_project->id)->update($new_sub_details);
             }
-
-            BannerProject::where('id', $sub_project->id)->update($new_sub_details);
         }
         return redirect('/banner')->with('success', $project_name . ' has been updated!');
     }

@@ -121,15 +121,37 @@ class HomeController extends Controller
 
     public function project()
     {
-        $project_list = MainProject::where('project_type', 1)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
-        return view('project', compact('project_list'));
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
+        {
+            $project_list = MainProject::where('project_type', 1)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+            return view('project', compact('project_list'));
+        }
+        else
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
     }
 
     public function project_add()
     {
-        $logo_list = Logo::get();
-        $size_list = Sizes::orderBy('width', 'DESC')->get();
-        return view('add_project', compact('logo_list', 'size_list'));
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
+        {
+            $logo_list = Logo::get();
+            $size_list = Sizes::orderBy('width', 'DESC')->get();
+            $company_details = Logo::where('id', Auth::user()->company_id)->first();
+            $color = $company_details['default_color'];
+            return view('add_project', compact('logo_list', 'size_list', 'color'));
+        }
+        else
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
     }
 
     public function project_add_post(Request $request)
@@ -376,6 +398,7 @@ class HomeController extends Controller
         else if($request->poster != NULL && $request->video == NULL)
         {
             $video_name = $sub_project_info['video_path'];
+            $video_size = $sub_project_info['size'];
             if($sub_project_info['poster_path'] == NULL)
             {
                 $poster_name = $sub_project_name.'_'.time().'.'.$request->poster->extension();
@@ -463,13 +486,31 @@ class HomeController extends Controller
 
     public function client()
     {
-        $logo_list = Logo::get();
-        return view('client_list', compact('logo_list'));
+        if(Auth::user()->company_id == 1)
+        {
+            $logo_list = Logo::get();
+            return view('client_list', compact('logo_list'));
+        }
+        else
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
     }
 
     public function client_add()
     {
-        return view('add_logo');
+        if(Auth::user()->company_id == 1)
+        {
+            return view('add_logo');
+        }
+        else
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
     }
 
     public function logo_add_post(Request $request)
