@@ -494,9 +494,7 @@ class HomeController extends Controller
         }
         else
         {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+            return view('404');
         }
     }
 
@@ -528,6 +526,7 @@ class HomeController extends Controller
         $logo->favicon = $request->favicon;
         $logo->default_color = $request->default_color;
         $logo->website = $request->website;
+        $logo->company_website = $request->company_website;
         $logo->path = $imageName;
         $logo->save();
 

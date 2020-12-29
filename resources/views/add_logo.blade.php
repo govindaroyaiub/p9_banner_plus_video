@@ -15,11 +15,15 @@
                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                            required/>
 
-
-                    <label class="text-primary">Enter Company Website</label>
-                    <input type='text' placeholder="Enter Website" name="website"
+                    <label class="text-primary">Enter Preview URL <label class="text-red-500">(with http or https please)</label></label>
+                    <input type='text' placeholder="Enter Preview URL" name="website"
                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                            required/>
+
+                    <label class="text-primary">Enter Company Website <label class="text-red-500">(with http or https please)</label></label>
+                    <input type='text' placeholder="Enter Company Website" name="company_website"
+                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                            required/>
 
                     <label class="text-primary">Enter Favicon URL</label>
                     <input type='text' placeholder="Enter Favicon Link" name="favicon"

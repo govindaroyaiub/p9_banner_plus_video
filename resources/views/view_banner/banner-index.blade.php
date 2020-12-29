@@ -6,8 +6,9 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>{{ $main_project_info['name'] }}</title>
-    <link rel="shortcut icon" href="https://www.planetnine.com/wp-content/uploads/2020/06/cropped-favicon-32x32.png"
+    <link rel="shortcut icon" href="{{ Helper::getFavicon($main_project_info['uploaded_by_company_id']) }}"
         type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
@@ -318,7 +319,7 @@
     @if($main_project_info->is_footer == 1)
     <footer class="footer" style="background-color: {{ $main_project_info['color'] }}">
         <div class="container mx-auto px-4 py-3 text-white text-center">&copy; All Right Reserved. <a
-                href="{{ Helper::getWebsite($main_project_info->uploaded_by_company_id) }}" target="_blank" style="text-decoration: underline;">{{ Helper::getTitle($main_project_info->uploaded_by_company_id) }}</a>
+                href="{{ Helper::getCompanyWebsite($main_project_info->uploaded_by_company_id) }}" target="_blank" style="text-decoration: underline;">{{ Helper::getTitle($main_project_info->uploaded_by_company_id) }}</a>
             - <?= Date('Y') ?></div>
     </footer>
     @endif

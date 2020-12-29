@@ -29,4 +29,16 @@ class Helper
         $company_details = Logo::where('id', $id)->first();
         return $company_details['favicon'];
     }
+
+    public static function getCompanyWebsite($id)
+    {
+        $company_details = Logo::where('id', $id)->first();
+        return $company_details['company_website'];
+    }
+
+    public static function getUserDetails($id)
+    {
+        $user_details = User::where('id', $id)->first();
+        return $user_details;
+    }
 }
