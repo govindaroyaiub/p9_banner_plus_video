@@ -40,8 +40,15 @@ class HomeController extends Controller
             if(url('/') != 'http://localhost:8000')
             {
                 $company_id = Auth::user()->company_id;
-                $user_list = User::select('id', 'name as username', 'email', 'is_send_mail', 'is_admin')
-                                ->where('company_id', $company_id)->orderBy('name', 'ASC')->get();
+                $user_list = User::select(
+                                    'id', 
+                                    'name as username', 
+                                    'email', 
+                                    'is_send_mail', 
+                                    'is_admin')
+                                ->where('company_id', $company_id)
+                                ->orderBy('name', 'ASC')
+                                ->get();
             }
             else
             {
