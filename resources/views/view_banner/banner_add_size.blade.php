@@ -28,11 +28,11 @@
                     <div class="flex space-x-4">
                         <button type="submit"
                                 class="w-1/2 mt-2 mb-6 bg-indigo-600 text-gray-200 text-lg rounded hover:bg-indigo-500 px-6 py-2 focus:outline-none">
-                            Create
+                            CREATE
                         </button>
                         <button type="button" onclick="window.location.href='/sizes';"
                                 class="w-1/2 mt-2 mb-6 bg-green-600 text-gray-100 text-lg rounded hover:bg-green-500 px-6 py-2 focus:outline-none">
-                            Back
+                            BACK
                         </button>
                     </div>
                 </form>

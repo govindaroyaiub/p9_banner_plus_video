@@ -21,5 +21,7 @@
         </li>
         @endif
     </ul>
-    <div class="text-center text-sm text-gray-700 mb-2">&copy; Planetnine - <?= Date('Y') ?></div>
+    @if(Auth::check())
+    <div class="text-center text-sm text-gray-700 mb-2">&copy; {{ Helper::getTitle(Auth::user()->company_id) }} - <?= Date('Y') ?></div>
+    @endif
 </div>

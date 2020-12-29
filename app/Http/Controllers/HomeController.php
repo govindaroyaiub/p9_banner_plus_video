@@ -13,6 +13,7 @@ use App\Comments;
 use App\Sizes;
 use App\Logo;
 use App\BannerProject;
+use App\Helper\Helper;
 
 class HomeController extends Controller
 {
@@ -40,8 +41,15 @@ class HomeController extends Controller
             if(url('/') != 'http://localhost:8000')
             {
                 $company_id = Auth::user()->company_id;
-                $user_list = User::select('id', 'name as username', 'email', 'is_send_mail', 'is_admin')
-                                ->where('company_id', $company_id)->orderBy('name', 'ASC')->get();
+                $user_list = User::select(
+                                    'id', 
+                                    'name as username', 
+                                    'email', 
+                                    'is_send_mail', 
+                                    'is_admin')
+                                ->where('company_id', $company_id)
+                                ->orderBy('name', 'ASC')
+                                ->get();
             }
             else
             {
@@ -122,15 +130,37 @@ class HomeController extends Controller
 
     public function project()
     {
-        $project_list = MainProject::where('project_type', 1)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
-        return view('project', compact('project_list'));
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
+        {
+            $project_list = MainProject::where('project_type', 1)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+            return view('project', compact('project_list'));
+        }
+        else
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
     }
 
     public function project_add()
     {
-        $logo_list = Logo::get();
-        $size_list = Sizes::orderBy('width', 'DESC')->get();
-        return view('add_project', compact('logo_list', 'size_list'));
+        $verification = Logo::where('id', Auth::user()->company_id)->first();
+        if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
+        {
+            $logo_list = Logo::get();
+            $size_list = Sizes::orderBy('width', 'DESC')->get();
+            $company_details = Logo::where('id', Auth::user()->company_id)->first();
+            $color = $company_details['default_color'];
+            return view('add_project', compact('logo_list', 'size_list', 'color'));
+        }
+        else
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
     }
 
     public function project_add_post(Request $request)
@@ -230,16 +260,16 @@ class HomeController extends Controller
 
             if($old_poster_path != NULL)
             {
-                $rest_poster_path = trim($old_poster_path, $old_sub_project_name);
-                $new_poster_path = $new_sub_project_name.'_'.$rest_poster_path;
+                //str_replace($search,$replace,$subject)
+                $new_poster_path = str_replace($old_sub_project_name,$new_sub_project_name,$old_poster_path);
             }
             else
             {
                 $new_poster_path = NULL;
             }
+            //str_replace($search,$replace,$subject)
+            $new_video_path = str_replace($old_sub_project_name,$new_sub_project_name,$old_video_path);
 
-            $rest_video_path = trim($old_video_path, $old_sub_project_name);
-            $new_video_path = $new_sub_project_name.'_'.$rest_video_path;
             rename('poster_images/'.$old_poster_path, 'poster_images/'.$new_poster_path);
             rename('banner_videos/'.$old_video_path, 'banner_videos/'.$new_video_path);
 
@@ -377,6 +407,7 @@ class HomeController extends Controller
         else if($request->poster != NULL && $request->video == NULL)
         {
             $video_name = $sub_project_info['video_path'];
+            $video_size = $sub_project_info['size'];
             if($sub_project_info['poster_path'] == NULL)
             {
                 $poster_name = $sub_project_name.'_'.time().'.'.$request->poster->extension();
@@ -464,13 +495,29 @@ class HomeController extends Controller
 
     public function client()
     {
-        $logo_list = Logo::get();
-        return view('client_list', compact('logo_list'));
+        if(Auth::user()->company_id == 1)
+        {
+            $logo_list = Logo::get();
+            return view('client_list', compact('logo_list'));
+        }
+        else
+        {
+            return view('404');
+        }
     }
 
     public function client_add()
     {
-        return view('add_logo');
+        if(Auth::user()->company_id == 1)
+        {
+            return view('add_logo');
+        }
+        else
+        {
+            Session::flush();
+            Auth::logout();
+            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+        }
     }
 
     public function logo_add_post(Request $request)
@@ -484,6 +531,10 @@ class HomeController extends Controller
 
         $logo = new Logo;
         $logo->name = $request->company_name;
+        $logo->favicon = $request->favicon;
+        $logo->default_color = $request->default_color;
+        $logo->website = $request->website;
+        $logo->company_website = $request->company_website;
         $logo->path = $imageName;
         $logo->save();
 

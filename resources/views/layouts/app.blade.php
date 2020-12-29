@@ -7,9 +7,14 @@
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
-    <title>P9 Previewer</title>
-    <link rel="shortcut icon" href="https://www.planetnine.com/wp-content/uploads/2020/06/cropped-favicon-32x32.png"
+    @if(Auth::check())
+    <title>{{ Helper::getTitle(Auth::user()->company_id) }}</title>
+    <link rel="shortcut icon" href="{{ Helper::getFavicon(Auth::user()->company_id) }}"
           type="image/x-icon">
+    @else
+    <title>Previewer Login</title>
+    @endif
+    
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -40,7 +45,7 @@
     @if(request()->is('/') || request()->is('/home'))
     <style>
     .mx-4{
-        margin-left: 0rem;
+        margin-left: 0rem!important;
     }
     </style>
     @endif
@@ -49,15 +54,10 @@
 <nav class="bg-white">
     <div class="relative container mx-auto px-4 py-3 flex justify-between items-center">
         @if(Auth::user())
-            @if(url('/') == 'http://localhost:8000')
             <a class="text-xl font-semibold" href="{{ url('/') }}">
-                <img src="{{ asset('/images/logo.png') }}" style="max-width: 20.6%">
+                <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 20.6%">
             </a>
-            @elseif(url('/') == 'http://localhost:9000')
-            <a class="text-xl font-semibold" href="{{ url('/') }}">
-                <img src="{{ asset('/images/dmm.svg') }}" style="max-width: 18%">
-            </a>
-            @endif
+           
         @endif
 
         <ul class="flex space-x-4">

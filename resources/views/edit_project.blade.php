@@ -6,7 +6,7 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h3 class="text-xl font-semibold tracking-wide">Add Project</h3>
+            <h3 class="text-xl font-semibold tracking-wide">Add Video Project</h3>
             <br>
             <form method="POST" action="/project/video/edit/{{$id}}" enctype="multipart/form-data">
                 @csrf
@@ -18,6 +18,8 @@
                 <label class="text-primary font-light">Client Name</label><br>
                 <input type='text' placeholder="Enter Client Name" name="client_name" value="{{ $project_info['client_name'] }}"
                     class="w-2/3 mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" required/>
+                
+                @if(url('/') == 'http://localhost:8000')
                 <br>
 
                 <label class="text-primary font-light">Select Logo</label><br>
@@ -28,6 +30,10 @@
                     <option value="{{ $logo->id }}" @if($project_info['logo_id'] == $logo->id) selected @endif class="py-2">{{ $logo->name }}</option>
                     @endforeach
                 </select>
+                
+                @else
+                <input type="hidden" name="logo_id" value="{{ Auth::user()->company_id }}">
+                @endif
                 <br>
                 <label class="text-primary font-light">Show Logo?</label><br>
                 <select class="w-2/3 border bg-white rounded px-3 py-2 outline-none" name="is_logo">
@@ -49,14 +55,14 @@
 
                 <label class="text-primary font-light">Select Color (Default Selcted Color is PlanetNine Logo
                     Color)</label><br>
-                <input type='color' name="color" value="#4c4f6d" value="{{ $project_info['color'] }}" class="w-2/3 mt-2 mb-6 px-4 py-2 border rounded-lg" />
+                <input type='color' name="color" value="{{ $project_info['color'] }}" class="w-2/3 mt-2 mb-6 px-4 py-2 border rounded-lg" />
                 <br>
 
                 <div class="flex mb-4">
                     <button type="submit"
-                        class="w-1/3 mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-3 focus:outline-none">Save</button>
+                        class="w-1/3 mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-3 focus:outline-none">SAVE</button>
                     <button type="button" onclick="window.location.href='/project';"
-                        class="w-1/3 mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-3 focus:outline-none">Back</button>
+                        class="w-1/3 mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-3 focus:outline-none">BACK</button>
                 </div>
                 
             </form>

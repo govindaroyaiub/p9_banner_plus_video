@@ -7,7 +7,7 @@
         @include('sidebar')
         <div class="w-3/5 mx-4">
             @include('alert')
-            <h3 class="text-xl font-semibold tracking-wide mb-4">Add Project</h3>
+            <h3 class="text-xl font-semibold tracking-wide mb-4">Add Video Project</h3>
 
             <form id="project-add-form" class="max-w-xl" method="POST" action="/project/video/add"
                 enctype="multipart/form-data">
@@ -20,7 +20,6 @@
                         required />
                 </div>
 
-
                 <div class="mb-4">
                     <label class="text-primary font-light block">Client Name</label>
                     <input type='text' placeholder="Enter Client Name" name="client_name"
@@ -29,29 +28,32 @@
 
                 </div>
 
-
-                <div class="mb-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="text-primary font-light block mb-3">Select Logo/Company</label>
-                            <select name="logo_id" id="logo_id"
-                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
-                                <option value="0" class="py-2">Select Logo</option>
-                                @foreach($logo_list as $logo)
-                                <option value="{{ $logo->id }}" class="py-2">{{ $logo->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="text-primary font-light block">Select Color</label>
-                            <small class="text-xs text-gray-600">(Default selected Color is PlanetNine Logo
-                                Color)</small>
-                            <input type='color' name="color" value="#4c4f6d"
-                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg" required />
+                @if(url('/') == 'http://localhost:8000')
+                    <div class="mb-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-primary font-light block mb-3">Select Logo/Company</label>
+                                <select name="logo_id" id="logo_id"
+                                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
+                                    <option value="0" class="py-2">Select Option</option>
+                                    @foreach($logo_list as $logo)
+                                        <option value="{{ $logo->id }}" class="py-2">{{ $logo->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-primary font-light block">Select Color</label>
+                                <small class="text-xs text-gray-600">(Default selected Color is PlanetNine Logo
+                                    Color)</small>
+                                <input type='color' name="color" value="#{{ $color }}"
+                                       class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg" required/>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    @else
+                    <input type="hidden" name="logo_id" id="logo_id" value="{{ Auth::user()->company_id }}">
+                    <input type="hidden" name="color" id="color" value="#{{ $color }}">
+                    @endif
 
 
                 <div class="mb-4">
@@ -107,11 +109,11 @@
                 <div class="flex space-x-4 mt-4">
                     <button type="submit"
                         class="w-full mt-2 mb-6 bg-indigo-700 text-gray-200 text-lg rounded hover:bg-indigo-500 px-6 py-2 focus:outline-none">
-                        Create
+                        CREATE
                     </button>
                     <button type="button" onclick="window.location.href='/project';"
                         class="w-full mt-2 mb-6 bg-green-600 text-gray-100 text-lg rounded hover:bg-green-500 px-6 py-2 focus:outline-none">
-                        Back
+                        BACK
                     </button>
                 </div>
 
