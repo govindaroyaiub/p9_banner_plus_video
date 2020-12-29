@@ -29,8 +29,9 @@
                         <th data-priority="2">Name</th>
                         <th data-priority="3">Logo</th>
                         <th data-priority="4">Website</th>
-                        <th data-priority="5">Default Color</th>
-                        <th data-priority="6">Actions</th>
+                        <th data-priority="5">Favicon</th>
+                        <th data-priority="6">Default Color</th>
+                        <th data-priority="7">Actions</th>
                     </tr>
                 </thead>
                 <?php $i=1; ?>
@@ -46,8 +47,11 @@
                             <a href="{{ $logo->website }}" target="_blank">{{ $logo->website }}</a>
                         </td>
                         <td class="border px-4 py-2">
-                            <div style="position: relative; width: 60px; height: 40px; background: #{{ $logo->default_color }};"></div>
-                            <input type="text" value="#{{ $logo->default_color }}" style="width: 80px;" id="color_code" readonly>
+                            <img src="{{ Helper::getFavicon($logo->id) }}">
+                        </td>
+                        <td class="border px-4 py-2">
+                            <div style="position: relative; width: 60px; height: 40px; background: {{ $logo->default_color }};"></div>
+                            <input type="text" value="{{ $logo->default_color }}" style="width: 80px;" id="color_code" readonly>
                             <br>
                             
                         </td>

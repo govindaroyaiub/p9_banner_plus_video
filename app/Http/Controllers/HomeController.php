@@ -13,6 +13,7 @@ use App\Comments;
 use App\Sizes;
 use App\Logo;
 use App\BannerProject;
+use App\Helper\Helper;
 
 class HomeController extends Controller
 {
@@ -524,6 +525,9 @@ class HomeController extends Controller
 
         $logo = new Logo;
         $logo->name = $request->company_name;
+        $logo->favicon = $request->favicon;
+        $logo->default_color = $request->default_color;
+        $logo->website = $request->website;
         $logo->path = $imageName;
         $logo->save();
 

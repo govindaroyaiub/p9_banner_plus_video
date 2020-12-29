@@ -14,6 +14,7 @@ use App\Comments;
 use App\Logo;
 use App\BannerSizes;
 use App\BannerProject;
+use App\Helper\Helper;
 
 class BannerController extends Controller
 {

@@ -12,6 +12,7 @@ use App\Logo;
 use App\BannerSizes;
 use App\BannerProject;
 use \App\Mail\SendMail;
+use App\Helper\Helper;
 
 class ProjectConTroller extends Controller
 {
@@ -26,7 +27,10 @@ class ProjectConTroller extends Controller
                                             'main_project.color',
                                             'main_project.is_logo',
                                             'main_project.is_footer',
+                                            'main_project.uploaded_by_company_id',
+                                            'main_project.uploaded_by_user_id',
                                             'logo.name as logo_name',
+                                            'logo.website',
                                             'logo.path' 
                                         )
                                         ->where('main_project.id', $main_project_id)
@@ -81,7 +85,10 @@ class ProjectConTroller extends Controller
                                             'main_project.color',
                                             'main_project.is_logo',
                                             'main_project.is_footer',
+                                            'main_project.uploaded_by_company_id',
+                                            'main_project.uploaded_by_user_id',
                                             'logo.name as logo_name',
+                                            'logo.website',
                                             'logo.path' 
                                         )
                                         ->where('main_project.id', $main_project_id)

@@ -318,7 +318,7 @@
     @if($main_project_info->is_footer == 1)
     <footer class="footer" style="background-color: {{ $main_project_info['color'] }}">
         <div class="container mx-auto px-4 py-3 text-white text-center">&copy; All Right Reserved. <a
-                href="https://www.planetnine.com/" target="_blank" style="text-decoration: underline;">Planet Nine</a>
+                href="{{ Helper::getWebsite($main_project_info->uploaded_by_company_id) }}" target="_blank" style="text-decoration: underline;">{{ Helper::getTitle($main_project_info->uploaded_by_company_id) }}</a>
             - <?= Date('Y') ?></div>
     </footer>
     @endif

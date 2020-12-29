@@ -9,13 +9,32 @@
                 @include('alert')
                 <form class="max-w-lg" method="POST" action="/logo/add" enctype="multipart/form-data">
                     @csrf
+                    <br>
+                    <label class="text-primary">Enter Company Name</label>
                     <input type='text' placeholder="Enter Company Name" name="company_name"
+                           class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                           required/>
+
+
+                    <label class="text-primary">Enter Company Website</label>
+                    <input type='text' placeholder="Enter Website" name="website"
+                           class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                           required/>
+
+                    <label class="text-primary">Enter Favicon URL</label>
+                    <input type='text' placeholder="Enter Favicon Link" name="favicon"
+                           class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                           required/>
+
+                    
+                    <label class="text-primary">Select Default Color</label>
+                    <input type='color' name="default_color"
                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                            required/>
                     
                     <div
                         class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
-                        <span class="drop-zone__prompt">Drop Logo Here or Click to Upload</span>
+                        <span class="drop-zone__prompt">Drop Company Logo Here or Click to Upload</span>
                         <input type="file" name="logo_file" class="drop-zone__input hidden" required>
                     </div>
                     <br>
