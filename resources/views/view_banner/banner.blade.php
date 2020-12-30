@@ -41,7 +41,7 @@
                         <td class="border px-4 py-2">
                             <a href="/project/banner/addon/{{$banner->id}}">
                                 <button type="button"
-                                    class="bg-yellow-400 text-gray-200 rounded hover:bg-yellow-100 px-4 py-2 focus:outline-none">
+                                    class="bg-indigo-600 text-gray-200 rounded hover:bg-indigo-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                       </svg>
