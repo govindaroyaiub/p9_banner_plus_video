@@ -52,7 +52,7 @@
                         class="w-1/2 mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">
                         Save
                     </button>
-                    <button type="button" onclick="window.location.href='/';"
+                    <button type="button" onclick="window.history.back()"
                         class="w-1/2 mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-2 focus:outline-none">
                         Back
                     </button>

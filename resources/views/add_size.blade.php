@@ -12,7 +12,7 @@
             @include('sidebar')
             <div class="w-3/4 mx-4">
                 <h3 class="text-xl font-semibold tracking-wide">Add Sizes</h3>
-
+                <br>
                 <form class="max-w-lg" method="POST" action="/sizes/add" enctype="multipart/form-data">
                     @csrf
                     <input type='text' placeholder="Enter Size Name" name="size_name"
@@ -30,11 +30,11 @@
 
                     <div class="flex space-x-4">
                         <button type="submit"
-                                class="w-1/2 mt-2 mb-6 bg-indigo-600 text-gray-200 text-lg rounded hover:bg-indigo-500 px-6 py-2 focus:outline-none">
+                                class="w-full mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">
                             CREATE
                         </button>
-                        <button type="button" onclick="window.location.href='/sizes';"
-                                class="w-1/2 mt-2 mb-6 bg-green-600 text-gray-100 text-lg rounded hover:bg-green-500 px-6 py-2 focus:outline-none">
+                        <button type="button" onclick="window.history.back()"
+                                class="w-full mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-2 focus:outline-none">
                             BACK
                         </button>
                     </div>
