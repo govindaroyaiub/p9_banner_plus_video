@@ -44,14 +44,14 @@
                                 <label class="text-primary font-light block">Select Color</label>
                                 <small class="text-xs text-gray-600">(Default selected Color is PlanetNine Logo
                                     Color)</small>
-                                <input type='color' name="color" value="#{{ $color }}"
+                                <input type='color' name="color" value="{{ $color }}"
                                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg" required/>
                             </div>
                         </div>
                     </div>
                     @else
                     <input type="hidden" name="logo_id" id="logo_id" value="{{ Auth::user()->company_id }}">
-                    <input type="hidden" name="color" id="color" value="#{{ $color }}">
+                    <input type="hidden" name="color" id="color" value="{{ $color }}">
                     @endif
 
                     <div class="mb-4">
