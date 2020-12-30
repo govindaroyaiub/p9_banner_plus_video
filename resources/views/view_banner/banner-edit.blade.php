@@ -6,7 +6,7 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h3 class="text-xl font-semibold tracking-wide">Edit Video</h3>
+            <h3 class="text-xl font-semibold tracking-wide">Edit Banner</h3>
             <br>
             <form id="project-add-form" class="max-w-xl" method="POST" action="/banner/edit/{{ $sub_project_id }}"
                 enctype="multipart/form-data">
@@ -30,13 +30,13 @@
                 </div>
                 {{-- Drag and Drop --}}
 
-                <div class="flex space-x-4 mt-4">
+                <div class="flex space-x-4">
                     <button type="submit"
-                        class="w-full mt-2 mb-6 bg-indigo-700 text-gray-200 text-lg rounded hover:bg-indigo-500 px-6 py-2 focus:outline-none">
+                        class="w-1/2 mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">
                         SAVE
                     </button>
-                    <button type="button" onclick="window.location.href='/project';"
-                        class="w-full mt-2 mb-6 bg-green-600 text-gray-100 text-lg rounded hover:bg-green-500 px-6 py-2 focus:outline-none">
+                    <button type="button" onclick="window.history.back()"
+                        class="w-1/2 mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-2 focus:outline-none">
                         BACK
                     </button>
                 </div>

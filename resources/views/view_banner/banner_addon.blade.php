@@ -32,11 +32,11 @@
 
                 <div class="flex space-x-4 mt-4">
                     <button type="submit"
-                        class="w-full mt-2 mb-6 bg-indigo-700 text-gray-200 text-lg rounded hover:bg-indigo-500 px-6 py-2 focus:outline-none">
+                        class="w-full mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">
                         ADD
                     </button>
-                    <button type="button" onclick="window.location.href='/project';"
-                        class="w-full mt-2 mb-6 bg-green-600 text-gray-100 text-lg rounded hover:bg-green-500 px-6 py-2 focus:outline-none">
+                    <button type="button" onclick="window.history.back()"
+                        class="w-full mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-2 focus:outline-none">
                         BACK
                     </button>
                 </div>

@@ -8,7 +8,7 @@
         <div class="w-3/5 mx-4">
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide mb-4">Add Video Project</h3>
-
+            <br>
             <form id="project-add-form" class="max-w-xl" method="POST" action="/project/video/add"
                 enctype="multipart/form-data">
                 @csrf
@@ -111,8 +111,8 @@
                         class="w-full mt-2 mb-6 bg-indigo-700 text-gray-200 text-lg rounded hover:bg-indigo-500 px-6 py-2 focus:outline-none">
                         CREATE
                     </button>
-                    <button type="button" onclick="window.location.href='/project';"
-                        class="w-full mt-2 mb-6 bg-green-600 text-gray-100 text-lg rounded hover:bg-green-500 px-6 py-2 focus:outline-none">
+                    <button type="button" onclick="window.history.back()"
+                        class="w-full mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-2 focus:outline-none">
                         BACK
                     </button>
                 </div>

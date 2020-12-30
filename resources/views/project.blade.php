@@ -18,7 +18,7 @@
                 <a href="/project/video/add">
                     <button type="button"
                         class="leading-tight bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">Add
-                        Video</Button>
+                        Video Project</Button>
                 </a>
             </div>
             <br>
@@ -39,6 +39,14 @@
                         <td class="border px-4 py-2">{{ $video->name }}</td>
                         <td class="border px-4 py-2">{{ $video->client_name }}</td>
                         <td class="border px-4 py-2">
+                            <a href="/project/video/addon/{{$video->id}}">
+                                <button type="button"
+                                    class="bg-yellow-400 text-gray-200 rounded hover:bg-yellow-100 px-4 py-2 focus:outline-none">
+                                    <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                      </svg>
+                                </button>
+                            </a>
                             <a href="/project/video/view/{{$video->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
