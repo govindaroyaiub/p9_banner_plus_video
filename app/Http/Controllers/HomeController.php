@@ -44,7 +44,7 @@ class HomeController extends Controller
                                     'id', 
                                     'name as username', 
                                     'email', 
-                                    'is_send_mail', 
+                                    'is_send_mail',
                                     'is_admin')
                                 ->where('company_id', $company_id)
                                 ->orderBy('name', 'ASC')
@@ -582,7 +582,7 @@ class HomeController extends Controller
     }
 
     public function add_user()
-    {
+    { 
         if(Auth::user()->is_admin == 1)
         {
             $client_list = Logo::orderBy('name', 'ASC')->get();
@@ -601,10 +601,10 @@ class HomeController extends Controller
         $user->email = $request->email;
         $user->is_admin = $request->is_admin;
         $user->company_id = $request->company_id;
-        $user->password = Hash::make('password');
+        $user->password = Hash::make('2bEmwRx');
         $user->save();
 
-        return redirect('/home')->with('create-user', 'User: '.$request->name.' '.'Email: '.$request->email.' '.'Password: password, has been created!');
+        return redirect('/home')->with('create-user', 'User: '.$request->name.' '.'Email: '.$request->email.' '.'Password: 2bEmwRx, has been created!');
     }
 
     public function change_password()

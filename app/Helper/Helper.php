@@ -47,4 +47,11 @@ class Helper
         $company_details = Logo::where('id', $id)->first();
         return $company_details['default_color'];
     }
+
+    public static function getUsername($id)
+    {
+        $user_details = User::where('id', $id)->first();
+        $username = $user_details['name'];
+        return $username;
+    }
 }

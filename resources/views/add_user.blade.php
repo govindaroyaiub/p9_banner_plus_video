@@ -46,7 +46,7 @@
                     <option value=" " class="py-2">Select Option</option>
                     <option value="1" class="py-1">Yes</option>
                     <option value="0" class="py-1">No</option>
-                </select>
+                 </select>
 
                 <div class="flex space-x-4">
                     <button type="submit"
