@@ -390,7 +390,7 @@ class HomeController extends Controller
         }
         else if($request->poster == NULL && $request->video != NULL)
         {
-            $poster_name = NULL;
+            $poster_name = $sub_project_info['poster_path'];
             $video_path = public_path('banner_videos/').$sub_project_info['video_path'];
             if (file_exists($video_path)) {
                 @unlink($video_path);
