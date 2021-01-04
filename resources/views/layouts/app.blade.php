@@ -28,7 +28,7 @@
             grid-template-columns: repeat(5, minmax(0, 1fr));
         }
     </style>
-    @if(url('/') == 'http://localhost:9000')
+    @if(url('/') == 'http://localhost:9001')
         <style>
             .bg-primary, .hover\:bg-primary:hover{
                 background-color: #339ad5!important;
