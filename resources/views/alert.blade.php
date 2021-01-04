@@ -104,7 +104,7 @@
 @endif
 @if (session('delete-user'))
 <div x-data="{ show: true }" x-show="show"
-    class="w-2/3 flex justify-between items-center bg-blue-200 relative text-white-600 py-3 px-3 rounded-lg">
+    class="flex justify-between items-center bg-blue-200 relative text-white-600 py-3 px-3 rounded-lg">
     <div>
         <span class="font-semibold text-white-700">{{ session('delete-user') }} </span>
     </div>

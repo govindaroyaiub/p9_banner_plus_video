@@ -43,7 +43,7 @@
                             </div>
                             <div>
                                 <label class="text-primary font-light block">Select Color</label>
-                                <small class="text-xs text-gray-600">(Default selected Color is PlanetNine Logo
+                                <small class="text-xs text-red-500">(Default selected Color is PlanetNine Logo
                                     Color)</small>
                                 <input type='color' name="color" value="{{ $color }}"
                                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg" required/>

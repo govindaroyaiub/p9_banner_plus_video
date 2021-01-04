@@ -36,7 +36,13 @@
                     @foreach($banner_list as $banner)
                     <tr style="text-align: center;">
                         <td class="border px-4 py-2">{{ $i++ }}</td>
-                        <td class="border px-4 py-2">{{ $banner->name }}</td>
+                        <td class="border px-4 py-2">
+                            {{ $banner->name }}
+                            @if(Auth::user()->is_admin == 1)
+                            <hr>
+                            <label class="text-red-500 font-semibold">{{ Helper::getUsername($banner->uploaded_by_user_id) }}</label>
+                            @endif
+                        </td>
                         <td class="border px-4 py-2">{{ $banner->client_name }}</td>
                         <td class="border px-4 py-2">
                             <a href="/project/banner/addon/{{$banner->id}}">

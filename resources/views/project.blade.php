@@ -36,7 +36,13 @@
                     @foreach($project_list as $video)
                     <tr style="text-align: center;">
                         <td class="border px-4 py-2">{{ $i++ }}</td>
-                        <td class="border px-4 py-2">{{ $video->name }}</td>
+                        <td class="border px-4 py-2">
+                            {{ $video->name }}
+                            @if(Auth::user()->is_admin == 1)
+                            <hr>
+                            <label class="text-red-500 font-semibold">{{ Helper::getUsername($video->uploaded_by_user_id) }}</label>
+                            @endif
+                        </td>
                         <td class="border px-4 py-2">{{ $video->client_name }}</td>
                         <td class="border px-4 py-2">
                             <a href="/project/video/addon/{{$video->id}}">

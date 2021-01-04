@@ -54,11 +54,11 @@
                         <th class="bg-gray-200 px-4 py-2">No.</th>
                         <th class="bg-gray-200 px-4 py-2">Name</th>
                         <th class="bg-gray-200 px-4 py-2">Email</th>
-                        <th class="bg-gray-200 px-4 py-2">Status</th>
                         @if(url('/') == 'http://localhost:8000')
                         <th class="bg-gray-200 px-4 py-2">Company</th>
                         @endif
                         @if(Auth::user()->is_admin == 1)
+                        <th class="bg-gray-200 px-4 py-2">Status</th>
                         <th class="bg-gray-200 px-4 py-2">Action</th>
                         @endif
                     </tr>
@@ -70,15 +70,15 @@
                             <td class="border px-4 py-2">{{$i++}}</td>
                             <td class="border px-4 py-2">{{ $user->username }}</td>
                             <td class="border px-4 py-2">{{ $user->email }}</td>
+                            @if(url('/') == 'http://localhost:8000')
+                            <td class="border px-4 py-2">{{ $user->logoname }}</td>
+                            @endif
+                            @if(Auth::user()->is_admin == 1)
                             @if($user->is_admin == 1)
                             <td class="border px-4 py-2">Admin</td>
                             @else
                             <td class="border px-4 py-2">User</td>
                             @endif
-                            @if(url('/') == 'http://localhost:8000')
-                            <td class="border px-4 py-2">{{ $user->logoname }}</td>
-                            @endif
-                            @if(Auth::user()->is_admin == 1)
                             <td class="border px-4 py-2">
                             <a href="/user/edit/{{$user->id}}">
                                 <button type="button"
