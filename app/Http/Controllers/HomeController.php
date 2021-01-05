@@ -224,10 +224,12 @@ class HomeController extends Controller
 
     public function project_edit($id)
     {
+        $project_name = MainProject::where('id', $id)->first();
+        $naming_convention = str_replace(" ", "_", $project_name['name']);
         $logo_list = Logo::get();
         $size_list = Sizes::orderBy('width', 'DESC')->get();
         $project_info = MainProject::where('id', $id)->first();
-        return view('edit_project', compact('logo_list', 'size_list', 'project_info', 'id'));
+        return view('edit_project', compact('logo_list', 'size_list', 'project_info', 'id', 'naming_convention'));
     }
 
     public function project_edit_post(Request $request, $id)
