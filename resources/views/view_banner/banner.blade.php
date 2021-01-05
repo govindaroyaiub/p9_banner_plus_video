@@ -28,7 +28,10 @@
                         <th data-priority="1">No</th>
                         <th data-priority="2">Project Name</th>
                         <th data-priority="3">Client Name</th>
-                        <th data-priority="4">Actions</th>
+                        @if(Auth::user()->is_admin == 1)
+                        <th data-priority="4">Uploaded By</th>
+                        @endif
+                        <th data-priority="5">Actions</th>
                     </tr>
                 </thead>
                 <?php $i=1; ?>
@@ -38,12 +41,13 @@
                         <td class="border px-4 py-2">{{ $i++ }}</td>
                         <td class="border px-4 py-2">
                             {{ $banner->name }}
-                            @if(Auth::user()->is_admin == 1)
-                            <hr>
-                            <label class="text-red-500 font-semibold">{{ Helper::getUsername($banner->uploaded_by_user_id) }}</label>
-                            @endif
                         </td>
                         <td class="border px-4 py-2">{{ $banner->client_name }}</td>
+                        @if(Auth::user()->is_admin == 1)
+                        <td class="border px-4 py-2">
+                            <label class="text-red-500 font-semibold">{{ Helper::getUsername($banner->uploaded_by_user_id) }}</label>
+                        </td>
+                        @endif
                         <td class="border px-4 py-2">
                             <a href="/project/banner/addon/{{$banner->id}}">
                                 <button type="button"
