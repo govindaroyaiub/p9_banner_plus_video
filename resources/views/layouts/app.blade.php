@@ -125,6 +125,15 @@ function copy_color_code(x)
 }
 </script>
 <script>
+    function copy_text() {
+      var copyText = document.getElementById("naming_convention");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999)
+      document.execCommand("copy");
+      alert("Copied the text: " + copyText.value);
+    }
+    </script>
+<script>
     $('#show_password').click(function (e) {
         var current_password = $('#current_password').val().length;
         var repeat_password = $('#repeat_password').val().length;
