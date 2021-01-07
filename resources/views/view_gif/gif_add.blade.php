@@ -6,9 +6,9 @@
             @include('sidebar')
             <div class="w-3/5 mx-4">
                 @include('alert')
-                <h3 class="text-xl font-semibold tracking-wide mb-4">Add Banner Project</h3>
+                <h3 class="text-xl font-semibold tracking-wide mb-4">Add GIF Project</h3>
                 <br>
-                <form id="project-add-form" class="max-w-xl" method="POST" action="/project/banner/add"
+                <form id="project-add-form" class="max-w-xl" method="POST" action="/project/gif/add"
                       enctype="multipart/form-data">
                     @csrf
 
@@ -54,7 +54,7 @@
                     @endif
 
                     <div class="mb-4">
-                        <label class="text-primary font-light block mb-3">Select Banner Width x Height</label>
+                        <label class="text-primary font-light block mb-3">Select GIF Width x Height</label>
                         <select name="banner_size_id"
                                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                                 id="banner_size_id">
@@ -71,7 +71,7 @@
                     {{-- Drag and Drop --}}
                     <div
                         class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
-                        <span class="drop-zone__prompt">Drop Zip File Here or Click to Upload</span>
+                        <span class="drop-zone__prompt">Drop GIF File Here or Click to Upload</span>
                         <input type="file" name="upload" class="drop-zone__input hidden">
                     </div>
                     {{-- Drag and Drop --}}

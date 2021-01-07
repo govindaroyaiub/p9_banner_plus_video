@@ -75,9 +75,13 @@
                             @endif
                             @if(Auth::user()->is_admin == 1)
                             @if($user->is_admin == 1)
-                            <td class="border px-4 py-2">Admin</td>
+                            <td class="border px-4 py-2">
+                                <span class="text-sm bg-red-500 text-white rounded-full px-2 py-1">Admin</span>
+                            </td>
                             @else
-                            <td class="border px-4 py-2">User</td>
+                            <td class="border px-4 py-2">
+                                <span class="text-sm bg-green-500 text-white rounded-full px-2 py-1">User</span>
+                            </td>
                             @endif
                             <td class="border px-4 py-2">
                             <a href="/user/edit/{{$user->id}}">

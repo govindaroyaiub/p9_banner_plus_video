@@ -24,7 +24,10 @@
                         {{ $size->width }}x{{ $size->height }} )</option>
                     @endforeach
                 </select>
-
+                <br>
+                <label class="text-primary font-light block mb-3"> If the required size is not listed, Click <a href="/sizes" class="text-red-500" target="_blank">Here</a></label>
+                <br>
+                
                 <div class="flex mb-4">
                     <input type='text' placeholder="Enter Codec" name="codec" value="{{ $sub_project_info['codec'] }}"
                         class="w-1/3 mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" required/>

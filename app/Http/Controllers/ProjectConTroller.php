@@ -11,6 +11,7 @@ use App\Sizes;
 use App\Logo;
 use App\BannerSizes;
 use App\BannerProject;
+use App\Gif;
 use \App\Mail\SendMail;
 use App\Helper\Helper;
 
@@ -109,6 +110,52 @@ class ProjectConTroller extends Controller
                                             ->get();             
 
             return view('view_banner.banner-index', compact(
+            'main_project_info',
+            'sub_project_info',
+            'main_project_id'
+            ));
+        }
+        else 
+        {
+            return view('404');
+        }
+    }
+
+    public function gif_view($id)
+    {
+        $main_project_id = $id;
+        $main_project_info = MainProject::join('logo', 'main_project.logo_id', 'logo.id')
+                                        ->select(
+                                            'main_project.name as name',
+                                            'main_project.client_name',
+                                            'main_project.logo_id',
+                                            'main_project.color',
+                                            'main_project.is_logo',
+                                            'main_project.is_footer',
+                                            'main_project.uploaded_by_company_id',
+                                            'main_project.uploaded_by_user_id',
+                                            'logo.name as logo_name',
+                                            'logo.website',
+                                            'logo.path' 
+                                        )
+                                        ->where('main_project.id', $main_project_id)
+                                        ->first();
+
+        if($main_project_info != NULL)
+        {
+            $sub_project_info = Gif::join('banner_sizes', 'gif_projects.size_id', 'banner_sizes.id')
+                                            ->select(
+                                                'gif_projects.id',
+                                                'gif_projects.name',
+                                                'gif_projects.size',
+                                                'gif_projects.file_path',
+                                                'banner_sizes.width',
+                                                'banner_sizes.height'
+                                            )
+                                            ->where('project_id', $main_project_id)
+                                            ->get();             
+
+            return view('view_gif.gif-index', compact(
             'main_project_info',
             'sub_project_info',
             'main_project_id'

@@ -77,7 +77,10 @@
                         </option>
                         @endforeach
                     </select>
+                    <br>
+                        <label class="text-primary font-light block mb-3"> If the required size is not listed, Click <a href="/sizes" class="text-red-500" target="_blank">Here</a></label>
                 </div>
+                <br>
 
                 <div class="flex space-x-4">
                     <input type='text' placeholder="Enter Codec" name="codec"

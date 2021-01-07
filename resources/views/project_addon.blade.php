@@ -23,6 +23,9 @@
                         {{ $size->width }}x{{ $size->height }} )</option>
                     @endforeach
                 </select>
+                <br>
+                <label class="text-primary font-light block mb-3"> If the required size is not listed, Click <a href="/sizes" class="text-red-500" target="_blank">Here</a></label>
+                <br>
 
                 <div class="flex mb-4">
                     <input type='text' placeholder="Enter Codec" name="codec"

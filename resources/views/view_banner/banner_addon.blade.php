@@ -6,7 +6,7 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h3 class="text-xl font-semibold tracking-wide">Add Video</h3>
+            <h3 class="text-xl font-semibold tracking-wide">Add Banner</h3>
             <br>
             <form id="project-add-form" class="max-w-xl" method="POST" action="/project/banner/addon/{{ $main_project_id }}"
                 enctype="multipart/form-data">
@@ -20,8 +20,10 @@
                         <option value="{{ $size->id }}" class="py-2">{{ $size->width }}x{{ $size->height }} </option>
                         @endforeach
                     </select>
+                    <br>
+                    <label class="text-primary font-light block mb-3"> If the required size is not listed, Click <a href="/banner_sizes" class="text-red-500" target="_blank">Here</a></label>
                 </div>
-
+                <br>
                 {{-- Drag and Drop --}}
                 <div
                 class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">

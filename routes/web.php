@@ -8,6 +8,7 @@ Route::get('/', function () {
 
 Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('banner_view');
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');
+Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_view');
 Route::get('/get_colors/{id}', 'ProjectConTroller@get_colors')->name('get_colors');
 Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
 
@@ -64,6 +65,20 @@ Route::get('/sizes/add', 'HomeController@size_add')->name('size_add');
 Route::post('/sizes/add', 'HomeController@size_add_post')->name('size_add_post');
 Route::get('/sizes/delete/{id}', 'HomeController@size_delete')->name('size_delete');
 //video functions and routes end
+
+//GIF functions start
+Route::get('/gif', 'GifController@index')->name('gif_index');
+Route::get('/project/gif/add', 'GifController@gif_add')->name('gif_add');
+Route::post('/project/gif/add', 'GifController@gif_add_post')->name('gif_add_post');
+Route::get('/project/gif/edit/{id}', 'GifController@project_edit')->name('project_edit');
+Route::post('/project/gif/edit/{id}', 'GifController@project_edit_post')->name('project_edit_post');
+Route::get('/project/gif/delete/{id}', 'GifController@gif_delete_all')->name('gif_delete_all');
+Route::get('/project/gif/addon/{id}', 'GifController@project_addon')->name('gif_addon');
+Route::post('/project/gif/addon/{id}', 'GifController@project_addon_post')->name('gif_addon_post');
+Route::get('/gif/edit/{id}', 'GifController@gif_edit')->name('gif_edit');
+Route::post('/gif/edit/{id}', 'GifController@gif_edit_post')->name('gif_edit_post');
+Route::get('/gif/delete/{id}', 'GifController@gif_delete')->name('banner_delete');
+//GIF functions end
 
 Route::get('/logo', 'HomeController@client')->name('logo');
 Route::get('/logo/add', 'HomeController@client_add')->name('logo_add');
