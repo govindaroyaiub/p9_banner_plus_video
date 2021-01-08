@@ -123,18 +123,19 @@ class HomeController extends Controller
                 $total_number = round($total_size/1024,2).' GB';
             }
 
-            $jan = BannerProject::whereMonth('created_at', '1')->get()->count();
-            $feb = BannerProject::whereMonth('created_at', '2')->get()->count();
-            $mar = BannerProject::whereMonth('created_at', '3')->get()->count();
-            $apr = BannerProject::whereMonth('created_at', '4')->get()->count();
-            $may = BannerProject::whereMonth('created_at', '5')->get()->count();
-            $jun = BannerProject::whereMonth('created_at', '6')->get()->count();
-            $jul = BannerProject::whereMonth('created_at', '7')->get()->count();
-            $aug = BannerProject::whereMonth('created_at', '8')->get()->count();
-            $sep = BannerProject::whereMonth('created_at', '9')->get()->count();
-            $oct = BannerProject::whereMonth('created_at', '10')->get()->count();
-            $nov = BannerProject::whereMonth('created_at', '11')->get()->count();
-            $dec = BannerProject::whereMonth('created_at', '12')->get()->count();
+            $current_year = date("Y");
+            $jan = BannerProject::whereMonth('created_at', '1')->whereYear('created_at', $current_year)->get()->count();
+            $feb = BannerProject::whereMonth('created_at', '2')->whereYear('created_at', $current_year)->get()->count();
+            $mar = BannerProject::whereMonth('created_at', '3')->whereYear('created_at', $current_year)->get()->count();
+            $apr = BannerProject::whereMonth('created_at', '4')->whereYear('created_at', $current_year)->get()->count();
+            $may = BannerProject::whereMonth('created_at', '5')->whereYear('created_at', $current_year)->get()->count();
+            $jun = BannerProject::whereMonth('created_at', '6')->whereYear('created_at', $current_year)->get()->count();
+            $jul = BannerProject::whereMonth('created_at', '7')->whereYear('created_at', $current_year)->get()->count();
+            $aug = BannerProject::whereMonth('created_at', '8')->whereYear('created_at', $current_year)->get()->count();
+            $sep = BannerProject::whereMonth('created_at', '9')->whereYear('created_at', $current_year)->get()->count();
+            $oct = BannerProject::whereMonth('created_at', '10')->whereYear('created_at', $current_year)->get()->count();
+            $nov = BannerProject::whereMonth('created_at', '11')->whereYear('created_at', $current_year)->get()->count();
+            $dec = BannerProject::whereMonth('created_at', '12')->whereYear('created_at', $current_year)->get()->count();
 
             return view('home', compact(
                 'user_list', 

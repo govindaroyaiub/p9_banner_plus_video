@@ -99,7 +99,7 @@
   
         function drawChart() {
           var data = google.visualization.arrayToDataTable([
-            ['Essentials', 'Projects', 'Total Creatives'],
+            ['Creative Statistics', 'Projects', 'Total Creatives'],
             ['Banner', {{ $total_banner_projects }}, {{ $total_banners }}],
             ['Video', {{ $total_video_projects }}, {{ $total_videos }}],
             ['GIF', {{ $total_gif_projects }}, {{ $total_gifs }}]
