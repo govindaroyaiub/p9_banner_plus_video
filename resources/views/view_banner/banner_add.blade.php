@@ -30,12 +30,13 @@
                     <div class="mb-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="text-primary font-light block mb-3">Select Logo/Company</label>
+                                <label class="text-primary font-light block">Select Logo/Company</label>
+                                <small class="text-xs text-red-500">(Default selected: PlanetNine)</small>
                                 <select name="logo_id" id="logo_id"
                                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                                     <option value="0" class="py-2">Select Option</option>
                                     @foreach($logo_list as $logo)
-                                        <option value="{{ $logo->id }}" class="py-2">{{ $logo->name }}</option>
+                                        <option value="{{ $logo->id }}" @if(Auth::user()->company_id == $logo->id) selected @endif class="py-2">{{ $logo->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -57,7 +58,7 @@
                         <label class="text-primary font-light block mb-3">Select Banner Width x Height</label>
                         <select name="banner_size_id"
                                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                                id="banner_size_id">
+                                id="banner_size_id" required>
                             <option value="0" class="py-2">Select Option</option>
                             @foreach($size_list as $size)
                                 <option value="{{ $size->id }}" class="py-2">{{ $size->width }}x{{ $size->height }}</option>

@@ -12,30 +12,13 @@
             @include('sidebar')
             <div class="flex-1 mx-4">
                 @include('alert')
-                <h3 class="text-xl font-semibold tracking-wide">Overview</h3>
-                <div class="grid grid-cols-5 gap-4 mt-4">
-                    <div class="mb-4 md:mb-0 bg-blue-400 p-2 rounded-lg text-center shadow-sm">
-                        <h3 class="text-gray-800 text-2xl">Banner Projects</h3>
-                        <h2 class="text-blue-800 text-3xl font-bold">{{ $total_banner_projects }}</h2>
-                    </div>
-                    <div class="mb-4 md:mb-0 bg-yellow-400 p-2 rounded-lg text-center shadow-sm">
-                        <h3 class="text-gray-800 text-2xl">Video Projects</h3>
-                        <h2 class="text-yellow-600 text-3xl font-bold">{{ $total_video_projects }}</h2>
-                    </div>
-                    <div class="mb-4 md:mb-0 bg-green-400 p-2 rounded-lg text-center shadow-sm">
-                        <h3 class="text-gray-800 text-2xl">Total Banners</h3>
-                        <h2 class="text-green-800 text-3xl font-bold">{{ $total_banners }}</h2>
-                    </div>
-                    <div class="mb-4 md:mb-0 bg-teal-200 p-2 rounded-lg text-center shadow-sm">
-                        <h3 class="text-gray-800 text-2xl">Total Videos</h3>
-                        <h2 class="text-teal-600 text-3xl font-bold">{{ $total_videos }}</h2>
-                    </div>
-                    <div class="mb-4 md:mb-0 bg-red-400 p-2 rounded-lg text-center shadow-sm">
-                        <h3 class="text-red-800 text-2xl">Total Video Size</h3>
-                        <h2 class="text-red-800 text-3xl font-bold">{{ $total_number }}</h2>
-                    </div>
-                </div>
+                <h3 class="text-xl font-semibold tracking-wide">Statistical Overview</h3>
                 <br>
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div id="columnchart_material" style="height: 350px;"></div>
+                    <div id="monthly_chart" style="height: 350px;"></div>
+                </div>
+                
                 <br>
                 <div class="flex justify-between w-full">
                     <h3 class="text-xl font-semibold tracking-wide">Users</h3>
@@ -109,4 +92,60 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+  
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Essentials', 'Projects', 'Total Creatives'],
+            ['Banner', {{ $total_banner_projects }}, {{ $total_banners }}],
+            ['Video', {{ $total_video_projects }}, {{ $total_videos }}],
+            ['GIF', {{ $total_gif_projects }}, {{ $total_gifs }}]
+          ]);
+  
+          var options = {
+            legend: { position: "none" },
+            colors: ['#FCB249', '#40A8C5']
+          };
+  
+          var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+  
+          chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+      </script>
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Banner Upload Per Month', 'Count'],
+          ['Jan', {{ $jan }}],
+          ['Feb', {{ $feb }}],
+          ['Mar', {{ $mar }}],
+          ['Apr', {{ $apr }}],
+          ['May', {{ $may }}],
+          ['Jun', {{ $jun }}],
+          ['Jul', {{ $jul }}],
+          ['Aug', {{ $aug }}],
+          ['Sep', {{ $sep }}],
+          ['Oct', {{ $oct }}],
+          ['Nov', {{ $nov }}],
+          ['Dec', {{ $dec }}]
+
+        ]);
+
+      var options = {
+        legend: { position: "none" }
+      };
+
+      var chart = new google.charts.Bar(document.getElementById('monthly_chart'));
+
+      chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+  </script>
+      
 @endsection

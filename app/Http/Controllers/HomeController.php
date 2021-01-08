@@ -12,6 +12,7 @@ use App\SubProject;
 use App\Comments;
 use App\Sizes;
 use App\Logo;
+use App\Gif;
 use App\BannerProject;
 use App\Helper\Helper;
 
@@ -79,17 +80,27 @@ class HomeController extends Controller
                                     ->where('main_project.uploaded_by_company_id', Auth::user()->company_id)
                                     ->get();
 
+            $gif_sizes = Gif::join('main_project', 'main_project.id', 'gif_projects.project_id')
+                                    ->select('size')
+                                    ->where('main_project.project_type', 2)
+                                    ->where('main_project.uploaded_by_company_id', Auth::user()->company_id)
+                                    ->get();
+
             $total_banner_projects = MainProject::where('project_type', 0)
                                                 ->where('uploaded_by_company_id', Auth::user()->company_id)
                                                 ->count();
 
             $total_video_projects = MainProject::where('project_type', 1)
-                                                ->where('project_type', 1)
+                                                ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                                ->count();
+
+            $total_gif_projects = MainProject::where('project_type', 2)
                                                 ->where('uploaded_by_company_id', Auth::user()->company_id)
                                                 ->count();
 
             $total_videos = $video_sizes->count();
             $total_banners = $banner_sizes->count();
+            $total_gifs = $gif_sizes->count();
 
             $total_size = array();
             $total_banner_size = array();
@@ -112,13 +123,30 @@ class HomeController extends Controller
                 $total_number = round($total_size/1024,2).' GB';
             }
 
+            $jan = BannerProject::whereMonth('created_at', '1')->get()->count();
+            $feb = BannerProject::whereMonth('created_at', '2')->get()->count();
+            $mar = BannerProject::whereMonth('created_at', '3')->get()->count();
+            $apr = BannerProject::whereMonth('created_at', '4')->get()->count();
+            $may = BannerProject::whereMonth('created_at', '5')->get()->count();
+            $jun = BannerProject::whereMonth('created_at', '6')->get()->count();
+            $jul = BannerProject::whereMonth('created_at', '7')->get()->count();
+            $aug = BannerProject::whereMonth('created_at', '8')->get()->count();
+            $sep = BannerProject::whereMonth('created_at', '9')->get()->count();
+            $oct = BannerProject::whereMonth('created_at', '10')->get()->count();
+            $nov = BannerProject::whereMonth('created_at', '11')->get()->count();
+            $dec = BannerProject::whereMonth('created_at', '12')->get()->count();
+
             return view('home', compact(
                 'user_list', 
                 'total_banners', 
-                'total_videos', 
+                'total_videos',
+                'total_gifs',
+                'total_gif_projects', 
                 'total_banner_projects', 
                 'total_video_projects', 
-                'total_number'));
+                'total_number',
+                'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec' 
+            ));
         }
         else
         {
