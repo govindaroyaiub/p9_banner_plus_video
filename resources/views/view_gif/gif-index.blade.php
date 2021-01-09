@@ -212,8 +212,6 @@
                 @if($main_project_info->is_logo == 1)
                 <img src="{{ asset('/logo_images/'.'/'.$main_project_info->path) }}"
                     alt="{{ $main_project_info['client_name'] }}" class="logo-main mr-4" />
-                @else
-
                 @endif
             </div>
     </header>

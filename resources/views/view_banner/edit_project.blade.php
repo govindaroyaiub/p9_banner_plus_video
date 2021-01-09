@@ -50,8 +50,8 @@
                 <label class="text-primary font-light">Show Logo?</label><br>
                 <select class="w-2/3 border bg-white rounded px-3 py-2 outline-none" name="is_logo">
                     <option value="0" class="py-2">Select Option</option>
-                    <option value="1" class="py-1" @if($project_info['is_footer'] == 1) selected @endif>Yes</option>
-                    <option value="2" class="py-1" @if($project_info['is_footer'] == 2) selected @endif>No</option>
+                    <option value="1" class="py-1" @if($project_info['is_logo'] == 1) selected @endif>Yes</option>
+                    <option value="2" class="py-1" @if($project_info['is_logo'] == 2) selected @endif>No</option>
                 </select>
                 <br>
                 <br>
@@ -59,8 +59,8 @@
                 <label class="text-primary font-light">Show Footer?</label><br>
                 <select class="w-2/3 border bg-white rounded px-3 py-2 outline-none" name="is_footer">
                     <option value="0" class="py-2">Select Option</option>
-                    <option value="1" class="py-1" @if($project_info['is_logo'] == 1) selected @endif>Yes</option>
-                    <option value="2" class="py-1" @if($project_info['is_logo'] == 2) selected @endif>No</option>
+                    <option value="1" class="py-1" @if($project_info['is_footer'] == 1) selected @endif>Yes</option>
+                    <option value="2" class="py-1" @if($project_info['is_footer'] == 2) selected @endif>No</option>
                 </select>
                 <br>
                 <br>
