@@ -74,9 +74,6 @@
         }
 
         function get_color() {
-            setInterval(function () {
-                list_comments();
-            }, 3000);
             $.ajax({
                 url: '/get_colors/' +{{ $main_project_id }},
                 type: 'get',
@@ -85,6 +82,7 @@
                     {
                         $('.header').css({"borderColor": result});
                         $('.footer').css({"backgroundColor": result});
+                        $('.icons').css({"color": result});
                     }
                 }
             })
@@ -266,7 +264,7 @@
                     <small class="mx-auto text-red-700 size_text">{{ $project->size }}</small>
                     <img src="{{ asset('/gif_collection/'.$project->file_path) }}" frameBorder="0" class="gif" id="rel{{ $project->id }}">
                         
-                    <ul class="flex space-x-2" style="color:{{ $main_project_info['color'] }};">
+                    <ul class="flex space-x-2 icons" style="color:{{ $main_project_info['color'] }};">
                         <li><i id="relBt{{ $project->id }}"
                             class="color-primary underline flex mt-2">
                             <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

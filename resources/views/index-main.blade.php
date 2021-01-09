@@ -48,9 +48,6 @@
         }
 
         function get_color() {
-            setInterval(function () {
-                list_comments();
-            }, 3000);
             $.ajax({
                 url: '/get_colors/' +{{ $main_project_id }},
                 type: 'get',
@@ -59,6 +56,7 @@
                     {
                         $('.header').css({"borderColor": result});
                         $('.footer').css({"backgroundColor": result});
+                        $('.icons').css({"color": result});
                     }
                 }
             })
