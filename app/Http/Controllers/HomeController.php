@@ -35,7 +35,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $verification = Logo::where('id', Auth::user()->company_id)->first();
         if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
         {
@@ -122,20 +121,21 @@ class HomeController extends Controller
             {
                 $total_number = round($total_size/1024,2).' GB';
             }
+            $main_banner_ids = Helper::getMainBannerIds(Auth::user()->company_id);
 
             $current_year = date("Y");
-            $jan = BannerProject::whereMonth('created_at', '1')->whereYear('created_at', $current_year)->get()->count();
-            $feb = BannerProject::whereMonth('created_at', '2')->whereYear('created_at', $current_year)->get()->count();
-            $mar = BannerProject::whereMonth('created_at', '3')->whereYear('created_at', $current_year)->get()->count();
-            $apr = BannerProject::whereMonth('created_at', '4')->whereYear('created_at', $current_year)->get()->count();
-            $may = BannerProject::whereMonth('created_at', '5')->whereYear('created_at', $current_year)->get()->count();
-            $jun = BannerProject::whereMonth('created_at', '6')->whereYear('created_at', $current_year)->get()->count();
-            $jul = BannerProject::whereMonth('created_at', '7')->whereYear('created_at', $current_year)->get()->count();
-            $aug = BannerProject::whereMonth('created_at', '8')->whereYear('created_at', $current_year)->get()->count();
-            $sep = BannerProject::whereMonth('created_at', '9')->whereYear('created_at', $current_year)->get()->count();
-            $oct = BannerProject::whereMonth('created_at', '10')->whereYear('created_at', $current_year)->get()->count();
-            $nov = BannerProject::whereMonth('created_at', '11')->whereYear('created_at', $current_year)->get()->count();
-            $dec = BannerProject::whereMonth('created_at', '12')->whereYear('created_at', $current_year)->get()->count();
+            $jan = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '1')->whereYear('created_at', $current_year)->get()->count();
+            $feb = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '2')->whereYear('created_at', $current_year)->get()->count();
+            $mar = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '3')->whereYear('created_at', $current_year)->get()->count();
+            $apr = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '4')->whereYear('created_at', $current_year)->get()->count();
+            $may = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '5')->whereYear('created_at', $current_year)->get()->count();
+            $jun = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '6')->whereYear('created_at', $current_year)->get()->count();
+            $jul = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '7')->whereYear('created_at', $current_year)->get()->count();
+            $aug = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '8')->whereYear('created_at', $current_year)->get()->count();
+            $sep = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '9')->whereYear('created_at', $current_year)->get()->count();
+            $oct = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '10')->whereYear('created_at', $current_year)->get()->count();
+            $nov = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '11')->whereYear('created_at', $current_year)->get()->count();
+            $dec = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '12')->whereYear('created_at', $current_year)->get()->count();
 
             return view('home', compact(
                 'user_list', 

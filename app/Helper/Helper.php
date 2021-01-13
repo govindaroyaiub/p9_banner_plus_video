@@ -54,4 +54,16 @@ class Helper
         $username = $user_details['name'];
         return $username;
     }
+
+    public static function getMainBannerIds($id)
+    {
+        $banner_ids = BannerProject::join('main_project', 'banner_projects.project_id', 'main_project.id')
+                                ->select('main_project.id')
+                                ->where('main_project.uploaded_by_company_id', $id)
+                                ->where('main_project.project_type', 0)
+                                ->get()
+                                ->toArray();
+
+        return $banner_ids;
+    }
 }
