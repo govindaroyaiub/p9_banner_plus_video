@@ -83,4 +83,6 @@ Route::get('/gif/delete/{id}', 'GifController@gif_delete')->name('banner_delete'
 Route::get('/logo', 'HomeController@client')->name('logo');
 Route::get('/logo/add', 'HomeController@client_add')->name('logo_add');
 Route::post('/logo/add', 'HomeController@logo_add_post')->name('logo_add_post');
+Route::get('/logo/edit/{id}', 'HomeController@logo_edit')->name('logo_edit');
+Route::post('/logo/edit/{id}', 'HomeController@logo_edit_post')->name('logo_edit_post');
 Route::get('/logo/delete/{id}', 'HomeController@logo_delete')->name('logo_delete');

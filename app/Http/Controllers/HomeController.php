@@ -572,6 +572,53 @@ class HomeController extends Controller
         return redirect('/logo')->with('success', 'Logo for '.$request->company_name.' has been uploaded!');
     }
 
+    public function logo_edit($id)
+    {
+        $logo = Logo::where('id', $id)->first();
+
+        return view('edit_logo', compact('logo', 'id'));
+    }
+
+    public function logo_edit_post(Request $request, $id)
+    {
+        $logo = Logo::where('id', $id)->first();
+
+        if($request->logo_file != NULL)
+        {
+            $request->validate([
+                'logo_file' => 'required|image|mimes:jpeg,png,jpg,svg',
+            ]);
+
+            //first delete previous logo
+            $image_path = public_path('logo_images/').$logo['path'];
+            if (file_exists($image_path)) 
+            {
+                @unlink($image_path);
+            }
+
+            //then insert the new one
+            $imageName = $request->company_name.'_'.time().'.'.$request->logo_file->extension();
+            $request->logo_file->move(public_path('logo_images'), $imageName);
+        }
+        else
+        {
+            $imageName = $logo['path'];
+        }
+
+        $details = [
+            'name' => $request->company_name,
+            'website' => $request->website,
+            'company_website' => $request->company_website,
+            'favicon' => $request->favicon,
+            'default_color' => $request->default_color,
+            'path' => $imageName
+        ];
+
+        Logo::where('id', $id)->update($details);
+
+        return redirect('/logo')->with('success', $request->company_name.' has been updated!');
+    }
+
     public function logo_delete($id)
     {
         $logo_info = Logo::where('id', $id)->first();

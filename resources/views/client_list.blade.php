@@ -57,15 +57,23 @@
                             <div style="position: relative; width: 60px; height: 40px; background: {{ $logo->default_color }};"></div>
                             <input type="text" value="{{ $logo->default_color }}" style="width: 80px;" id="color_code" readonly>
                             <br>
-                            
-                        </td>
-                        <td class="border px-4 py-2">
-                        <button type="button" onclick="copy_color_code()" title="Copy Color Code"
+                            <button type="button" onclick="copy_color_code()" title="Copy Color Code"
                             class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
                             <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                                 </svg>
-                        </button>
+                            </button>
+                        </td>
+                        <td class="border px-4 py-2">
+                        <a href="/logo/edit/{{$logo->id}}">
+                            <button type="button"
+                                class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
+                                <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </button>
+                        </a>
+                        <br>
                         <a href="/logo/delete/{{$logo->id}}">
                             <button type="button"
                                 class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-4 py-2 focus:outline-none">
