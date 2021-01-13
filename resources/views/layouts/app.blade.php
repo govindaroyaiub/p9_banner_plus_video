@@ -114,26 +114,7 @@
         $('#size_id').select2();
         $('#company_id').select2();
     });
-</script>
-<script>
-function copy_color_code(x) 
-{
-    var copyText = document.getElementById("color_code");
-    copyText.select();
-    document.execCommand("copy");
-    alert("Copied the text: " + copyText.value);
-}
-</script>
-<script>
-    function copy_text() {
-      var copyText = document.getElementById("naming_convention");
-      copyText.select();
-      copyText.setSelectionRange(0, 99999)
-      document.execCommand("copy");
-      alert("Copied the text: " + copyText.value);
-    }
-    </script>
-<script>
+
     $('#show_password').click(function (e) {
         var current_password = $('#current_password').val().length;
         var repeat_password = $('#repeat_password').val().length;
@@ -213,6 +194,14 @@ function copy_color_code(x)
         } else {
             thumbnailElement.style.backgroundImage = null;
         }
+    }
+
+    function copy_text() {
+      var copyText = document.getElementById("naming_convention");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999)
+      document.execCommand("copy");
+      alert("Copied the text: " + copyText.value);
     }
 </script>
 @yield('script')
