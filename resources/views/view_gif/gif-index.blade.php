@@ -224,7 +224,7 @@
     <div class="container mx-auto px-4 py-2">
         @if(Auth::user())
         <ul class="flex space-x-4">
-            <li><a class="flex" href="/home" target="_blank">
+            <li><a class="flex" href="/" target="_blank">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
