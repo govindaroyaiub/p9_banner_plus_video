@@ -61,41 +61,49 @@ class GifController extends Controller
             'upload' => 'required|file|mimes:gif'
         ]);
 
-        $pro_name = $request->project_name;
-        $project_name = str_replace(" ", "_", $request->project_name);
-
-        $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
-        $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
-
-        $file_name = $sub_project_name . '_' . time() . '.' . $request->upload->extension();
-        $request->upload->move(public_path('gif_collection'), $file_name);
-        $file_bytes = filesize(public_path('/gif_collection/' . $file_name));
-
-        $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
-        for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
-        $file_size = round($file_bytes, 2) . " " . $label[$i];
-
-        $main_project = new MainProject;
-        $main_project->name = $pro_name;
-        $main_project->client_name = $request->client_name;
-        $main_project->logo_id = $request->logo_id;
-        $main_project->color = $request->color;
-        $main_project->is_logo = 1;
-        $main_project->is_footer = 1;
-        $main_project->project_type = 2;
-        $main_project->uploaded_by_user_id = Auth::user()->id;
-        $main_project->uploaded_by_company_id = Auth::user()->company_id;
-        $main_project->save();
-
-        $sub_project = new Gif;
-        $sub_project->name = $sub_project_name;
-        $sub_project->project_id = $main_project->id;
-        $sub_project->size_id = $request->banner_size_id;
-        $sub_project->size = $file_size;
-        $sub_project->file_path = $file_name;
-        $sub_project->save();
-
-        return redirect('/project/gif/view/' . $main_project->id);
+        if($request->banner_size_id != 0)
+        {
+            $pro_name = $request->project_name;
+            $project_name = str_replace(" ", "_", $request->project_name);
+    
+            $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
+            $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
+    
+            $file_name = $sub_project_name . '_' . time() . '.' . $request->upload->extension();
+            $request->upload->move(public_path('gif_collection'), $file_name);
+            $file_bytes = filesize(public_path('/gif_collection/' . $file_name));
+    
+            $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+            for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+            $file_size = round($file_bytes, 2) . " " . $label[$i];
+    
+            $main_project = new MainProject;
+            $main_project->name = $pro_name;
+            $main_project->client_name = $request->client_name;
+            $main_project->logo_id = $request->logo_id;
+            $main_project->color = $request->color;
+            $main_project->is_logo = 1;
+            $main_project->is_footer = 1;
+            $main_project->project_type = 2;
+            $main_project->uploaded_by_user_id = Auth::user()->id;
+            $main_project->uploaded_by_company_id = Auth::user()->company_id;
+            $main_project->save();
+    
+            $sub_project = new Gif;
+            $sub_project->name = $sub_project_name;
+            $sub_project->project_id = $main_project->id;
+            $sub_project->size_id = $request->banner_size_id;
+            $sub_project->size = $file_size;
+            $sub_project->file_path = $file_name;
+            $sub_project->save();
+    
+            return redirect('/project/gif/view/' . $main_project->id);
+        }
+        else
+        {
+            return back()->with('danger', 'Please Select Size!');
+        }
+        
     }
 
     public function project_addon($id)
@@ -111,28 +119,36 @@ class GifController extends Controller
             'upload' => 'required|file|mimes:gif'
         ]);
 
-        $main_project_id = $id;
-        $project_info = MainProject::where('id', $main_project_id)->first();
-        $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
-        $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
-
-        $file_name = $sub_project_name . '_' . time() . '.' . $request->upload->extension();
-        $request->upload->move(public_path('gif_collection'), $file_name);
-        $file_bytes = filesize(public_path('/gif_collection/' . $file_name));
-
-        $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
-        for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
-        $file_size = round($file_bytes, 2) . " " . $label[$i];
-
-        $sub_project = new GIF;
-        $sub_project->name = $sub_project_name;
-        $sub_project->project_id = $main_project_id;
-        $sub_project->size_id = $request->banner_size_id;
-        $sub_project->size = $file_size;
-        $sub_project->file_path = $file_name;
-        $sub_project->save();
-
-        return redirect('/project/gif/view/' . $main_project_id);
+        if($request->banner_size_id != 0)
+        {
+            $main_project_id = $id;
+            $project_info = MainProject::where('id', $main_project_id)->first();
+            $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
+            $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
+    
+            $file_name = $sub_project_name . '_' . time() . '.' . $request->upload->extension();
+            $request->upload->move(public_path('gif_collection'), $file_name);
+            $file_bytes = filesize(public_path('/gif_collection/' . $file_name));
+    
+            $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+            for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+            $file_size = round($file_bytes, 2) . " " . $label[$i];
+    
+            $sub_project = new GIF;
+            $sub_project->name = $sub_project_name;
+            $sub_project->project_id = $main_project_id;
+            $sub_project->size_id = $request->banner_size_id;
+            $sub_project->size = $file_size;
+            $sub_project->file_path = $file_name;
+            $sub_project->save();
+    
+            return redirect('/project/gif/view/' . $main_project_id);
+        }
+        else
+        {
+            return back()->with('danger', 'Please Select Size First!');
+        }
+        
     }
 
     public function gif_delete_all($id)
@@ -179,32 +195,39 @@ class GifController extends Controller
             'upload' => 'required|file|mimes:gif'
         ]);
 
-        $banner_id = $id;
-        $banner_info = Gif::where('id', $banner_id)->first();
-        unlink('gif_collection/' . $banner_info['file_path']);
-
-        $project_info = MainProject::where('id', $banner_info['project_id'])->where('project_type', 2)->first();
-        $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
-        $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];;
-
-        $file_name = $sub_project_name . '_' . time() . '.' . $request->upload->extension();
-        $request->upload->move(public_path('gif_collection'), $file_name);
-        $file_bytes = filesize(public_path('/gif_collection/' . $file_name));
-
-        $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
-        for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
-        $file_size = round($file_bytes, 2) . " " . $label[$i];
-
-        $sub_project_details = [
-            'name' => $sub_project_name,
-            'size_id' => $request->banner_size_id,
-            'size' => $file_size,
-            'file_path' => $file_name
-        ];
-
-        Gif::where('id', $banner_id)->update($sub_project_details);
-
-        return redirect('/project/gif/view/' . $project_info['id']);
+        if($request->banner_size_id != 0)
+        {
+            $banner_id = $id;
+            $banner_info = Gif::where('id', $banner_id)->first();
+            unlink('gif_collection/' . $banner_info['file_path']);
+    
+            $project_info = MainProject::where('id', $banner_info['project_id'])->where('project_type', 2)->first();
+            $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
+            $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];;
+    
+            $file_name = $sub_project_name . '_' . time() . '.' . $request->upload->extension();
+            $request->upload->move(public_path('gif_collection'), $file_name);
+            $file_bytes = filesize(public_path('/gif_collection/' . $file_name));
+    
+            $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+            for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+            $file_size = round($file_bytes, 2) . " " . $label[$i];
+    
+            $sub_project_details = [
+                'name' => $sub_project_name,
+                'size_id' => $request->banner_size_id,
+                'size' => $file_size,
+                'file_path' => $file_name
+            ];
+    
+            Gif::where('id', $banner_id)->update($sub_project_details);
+    
+            return redirect('/project/gif/view/' . $project_info['id']);
+        }
+        else
+        {
+            return back()->with('danger', 'Please Select Size First!');
+        }
     }
 
     public function project_edit($id)
