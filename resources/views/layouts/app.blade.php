@@ -40,6 +40,18 @@
                 color: #339ad5!important;
             }
         </style>
+    @elseif(url('/') == 'http://creative.fusionlab.nl')
+        <style>
+            .bg-primary, .hover\:bg-primary:hover{
+                background-color: #ed7523!important;
+            }
+            .border-primary, .focus\:border-primary:focus {
+                border-color: #ed7523!important;
+            }
+            .text-primary {
+                color: #ed7523!important;
+            }
+        </style>
     @endif
     
     @if(request()->is('/') || request()->is('/home'))
