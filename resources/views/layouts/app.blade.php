@@ -40,7 +40,7 @@
                 color: #339ad5!important;
             }
         </style>
-    @elseif(url('/') == 'http://creative.fusionlab.nl')
+    @elseif(url('/') == 'https://creative.fusionlab.nl')
         <style>
             .bg-primary, .hover\:bg-primary:hover{
                 background-color: #ed7523!important;

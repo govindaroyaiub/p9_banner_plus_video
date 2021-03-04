@@ -12,7 +12,7 @@ Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_vi
 Route::get('/get_colors/{id}', 'ProjectConTroller@get_colors')->name('get_colors');
 Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
 
-Route::domain('http://creative.fusionlab.nl')->group(function () {
+Route::domain('https://creative.fusionlab.nl')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
 });
