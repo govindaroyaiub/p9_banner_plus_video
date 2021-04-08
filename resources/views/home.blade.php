@@ -75,7 +75,7 @@
                                     </svg>
                                 </button>
                             </a>
-                            <a href="/user/delete/{{$user->id}}">
+                            <a href="/user/delete/{{$user->id}}" onclick="return confirm('Are you sure you want to delete this user?');">
                                 <button type="button"
                                     class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

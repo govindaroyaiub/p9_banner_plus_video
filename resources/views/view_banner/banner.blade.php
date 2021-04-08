@@ -27,11 +27,11 @@
                     <tr>
                         <th data-priority="1">No</th>
                         <th data-priority="2">Project Name</th>
-                        <th data-priority="3" width="170px">Client Name</th>
+                        <th data-priority="3" width="140px" max-width="160px">Client Name</th>
                         @if(Auth::user()->is_admin == 1)
-                        <th data-priority="4">Uploaded By</th>
+                        <th data-priority="4" width="110px" max-width="135px">Uploaded By</th>
                         @endif
-                        <th data-priority="5">Actions</th>
+                        <th data-priority="5" width="270px" max-width="290px">Actions</th>
                     </tr>
                 </thead>
                 <?php $i=1; ?>
@@ -42,13 +42,13 @@
                         <td class="border px-4 py-2">
                             {{ $banner->name }}
                         </td>
-                        <td class="border px-4 py-2" width="170px">{{ $banner->client_name }}</td>
+                        <td class="border px-4 py-2" width="140px" max-width="160px">{{ $banner->client_name }}</td>
                         @if(Auth::user()->is_admin == 1)
                         <td class="border px-4 py-2">
-                            <label class="text-red-500 font-semibold">{{ Helper::getUsername($banner->uploaded_by_user_id) }}</label>
+                            <label class="text-red-500 font-semibold" width="110px" max-width="135px">{{ Helper::getUsername($banner->uploaded_by_user_id) }}</label>
                         </td>
                         @endif
-                        <td class="border px-4 py-2">
+                        <td class="border px-4 py-2"  width="270px" max-width="290px">
                             <a href="/project/banner/addon/{{$banner->id}}">
                                 <button type="button"
                                     class="bg-indigo-600 text-gray-200 rounded hover:bg-indigo-500 px-4 py-2 focus:outline-none">
@@ -76,7 +76,7 @@
                                 </button>
                             </a>
 
-                            <a href="/project/banner/delete/{{$banner->id}}">
+                            <a href="/project/banner/delete/{{$banner->id}}" onclick="return confirm('Are you sure you want to delete this project?');">
                                 <button type="button"
                                     class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

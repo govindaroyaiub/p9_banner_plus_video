@@ -289,7 +289,7 @@
                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                             </a></li>
-                        <li><a href="/banner/delete/{{ $project->id }}" class="color-primary underline flex mt-2">
+                        <li><a href="/banner/delete/{{ $project->id }}" class="color-primary underline flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
                                 <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2"
