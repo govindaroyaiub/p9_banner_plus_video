@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sizes extends Model
 {
-    protected $table = 'banner_sizes';
+    protected $table = 'sizes';
 }

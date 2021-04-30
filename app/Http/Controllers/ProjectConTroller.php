@@ -204,18 +204,10 @@ class ProjectConTroller extends Controller
         }
     }
 
-    public function get_colors($id)
-    {
-        $info = MainProject::where('id', $id)->first();
-
-        $color = $info['color'];
-        return $color;
-    }
-
     public function set_color(Request $request, $id)
     {
         $color = $request->color;
         $result = MainProject::where('id', $id)->update(['color' => $color]);
-        return $result;
+        return 200;
     }
 }

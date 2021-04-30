@@ -9,8 +9,7 @@ Route::get('/', function () {
 Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('banner_view');
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');
 Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_view');
-Route::get('/get_colors/{id}', 'ProjectConTroller@get_colors')->name('get_colors');
-Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
+Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('sett_color');
 
 Route::domain('https://creative.fusionlab.nl')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
