@@ -145,14 +145,11 @@
         -webkit-animation-delay: 0.5s;
                 animation-delay: 0.5s;
     }
-
     .error {
         position: absolute;
-        left: 6px;
-        top: 227px;
-        -webkit-transform: translateY(-60%);
-            -ms-transform: translateY(-60%);
-                transform: translateY(-60%);
+        left: 12px;
+        top: 197px;
+        transform: translateY(-60%);
         font-family: 'Righteous', cursive;
         color: #363e49;
     }
@@ -182,10 +179,10 @@
 
     .astronaut {
         position: absolute;
-        width: 175px;
-        height: 290px;
-        left: 90%;
-        top: 35%;
+        width: 185px;
+        height: 300px;
+        left: 70%;
+        top: 20%;
         -webkit-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
             -ms-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
                 transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
@@ -636,13 +633,17 @@
     <script>
     //    var t1 = new TimelineMax({});
         var t1 = gsap.timeline({});
+        var t2 = gsap.timeline({repeat: -1, repeatDelay: 1});
     
         function myFunc() {
             t1
             .to('.transfer_link', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '+=.75')
             .to('.download_area', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '-=.15')
-        }
 
+            t2
+            .to('.astronaut', {duration: 2, y: '15%', ease: 'power2.out'}, '+=1')
+            .to('.astronaut', {duration: 2, y: '0%', ease: 'power2.out'}, '+=1')
+        }
     </script>
 
     
