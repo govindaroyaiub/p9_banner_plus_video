@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,469 +10,541 @@
         type="image/x-icon">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
-        html,
-        body {
-            height: 100%;
-            width: 100%;
-            margin: 0px;
-            background: linear-gradient(90deg, rgba(47, 54, 64, 1) 23%, rgba(24, 27, 32, 1) 100%);
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        margin: 0px;
+        background: -webkit-gradient(linear, left top, right top, color-stop(23%, rgba(47, 54, 64, 1)), to(rgba(24, 27, 32, 1)));
+        background: -o-linear-gradient(left, rgba(47, 54, 64, 1) 23%, rgba(24, 27, 32, 1) 100%);
+        background: linear-gradient(90deg, rgba(47, 54, 64, 1) 23%, rgba(24, 27, 32, 1) 100%);
+    }
+
+    .moon {
+        background: -webkit-gradient(linear, left top, right top, color-stop(48%, rgba(208, 208, 208, 1)), to(rgba(145, 145, 145, 1)));
+        background: -o-linear-gradient(left, rgba(208, 208, 208, 1) 48%, rgba(145, 145, 145, 1) 100%);
+        background: linear-gradient(90deg, rgba(208, 208, 208, 1) 48%, rgba(145, 145, 145, 1) 100%);
+        position: absolute;
+        top: -325px;
+        left: -380px;
+        width: 900px;
+        height: 900px;
+        content: '';
+        border-radius: 100%;
+        -webkit-box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.5);
+                box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.5);
+    }
+
+    .moon__crater {
+        position: absolute;
+        content: '';
+        border-radius: 100%;
+        background: -webkit-gradient(linear, left top, right top, color-stop(38%, rgba(122, 122, 122, 1)), to(rgba(195, 195, 195, 1)));
+        background: -o-linear-gradient(left, rgba(122, 122, 122, 1) 38%, rgba(195, 195, 195, 1) 100%);
+        background: linear-gradient(90deg, rgba(122, 122, 122, 1) 38%, rgba(195, 195, 195, 1) 100%);
+        opacity: 0.6;
+    }
+
+    .moon__crater1 {
+        top: 28px;
+        left: 431px;
+        width: 60px;
+        height: 180px;
+    }
+
+    .moon__crater2 {
+        top: 373px;
+        left: 340px;
+        width: 40px;
+        height: 80px;
+        -webkit-transform: rotate(55deg);
+            -ms-transform: rotate(55deg);
+                transform: rotate(55deg);
+    }
+
+    .moon__crater3 {
+        top: -20px;
+        left: 40px;
+        width: 65px;
+        height: 120px;
+        -webkit-transform: rotate(250deg);
+            -ms-transform: rotate(250deg);
+                transform: rotate(250deg);
+    }
+
+    .star {
+        background: grey;
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        content: '';
+        border-radius: 100%;
+        -webkit-transform: rotate(250deg);
+            -ms-transform: rotate(250deg);
+                transform: rotate(250deg);
+        opacity: 0.4;
+        -webkit-animation-name: shimmer;
+                animation-name: shimmer;
+        -webkit-animation-duration: 1.5s;
+                animation-duration: 1.5s;
+        -webkit-animation-iteration-count: infinite;
+                animation-iteration-count: infinite;
+        -webkit-animation-direction: alternate;
+                animation-direction: alternate;
+    }
+
+    @-webkit-keyframes shimmer {
+        from {
+            opacity: 0;
         }
 
-        .moon {
-            background: linear-gradient(90deg, rgba(208, 208, 208, 1) 48%, rgba(145, 145, 145, 1) 100%);
-            position: absolute;
-            top: -325px;
-            left: -380px;
-            width: 900px;
-            height: 900px;
-            content: '';
-            border-radius: 100%;
-            box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.5);
+        to {
+            opacity: 0.7;
+        }
+    }
+
+    @keyframes shimmer {
+        from {
+            opacity: 0;
         }
 
-        .moon__crater {
-            position: absolute;
-            content: '';
-            border-radius: 100%;
-            background: linear-gradient(90deg, rgba(122, 122, 122, 1) 38%, rgba(195, 195, 195, 1) 100%);
-            opacity: 0.6;
+        to {
+            opacity: 0.7;
         }
+    }
 
-        .moon__crater1 {
-            top: 28px;
-            left: 431px;
-            width: 60px;
-            height: 180px;
-        }
+    .star1 {
+        top: 40%;
+        left: 50%;
+        -webkit-animation-delay: 1s;
+                animation-delay: 1s;
+    }
 
-        .moon__crater2 {
-            top: 373px;
-            left: 340px;
-            width: 40px;
-            height: 80px;
-            transform: rotate(55deg);
-        }
+    .star2 {
+        top: 60%;
+        left: 90%;
+        -webkit-animation-delay: 3s;
+                animation-delay: 3s;
+    }
 
-        .moon__crater3 {
-            top: -20px;
-            left: 40px;
-            width: 65px;
-            height: 120px;
-            transform: rotate(250deg);
-        }
+    .star3 {
+        top: 10%;
+        left: 70%;
+        -webkit-animation-delay: 2s;
+                animation-delay: 2s;
+    }
 
-        .star {
-            background: grey;
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            content: '';
-            border-radius: 100%;
-            transform: rotate(250deg);
-            opacity: 0.4;
-            animation-name: shimmer;
-            animation-duration: 1.5s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
+    .star4 {
+        top: 90%;
+        left: 40%;
+    }
 
-        @keyframes shimmer {
-            from {
-                opacity: 0;
-            }
+    .star5 {
+        top: 20%;
+        left: 30%;
+        -webkit-animation-delay: 0.5s;
+                animation-delay: 0.5s;
+    }
 
-            to {
-                opacity: 0.7;
-            }
-        }
+    .error {
+        position: absolute;
+        left: 6px;
+        top: 227px;
+        -webkit-transform: translateY(-60%);
+            -ms-transform: translateY(-60%);
+                transform: translateY(-60%);
+        font-family: 'Righteous', cursive;
+        color: #363e49;
+    }
 
-        .star1 {
-            top: 40%;
-            left: 50%;
-            animation-delay: 1s;
-        }
+    .error__title {
+        font-size: 4em;
+        color: #4b4e6d;
+    }
 
-        .star2 {
-            top: 60%;
-            left: 90%;
-            animation-delay: 3s;
-        }
+    .error__subtitle {
+        font-size: 2em;
+        color: #4b4e6d;
+    }
 
-        .star3 {
-            top: 10%;
-            left: 70%;
-            animation-delay: 2s;
-        }
+    .error__description {
+        font-size: 1.25rem;
+        opacity: 0.5;
+    }
 
-        .star4 {
-            top: 90%;
-            left: 40%;
-        }
+    .file_name{
+        display: contents;
+        position: absolute;
+        font-family: 'Righteous', cursive;
+        font-size: 1.25rem;
+        color: #363e49;
+    }
 
-        .star5 {
-            top: 20%;
-            left: 30%;
-            animation-delay: 0.5s;
-        }
+    .astronaut {
+        position: absolute;
+        width: 175px;
+        height: 290px;
+        left: 90%;
+        top: 35%;
+        -webkit-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
+            -ms-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
+                transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
+    }
 
-        .error {
-            position: absolute;
-            left: 6px;
-            top: 227px;
-            transform: translateY(-60%);
-            font-family: 'Righteous', cursive;
-            color: #363e49;
-        }
+    .astronaut__head {
+        background-color: white;
+        position: absolute;
+        top: 60px;
+        left: 60px;
+        width: 60px;
+        height: 60px;
+        content: '';
+        border-radius: 2em;
+    }
 
-        .error__title {
-            font-size: 4em;
-            color: #4b4e6d;
-        }
+    .astronaut__head-visor-flare1 {
+        background-color: #7f8fa6;
+        position: absolute;
+        top: 28px;
+        left: 40px;
+        width: 10px;
+        height: 10px;
+        content: '';
+        border-radius: 2em;
+        opacity: 0.5;
+    }
 
-        .error__subtitle {
-            font-size: 2em;
-            color: #4b4e6d;
-        }
+    .astronaut__head-visor-flare2 {
+        background-color: #718093;
+        position: absolute;
+        top: 40px;
+        left: 38px;
+        width: 5px;
+        height: 5px;
+        content: '';
+        border-radius: 2em;
+        opacity: 0.3;
+    }
 
-        .error__description {
-            font-size: 1.25rem;
-            opacity: 0.5;
-        }
+    .astronaut__backpack {
+        background-color: #bfbfbf;
+        position: absolute;
+        top: 90px;
+        left: 47px;
+        width: 86px;
+        height: 90px;
+        content: '';
+        border-radius: 8px;
+    }
 
-        .file_name{
-            display: contents;
-            position: absolute;
-            font-family: 'Righteous', cursive;
-            font-size: 1.25rem;
-            color: #363e49;
-        }
+    .astronaut__body {
+        background-color: #e6e6e6;
+        position: absolute;
+        top: 115px;
+        left: 55px;
+        width: 70px;
+        height: 80px;
+        content: '';
+        border-radius: 8px;
+    }
 
-        .astronaut {
-            position: absolute;
-            width: 175px;
-            height: 290px;
-            left: 90%;
-            top: 35%;
-            transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
-        }
+    .astronaut__body__chest {
+        background-color: #d9d9d9;
+        position: absolute;
+        top: 140px;
+        left: 68px;
+        width: 45px;
+        height: 25px;
+        content: '';
+        border-radius: 6px;
+    }
 
-        .astronaut__head {
-            background-color: white;
-            position: absolute;
-            top: 60px;
-            left: 60px;
-            width: 60px;
-            height: 60px;
-            content: '';
-            border-radius: 2em;
-        }
+    .astronaut__arm-left1 {
+        background-color: #e6e6e6;
+        position: absolute;
+        top: 127px;
+        left: 9px;
+        width: 65px;
+        height: 20px;
+        content: '';
+        border-radius: 8px;
+        -webkit-transform: rotate(-30deg);
+            -ms-transform: rotate(-30deg);
+                transform: rotate(-30deg);
+    }
 
-        .astronaut__head-visor-flare1 {
-            background-color: #7f8fa6;
-            position: absolute;
-            top: 28px;
-            left: 40px;
-            width: 10px;
-            height: 10px;
-            content: '';
-            border-radius: 2em;
-            opacity: 0.5;
-        }
+    .astronaut__arm-left2 {
+        background-color: #e6e6e6;
+        position: absolute;
+        top: 102px;
+        left: 7px;
+        width: 20px;
+        height: 45px;
+        content: '';
+        border-radius: 8px;
+        -webkit-transform: rotate(-12deg);
+            -ms-transform: rotate(-12deg);
+                transform: rotate(-12deg);
+        border-top-left-radius: 8em;
+        border-top-right-radius: 8em;
+    }
 
-        .astronaut__head-visor-flare2 {
-            background-color: #718093;
-            position: absolute;
-            top: 40px;
-            left: 38px;
-            width: 5px;
-            height: 5px;
-            content: '';
-            border-radius: 2em;
-            opacity: 0.3;
-        }
+    .astronaut__arm-right1 {
+        background-color: #e6e6e6;
+        position: absolute;
+        top: 113px;
+        left: 100px;
+        width: 65px;
+        height: 20px;
+        content: '';
+        border-radius: 8px;
+        -webkit-transform: rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+    }
 
-        .astronaut__backpack {
-            background-color: #bfbfbf;
-            position: absolute;
-            top: 90px;
-            left: 47px;
-            width: 86px;
-            height: 90px;
-            content: '';
-            border-radius: 8px;
-        }
+    .astronaut__arm-right2 {
+        background-color: #e6e6e6;
+        position: absolute;
+        top: 78px;
+        left: 141px;
+        width: 20px;
+        height: 45px;
+        content: '';
+        border-radius: 8px;
+        -webkit-transform: rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+        border-top-left-radius: 8em;
+        border-top-right-radius: 8em;
+    }
 
-        .astronaut__body {
-            background-color: #e6e6e6;
-            position: absolute;
-            top: 115px;
-            left: 55px;
-            width: 70px;
-            height: 80px;
-            content: '';
-            border-radius: 8px;
-        }
+    .astronaut__arm-thumb-left {
+        background-color: #e6e6e6;
+        position: absolute;
+        top: 110px;
+        left: 21px;
+        width: 10px;
+        height: 6px;
+        content: '';
+        border-radius: 8em;
+        -webkit-transform: rotate(-35deg);
+            -ms-transform: rotate(-35deg);
+                transform: rotate(-35deg);
+    }
 
-        .astronaut__body__chest {
-            background-color: #d9d9d9;
-            position: absolute;
-            top: 140px;
-            left: 68px;
-            width: 45px;
-            height: 25px;
-            content: '';
-            border-radius: 6px;
-        }
+    .astronaut__arm-thumb-right {
+        background-color: #e6e6e6;
+        position: absolute;
+        top: 90px;
+        left: 133px;
+        width: 10px;
+        height: 6px;
+        content: '';
+        border-radius: 8em;
+        -webkit-transform: rotate(20deg);
+            -ms-transform: rotate(20deg);
+                transform: rotate(20deg);
+    }
 
-        .astronaut__arm-left1 {
-            background-color: #e6e6e6;
-            position: absolute;
-            top: 127px;
-            left: 9px;
-            width: 65px;
-            height: 20px;
-            content: '';
-            border-radius: 8px;
-            transform: rotate(-30deg);
-        }
+    .astronaut__wrist-left {
+        background-color: #e67e22;
+        position: absolute;
+        top: 122px;
+        left: 6.5px;
+        width: 21px;
+        height: 4px;
+        content: '';
+        border-radius: 8em;
+        -webkit-transform: rotate(-15deg);
+            -ms-transform: rotate(-15deg);
+                transform: rotate(-15deg);
+    }
 
-        .astronaut__arm-left2 {
-            background-color: #e6e6e6;
-            position: absolute;
-            top: 102px;
-            left: 7px;
-            width: 20px;
-            height: 45px;
-            content: '';
-            border-radius: 8px;
-            transform: rotate(-12deg);
-            border-top-left-radius: 8em;
-            border-top-right-radius: 8em;
-        }
+    .astronaut__wrist-right {
+        background-color: #e67e22;
+        position: absolute;
+        top: 98px;
+        left: 141px;
+        width: 21px;
+        height: 4px;
+        content: '';
+        border-radius: 8em;
+        -webkit-transform: rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+    }
 
-        .astronaut__arm-right1 {
-            background-color: #e6e6e6;
-            position: absolute;
-            top: 113px;
-            left: 100px;
-            width: 65px;
-            height: 20px;
-            content: '';
-            border-radius: 8px;
-            transform: rotate(-10deg);
-        }
+    .astronaut__leg-left {
+        background-color: #e6e6e6;
+        position: absolute;
+        top: 188px;
+        left: 50px;
+        width: 23px;
+        height: 75px;
+        content: '';
+        -webkit-transform: rotate(10deg);
+            -ms-transform: rotate(10deg);
+                transform: rotate(10deg);
+    }
 
-        .astronaut__arm-right2 {
-            background-color: #e6e6e6;
-            position: absolute;
-            top: 78px;
-            left: 141px;
-            width: 20px;
-            height: 45px;
-            content: '';
-            border-radius: 8px;
-            transform: rotate(-10deg);
-            border-top-left-radius: 8em;
-            border-top-right-radius: 8em;
-        }
+    .astronaut__leg-right {
+        background-color: #e6e6e6;
+        position: absolute;
+        top: 188px;
+        left: 108px;
+        width: 23px;
+        height: 75px;
+        content: '';
+        -webkit-transform: rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+    }
 
-        .astronaut__arm-thumb-left {
-            background-color: #e6e6e6;
-            position: absolute;
-            top: 110px;
-            left: 21px;
-            width: 10px;
-            height: 6px;
-            content: '';
-            border-radius: 8em;
-            transform: rotate(-35deg);
-        }
+    .astronaut__foot-left {
+        background-color: white;
+        position: absolute;
+        top: 240px;
+        left: 43px;
+        width: 28px;
+        height: 20px;
+        content: '';
+        -webkit-transform: rotate(10deg);
+            -ms-transform: rotate(10deg);
+                transform: rotate(10deg);
+        border-radius: 3px;
+        border-top-left-radius: 8em;
+        border-top-right-radius: 8em;
+        border-bottom: 4px solid #e67e22;
+    }
 
-        .astronaut__arm-thumb-right {
-            background-color: #e6e6e6;
-            position: absolute;
-            top: 90px;
-            left: 133px;
-            width: 10px;
-            height: 6px;
-            content: '';
-            border-radius: 8em;
-            transform: rotate(20deg);
-        }
+    .astronaut__foot-right {
+        background-color: white;
+        position: absolute;
+        top: 240px;
+        left: 111px;
+        width: 28px;
+        height: 20px;
+        content: '';
+        -webkit-transform: rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+        border-radius: 3px;
+        border-top-left-radius: 8em;
+        border-top-right-radius: 8em;
+        border-bottom: 4px solid #e67e22;
+    }
 
-        .astronaut__wrist-left {
-            background-color: #e67e22;
-            position: absolute;
-            top: 122px;
-            left: 6.5px;
-            width: 21px;
-            height: 4px;
-            content: '';
-            border-radius: 8em;
-            transform: rotate(-15deg);
-        }
+    .download_area{
+        position: absolute;
+        top: 30%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 39em;
+        height: -webkit-min-content;
+        height: -moz-min-content;
+        height: min-content;
+        background: #FFF;
+        border-radius: 10px;
+        -webkit-box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
+                box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
+        z-index: 30;
+        opacity: 0;
+        -webkit-transform: translateY(-30px);
+            -ms-transform: translateY(-30px);
+                transform: translateY(-30px);
+    }
 
-        .astronaut__wrist-right {
-            background-color: #e67e22;
-            position: absolute;
-            top: 98px;
-            left: 141px;
-            width: 21px;
-            height: 4px;
-            content: '';
-            border-radius: 8em;
-            transform: rotate(-10deg);
-        }
+    .transfer_link{
+        position: absolute;
+        top: 19%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 39em;
+        height: -webkit-min-content;
+        height: -moz-min-content;
+        height: min-content;
+        background: #FFF;
+        border-radius: 10px;
+        -webkit-box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
+                box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
+        z-index: 30;
+        opacity: 0;
+        -webkit-transform: translateY(-50px);
+            -ms-transform: translateY(-50px);
+                transform: translateY(-50px);
+    }
 
-        .astronaut__leg-left {
-            background-color: #e6e6e6;
-            position: absolute;
-            top: 188px;
-            left: 50px;
-            width: 23px;
-            height: 75px;
-            content: '';
-            transform: rotate(10deg);
-        }
+    #transfer_url{
+        position: relative;
+        top: 20px;
+        left: 5px;
+        right: 0;
+        margin: 0 auto;
+        width: 350px;
+        height: 35px;
+        border-radius: 14px;
+    }
 
-        .astronaut__leg-right {
-            background-color: #e6e6e6;
-            position: absolute;
-            top: 188px;
-            left: 108px;
-            width: 23px;
-            height: 75px;
-            content: '';
-            transform: rotate(-10deg);
-        }
+    #copy_button{
+        position: relative;
+        top: 0;
+        border-radius: 10px;
+        background-color: #4b4e6d;
+    }
 
-        .astronaut__foot-left {
-            background-color: white;
-            position: absolute;
-            top: 240px;
-            left: 43px;
-            width: 28px;
-            height: 20px;
-            content: '';
-            transform: rotate(10deg);
-            border-radius: 3px;
-            border-top-left-radius: 8em;
-            border-top-right-radius: 8em;
-            border-bottom: 4px solid #e67e22;
-        }
+    #back_button{
+        position: relative;
+        top: 0;
+        border-radius: 10px;
+        background-color: red;
+    }
 
-        .astronaut__foot-right {
-            background-color: white;
-            position: absolute;
-            top: 240px;
-            left: 111px;
-            width: 28px;
-            height: 20px;
-            content: '';
-            transform: rotate(-10deg);
-            border-radius: 3px;
-            border-top-left-radius: 8em;
-            border-top-right-radius: 8em;
-            border-bottom: 4px solid #e67e22;
-        }
+    #copy_text{
+        color: white;
+    }
 
-        .download_area{
-            position: absolute;
-            top: 30%;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-            width: 39em;
-            height: min-content;
-            background: #FFF;
-            border-radius: 10px;
-            box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
-            z-index: 30;
-        }
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #4c4f6d;
+        color: white;
+        text-align: center;
+    }
 
-        .transfer_link{
-            position: absolute;
-            top: 19%;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-            width: 39em;
-            height: min-content;
-            background: #FFF;
-            border-radius: 10px;
-            box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
-            z-index: 30;
-        }
+    th, td {
+        padding: 10px;
+    }
 
-        #transfer_url{
-            position: relative;
-            top: 20px;
-            left: 5px;
-            right: 0;
-            margin: 0 auto;
-            width: 350px;
-            height: 35px;
-            border-radius: 14px;
-        }
+    button{
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
-        #copy_button{
-            position: relative;
-            top: 0;
-            border-radius: 10px;
-            background-color: #4b4e6d;
-        }
+    .button_area{
+        position: relative;
+        left: 370px;
+        top: -25px;
+    }
 
-        #back_button{
-            position: relative;
-            top: 0;
-            border-radius: 10px;
-            background-color: red;
-        }
-
-        #copy_text{
-            color: white;
-        }
-
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: #4c4f6d;
-            color: white;
-            text-align: center;
-        }
-
-        th, td {
-            padding: 10px;
-        }
-
-        button{
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .button_area{
-            position: relative;
-            left: 370px;
-            top: -25px;
-        }
-
-        input[type="text"]
-        {
-            font-size:14px;
-        }
+    input[type="text"]
+    {
+        font-size:14px;
+    }
     </style>
-    <script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.20.0_d360d9a082ccc13b1a1a9b153f86b378_min.js"></script>
 </head>
 
-<body class="font-body">
+<body class="font-body" onload="myFunc()">
 
     <main class="main">
         <div class="moon"></div>
@@ -560,6 +631,19 @@
         </div>
         
     </main>
+
+    <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script>
+    <script>
+    //    var t1 = new TimelineMax({});
+        var t1 = gsap.timeline({});
+    
+        function myFunc() {
+            t1
+            .to('.transfer_link', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '+=.75')
+            .to('.download_area', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '-=.15')
+        }
+
+    </script>
 
     
     <script type="text/javascript">
