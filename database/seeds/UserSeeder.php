@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::insert([
-            'name' => 'Govinda Roy',
-            'email' => 'govinda@planetnine.com',
+            'name' => 'Planetnine Admin',
+            'email' => 'admin@planetnine.com',
             'company_id' => 1,
             'is_send_mail' => 1,
             'is_admin' => 1,
