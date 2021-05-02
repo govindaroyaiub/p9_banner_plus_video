@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Logo extends Migration
+class CreateTransferTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class Logo extends Migration
      */
     public function up()
     {
-        Schema::create('logo', function (Blueprint $table) {
+        Schema::create('transfers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('website');
-            $table->string('company_website');
-            $table->string('favicon');
-            $table->string('path');
-            $table->string('default_color');
+            $table->string('client_name')->nullable();
+            $table->integer('uploader');
+            $table->string('slug')->unqiue();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class Logo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logo');
+        Schema::dropIfExists('transfers');
     }
 }

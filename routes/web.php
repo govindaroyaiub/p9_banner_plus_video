@@ -9,7 +9,7 @@ Route::get('/', function () {
 Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('banner_view');
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');
 Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_view');
-Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('sett_color');
+Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
 
 Route::domain('https://creative.fusionlab.nl')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -84,9 +84,15 @@ Route::post('/gif/edit/{id}', 'GifController@gif_edit_post')->name('gif_edit_pos
 Route::get('/gif/delete/{id}', 'GifController@gif_delete')->name('banner_delete');
 //GIF functions end
 
+//Logo function starts
 Route::get('/logo', 'HomeController@client')->name('logo');
 Route::get('/logo/add', 'HomeController@client_add')->name('logo_add');
 Route::post('/logo/add', 'HomeController@logo_add_post')->name('logo_add_post');
 Route::get('/logo/edit/{id}', 'HomeController@logo_edit')->name('logo_edit');
 Route::post('/logo/edit/{id}', 'HomeController@logo_edit_post')->name('logo_edit_post');
 Route::get('/logo/delete/{id}', 'HomeController@logo_delete')->name('logo_delete');
+//Logo function ends
+
+//Planetnine transfer starts
+Route::resource('/p9_transfer', 'TransferController')->name('*', 'p9_transfer');
+//Planetnine transfer ends
