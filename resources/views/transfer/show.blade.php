@@ -682,7 +682,7 @@
                                 {{ $item->path }}
                             </td>
                             <td>
-                                <a href="{{ asset('/transfer_files/'.$slug.'/'.$item->path) }}" download>
+                                <a href="{{ asset('/transfer_files/'.$slug.'/'.$item->path) }}" download onclick="change_text()">
                                     <i class="fas fa-cloud-download-alt" style="font-size:40px; color: #4b4e6d"></i>    
                                 </a>
                             </td>
