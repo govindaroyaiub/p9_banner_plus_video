@@ -697,7 +697,7 @@
     <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script>
     <script>
         var t1 = gsap.timeline({});
-        var t2 = gsap.timeline({repeat: -1, repeatDelay: 1});
+        var t2 = gsap.timeline({repeat: -1, repeatDelay: 0});
         var t3 = gsap.timeline({});
     
         function myFunc() {
@@ -706,7 +706,7 @@
             .to('.download_area', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '-=.15')
 
             t2
-            .to('.astronaut', {duration: 2, y: '15%', ease: 'power2.out'}, '+=1')
+            .to('.astronaut', {duration: 2, y: '30%', ease: 'power2.out'}, '+=1')
             .to('.astronaut', {duration: 2, y: '0%', ease: 'power2.out'}, '+=1')
         }
 
