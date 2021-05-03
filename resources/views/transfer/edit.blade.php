@@ -39,6 +39,8 @@
                 </div> --}}
 
                 <div class="flex flex-col flex-grow mb-3">
+                    <label class="text-red-500 font-semibold">* Note: Uploading new ZIP files will replace the present files.</label>
+                    <br>
                     <div x-data="{ files: null }" id="FileUpload"
                         class="block w-full py-2 px-3 relative bg-white appearance-none border-2 border-gray-300 border-dashed rounded-md hover:shadow-outline-gray rounded-lg">
                         <input type="file" multiple name="upload[]"
@@ -65,8 +67,8 @@
                         <template x-if="files === null">
                             <div class="flex flex-col space-y-2 items-center justify-center">
                                 <i class="fas fa-cloud-upload-alt fa-3x text-currentColor"></i>
-                                <p class="text-red-500 font-semibold">
-                                    Drag your ZIP files here or click in this area if you want to change the assets.
+                                <p class="text-primary font-semibold">
+                                    Drag your ZIP files here or click in this area.
                                 </p>
                                 <a href="javascript:void(0)"
                                     class="flex items-center mx-auto py-2 px-4 text-white text-center font-medium border border-transparent rounded-lg outline-none bg-blue-400">Select

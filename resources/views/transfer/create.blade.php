@@ -77,7 +77,7 @@
                         <template x-if="files === null">
                             <div class="flex flex-col space-y-2 items-center justify-center">
                                 <i class="fas fa-cloud-upload-alt fa-3x text-currentColor"></i>
-                                <p class="text-red-500 font-semibold">
+                                <p class="text-primary font-semibold">
                                     Drag your ZIP files here or click in this area.
                                 </p>
                                 <a href="javascript:void(0)"
