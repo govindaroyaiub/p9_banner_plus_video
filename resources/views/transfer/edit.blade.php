@@ -26,10 +26,13 @@
                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"/>
                     </div>
 
-                    <div
+                    <div class="mb-2">
+                        <label class="text-red-500 font-semibold">* Upload only if the previous assets need to be changed</label>
+                        <div
                         class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
                         <span class="drop-zone__prompt">Drop Zip File Here or Click to Upload</span>
                         <input type="file" name="upload[]" class="drop-zone__input hidden">
+                    </div>
                     </div>
 
                     <div class="flex space-x-4 mt-4">

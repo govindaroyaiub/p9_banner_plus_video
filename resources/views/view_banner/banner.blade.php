@@ -44,8 +44,8 @@
                         </td>
                         <td class="border px-4 py-2" width="140px" max-width="160px">{{ $banner->client_name }}</td>
                         @if(Auth::user()->is_admin == 1)
-                        <td class="border px-4 py-2">
-                            <label class="text-red-500 font-semibold" width="110px" max-width="135px">{{ Helper::getUsername($banner->uploaded_by_user_id) }}</label>
+                        <td class="border px-4 py-2" width="110px" max-width="135px">
+                            <label class="text-red-500 font-semibold">{{ Helper::getUsername($banner->uploaded_by_user_id) }}</label>
                         </td>
                         @endif
                         <td class="border px-4 py-2"  width="270px" max-width="290px">
