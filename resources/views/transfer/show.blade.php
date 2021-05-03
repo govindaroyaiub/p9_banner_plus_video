@@ -10,6 +10,11 @@
         type="image/x-icon">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
+    @font-face {
+        font-family: "PlanetNine Book";
+        font-weight: 400;
+        src: url(/fonts/PlanetNineBook.woff) format("woff");
+    }
     html,
     body {
         height: 100%;
@@ -150,8 +155,9 @@
         left: 12px;
         top: 197px;
         transform: translateY(-60%);
-        font-family: 'Righteous', cursive;
+        font-family: "PlanetNine Book";
         color: #363e49;
+        font-weight: 700;
     }
 
     .error__title {
@@ -172,9 +178,10 @@
     .file_name{
         display: contents;
         position: absolute;
-        font-family: 'Righteous', cursive;
+        font-family: "PlanetNine Book";
         font-size: 1.25rem;
         color: #363e49;
+        font-weight: 700;
     }
 
     .astronaut {
