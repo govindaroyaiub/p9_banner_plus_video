@@ -703,7 +703,7 @@
         function myFunc() {
             t1
             .to('.transfer_link', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '+=.15')
-            .to('.download_area', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '-=.15')
+            .to('.download_area', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '-=.05')
 
             t2
             .to('.astronaut', {duration: 2, y: '30%', ease: 'power2.out'}, '+=1')
