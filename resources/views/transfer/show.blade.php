@@ -181,7 +181,7 @@
         position: absolute;
         width: 185px;
         height: 300px;
-        left: 70%;
+        left: 72%;
         top: 20%;
         -webkit-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
             -ms-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
