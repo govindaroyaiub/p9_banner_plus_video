@@ -534,11 +534,18 @@
         top: -25px;
     }
 
-    input[type="text"]
-    {
+    input[type="text"]{
         font-size:14px;
     }
-    </style>
+    
+    table {
+        border-collapse: collapse;
+    }
+
+    tr{
+        border-bottom: 2.5px solid #4b4e6d;
+    }
+        </style>
 </head>
 
 <body class="font-body" onload="myFunc()">
