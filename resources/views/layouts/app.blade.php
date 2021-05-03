@@ -188,6 +188,11 @@
 
     function updateThumbnail(dropZoneElement, file) {
         let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+        console.log(dropZoneElement);
+        console.log(file.name);
+        console.log(document.querySelector('.drop-zone__prompt'));
+
         if (dropZoneElement.querySelector(".drop-zone__prompt")) {
             dropZoneElement.querySelector(".drop-zone__prompt").remove();
         }
@@ -197,6 +202,7 @@
             dropZoneElement.appendChild(thumbnailElement);
         }
         thumbnailElement.dataset.label = file.name;
+
         if (file.type.startsWith("image/")) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
