@@ -10,6 +10,11 @@
     <link rel="shortcut icon" href="https://www.planetnine.com/wp-content/uploads/2020/06/cropped-favicon-32x32.png"
         type="image/x-icon">
     <style>
+    @font-face {
+        font-family: "PlanetNine Book";
+        font-weight: 400;
+        src: url(/fonts/PlanetNineBook.woff) format("woff");
+    }
         html,
         body {
             height: 100%;
@@ -120,7 +125,7 @@
             left: 100px;
             top: 400px;
             transform: translateY(-60%);
-            font-family: 'Righteous', cursive;
+            font-family: "PlanetNine Book";
             color: #363e49;
         }
 
@@ -151,7 +156,7 @@
             cursor: pointer;
             transition-duration: 0.2s;
             font-size: 0.75em;
-            font-family: 'Righteous', cursive;
+            font-family: "PlanetNine Book";
         }
 
         .error__button:hover {

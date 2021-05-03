@@ -23,7 +23,7 @@ class TransferController extends Controller
      */
     public function index()
     {
-        $transfers = Transfer::orderBy('created_at')->get();
+        $transfers = Transfer::orderBy('created_at', 'DESC')->get();
         return view('transfer.index', compact('transfers'));
     }
 
