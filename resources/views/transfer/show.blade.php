@@ -20,14 +20,14 @@
         height: 100%;
         width: 100%;
         margin: 0px;
-        background: -webkit-gradient(linear, left top, right top, color-stop(23%, rgba(47, 54, 64, 1)), to(rgba(24, 27, 32, 1)));
         background: -o-linear-gradient(left, rgba(47, 54, 64, 1) 23%, rgba(24, 27, 32, 1) 100%);
+        background: -webkit-gradient(linear, left top, right top, color-stop(23%, rgba(47, 54, 64, 1)), to(rgba(24, 27, 32, 1)));
         background: linear-gradient(90deg, rgba(47, 54, 64, 1) 23%, rgba(24, 27, 32, 1) 100%);
     }
 
     .moon {
-        background: -webkit-gradient(linear, left top, right top, color-stop(48%, rgba(208, 208, 208, 1)), to(rgba(145, 145, 145, 1)));
         background: -o-linear-gradient(left, rgba(208, 208, 208, 1) 48%, rgba(145, 145, 145, 1) 100%);
+        background: -webkit-gradient(linear, left top, right top, color-stop(48%, rgba(208, 208, 208, 1)), to(rgba(145, 145, 145, 1)));
         background: linear-gradient(90deg, rgba(208, 208, 208, 1) 48%, rgba(145, 145, 145, 1) 100%);
         position: absolute;
         top: -325px;
@@ -44,8 +44,8 @@
         position: absolute;
         content: '';
         border-radius: 100%;
-        background: -webkit-gradient(linear, left top, right top, color-stop(38%, rgba(122, 122, 122, 1)), to(rgba(195, 195, 195, 1)));
         background: -o-linear-gradient(left, rgba(122, 122, 122, 1) 38%, rgba(195, 195, 195, 1) 100%);
+        background: -webkit-gradient(linear, left top, right top, color-stop(38%, rgba(122, 122, 122, 1)), to(rgba(195, 195, 195, 1)));
         background: linear-gradient(90deg, rgba(122, 122, 122, 1) 38%, rgba(195, 195, 195, 1) 100%);
         opacity: 0.6;
     }
@@ -154,7 +154,9 @@
         position: absolute;
         left: 12px;
         top: 197px;
-        transform: translateY(-60%);
+        -webkit-transform: translateY(-60%);
+            -ms-transform: translateY(-60%);
+                transform: translateY(-60%);
         font-family: "PlanetNine Book";
         color: #363e49;
         font-weight: 700;
@@ -185,11 +187,11 @@
     }
 
     .astronaut {
-        position: absolute;
+        position: fixed;
         width: 185px;
         height: 300px;
-        left: 72%;
-        top: 20%;
+        left: 85%;
+        top: 30%;
         -webkit-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
             -ms-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
                 transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
@@ -490,6 +492,9 @@
         width: 350px;
         height: 35px;
         border-radius: 14px;
+        font-family: "PlanetNine Book";
+        font-weight: 600;
+        outline: none;
     }
 
     #copy_button{
@@ -506,8 +511,9 @@
         background-color: red;
     }
 
-    #copy_text{
+    #button_text{
         color: white;
+        cursor: pointer;
     }
 
     .footer {
@@ -518,6 +524,7 @@
         background-color: #4c4f6d;
         color: white;
         text-align: center;
+        font-family: "PlanetNine Book";
     }
 
     th, td {
@@ -533,6 +540,7 @@
         display: inline-block;
         font-size: 16px;
         cursor: pointer;
+        font-family: "PlanetNine Book";
     }
 
     .button_area{
@@ -550,9 +558,43 @@
     }
 
     tr{
-        border-bottom: 2.5px solid #4b4e6d;
+        border-bottom: 2.5px solid #363e49;
     }
-        </style>
+    
+    .copy_message{
+        position: absolute;
+        top: 7%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 20em;
+        height: 4em;;
+        background: #FFF;
+        border-radius: 10px;
+        -webkit-box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
+                box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
+        z-index: 30;
+        opacity: 0;
+        text-align: center;
+    }
+
+    #copy_message_text {
+        position: relative;
+        font-family: "PlanetNine Book";
+        font-weight: 700;
+        top: 14px;
+        font-size: x-large;
+    }
+    #download_all_button{
+        position: relative;
+        top: 0;
+        width: 100%;
+        font-size: 25px;
+        background-color: #4b4e6d;
+        text-decoration: underline;
+    }
+
+    </style>
 </head>
 
 <body class="font-body" onload="myFunc()">
@@ -603,13 +645,17 @@
             </div>
         </div>
 
+        <div class="copy_message">
+            <label id="copy_message_text">Link Copied!</label>
+        </div>
+
         @if(Auth::user())
         <div class="transfer_link">
-            <input type="text" id="transfer_url" value="https://creative.planetnine.com/p9_transfer/{{$slug}}" readonly>
+            <input type="text" id="transfer_url" value="{{ url('/') }}/p9_transfer/{{$slug}}" readonly>
             <br>
             <div class="button_area">
-                <button id="copy_button" onclick="copy_transfer_link()"><label id="copy_text">Copy Link</label></button>
-                <button id="back_button" onclick="location.href='/p9_transfer'"><label id="copy_text">Back</label></button>
+                <button id="copy_button" onclick="copy_transfer_link()"><label id="button_text">Copy Link</label></button>
+                <button id="back_button" onclick="location.href='/p9_transfer'"><label id="button_text">Back</label></button>
             </div>
         </div>
         @endif
@@ -633,6 +679,11 @@
                     </tbody>
                 </table>
             </div>
+
+            
+            <a href="/p9_transfer/download/all/{{ $slug }}" id="button_text">
+                <button id="download_all_button">Download All</button>
+            </a>
         </div>
 
         <div class="footer">
@@ -645,9 +696,9 @@
 
     <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script>
     <script>
-    //    var t1 = new TimelineMax({});
         var t1 = gsap.timeline({});
         var t2 = gsap.timeline({repeat: -1, repeatDelay: 1});
+        var t3 = gsap.timeline({});
     
         function myFunc() {
             t1
@@ -658,18 +709,18 @@
             .to('.astronaut', {duration: 2, y: '15%', ease: 'power2.out'}, '+=1')
             .to('.astronaut', {duration: 2, y: '0%', ease: 'power2.out'}, '+=1')
         }
-    </script>
-
-    
-    <script type="text/javascript">
 
         function copy_transfer_link(){
             var copyText = document.getElementById("transfer_url");
             copyText.select();
             copyText.setSelectionRange(0, 99999);
             document.execCommand("copy");
-            alert("Copied the text: " + copyText.value);
+            
+            t3
+            .to('.copy_message', {duration: 0.5, opacity: 1, ease: 'power3.out'})
+            .to('.copy_message', {duration: 0.5, opacity: 0, ease: 'power3.in'}, '+=0.15')
         }
+
         function drawVisor() {
             const canvas = document.getElementById('visor');
             const ctx = canvas.getContext('2d');
@@ -750,5 +801,4 @@
 
     </script>
 </body>
-
 </html>

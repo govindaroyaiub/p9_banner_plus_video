@@ -11,6 +11,8 @@ Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('vi
 Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_view');
 Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
 
+Route::get('/p9_transfer/download/all/{slug}', 'TransferController@download_all')->name('download_all');
+
 Route::domain('https://creative.fusionlab.nl')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');

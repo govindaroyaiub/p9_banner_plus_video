@@ -195,4 +195,35 @@ class TransferController extends Controller
         Transfer::where('id', $id)->delete();
         return redirect('/p9_transfer')->with('danger', 'Transfer link been deleted along with files!');
     }
+
+    public function download_all($slug)
+    {
+        $transfer = Transfer::where('slug', $slug)->first();
+        $transfer_id = $transfer['id'];
+
+        $files = SubTransfer::where('transfer_id', $transfer_id)->get();
+        
+        $file_path = public_path().'/transfer_files/'.$slug;
+        $zip = new ZipArchive();
+        $zip_name = 'Planetnine_Transfer_'.$slug.".zip";
+        $zip->open($zip_name, ZipArchive::CREATE);
+
+        foreach($files as $file)
+        {
+            $path = public_path().'/transfer_files/'.$slug.'/'.$file['path'];
+            if(file_exists($path))
+            {
+                $zip->addFromString(basename($path),  file_get_contents($path));
+            }
+            else
+            {
+                dd('File Not Found');
+            }
+        }
+        $headers = ['Content-Type: application/pdf'];
+
+        $zip->close();
+
+        return response()->download($zip_name)->deleteFileAfterSend(true);
+    }
 }

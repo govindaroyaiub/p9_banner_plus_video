@@ -39,8 +39,6 @@
                 </div> --}}
 
                 <div class="flex flex-col flex-grow mb-3">
-                    <label class="text-red-500 font-semibold">* Upload only if the previous assets need to be
-                        changed</label>
                     <div x-data="{ files: null }" id="FileUpload"
                         class="block w-full py-2 px-3 relative bg-white appearance-none border-2 border-gray-300 border-dashed rounded-md hover:shadow-outline-gray rounded-lg">
                         <input type="file" multiple name="upload[]"
@@ -67,8 +65,8 @@
                         <template x-if="files === null">
                             <div class="flex flex-col space-y-2 items-center justify-center">
                                 <i class="fas fa-cloud-upload-alt fa-3x text-currentColor"></i>
-                                <p class="text-gray-700">
-                                    Drag your files here or click in this area.
+                                <p class="text-red-500 font-semibold">
+                                    Drag your ZIP files here or click in this area if you want to change the assets.
                                 </p>
                                 <a href="javascript:void(0)"
                                     class="flex items-center mx-auto py-2 px-4 text-white text-center font-medium border border-transparent rounded-lg outline-none bg-blue-400">Select
@@ -81,7 +79,7 @@
                 <div class="flex space-x-4 mt-4">
                     <button type="submit"
                         class="w-full mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">
-                        CREATE
+                        SAVE
                     </button>
                     <button type="button" onclick="window.history.back()"
                         class="w-full mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-2 focus:outline-none">
