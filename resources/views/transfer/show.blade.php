@@ -637,7 +637,7 @@
     
         function myFunc() {
             t1
-            .to('.transfer_link', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '+=.35')
+            .to('.transfer_link', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '+=.15')
             .to('.download_area', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '-=.15')
 
             t2
