@@ -95,11 +95,18 @@ class TransferController extends Controller
     {
         $slug = $id;
         $transfer = Transfer::where('slug', $slug)->first();
-        $sub_transfers = SubTransfer::where('transfer_id', $transfer['id'])->get();
-        return view('transfer.show', compact(
-            'sub_transfers', 
-            'slug'
-        ));
+        if($transfer == NULL)
+        {
+            return view('404');
+        }
+        else
+        {
+            $sub_transfers = SubTransfer::where('transfer_id', $transfer['id'])->get();
+            return view('transfer.show', compact(
+                'sub_transfers', 
+                'slug'
+            ));
+        }
     }
 
     /**

@@ -20,10 +20,14 @@
             height: 100%;
             width: 100%;
             margin: 0px;
+            background: -webkit-gradient(linear, left top, right top, color-stop(23%, rgba(47, 54, 64, 1)), to(rgba(24, 27, 32, 1)));
+            background: -o-linear-gradient(left, rgba(47, 54, 64, 1) 23%, rgba(24, 27, 32, 1) 100%);
             background: linear-gradient(90deg, rgba(47, 54, 64, 1) 23%, rgba(24, 27, 32, 1) 100%);
         }
 
         .moon {
+            background: -webkit-gradient(linear, left top, right top, color-stop(48%, rgba(208, 208, 208, 1)), to(rgba(145, 145, 145, 1)));
+            background: -o-linear-gradient(left, rgba(208, 208, 208, 1) 48%, rgba(145, 145, 145, 1) 100%);
             background: linear-gradient(90deg, rgba(208, 208, 208, 1) 48%, rgba(145, 145, 145, 1) 100%);
             position: absolute;
             top: -100px;
@@ -32,13 +36,16 @@
             height: 900px;
             content: '';
             border-radius: 100%;
-            box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.5);
+            -webkit-box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.5);
         }
 
         .moon__crater {
             position: absolute;
             content: '';
             border-radius: 100%;
+            background: -webkit-gradient(linear, left top, right top, color-stop(38%, rgba(122, 122, 122, 1)), to(rgba(195, 195, 195, 1)));
+            background: -o-linear-gradient(left, rgba(122, 122, 122, 1) 38%, rgba(195, 195, 195, 1) 100%);
             background: linear-gradient(90deg, rgba(122, 122, 122, 1) 38%, rgba(195, 195, 195, 1) 100%);
             opacity: 0.6;
         }
@@ -55,7 +62,9 @@
             left: 340px;
             width: 40px;
             height: 80px;
-            transform: rotate(55deg);
+            -webkit-transform: rotate(55deg);
+                -ms-transform: rotate(55deg);
+                    transform: rotate(55deg);
         }
 
         .moon__crater3 {
@@ -63,7 +72,9 @@
             left: 40px;
             width: 65px;
             height: 120px;
-            transform: rotate(250deg);
+            -webkit-transform: rotate(250deg);
+                -ms-transform: rotate(250deg);
+                    transform: rotate(250deg);
         }
 
         .star {
@@ -73,12 +84,28 @@
             height: 5px;
             content: '';
             border-radius: 100%;
-            transform: rotate(250deg);
+            -webkit-transform: rotate(250deg);
+                -ms-transform: rotate(250deg);
+                    transform: rotate(250deg);
             opacity: 0.4;
-            animation-name: shimmer;
-            animation-duration: 1.5s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
+            -webkit-animation-name: shimmer;
+                    animation-name: shimmer;
+            -webkit-animation-duration: 1.5s;
+                    animation-duration: 1.5s;
+            -webkit-animation-iteration-count: infinite;
+                    animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+                    animation-direction: alternate;
+        }
+
+        @-webkit-keyframes shimmer {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 0.7;
+            }
         }
 
         @keyframes shimmer {
@@ -94,19 +121,22 @@
         .star1 {
             top: 40%;
             left: 50%;
-            animation-delay: 1s;
+            -webkit-animation-delay: 1s;
+                    animation-delay: 1s;
         }
 
         .star2 {
             top: 60%;
             left: 90%;
-            animation-delay: 3s;
+            -webkit-animation-delay: 3s;
+                    animation-delay: 3s;
         }
 
         .star3 {
             top: 10%;
             left: 70%;
-            animation-delay: 2s;
+            -webkit-animation-delay: 2s;
+                    animation-delay: 2s;
         }
 
         .star4 {
@@ -117,14 +147,17 @@
         .star5 {
             top: 20%;
             left: 30%;
-            animation-delay: 0.5s;
+            -webkit-animation-delay: 0.5s;
+                    animation-delay: 0.5s;
         }
 
         .error {
             position: absolute;
             left: 100px;
             top: 400px;
-            transform: translateY(-60%);
+            -webkit-transform: translateY(-60%);
+                -ms-transform: translateY(-60%);
+                    transform: translateY(-60%);
             font-family: "PlanetNine Book";
             color: #363e49;
         }
@@ -141,6 +174,7 @@
 
         .error__description {
             opacity: 0.5;
+            font-size: 1.2em;
         }
 
         .error__button {
@@ -154,33 +188,21 @@
             border-radius: 8em;
             color: #576375;
             cursor: pointer;
-            transition-duration: 0.2s;
+            -webkit-transition-duration: 0.2s;
+                 -o-transition-duration: 0.2s;
+                    transition-duration: 0.2s;
             font-size: 0.75em;
             font-family: "PlanetNine Book";
         }
-
-        .error__button:hover {
-            color: #21252c;
-        }
-
-        .error__button--active {
-            background-color: #e67e22;
-            border: 2px solid #e67e22;
-            color: white;
-        }
-
-        .error__button--active:hover {
-            box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
-            color: white;
-        }
-
         .astronaut {
-            position: absolute;
+            position: fixed;
             width: 185px;
             height: 300px;
             left: 70%;
             top: 50%;
-            transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
+            -webkit-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
+                -ms-transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
+                    transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
         }
 
         .astronaut__head {
@@ -260,7 +282,9 @@
             height: 20px;
             content: '';
             border-radius: 8px;
-            transform: rotate(-30deg);
+            -webkit-transform: rotate(-30deg);
+                -ms-transform: rotate(-30deg);
+                    transform: rotate(-30deg);
         }
 
         .astronaut__arm-left2 {
@@ -272,7 +296,9 @@
             height: 45px;
             content: '';
             border-radius: 8px;
-            transform: rotate(-12deg);
+            -webkit-transform: rotate(-12deg);
+                -ms-transform: rotate(-12deg);
+                    transform: rotate(-12deg);
             border-top-left-radius: 8em;
             border-top-right-radius: 8em;
         }
@@ -286,7 +312,9 @@
             height: 20px;
             content: '';
             border-radius: 8px;
-            transform: rotate(-10deg);
+            -webkit-transform: rotate(-10deg);
+                -ms-transform: rotate(-10deg);
+                    transform: rotate(-10deg);
         }
 
         .astronaut__arm-right2 {
@@ -298,7 +326,9 @@
             height: 45px;
             content: '';
             border-radius: 8px;
-            transform: rotate(-10deg);
+            -webkit-transform: rotate(-10deg);
+                -ms-transform: rotate(-10deg);
+                    transform: rotate(-10deg);
             border-top-left-radius: 8em;
             border-top-right-radius: 8em;
         }
@@ -312,7 +342,9 @@
             height: 6px;
             content: '';
             border-radius: 8em;
-            transform: rotate(-35deg);
+            -webkit-transform: rotate(-35deg);
+                -ms-transform: rotate(-35deg);
+                    transform: rotate(-35deg);
         }
 
         .astronaut__arm-thumb-right {
@@ -324,7 +356,9 @@
             height: 6px;
             content: '';
             border-radius: 8em;
-            transform: rotate(20deg);
+            -webkit-transform: rotate(20deg);
+                -ms-transform: rotate(20deg);
+                    transform: rotate(20deg);
         }
 
         .astronaut__wrist-left {
@@ -336,7 +370,9 @@
             height: 4px;
             content: '';
             border-radius: 8em;
-            transform: rotate(-15deg);
+            -webkit-transform: rotate(-15deg);
+                -ms-transform: rotate(-15deg);
+                    transform: rotate(-15deg);
         }
 
         .astronaut__wrist-right {
@@ -348,7 +384,9 @@
             height: 4px;
             content: '';
             border-radius: 8em;
-            transform: rotate(-10deg);
+            -webkit-transform: rotate(-10deg);
+                -ms-transform: rotate(-10deg);
+                    transform: rotate(-10deg);
         }
 
         .astronaut__leg-left {
@@ -359,7 +397,9 @@
             width: 23px;
             height: 75px;
             content: '';
-            transform: rotate(10deg);
+            -webkit-transform: rotate(10deg);
+                -ms-transform: rotate(10deg);
+                    transform: rotate(10deg);
         }
 
         .astronaut__leg-right {
@@ -370,7 +410,9 @@
             width: 23px;
             height: 75px;
             content: '';
-            transform: rotate(-10deg);
+            -webkit-transform: rotate(-10deg);
+                -ms-transform: rotate(-10deg);
+                    transform: rotate(-10deg);
         }
 
         .astronaut__foot-left {
@@ -381,7 +423,9 @@
             width: 28px;
             height: 20px;
             content: '';
-            transform: rotate(10deg);
+            -webkit-transform: rotate(10deg);
+                -ms-transform: rotate(10deg);
+                    transform: rotate(10deg);
             border-radius: 3px;
             border-top-left-radius: 8em;
             border-top-right-radius: 8em;
@@ -396,15 +440,28 @@
             width: 28px;
             height: 20px;
             content: '';
-            transform: rotate(-10deg);
+            -webkit-transform: rotate(-10deg);
+                -ms-transform: rotate(-10deg);
+                    transform: rotate(-10deg);
             border-radius: 3px;
             border-top-left-radius: 8em;
             border-top-right-radius: 8em;
             border-bottom: 4px solid #e67e22;
         }
 
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #4c4f6d;
+            color: white;
+            text-align: center;
+            font-family: "PlanetNine Book";
+        }
+
     </style>
-    <script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.20.0_d360d9a082ccc13b1a1a9b153f86b378_min.js"></script>
+    <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script>
 </head>
 
 <body class="font-body">
@@ -454,6 +511,12 @@
                 <div class="astronaut__head-visor-flare1"></div>
                 <div class="astronaut__head-visor-flare2"></div>
             </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; All Right Reserved. 
+                <a href="https://www.planetnine.com" target="_blank" style="color: white;">Planetnine</a> - <?= Date('Y') ?>
+            </p>
         </div>
     </main>
     <script type="text/javascript">
@@ -537,10 +600,10 @@
 
     </script>
     <script type="text/javascript">
-        var t1 = new TimelineMax({repeat: -1, repeatDelay: 1});    
+       var t1 = gsap.timeline({repeat: -1, repeatDelay: 0});    
         t1
-        .to('.astronaut', 2, {y:-5, ease: Power2.easeOut}, '+=1')
-        .to('.astronaut', 2, {y:-150, ease: Power2.easeOut}, '+=.5')
+        .to('.astronaut', {duration: 2, y: '30%', ease: 'power2.out'}, '+=1')
+            .to('.astronaut', {duration: 2, y: '0%', ease: 'power2.out'}, '+=1')
     </script>
 </body>
 
