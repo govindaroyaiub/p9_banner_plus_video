@@ -170,6 +170,7 @@
     .error__subtitle {
         font-size: 2em;
         color: #4b4e6d;
+        opacity: 0;
     }
 
     .error__description {
@@ -715,7 +716,10 @@
     
         function myFunc() {
             t1
-            .to('.transfer_link', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '+=.15')
+
+            .add('f1', '+=.25')
+            .to('.error__subtitle', {duration: 0.5, opacity: 1, ease: 'power3.out'}, 'f1')
+            .to('.transfer_link', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, 'f1')
             .to('.download_area', {duration: 0.5, y: 0, opacity: 1, ease: 'power3.out'}, '-=.05')
 
             t2
