@@ -623,7 +623,7 @@
 
         <div class="footer">
             <p>&copy; All Right Reserved. 
-                <a href="https://www.planetnine.com" target="_blank" style="text-decoration: none; color: white;">Planetnine</a> - <?= Date('Y') ?>
+                <a href="https://www.planetnine.com" target="_blank" style="color: white;">Planetnine</a> - <?= Date('Y') ?>
             </p>
         </div>
         
