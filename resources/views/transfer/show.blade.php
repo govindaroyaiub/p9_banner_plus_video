@@ -153,7 +153,7 @@
     .error {
         position: absolute;
         left: 12px;
-        top: 197px;
+        top: 240px;
         -webkit-transform: translateY(-60%);
             -ms-transform: translateY(-60%);
                 transform: translateY(-60%);
@@ -173,8 +173,8 @@
     }
 
     .error__description {
-        font-size: 1.25rem;
-        opacity: 0.5;
+        font-size: 1.5rem;
+        opacity: 0.65;
     }
 
     .file_name{
@@ -594,6 +594,13 @@
         text-decoration: underline;
     }
 
+    .downloaded_text{
+        position: absolute;
+        opacity: 0;
+        left: 1px;
+        top: 76px;
+    }
+
     </style>
 </head>
 
@@ -613,8 +620,13 @@
 
         <div class="error">
             <div class="error__title">Hello There!</div>
-            <div class="error__subtitle">Thank you for downloading.</div>
-            <div class="error__description" style="font-weight: bold;">May the Force be with you.</div>
+            <div class="ready_text">
+                <div class="error__subtitle">Your files are ready for download.</div>
+            </div>
+            <div class="downloaded_text">
+                <div class="error__subtitle">Thank you for downloading.</div>
+                <div class="error__description" style="font-weight: bold;">May the Force be with you.</div>
+            </div>
         </div>
 
         <div class="astronaut">
@@ -682,7 +694,7 @@
 
             
             <a href="/p9_transfer/download/all/{{ $slug }}" id="button_text">
-                <button id="download_all_button">Download All</button>
+                <button id="download_all_button" onclick="change_text()">Download All</button>
             </a>
         </div>
 
@@ -699,6 +711,7 @@
         var t1 = gsap.timeline({});
         var t2 = gsap.timeline({repeat: -1, repeatDelay: 0});
         var t3 = gsap.timeline({});
+        var t4 = gsap.timeline({});
     
         function myFunc() {
             t1
@@ -719,6 +732,13 @@
             t3
             .to('.copy_message', {duration: 0.5, opacity: 1, ease: 'power3.out'})
             .to('.copy_message', {duration: 0.5, opacity: 0, ease: 'power3.in'}, '+=0.15')
+        }
+
+        function change_text()
+        {
+            t4
+            .to('.ready_text', {duration: 0.5, opacity: 0, ease: 'power3.in'})
+            .to('.downloaded_text', {duration: 0.5, opacity: 1, ease: 'power3.in'})
         }
 
         function drawVisor() {
