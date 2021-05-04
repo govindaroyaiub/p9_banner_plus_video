@@ -490,8 +490,8 @@
         left: 5px;
         right: 0;
         margin: 0 auto;
-        width: 350px;
-        height: 35px;
+        width: 360px;
+        height: 42px;
         border-radius: 14px;
         font-family: "PlanetNine Book";
         font-weight: 600;
@@ -546,8 +546,8 @@
 
     .button_area{
         position: relative;
-        left: 370px;
-        top: -25px;
+        left: 378px;
+        top: -29px;
     }
 
     input[type="text"]{

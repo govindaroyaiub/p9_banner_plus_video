@@ -1,5 +1,23 @@
 @extends('layouts.app')
 
+@section('styles')
+<style>
+    #FileUpload {
+        border-style: dashed;
+    }
+
+    #FileUpload input {
+        opacity: 0;
+    }
+
+    #FileUpload.active {
+        box-shadow: 0 0 0 3px rgba(164, 202, 254, 0.45);
+        border-color: #a4cafe;
+    }
+
+</style>
+@endsection
+
 @section('content')
 <div class="container mx-auto px-4">
     <div class="flex -mx-4">
