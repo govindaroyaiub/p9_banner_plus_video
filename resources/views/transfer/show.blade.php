@@ -163,14 +163,16 @@
     }
 
     .error__title {
-        font-size: 3.6rem;
+        font-size: 3.5em;
         color: #4b4e6d;
     }
 
     .error__subtitle {
         font-size: 2rem;
+    }
+    .error__subtitle2 {
+        font-size: 22px;
         color: #4b4e6d;
-        opacity: 0;
     }
 
     .error__description {
@@ -622,10 +624,10 @@
         <div class="error">
             <div class="error__title">Hello There!</div>
             <div class="ready_text">
-                <div class="error__subtitle">Your files are ready <br /> for download.</div>
+                <div class="error__subtitle">Your files are ready <br/> for download.</div>
             </div>
             <div class="downloaded_text">
-                <div class="error__subtitle">Thank you for downloading.</div>
+                <div class="error__subtitle2">Thank you for downloading.</div>
                 <div class="error__description" style="font-weight: bold;">May the Force be with you.</div>
             </div>
         </div>
