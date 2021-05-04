@@ -169,6 +169,7 @@
 
     .error__subtitle {
         font-size: 2rem;
+        color: #4b4e6d;
     }
     .error__subtitle2 {
         font-size: 22px;
