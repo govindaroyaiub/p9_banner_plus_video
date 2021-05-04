@@ -163,12 +163,12 @@
     }
 
     .error__title {
-        font-size: 4em;
+        font-size: 2rem;
         color: #4b4e6d;
     }
 
     .error__subtitle {
-        font-size: 2em;
+        font-size: 1.2rem;
         color: #4b4e6d;
         opacity: 0;
     }
