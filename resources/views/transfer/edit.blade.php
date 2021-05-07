@@ -36,6 +36,9 @@
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" />
                 </div>
 
+            <label class="text-red-500 font-semibold">*Uploading ZIP files will change the present files. So, upload the files accordingly.</label>
+            <br>
+            <br>
             <div
             x-data="{ files: null }"
             class="file-upload relative block w-full border-2 border-dashed rounded-sm border-gray-300 p-4 appearance-none hover:shadow-outline-gray"

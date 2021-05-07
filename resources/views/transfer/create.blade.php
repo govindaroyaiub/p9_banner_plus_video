@@ -34,7 +34,9 @@
             </div>
             
             
-            
+            <label class="text-red-500 font-semibold">*Upload ZIP files here:</label>
+            <br>
+            <br>
             <div
             x-data="{ files: null }"
             class="file-upload relative block w-full border-2 border-dashed rounded-sm border-gray-300 p-4 appearance-none hover:shadow-outline-gray"
@@ -72,7 +74,7 @@
                     </div>
                 </template>
                 <template x-if="files === null">
-                    <p class="text-center">Drag your files here or click in this area.</p>
+                    <p class="text-center">Drag your ZIP files here or click in this area.</p>
                 </template>
             </div>
             
