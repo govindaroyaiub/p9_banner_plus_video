@@ -2,19 +2,9 @@
 
 @section('styles')
 <style>
-    #FileUpload {
-        border-style: dashed;
-    }
-
-    #FileUpload input {
-        opacity: 0;
-    }
-
-    #FileUpload.active {
-        box-shadow: 0 0 0 3px rgba(164, 202, 254, 0.45);
-        border-color: #a4cafe;
-    }
-
+     .file-upload.active {
+        border-color: #4b4e6d;
+      }
 </style>
 @endsection
 
@@ -27,80 +17,81 @@
             <h3 class="text-xl font-semibold tracking-wide mb-4">Add Transfer Link</h3>
             <br>
             <form id="project-add-form" class="max-w-xl" method="POST" action="/p9_transfer"
-                enctype="multipart/form-data">
-                @csrf
-
-                <div class="mb-4">
-                    <label class="text-primary font-light block">Name</label>
-                    <input type='text' placeholder="Enter Name" name="name"
-                        class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                        required />
-                </div>
-
-                <div class="mb-4">
-                    <label class="text-primary font-light block">Client Name (Optional)</label>
-                    <input type='text' placeholder="Enter Client Name" name="client_name"
-                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" />
-                </div>
-
-                {{-- <div
-                        class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
-                        <span class="drop-zone__prompt">Drop Zip File Here or Click to Upload</span>
-                        <input type="file" name="upload[]" class="drop-zone__input hidden">
-                    </div> --}}
-
-
-                <div class="flex flex-col flex-grow mb-3">
-                    <div x-data="{ files: null }" id="FileUpload"
-                        class="block w-full py-10 px-3 relative bg-white appearance-none border-2 border-gray-300 border-dashed rounded-md hover:shadow-outline-gray rounded-lg">
-                        <input type="file" multiple name="upload[]"
-                            class="absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
-                            x-on:change="files = $event.target.files; console.log($event.target.files);"
-                            x-on:dragover="$el.classList.add('active')" x-on:dragleave="$el.classList.remove('active')"
-                            x-on:drop="$el.classList.remove('active')" />
-                        <template x-if="files !== null">
-                            <div class="flex flex-col space-y-1">
-                                <template x-for="(_,index) in Array.from({ length: files.length })">
-                                    <div class="flex flex-row items-center space-x-2">
-                                        <template x-if="files[index].type.includes('audio/')"></template>
-                                        <template x-if="files[index].type.includes('application/')"></template>
-                                        <template x-if="files[index].type.includes('image/')"></template>
-                                        <template x-if="files[index].type.includes('video/')"></template>
-                                        <span class="font-medium text-gray-900"
-                                            x-text="files[index].name">Uploading</span>
-                                        <span class="text-xs self-end text-gray-500"
-                                            x-text="filesize(files[index].size)">...</span>
-                                    </div>
-                                </template>
-                            </div>
-                        </template>
-                        <template x-if="files === null">
-                            <div class="flex flex-col space-y-2 items-center justify-center">
-                                <p class="text-2xl font-semibold">
-                                    Drag your ZIP files here or click in this area.
-                                </p>
+            enctype="multipart/form-data">
+            @csrf
+            
+            <div class="mb-4">
+                <label class="text-primary font-light block">Name</label>
+                <input type='text' placeholder="Enter Name" name="name"
+                class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                required />
+            </div>
+            
+            <div class="mb-4">
+                <label class="text-primary font-light block">Client Name (Optional)</label>
+                <input type='text' placeholder="Enter Client Name" name="client_name"
+                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" />
+            </div>
+            
+            
+            
+            <div
+            x-data="{ files: null }"
+            class="file-upload relative block w-full border-2 border-dashed rounded-sm border-gray-300 p-4 appearance-none hover:shadow-outline-gray"
+            >
+            <input
+            @change="files = $event.target.files; console.log($event.target.files)"
+            @dragover="$el.classList.add('active');"
+            @drop="$el.classList.remove('active');"
+            @dragleave="$el.classList.remove('active');"
+            type="file"
+            multiple
+            name="upload[]"
+            class="absolute inset-0 z-50 w-full h-full opacity-0"
+            />
+            
+            <template x-if="files !== null">
+                <div class="flex flex-col space-y-1">
+                    <template x-for="(_,index) in Array.from({ length: files.length })">
+                        <div class="flex flex-row items-center space-x-2">
+                            <template x-if="files[index].type.includes('application/')"
+                            ><i class="far fa-file-alt fa-fw"></i
+                                ></template>
+                                <span
+                                class="font-medium text-gray-900"
+                                x-text="files[index].name"
+                                >Uploading</span
+                                >
+                                <span
+                                class="text-xs self-end text-gray-500"
+                                x-text="filesize(files[index].size)"
+                                >...</span
+                                >
                             </div>
                         </template>
                     </div>
-                </div>
-
-                <div class="flex space-x-4 mt-4">
-                    <button type="submit" 
-                        class="w-full mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">
-                        CREATE
-                    </button>
-                    <button type="button" onclick="window.history.back()"
-                        class="w-full mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-2 focus:outline-none">
-                        BACK
-                    </button>
-                </div>
-
-            </form>
-        </div>
+                </template>
+                <template x-if="files === null">
+                    <p class="text-center">Drag your files here or click in this area.</p>
+                </template>
+            </div>
+            
+            <div class="flex space-x-4 mt-4">
+                <button type="submit" 
+                class="w-full mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">
+                CREATE
+            </button>
+            <button type="button" onclick="window.history.back()"
+            class="w-full mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-2 focus:outline-none">
+            BACK
+        </button>
     </div>
-    @endsection
+    
+</form>
+</div>
+</div>
+@endsection
 
-    @section('script')
-    {{-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script> --}}
-    <script src="https://cdn.filesizejs.com/filesize.min.js"></script>
-    @endsection
+@section('script')
+<script src="https://cdn.filesizejs.com/filesize.min.js"></script>
+@endsection
