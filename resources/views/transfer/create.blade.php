@@ -47,7 +47,7 @@
             type="file"
             multiple
             name="upload[]"
-            class="absolute inset-0 z-50 w-full h-full opacity-0"
+            class="absolute inset-0 z-50 w-full h-full opacity-0" style="opacity: 0;"
             />
             
             <template x-if="files !== null">
