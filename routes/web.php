@@ -16,6 +16,7 @@ Route::get('/clear-cache', function() {
     return 'Cache, View, Config cleared!';
 });
 
+
 Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('banner_view');
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');
 Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_view');
