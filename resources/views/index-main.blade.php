@@ -143,6 +143,8 @@
                     @include('1920_1080')
                 @elseif(($project->width == 1080 && $project->height == 1080) || ($project->width == 1280 && $project->height == 720))
                     @include('1080_1080')
+                @elseif ($project->width == 1080 && $project->height == 1920)
+                    @include('1080_1920')
                 @elseif($project->width == 720 && $project->height == 1280)
                     @include('720_1280')
                 @endif
