@@ -65,7 +65,7 @@ class HomeController extends Controller
                                 ->orderBy('users.name', 'ASC')
                                 ->get();
             }
-            $total_comments = Comments::get()->count();
+            // $total_comments = Comments::get()->count();
 
             $video_sizes = SubProject::join('main_project', 'main_project.id', 'sub_project.project_id')
                                     ->select('size')

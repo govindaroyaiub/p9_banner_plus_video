@@ -13,7 +13,7 @@ Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('route:clear');
     $exitCode = Artisan::call('config:cache');
 
-    return 'Cache, View, Config cleared!';
+    return '<h2 style="color: red;">Cache, View, Config, Route cleared!</h2>';
 });
 
 
@@ -25,6 +25,11 @@ Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color')
 Route::get('/p9_transfer/download/all/{slug}', 'TransferController@download_all')->name('download_all');
 
 Route::domain('https://creative.fusionlab.nl')->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
+});
+
+Route::domain('https://creative.me-preview.nl')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
 });

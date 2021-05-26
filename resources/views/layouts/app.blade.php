@@ -28,16 +28,16 @@
             grid-template-columns: repeat(5, minmax(0, 1fr));
         }
     </style>
-    @if(url('/') == 'http://localhost:9001')
+    @if(url('/') == 'https://creative.me-preview.nl')
         <style>
             .bg-primary, .hover\:bg-primary:hover{
-                background-color: #339ad5!important;
+                background-color: #26608e!important;
             }
             .border-primary, .focus\:border-primary:focus {
-                border-color: #339ad5!important;
+                border-color: #26608e!important;
             }
             .text-primary {
-                color: #339ad5!important;
+                color: #26608e!important;
             }
         </style>
     @elseif(url('/') == 'https://creative.fusionlab.nl')
