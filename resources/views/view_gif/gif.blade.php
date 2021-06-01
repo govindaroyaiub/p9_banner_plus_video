@@ -26,8 +26,8 @@
                 <thead>
                     <tr>
                         <th data-priority="1">No</th>
-                        <th data-priority="2">Project Name</th>
-                        <th data-priority="3" width="170px">Client Name</th>
+                        <th data-priority="2" width="240px" max-width="250px">Project Name</th>
+                        <th data-priority="3" width="90px" max-width="100px">Client Name</th>
                         @if(Auth::user()->is_admin == 1)
                         <th data-priority="4">Uploaded By</th>
                         @endif
@@ -39,10 +39,10 @@
                     @foreach($gifs as $gif)
                     <tr style="text-align: center;">
                         <td class="border px-4 py-2">{{ $i++ }}</td>
-                        <td class="border px-4 py-2">
+                        <td class="border px-4 py-2" width="240px" max-width="250px">
                             {{ $gif->name }}
                         </td>
-                        <td class="border px-4 py-2" width="170px">{{ $gif->client_name }}</td>
+                        <td class="border px-4 py-2" width="90px" max-width="100px">{{ $gif->client_name }}</td>
                         @if(Auth::user()->is_admin == 1)
                         <td class="border px-4 py-2">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($gif->uploaded_by_user_id) }}</label>
