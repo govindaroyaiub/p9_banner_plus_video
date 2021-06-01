@@ -31,13 +31,13 @@
     @if(url('/') == 'https://creative.me-preview.nl')
         <style>
             .bg-primary, .hover\:bg-primary:hover{
-                background-color: #26608e!important;
+                background-color: #12295d!important;
             }
             .border-primary, .focus\:border-primary:focus {
-                border-color: #26608e!important;
+                border-color: #12295d!important;
             }
             .text-primary {
-                color: #26608e!important;
+                color: #12295d!important;
             }
         </style>
     @elseif(url('/') == 'https://creative.fusionlab.nl')
