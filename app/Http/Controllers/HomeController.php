@@ -15,6 +15,7 @@ use App\Logo;
 use App\Gif;
 use App\BannerProject;
 use App\Helper\Helper;
+use Exception;
 
 class HomeController extends Controller
 {
@@ -104,23 +105,6 @@ class HomeController extends Controller
             $total_size = array();
             $total_banner_size = array();
 
-            foreach($video_sizes as $video)
-            {
-                $size_text = $video->size;
-                $size_number = trim($size_text," MB");
-
-                array_push($total_size, floatval($size_number));
-            }
-
-            $total_size = array_sum($total_size);
-            if($total_size <= 1024)
-            {
-                $total_number = round($total_size, 2).' MB';
-            }
-            if($total_size > 1024 && $total_size <= 2048)
-            {
-                $total_number = round($total_size/1024,2).' GB';
-            }
             $main_banner_ids = Helper::getMainBannerIds(Auth::user()->company_id);
 
             $current_year = date("Y");
@@ -137,23 +121,38 @@ class HomeController extends Controller
             $nov = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '11')->whereYear('created_at', $current_year)->get()->count();
             $dec = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '12')->whereYear('created_at', $current_year)->get()->count();
 
-            return view('home', compact(
-                'user_list', 
-                'total_banners', 
-                'total_videos',
-                'total_gifs',
-                'total_gif_projects', 
-                'total_banner_projects', 
-                'total_video_projects', 
-                'total_number',
-                'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec' 
-            ));
+            try{
+                return view('home', compact(
+                    'user_list', 
+                    'total_banners', 
+                    'total_videos',
+                    'total_gifs',
+                    'total_gif_projects', 
+                    'total_banner_projects', 
+                    'total_video_projects', 
+                    'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec' 
+                ));
+            }
+            catch(Exception $e)
+            {
+                logger($e);
+                return $e;
+            }
+            
         }
         else
         {
-            Session::flush();
-            Auth::logout();
-            return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+            try
+            {
+                Session::flush();
+                Auth::logout();
+                return redirect('/login')->with('danger', 'Spy Detected! Please Go To Your Login Page.');
+            }
+            catch(Exception $e)
+            {
+                logger($e);
+                return $e;
+            }
         }
     }
 
