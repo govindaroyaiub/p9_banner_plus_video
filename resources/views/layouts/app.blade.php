@@ -39,6 +39,10 @@
             .text-primary {
                 color: #12295d!important;
             }
+            #company_logo{
+                max-width: 50%!important;
+            }
+
         </style>
     @elseif(url('/') == 'https://creative.fusionlab.nl')
         <style>
@@ -67,7 +71,7 @@
     <div class="relative container mx-auto px-4 py-3 flex justify-between items-center">
         @if(Auth::user())
             <a class="text-xl font-semibold" href="{{ url('/') }}">
-                <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 20.6%">
+                <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 20.6%" id="company_logo">
             </a>
            
         @endif
