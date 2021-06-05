@@ -23,8 +23,15 @@ class TransferController extends Controller
      */
     public function index()
     {
-        $transfers = Transfer::orderBy('created_at', 'DESC')->get();
-        return view('transfer.index', compact('transfers'));
+        if(Auth::user()->company_id == 1)
+        {
+            $transfers = Transfer::orderBy('created_at', 'DESC')->get();
+            return view('transfer.index', compact('transfers'));
+        }
+        else
+        {
+            return view('404');
+        }
     }
 
     /**
@@ -34,7 +41,14 @@ class TransferController extends Controller
      */
     public function create()
     {
-        return view('transfer.create');
+        if(Auth::user()->company_id == 1)
+        {
+            return view('transfer.create');
+        }
+        else
+        {
+            return view('404');
+        }
     }
 
     /**
