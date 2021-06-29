@@ -29,7 +29,7 @@
                         <th data-priority="2" width="240px" max-width="250px">Project Name</th>
                         <th data-priority="3" width="90px" max-width="100px">Client Name</th>
                         @if(Auth::user()->is_admin == 1)
-                        <th data-priority="4">Uploaded By</th>
+                        <th data-priority="4">Upload Info</th>
                         @endif
                         <th data-priority="5">Actions</th>
                     </tr>
@@ -46,6 +46,8 @@
                         @if(Auth::user()->is_admin == 1)
                         <td class="border px-4 py-2">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($gif->uploaded_by_user_id) }}</label>
+                            <hr>
+                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($gif->created_at)->format('F y') }}</label>
                         </td>
                         @endif
                         <td class="border px-4 py-2">

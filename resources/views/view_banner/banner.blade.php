@@ -29,7 +29,7 @@
                         <th data-priority="2">Project Name</th>
                         <th data-priority="3" width="140px" max-width="160px">Client Name</th>
                         @if(Auth::user()->is_admin == 1)
-                        <th data-priority="4" width="110px" max-width="135px">Uploaded By</th>
+                        <th data-priority="4" width="110px" max-width="135px">Upload info</th>
                         @endif
                         <th data-priority="5" width="270px" max-width="290px">Actions</th>
                     </tr>
@@ -46,6 +46,8 @@
                         @if(Auth::user()->is_admin == 1)
                         <td class="border px-4 py-2" width="110px" max-width="135px">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($banner->uploaded_by_user_id) }}</label>
+                            <hr>
+                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($banner->created_at)->format('F y') }}</label>
                         </td>
                         @endif
                         <td class="border px-4 py-2"  width="270px" max-width="290px">
@@ -66,7 +68,7 @@
                                     </svg>
                                 </button>
                             </a>
-                           
+                        
                             <a href="/project/banner/edit/{{$banner->id}}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
