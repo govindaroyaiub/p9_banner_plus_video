@@ -47,7 +47,7 @@
                         <td class="border px-4 py-2">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($gif->uploaded_by_user_id) }}</label>
                             <hr>
-                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($gif->created_at)->format('F y') }}</label>
+                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($gif->created_at)->format('F Y') }}</label>
                         </td>
                         @endif
                         <td class="border px-4 py-2">

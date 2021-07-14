@@ -47,7 +47,7 @@
                         <td class="border px-4 py-2" width="110px" max-width="135px">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($banner->uploaded_by_user_id) }}</label>
                             <hr>
-                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($banner->created_at)->format('F y') }}</label>
+                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($banner->created_at)->format('F Y') }}</label>
                         </td>
                         @endif
                         <td class="border px-4 py-2"  width="270px" max-width="290px">
