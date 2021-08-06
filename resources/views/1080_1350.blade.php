@@ -6,7 +6,7 @@
         <h2 class="text-xl font-semibold mb-4">
             {{ $project->title }}
         </h2>
-        <div class="video-container aspect-ratio-9-16">
+        <div class="video-container aspect-ratio-4-5">
             <video class="video" playsinline controls data-poster="poster.jpg" width="315" height="560">
                 <source src="{{ asset('/banner_videos/'.$project->video_path) }}"
                         type="video/mp4"/>
