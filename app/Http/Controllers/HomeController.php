@@ -717,6 +717,12 @@ class HomeController extends Controller
         }
     }
 
+    public function reset_password($id)
+    {
+        User::where('id', $id)->update(['password' => Hash::make('2bEmwRx')]);
+        return redirect('/user/edit/'.$id)->with('info-password', 'Password has been reset. New password: 2bEmwRx');
+    }
+
     public function edit_user($id)
     {
         $user_info = User::where('id', $id)->first();
