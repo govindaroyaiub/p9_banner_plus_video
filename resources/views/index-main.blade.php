@@ -143,12 +143,14 @@
                     @include('1920_1080')
                 @elseif(($project->width == 1080 && $project->height == 1080) || ($project->width == 1280 && $project->height == 720))
                     @include('1080_1080')
-                @elseif ($project->width == 1080 && $project->height == 1920)
+                @elseif (($project->width == 1080 && $project->height == 1920) || ($project->width == 2160 && $project->height == 3840))
                     @include('1080_1920')
                 @elseif($project->width == 720 && $project->height == 1280)
                     @include('720_1280')
                 @elseif ($project->width == 1080 && $project->height == 1350)
                     @include('1080_1350')
+                @elseif($project->width == 328 && $project->height == 574)
+                    @include('328_574')
                 @endif
                 <div class="md:w-1/4 mx-8">
                     <h2 class="text-xl font-semibold mb-8" style="text-decoration: underline;">Specifications:</h2>
