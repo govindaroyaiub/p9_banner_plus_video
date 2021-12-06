@@ -46,6 +46,8 @@
                         <td class="border px-4 py-2" width="110px" max-width="135px">
                             <label
                                 class="text-red-500 font-semibold">{{ Helper::getUsername($transfer->uploader) }}</label>
+                            <hr>
+                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($transfer->created_at)->format('F Y') }}</label>
                         </td>
                         <td width="150">
                             <div class="flex justify-around items-center">

@@ -28,9 +28,7 @@
                         <th data-priority="1">No</th>
                         <th data-priority="2" width="240px" max-width="250px">Project Name</th>
                         <th data-priority="3" width="90px" max-width="100px">Client Name</th>
-                        @if(Auth::user()->is_admin == 1)
-                        <th data-priority="4">Upload Info</th>
-                        @endif
+                        <th data-priority="4">Uploader</th>
                         <th data-priority="5">Actions</th>
                     </tr>
                 </thead>
@@ -43,13 +41,11 @@
                             {{ $video->name }}
                         </td>
                         <td class="border px-4 py-2" width="90px" max-width="100px">{{ $video->client_name }}</td>
-                        @if(Auth::user()->is_admin == 1)
                         <td class="border px-4 py-2">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($video->uploaded_by_user_id) }}</label>
                             <hr>
                             <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($video->created_at)->format('F Y') }}</label>
                         </td>
-                        @endif
                         <td class="border px-4 py-2">
                             <a href="/project/video/addon/{{$video->id}}">
                                 <button type="button"
