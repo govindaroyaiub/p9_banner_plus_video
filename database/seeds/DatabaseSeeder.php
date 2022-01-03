@@ -72,7 +72,8 @@ class DatabaseSeeder extends Seeder
             'company_id' => 1,
             'is_send_mail' => 1,
             'is_admin' => 1,
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
+            'is_deleted' => 0
         ]);
 
         $video_sizes = [

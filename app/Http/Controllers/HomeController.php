@@ -50,6 +50,7 @@ class HomeController extends Controller
                                     'is_send_mail',
                                     'is_admin')
                                 ->where('company_id', $company_id)
+                                ->where('is_deleted', 0)
                                 ->orderBy('name', 'ASC')
                                 ->get();
             }
@@ -65,6 +66,7 @@ class HomeController extends Controller
                                     'logo.name as logoname'
                                     )
                                 ->orderBy('users.name', 'ASC')
+                                ->where('users.is_deleted', 0)
                                 ->get();
             }
             // $total_comments = Comments::get()->count();
@@ -750,7 +752,7 @@ class HomeController extends Controller
 
     public function delete_user($id)
     {
-        User::where('id', $id)->delete();
+        User::where('id', $id)->update(['is_deleted' => 1]);
         return redirect('/')->with('delete-user', 'User has been deleted');
     }
 
