@@ -753,6 +753,7 @@ class HomeController extends Controller
     public function delete_user($id)
     {
         User::where('id', $id)->update(['is_deleted' => 1]);
+        User::where('id', $id)->update(['password' => Hash::make('27Euihnajkmsd*asdzxcq2as')]);
         return redirect('/')->with('delete-user', 'User has been deleted');
     }
 
