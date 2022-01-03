@@ -37,6 +37,7 @@ class HomeController extends Controller
     public function index()
     {
         $verification = Logo::where('id', Auth::user()->company_id)->first();
+        $current_year = date("Y");
         if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
         {
             if(url('/') != 'http://localhost:8000')
@@ -72,30 +73,36 @@ class HomeController extends Controller
                                     ->select('size')
                                     ->where('main_project.project_type', 1)
                                     ->where('main_project.uploaded_by_company_id', Auth::user()->company_id)
+                                    ->whereYear('sub_project.created_at', $current_year)
                                     ->get();
 
             $banner_sizes = BannerProject::join('main_project', 'main_project.id', 'banner_projects.project_id')
                                     ->select('size')
                                     ->where('main_project.project_type', 0)
                                     ->where('main_project.uploaded_by_company_id', Auth::user()->company_id)
+                                    ->whereYear('banner_projects.created_at', $current_year)
                                     ->get();
 
             $gif_sizes = Gif::join('main_project', 'main_project.id', 'gif_projects.project_id')
                                     ->select('size')
                                     ->where('main_project.project_type', 2)
                                     ->where('main_project.uploaded_by_company_id', Auth::user()->company_id)
+                                    ->whereYear('gif_projects.created_at', $current_year)
                                     ->get();
 
             $total_banner_projects = MainProject::where('project_type', 0)
                                                 ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                                ->whereYear('created_at', $current_year)
                                                 ->count();
 
             $total_video_projects = MainProject::where('project_type', 1)
                                                 ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                                ->whereYear('created_at', $current_year)
                                                 ->count();
 
             $total_gif_projects = MainProject::where('project_type', 2)
                                                 ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                                ->whereYear('created_at', $current_year)
                                                 ->count();
 
             $total_videos = $video_sizes->count();
@@ -106,8 +113,7 @@ class HomeController extends Controller
             $total_banner_size = array();
 
             $main_banner_ids = Helper::getMainBannerIds(Auth::user()->company_id);
-
-            $current_year = date("Y");
+            
             $jan = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '1')->whereYear('created_at', $current_year)->get()->count();
             $feb = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '2')->whereYear('created_at', $current_year)->get()->count();
             $mar = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '3')->whereYear('created_at', $current_year)->get()->count();
