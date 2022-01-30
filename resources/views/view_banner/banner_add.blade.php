@@ -62,6 +62,7 @@
                 </div>
 
                 <div id="fileDisplaySection" style="display: none;">
+                    <br>
                     <div class="bg-white rounded-lg shadow-lg py-6">
                         <div class="block overflow-x-auto mx-6">
                             <table class="w-full text-left rounded-lg">
