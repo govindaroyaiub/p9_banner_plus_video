@@ -73,6 +73,8 @@ class BannerController extends Controller
 
     public function banner_add_post(Request $request)
     {
+
+        dd($request->all());
         $validator = $request->validate([
             'upload' => 'required|file|mimes:zip'
         ]);
