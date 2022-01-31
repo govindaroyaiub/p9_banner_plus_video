@@ -129,8 +129,8 @@ class BannerController extends Controller
                             $zip->close();
                         }
                     }
+                    $bannerIndex++;
                 }
-                $bannerIndex++;
             }
             
             return redirect('/project/banner/view/' . $main_project->id);
@@ -208,8 +208,8 @@ class BannerController extends Controller
                             $zip->close();
                         }
                     }
+                    $bannerIndex++;
                 }
-                $bannerIndex++;
             }
     
             return redirect('/project/banner/view/' . $main_project_id);
