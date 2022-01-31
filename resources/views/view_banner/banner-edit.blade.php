@@ -17,7 +17,11 @@
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" id="banner_size_id">
                         <option value="0" class="py-2">Select Option</option>
                         @foreach($size_list as $size)
-                        <option value="{{ $size->id }}" class="py-2">{{ $size->width }}x{{ $size->height }} </option>
+                        <option value="{{ $size->id }}" class="py-2" 
+                            @if($size->id == $sub_project_info['size_id'])
+                            selected
+                            @endif
+                            >{{ $size->width }}x{{ $size->height }} </option>
                         @endforeach
                     </select>
                     <br>
