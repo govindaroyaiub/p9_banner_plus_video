@@ -213,6 +213,22 @@ class BannerController extends Controller
         }
     }
 
+    public function deleteAllBanners($id){
+        $main_project_info = MainProject::where('id', $id)->first();
+
+        $sub_project_info = BannerProject::where('project_id', $id)->get();
+        if (($sub_project_info->count() != 0)) {
+            foreach ($sub_project_info as $sub_project) {
+                $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
+                unlink('banner_collection/' . $sub_project['file_path']);
+                $files = File::deleteDirectory($file_path);
+
+                BannerProject::where('id', $sub_project->id)->delete();
+            }
+        }
+        return redirect('/project/banner/addon/'.$id)->with('danger', 'Assets been deleted! Please Re-upload.');
+    }
+
     public function banner_delete_all($id)
     {
         $main_project_info = MainProject::where('id', $id)->first();

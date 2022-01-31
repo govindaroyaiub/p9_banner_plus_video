@@ -68,6 +68,7 @@ Route::get('/banner_sizes', 'BannerController@sizes')->name('banner_sizes');
 Route::get('/banner_sizes/add', 'BannerController@size_add')->name('banner_sizes_add');
 Route::post('/banner_sizes/add', 'BannerController@size_add_post')->name('banner_sizes_add_post');
 Route::get('/banner_sizes/delete/{id}', 'BannerController@size_delete')->name('banner_sizes_delete');
+Route::get('/delete-all-banners/{id}', 'BannerController@deleteAllBanners')->name('deleteAllBanners');
 //banner functions and routes end
 
 //video functions and routes
