@@ -99,7 +99,7 @@ class BannerController extends Controller
             $bannerIndex = 0;
 
             foreach($request->file('upload') as $upload){
-                if(isset($banner_size_id[$bannerIndex])){
+                if(!empty($banner_size_id[$bannerIndex])){
                     $size_info = BannerSizes::where('id', $banner_size_id[$bannerIndex])->first();
                     $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
             
@@ -129,8 +129,8 @@ class BannerController extends Controller
                             $zip->close();
                         }
                     }
-                    $bannerIndex++;
                 }
+                $bannerIndex++;
             }
             
             return redirect('/project/banner/view/' . $main_project->id);
@@ -208,8 +208,8 @@ class BannerController extends Controller
                             $zip->close();
                         }
                     }
-                    $bannerIndex++;
                 }
+                $bannerIndex++;
             }
     
             return redirect('/project/banner/view/' . $main_project_id);
