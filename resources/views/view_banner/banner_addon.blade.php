@@ -8,10 +8,20 @@
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide">Add Banner</h3>
             <br>
+
             <form id="project-add-form" class="max-w-xl" method="POST"
                 action="/project/banner/addon/{{ $main_project_id }}" enctype="multipart/form-data">
                 @csrf
                 {{-- Drag and Drop --}}
+                <div>
+                    <label class="text-primary font-light block">Select Option to Upload</label>
+                    <select name="version_request" id="version_request" required
+                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
+                        <option value="0" class="py-2">Select Option</option>
+                        <option value="1" class="py-2">Upload to Existing</option>
+                        <option value="2" class="py-2">Add as New version</option>
+                    </select>
+                </div>
                 <div
                     class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
                     <input name="upload[]" id="upload" type="file" multiple="multiple" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">

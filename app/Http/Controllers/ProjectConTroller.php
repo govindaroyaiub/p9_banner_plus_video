@@ -12,6 +12,7 @@ use App\Logo;
 use App\BannerSizes;
 use App\BannerProject;
 use App\Gif;
+use App\Version;
 use \App\Mail\SendMail;
 use App\Helper\Helper;
 
@@ -86,6 +87,7 @@ class ProjectConTroller extends Controller
                                             'main_project.color',
                                             'main_project.is_logo',
                                             'main_project.is_footer',
+                                            'main_project.is_version',
                                             'main_project.uploaded_by_company_id',
                                             'main_project.uploaded_by_user_id',
                                             'logo.name as logo_name',
@@ -97,22 +99,36 @@ class ProjectConTroller extends Controller
 
         if($main_project_info != NULL)
         {
-            $sub_project_info = BannerProject::join('banner_sizes', 'banner_projects.size_id', 'banner_sizes.id')
-                                            ->select(
-                                                'banner_projects.id',
-                                                'banner_projects.name',
-                                                'banner_projects.size',
-                                                'banner_projects.file_path',
-                                                'banner_sizes.width',
-                                                'banner_sizes.height'
-                                            )
-                                            ->where('project_id', $main_project_id)
-                                            ->get();             
+            $versions = Version::where('project_id', $main_project_id)->get();
 
-            return view('view_banner.banner-index', compact(
-            'main_project_info',
-            'sub_project_info',
-            'main_project_id'
+            // $sub_project_info = BannerProject::join('banner_sizes', 'banner_projects.size_id', 'banner_sizes.id')
+            //                                 ->join('versions', 'banner_projects.version_id', 'versions.id')
+            //                                 ->select(
+            //                                     'banner_projects.id',
+            //                                     'banner_projects.name',
+            //                                     'banner_projects.size',
+            //                                     'banner_projects.file_path',
+            //                                     'banner_sizes.width',
+            //                                     'banner_sizes.height'
+            //                                 )
+            //                                 ->where('banner_projects.project_id', $main_project_id)
+            //                                 ->get();       
+                                            
+            $sub_project_info = Version::where('project_id', $main_project_id)->get();
+
+            dd($sub_project_info);
+
+            // return view('view_banner.banner-index', compact(
+            // 'main_project_info',
+            // 'sub_project_info',
+            // 'main_project_id'
+            // ));
+
+            return view('view_banner.banner-develop', compact(
+                'main_project_info',
+                'versions',
+                'sub_project_info',
+                'main_project_id'
             ));
         }
         else 

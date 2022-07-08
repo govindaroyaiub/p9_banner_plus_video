@@ -130,6 +130,7 @@
     </div>
 
     <div class="container mx-auto px-4 py-2">
+        {{-- If the user is authenticated, then the user can do these actions --}}
         @if(Auth::user())
         <ul class="flex space-x-4">
             <li><a class="flex" href="/" target="_blank">
@@ -160,113 +161,163 @@
             </li>
         </ul>
         @endif
+
     </div>
+    {{-- if there are no banners for this project then it will show no banners in the preview --}}
+
     @if($sub_project_info->count() == 0)
-    <main class="main">
-        <div class="container mx-auto px-4 py-4">
-            <label class="text-red-700">No Banner Found!</label>
-            <br>
-            <label class="text-red-700">Please Add Banner or Delete This Project.</label>
-        </div>
-    </main>
+        <main class="main">
+            <div class="container mx-auto px-4 py-4">
+                <label class="text-red-700">No Banner Found!</label>
+                <br>
+                <label class="text-red-700">Please Add Banner or Delete This Project.</label>
+            </div>
+        </main>
     
     @else
-    <main class="main">
-        <div class="container mx-auto px-4 py-3">
-            <div x-data={show:false} class="rounded-sm">
-                <div class="border border-b-0 bg-gray-100 px-10 py-6" id="headingOne">
-                    <button @click="show=!show" class="underline text-blue-500 hover:text-blue-700 focus:outline-none" type="button">
-                    Version #1
-                    </button>
-                </div>
-                <div x-show="show" class="border border-b-0 px-10 py-6">
-                    <div class="container mx-auto px-4 py-4">
-                        <div class="banners">
-                            @foreach($sub_project_info as $project)
-                            <?php
-                                $zip = new ZipArchive;
-                                $file_path = str_replace(".zip","", $project->file_path);
-                                $directory = 'banner_collection/'.$file_path;
-                            ?>
-                            <div class="single-div">
-                                <small>{{ $project->width }}x{{ $project->height }}</small>
-                                <small class="mx-auto text-red-700 size_text">{{ $project->size }}</small>
-                                <iframe src="{{ asset($directory.'/index.html') }}" width="{{ $project->width }}"
-                                    height="{{ $project->height }}" frameBorder="0" scrolling="no" id="rel{{ $project->id }}"></iframe>
-                                <ul class="flex space-x-2 icons" style="color:{{ $main_project_info['color'] }};">
-                                    <li><i id="relBt{{ $project->id }}"
-                                            class="color-primary underline flex mt-2">
-                                            <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                            </svg>
-                                        </i></li>
-                                    @if(Auth::user())
-                                
-                                    <li><a href="{{ asset('/banner_collection/'.$project->file_path) }}"
-                                        class="color-primary underline flex mt-2" download>
-                                        <svg class="w-5 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
+        {{-- if the project has no version then it will show the preview the normal way.
+        and if it has version then the preview will show in tabs --}}
+
+        @if($main_project_info['is_version'] == 0)
+        <main class="main">
+            <div x-show="show" class="border border-b-0 px-10 py-6">
+                <div class="container mx-auto px-4 py-4">
+                    <div class="banners">
+                        @foreach($sub_project_info as $project)
+                        <?php
+                            $zip = new ZipArchive;
+                            $file_path = str_replace(".zip","", $project->file_path);
+                            $directory = 'banner_collection/'.$file_path;
+                        ?>
+                        <div class="single-div">
+                            <small>{{ $project->width }}x{{ $project->height }}</small>
+                            <small class="mx-auto text-red-700 size_text">{{ $project->size }}</small>
+                            <iframe src="{{ asset($directory.'/index.html') }}" width="{{ $project->width }}"
+                                height="{{ $project->height }}" frameBorder="0" scrolling="no" id="rel{{ $project->id }}"></iframe>
+                            <ul class="flex space-x-2 icons" style="color:{{ $main_project_info['color'] }};">
+                                <li><i id="relBt{{ $project->id }}"
+                                        class="color-primary underline flex mt-2">
+                                        <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                        </svg>
+                                    </i></li>
+                                @if(Auth::user())
+                            
+                                <li><a href="{{ asset('/banner_collection/'.$project->file_path) }}"
+                                    class="color-primary underline flex mt-2" download>
+                                    <svg class="w-5 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                </a></li>
+                                <li><a href="/banner/edit/{{ $project->id }}" class="color-primary underline flex mt-2">
+                                        <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
                                     </a></li>
-                                    <li><a href="/banner/edit/{{ $project->id }}" class="color-primary underline flex mt-2">
-                                            <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
+                                <li><a href="/banner/delete/{{ $project->id }}" class="color-primary underline flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
+                                        <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </a></li>
+                                @endif
+                            </ul>
+                        </div>
+                        <script>
+                            function reload() {
+                                document.getElementById("rel{{ $project->id }}").src += '';
+                            }
+                            var relBtn = document.getElementById("relBt{{ $project->id }}");
+                            relBtn.onclick = reload;
+                        </script>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        @else
+        <main class="main">
+            
+            <div class="container mx-auto px-4 py-3">
+                <div x-data={show:false} class="rounded-sm">
+                    <div class="border border-b-0 bg-gray-100 px-10 py-6" id="headingOne">
+                        <button @click="show=!show" class="underline text-blue-500 hover:text-blue-700 focus:outline-none" type="button">
+                        Version #1
+                        </button>
+                    </div>
+                    <div x-show="show" class="border border-b-0 px-10 py-6">
+                        <div class="container mx-auto px-4 py-4">
+                            <div class="banners">
+                                @foreach($sub_project_info as $project)                                   
+                                <?php
+                                    $zip = new ZipArchive;
+                                    $file_path = str_replace(".zip","", $project->file_path);
+                                    $directory = 'banner_collection/'.$file_path;
+                                ?>
+                                <div class="single-div">
+                                    <small>{{ $project->width }}x{{ $project->height }}</small>
+                                    <small class="mx-auto text-red-700 size_text">{{ $project->size }}</small>
+                                    <iframe src="{{ asset($directory.'/index.html') }}" width="{{ $project->width }}"
+                                        height="{{ $project->height }}" frameBorder="0" scrolling="no" id="rel{{ $project->id }}"></iframe>
+                                    <ul class="flex space-x-2 icons" style="color:{{ $main_project_info['color'] }};">
+                                        <li><i id="relBt{{ $project->id }}"
+                                                class="color-primary underline flex mt-2">
+                                                <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                                </svg>
+                                            </i></li>
+                                        @if(Auth::user())
+                                    
+                                        <li><a href="{{ asset('/banner_collection/'.$project->file_path) }}"
+                                            class="color-primary underline flex mt-2" download>
+                                            <svg class="w-5 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                             </svg>
                                         </a></li>
-                                    <li><a href="/banner/delete/{{ $project->id }}" class="color-primary underline flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
-                                            <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </a></li>
-                                    @endif
-                                </ul>
+                                        <li><a href="/banner/edit/{{ $project->id }}" class="color-primary underline flex mt-2">
+                                                <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a></li>
+                                        <li><a href="/banner/delete/{{ $project->id }}" class="color-primary underline flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
+                                                <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </a></li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                <script>
+                                    function reload() {
+                                        document.getElementById("rel{{ $project->id }}").src += '';
+                                    }
+                                    var relBtn = document.getElementById("relBt{{ $project->id }}");
+                                    relBtn.onclick = reload;
+                                </script>
+                                @endforeach
                             </div>
-                            <script>
-                                function reload() {
-                                    document.getElementById("rel{{ $project->id }}").src += '';
-                                }
-                                var relBtn = document.getElementById("relBt{{ $project->id }}");
-                                relBtn.onclick = reload;
-                            </script>
-                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container mx-auto px-4">
-            <div x-data={show:false} class="rounded-sm">
-                <div class="border border-b-0 bg-gray-100 px-10 py-6" id="headingOne">
-                    <button @click="show=!show" class="underline text-blue-500 hover:text-blue-700 focus:outline-none" type="button">
-                        Version #2
-                    </button>
-                </div>
-                <div x-show="show" class="border border-b-0 px-10 py-6">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
-        </div>
-        <div class="container mx-auto px-4 py-3">
-            <div x-data={show:false} class="rounded-sm">
-                <div class="border border-b-0 bg-gray-100 px-10 py-6" id="headingOne">
-                    <button @click="show=!show" class="underline text-blue-500 hover:text-blue-700 focus:outline-none" type="button">
-                        Version #3
-                    </button>
-                </div>
-                <div x-show="show" class="border border-b-0 px-10 py-6">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
-        </div>
-    </main>
+        </main>
+        @endif
     @endif
 
     @if($main_project_info->is_footer == 1)

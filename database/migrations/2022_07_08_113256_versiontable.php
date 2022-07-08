@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class BannerProjects extends Migration
+class Versiontable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class BannerProjects extends Migration
      */
     public function up()
     {
-        Schema::create('banner_projects', function (Blueprint $table) {
+        Schema::create('versions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->bigInteger('project_id');
-            $table->integer('size_id');
-            $table->string('size');
-            $table->integer('version_id');
-            $table->string('file_path');
+            $table->integer('project_id');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class BannerProjects extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banner_projects');
+        Schema::dropIfExists('versions');
     }
 }
