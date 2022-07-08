@@ -134,7 +134,7 @@
         @if(Auth::user())
         <ul class="flex space-x-4">
             <li>
-                <a class="flex" href="/" target="_blank">
+                <a class="flex" href="/" target="_blank" style="color: {{ $main_project_info['color'] }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -144,7 +144,6 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            @if($main_project_info['is_version'] == 0)
             <li>
                 <a class="flex text-green-600" href="/project/banner/addon/{{ $main_project_id }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -156,7 +155,6 @@
                     <span>Add More</span>
                 </a>
             </li>
-            @endif
             <li>
                 <a class="flex text-red-600" href="/delete-all-banners/{{ $main_project_id }}" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete all the banners?!');">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -257,7 +255,7 @@
                 <div x-data={show:false} class="rounded-sm">
                     <div class="border border-b-0 bg-gray-100 px-10 py-6 cursor-pointer" id="headingOne" @click="show=!show">
                         <label class="underline text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
-                            Version {{$i++}}
+                            {{ Helper::getVersionName($id) }}
                         </label>
                         @if(Auth::user())
                         <div class="flex float-right">
@@ -265,6 +263,11 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
+                            </a>
+                            <a href="/banner/edit/version/{{$id}}" class="text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                  </svg>
                             </a>
                             <a href="/delete/version/{{$id}}" class="text-red-600" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete this version?!');">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

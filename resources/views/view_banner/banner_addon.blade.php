@@ -22,6 +22,11 @@
                         <option value="2" class="py-2">Add as New version</option>
                     </select>
                 </div>
+
+                <input type='text' placeholder="Version 2" name="version_title" value="Version 2" id="version_title"
+                               class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
+                               required/>
+
                 <div
                     class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
                     <input name="upload[]" id="upload" type="file" multiple="multiple" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
@@ -71,7 +76,18 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
+
     $(document).ready(function () {
+        $('#version_request').change(function(){
+            var value = $(this).val();
+            if(value == 2){
+                document.getElementById('version_title').style.display = "block";
+            }
+            else{
+                document.getElementById('version_title').style.display = "none";
+            }
+        });
+
         $("#upload").change(function () {
             var rows = '';
             var select = '';

@@ -9,6 +9,7 @@ use App\Sizes;
 use App\Logo;
 use App\BannerSizes;
 use App\BannerProject;
+use App\Version;
 
 class Helper
 {
@@ -65,5 +66,11 @@ class Helper
                                 ->toArray();
 
         return $banner_ids;
+    }
+
+    public static function getVersionName($id)
+    {
+        $data = Version::where('id', $id)->first();
+        return $data['title'];
     }
 }

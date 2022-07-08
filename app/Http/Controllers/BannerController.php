@@ -98,6 +98,7 @@ class BannerController extends Controller
 
             $version = new Version;
             $version->project_id = $main_project->id;
+            $version->title = 'Version 1';
             $version->save();
 
             $banner_size_id = $request->banner_size_id;
@@ -234,6 +235,7 @@ class BannerController extends Controller
             }
             else{ //if add as a new version to the preview
                 $version = new Version;
+                $version->title = $request->version_title;
                 $version->project_id = $main_project_id;
                 $version->save();
 

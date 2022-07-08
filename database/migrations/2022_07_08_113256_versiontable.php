@@ -16,6 +16,7 @@ class Versiontable extends Migration
         Schema::create('versions', function (Blueprint $table) {
             $table->id();
             $table->integer('project_id');
+            $table->string('title');
             $table->timestamps();
         });
     }
