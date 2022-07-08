@@ -285,6 +285,14 @@ class BannerController extends Controller
         }
     }
 
+    public function deleteVersion($id){
+        dd($id);
+    }
+
+    public function addBannerVersion($id){
+        dd($id);
+    }
+
     public function deleteAllBanners($id){
         $main_project_info = MainProject::where('id', $id)->first();
 

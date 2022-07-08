@@ -100,7 +100,6 @@ class ProjectConTroller extends Controller
         if($main_project_info != NULL)
         {
             $versions = Version::where('project_id', $main_project_id)->get();     
-
             $data = [];
 
             foreach($versions as $version){
@@ -122,7 +121,7 @@ class ProjectConTroller extends Controller
                     $banner_id = $sub_project->id;
                     $data[$version_id][$banner_id] = $sub_project;
                 }
-            }                
+            }
 
             // return view('view_banner.banner-index', compact(
             // 'main_project_info',

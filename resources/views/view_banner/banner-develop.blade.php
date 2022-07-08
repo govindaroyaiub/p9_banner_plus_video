@@ -133,24 +133,30 @@
         {{-- If the user is authenticated, then the user can do these actions --}}
         @if(Auth::user())
         <ul class="flex space-x-4">
-            <li><a class="flex" href="/" target="_blank">
+            <li>
+                <a class="flex" href="/" target="_blank">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                         </path>
                     </svg>
-                    <span>Dashboard</span></a></li>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            @if($main_project_info['is_version'] == 0)
             <li>
-                <a class="flex" href="/project/banner/addon/{{ $main_project_id }}">
+                <a class="flex text-green-600" href="/project/banner/addon/{{ $main_project_id }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                         </path>
                     </svg>
-                    <span>Add More</span></a>
+                    <span>Add More</span>
+                </a>
             </li>
+            @endif
             <li>
                 <a class="flex text-red-600" href="/delete-all-banners/{{ $main_project_id }}" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete all the banners?!');">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -246,18 +252,27 @@
         @else
         <main class="main">
             <?php $i=1; ?>
-            @foreach ($data as $row)
+            @foreach ($data as $id => $row)
             <div class="container mx-auto px-4 py-3">
                 <div x-data={show:false} class="rounded-sm">
                     <div class="border border-b-0 bg-gray-100 px-10 py-6 cursor-pointer" id="headingOne" @click="show=!show">
                         <label class="underline text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
                             Version {{$i++}}
                         </label>
-                        <a href="" class="float-right text-red-600" onclick="return confirm('Slow down HOTSHOT! You sure you want to this set of banners?!');">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </a>
+                        @if(Auth::user())
+                        <div class="flex float-right">
+                            <a href="/banner/add/version/{{$id}}" class="text-green-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </a>
+                            <a href="/delete/version/{{$id}}" class="text-red-600" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete this version?!');">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </a>
+                        </div>
+                        @endif
                     </div>
                     <div x-show="show" class="border border-b-0 px-10 py-6">
                         <div class="container mx-auto px-4 py-4">
