@@ -152,7 +152,7 @@
                     <span>Add More</span></a>
             </li>
             <li>
-                <a class="flex" href="/delete-all-banners/{{ $main_project_id }}" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete all the banners?!');">
+                <a class="flex text-red-600" href="/delete-all-banners/{{ $main_project_id }}" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete all the banners?!');">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
@@ -249,10 +249,15 @@
             @foreach ($data as $row)
             <div class="container mx-auto px-4 py-3">
                 <div x-data={show:false} class="rounded-sm">
-                    <div class="border border-b-0 bg-gray-100 px-10 py-6" id="headingOne">
-                        <button @click="show=!show" class="underline text-blue-500 hover:text-blue-700 focus:outline-none" type="button">
-                        Version {{$i++}}
-                        </button>
+                    <div class="border border-b-0 bg-gray-100 px-10 py-6 cursor-pointer" id="headingOne" @click="show=!show">
+                        <label class="underline text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
+                            Version {{$i++}}
+                        </label>
+                        <a href="" class="float-right text-red-600" onclick="return confirm('Slow down HOTSHOT! You sure you want to this set of banners?!');">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </a>
                     </div>
                     <div x-show="show" class="border border-b-0 px-10 py-6">
                         <div class="container mx-auto px-4 py-4">
