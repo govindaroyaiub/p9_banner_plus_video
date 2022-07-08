@@ -245,18 +245,19 @@
 
         @else
         <main class="main">
-            
+            <?php $i=1; ?>
+            @foreach ($data as $row)
             <div class="container mx-auto px-4 py-3">
                 <div x-data={show:false} class="rounded-sm">
                     <div class="border border-b-0 bg-gray-100 px-10 py-6" id="headingOne">
                         <button @click="show=!show" class="underline text-blue-500 hover:text-blue-700 focus:outline-none" type="button">
-                        Version #1
+                        Version {{$i++}}
                         </button>
                     </div>
                     <div x-show="show" class="border border-b-0 px-10 py-6">
                         <div class="container mx-auto px-4 py-4">
                             <div class="banners">
-                                @foreach($sub_project_info as $project)                                   
+                                @foreach($row as $project)                                   
                                 <?php
                                     $zip = new ZipArchive;
                                     $file_path = str_replace(".zip","", $project->file_path);
@@ -316,6 +317,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         </main>
         @endif
     @endif
