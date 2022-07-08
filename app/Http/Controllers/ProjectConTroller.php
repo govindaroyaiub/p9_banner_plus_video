@@ -99,19 +99,7 @@ class ProjectConTroller extends Controller
 
         if($main_project_info != NULL)
         {
-            $versions = Version::where('project_id', $main_project_id)->get();
-
-            // $sub_project_info = BannerProject::join('banner_sizes', 'banner_projects.size_id', 'banner_sizes.id')
-            //                                 ->select(
-            //                                     'banner_projects.id',
-            //                                     'banner_projects.name',
-            //                                     'banner_projects.size',
-            //                                     'banner_projects.file_path',
-            //                                     'banner_sizes.width',
-            //                                     'banner_sizes.height'
-            //                                 )
-            //                                 ->where('project_id', $main_project_id)
-            //                                 ->get();       
+            $versions = Version::where('project_id', $main_project_id)->get();     
 
             $data = [];
 
