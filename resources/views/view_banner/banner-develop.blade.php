@@ -184,7 +184,7 @@
 
         @if($main_project_info['is_version'] == 0)
         <main class="main">
-            <div x-show="show" class="border border-b-0 px-10 py-6">
+            <div x-show="show" class="px-10 py-6">
                 <div class="container mx-auto px-4 py-4">
                     <div class="banners">
                         @foreach($sub_project_info as $project)
@@ -253,23 +253,26 @@
             @foreach ($data as $id => $row)
             <div class="container mx-auto px-4 py-3">
                 <div x-data={show:false} class="rounded-sm">
-                    <div class="border border-b-0 bg-gray-100 px-10 py-6 cursor-pointer" id="headingOne" @click="show=!show">
+                    <div class="bg-gray-100 px-10 py-6 cursor-pointer" id="headingOne" @click="show=!show">
                         <label class="underline text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
                             {{ Helper::getVersionName($id) }}
+                        </label> - 
+                        <label class="text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
+                            {{ \Carbon\Carbon::parse(Helper::getVersionDate($id))->format('d F Y') }}
                         </label>
                         @if(Auth::user())
                         <div class="flex float-right">
-                            <a href="/banner/add/version/{{$id}}" class="text-green-600">
+                            <a href="/banner/add/version/{{$main_project_id}}/{{$id}}" class="text-green-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </a>
-                            <a href="/banner/edit/version/{{$id}}" class="text-blue-600">
+                            <a href="/banner/edit/version/{{$main_project_id}}/{{$id}}" class="text-blue-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                   </svg>
                             </a>
-                            <a href="/delete/version/{{$id}}" class="text-red-600" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete this version?!');">
+                            <a href="/delete/version/{{$main_project_id}}/{{$id}}" class="text-red-600" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete this version?!');">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>

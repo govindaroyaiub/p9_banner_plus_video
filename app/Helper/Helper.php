@@ -73,4 +73,9 @@ class Helper
         $data = Version::where('id', $id)->first();
         return $data['title'];
     }
+
+    public static function getVersionDate($id){
+        $data = Version::where('id', $id)->first();
+        return $data['created_at'];
+    }
 }

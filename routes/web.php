@@ -70,8 +70,9 @@ Route::post('/banner_sizes/add', 'BannerController@size_add_post')->name('banner
 Route::get('/banner_sizes/delete/{id}', 'BannerController@size_delete')->name('banner_sizes_delete');
 Route::get('/delete-all-banners/{id}', 'BannerController@deleteAllBanners')->name('deleteAllBanners');
 
-Route::get('/banner/add/version/{id}', 'BannerController@addBannerVersion')->name('addBannerVersion');
-Route::get('/delete/version/{id}', 'BannerController@deleteVersion')->name('deleteVersion');
+Route::get('/banner/add/version/{project_id}/{version_id}', 'BannerController@addBannerVersion')->name('addBannerVersion');
+Route::get('/banner/edit/version/{project_id}/{version_id}', 'BannerController@editBannerVersion')->name('editBannerVersion');
+Route::get('/delete/version/{project_id}/{version_id}', 'BannerController@deleteVersion')->name('deleteVersion');
 //banner functions and routes end
 
 //video functions and routes

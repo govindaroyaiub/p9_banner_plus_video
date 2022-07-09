@@ -169,8 +169,9 @@ class BannerController extends Controller
     public function project_addon($id)
     {
         $main_project_id = $id;
+        $versionCount = Version::where('project_id', $main_project_id)->count();
         $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-        return view('view_banner.banner_addon', compact('size_list', 'main_project_id'));
+        return view('view_banner.banner_addon', compact('size_list', 'main_project_id', 'versionCount'));
     }
 
     public function project_addon_post(Request $request, $id)
@@ -188,7 +189,18 @@ class BannerController extends Controller
             $main_project_id = $id;
             $project_info = MainProject::where('id', $main_project_id)->first();
             $version_info = Version::where('project_id', $main_project_id)->first();
-            $version_id = $version_info['id'];
+
+            if($version_info == NULL){
+                $version = new Version;
+                $version->project_id = $main_project_id;
+                $version->title = 'Version 1';
+                $version->save();
+
+                $version_id = $version->id;
+            }
+            else{
+                $version_id = $version_info['id'];
+            }
             $banner_size_id = $request->banner_size_id;
             $bannerIndex = 0;
 
@@ -287,12 +299,36 @@ class BannerController extends Controller
         }
     }
 
-    public function deleteVersion($id){
+    public function deleteVersion($project_id, $version_id){
+        $sub_project_info = BannerProject::where('project_id', $project_id)->where('version_id', $version_id)->get();
+        if (($sub_project_info->count() != 0)) {
+            foreach ($sub_project_info as $sub_project) {
+                $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
+                unlink('banner_collection/' . $sub_project['file_path']);
+                $files = File::deleteDirectory($file_path);
+
+                BannerProject::where('id', $sub_project->id)->delete();
+            }
+        }
+
+        Version::where('id', $version_id)->delete();
+
+        $versionCount = Version::where('project_id', $project_id)->count();
+
+        if($versionCount <= 1){
+            MainProject::where('id', $project_id)->update(['is_version' => 0]);
+        }
+
+        return back();
+
+    }
+
+    public function addBannerVersion($project_id, $id){
         dd($id);
     }
 
-    public function addBannerVersion($id){
-        dd($id);
+    public function editBannerVersion($project_id, $id){
+
     }
 
     public function deleteAllBanners($id){
@@ -308,6 +344,9 @@ class BannerController extends Controller
                 BannerProject::where('id', $sub_project->id)->delete();
             }
         }
+
+        Version::where('project_id', $id)->delete();
+        MainProject::where('id', $id)->update(['is_version' => 0]);
         return redirect('/project/banner/addon/'.$id)->with('danger', 'Assets been deleted! Please Re-upload.');
     }
 

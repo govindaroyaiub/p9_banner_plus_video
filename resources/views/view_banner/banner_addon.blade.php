@@ -18,12 +18,16 @@
                     <select name="version_request" id="version_request" required
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                         <option value="0" class="py-2">Select Option</option>
+                        @if($versionCount < 2)
                         <option value="1" class="py-2">Upload to Existing</option>
+                        @endif
+                        @if($versionCount != 0)
                         <option value="2" class="py-2">Add as New version</option>
+                        @endif
                     </select>
                 </div>
 
-                <input type='text' placeholder="Version 2" name="version_title" value="Version 2" id="version_title"
+                <input type='text' placeholder="Version {{ $versionCount++ }}" name="version_title" value="Version {{ $versionCount++ }}" id="version_title"
                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
                                required/>
 
