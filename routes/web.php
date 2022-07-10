@@ -71,6 +71,7 @@ Route::get('/banner_sizes/delete/{id}', 'BannerController@size_delete')->name('b
 Route::get('/delete-all-banners/{id}', 'BannerController@deleteAllBanners')->name('deleteAllBanners');
 
 Route::get('/banner/add/version/{project_id}/{version_id}', 'BannerController@addBannerVersion')->name('addBannerVersion');
+Route::post('/banner/add/version/{project_id}/{version_id}', 'BannerController@addBannerVersionPost')->name('addBannerVersionPost');
 Route::get('/banner/edit/version/{project_id}/{version_id}', 'BannerController@editBannerVersion')->name('editBannerVersion');
 Route::get('/delete/version/{project_id}/{version_id}', 'BannerController@deleteVersion')->name('deleteVersion');
 //banner functions and routes end
