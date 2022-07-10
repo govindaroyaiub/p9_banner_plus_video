@@ -7,7 +7,7 @@
         <div class="w-3/4 mx-4">
             @include('alert')
             <h4 class="underline text-xl font-semibold tracking-wide py-2">Project: <label class="text-red-500">{{ $project_name }} - {{ $version_name }}</label></h4>
-            <h3 class="text-xl font-semibold tracking-wide">Add Banner</h3>
+            <h3 class="text-xl font-semibold tracking-wide">Add Banners</h3>
             <br>
 
             <form id="project-add-form" class="max-w-xl" method="POST"
