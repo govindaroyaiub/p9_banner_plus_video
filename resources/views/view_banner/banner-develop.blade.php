@@ -253,7 +253,7 @@
             @foreach ($data as $id => $row)
             <div class="container mx-auto px-4 py-3">
                 <div x-data={show:false} class="rounded-sm">
-                    <div class="bg-gray-100 px-10 py-6 cursor-pointer" id="headingOne" @click="show=!show">
+                    <div class="bg-gray-100 px-10 py-6 cursor-pointer" id="heading{{$id}}" @click="show=!show">
                         <label class="text-blue-500">{{$i++}}. </label>
                         <label class="underline text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
                             {{ Helper::getVersionName($id) }}
@@ -284,7 +284,7 @@
                     <div x-show="show" class="border border-b-0 px-10 py-6">
                         <div class="container mx-auto px-4 py-4">
                             <div class="banners">
-                                @foreach($row as $project)                                   
+                                @foreach($row as $project)
                                 <?php
                                     $zip = new ZipArchive;
                                     $file_path = str_replace(".zip","", $project->file_path);
@@ -294,7 +294,7 @@
                                     <small>{{ $project->width }}x{{ $project->height }}</small>
                                     <small class="mx-auto text-red-700 size_text">{{ $project->size }}</small>
                                     <iframe src="{{ asset($directory.'/index.html') }}" width="{{ $project->width }}"
-                                        height="{{ $project->height }}" frameBorder="0" scrolling="no" id="rel{{ $project->id }}"></iframe>
+                                        height="{{ $project->height }}" frameBorder="0" scrolling="no" id="rel{{ $project->id }}" class="rels{{$id}}"></iframe>
                                     <ul class="flex space-x-2 icons" style="color:{{ $main_project_info['color'] }};">
                                         <li>
                                             <i id="relBt{{ $project->id }}"
@@ -349,6 +349,19 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                        function reloadAll() {
+                            var els = document.getElementsByClassName("rels{{$id}}");
+
+                            for(var i = 0; i < els.length; i++)
+                            {
+                                console.log(els[i]);
+                                els[i].src += "";
+                            }
+                        }
+                        var relBtn = document.getElementById("heading{{$id}}");
+                        relBtn.onclick = reloadAll;
+                    </script>
                 </div>
             </div>
             @endforeach
