@@ -252,7 +252,7 @@
             <?php $i=1; ?>
             @foreach ($data as $id => $row)
             <div class="container mx-auto px-4 py-3">
-                <div x-data={show:false} class="rounded-sm">
+                <div x-data={show:true} class="rounded-sm">
                     <div class="bg-gray-100 px-10 py-6 cursor-pointer" id="heading{{$id}}" @click="show=!show">
                         <label class="text-blue-500">{{$i++}}. </label>
                         <label class="underline text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
