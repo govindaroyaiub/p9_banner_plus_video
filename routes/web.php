@@ -21,6 +21,7 @@ Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');
 Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_view');
 Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
+Route::post('/setVersionStatus/{version_id}', 'ProjectConTroller@setVersionViewStatus')->name('setVersionViewStatus');
 
 Route::get('/p9_transfer/download/all/{slug}', 'TransferController@download_all')->name('download_all');
 

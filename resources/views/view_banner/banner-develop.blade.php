@@ -252,8 +252,8 @@
             <?php $i=1; ?>
             @foreach ($data as $id => $row)
             <div class="container mx-auto px-4 py-3">
-                <div x-data={show:true} class="rounded-sm">
-                    <div class="bg-gray-100 px-10 py-6 cursor-pointer" id="heading{{$id}}" @click="show=!show">
+                <div @if(Helper::getVersionStatus($id) == 1) x-data={show:true} @else x-data={show:false} @endif class="rounded-sm">
+                    <div class="bg-gray-100 px-10 py-6 cursor-pointer" id="version{{$id}}" @click="show=!show">
                         <label class="text-blue-500">{{$i++}}. </label>
                         <label class="underline text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
                             {{ Helper::getVersionName($id) }}
@@ -261,8 +261,10 @@
                         <label class="text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
                             {{ \Carbon\Carbon::parse(Helper::getVersionDate($id))->format('d F Y') }}
                         </label>
+                    </div>
+                    <div x-show="show" class="border border-b-0 px-1 py-1" id="collapse{{$id}}" class="collapse">
                         @if(Auth::user())
-                        <div class="flex float-right">
+                        <div class="flex float-right" style="z-index: 999;">
                             <a href="/banner/add/version/{{$main_project_id}}/{{$id}}" class="text-green-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -280,9 +282,7 @@
                             </a>
                         </div>
                         @endif
-                    </div>
-                    <div x-show="show" class="border border-b-0 px-10 py-6">
-                        <div class="container mx-auto px-4 py-4">
+                        <div class="container mx-auto px-4 py-12">
                             <div class="banners">
                                 @foreach($row as $project)
                                 <?php
@@ -351,16 +351,58 @@
                     </div>
                     <script>
                         function reloadAll() {
+                            var versionID = document.getElementById('version{{$id}}').id;
+                            var collapseID = document.getElementById('collapse{{$id}}').id;
+                            var displayStatus = document.getElementById("collapse{{$id}}").style.display;
+
+                            if(displayStatus == 'none'){
+                                // console.log("Version: " + versionID + " Collapse: " + collapseID + " is opened!");
+                                setHeaderView(versionID, displayStatus);
+                            }
+                            else{
+                                // console.log("Version: " + versionID + " Collapse: " + collapseID + " is closed!");
+                                setHeaderView(versionID, displayStatus);
+                            }
+                            
                             var els = document.getElementsByClassName("rels{{$id}}");
 
                             for(var i = 0; i < els.length; i++)
                             {
-                                console.log(els[i]);
+                                // console.log(els[i]);
                                 els[i].src += "";
                             }
                         }
-                        var relBtn = document.getElementById("heading{{$id}}");
+                        var relBtn = document.getElementById("version{{$id}}");
                         relBtn.onclick = reloadAll;
+
+                        function setHeaderView(versionID, displayStatus){
+                            //display none value is coming after the collapse is opened.
+                            //so changing the value to opposite to send understandable axios request
+
+                            if(displayStatus == 'none'){
+                                displayStatus = 'block';
+                            }
+                            else{
+                                displayStatus = 'none';
+                            }
+
+                            axios.post('/setVersionStatus/' + versionID, 
+                            {
+                                displayStatus: displayStatus
+                            })
+                            .then(function (response)
+                            {
+                                if(response)
+                                {
+                                    console.log(response);
+                                }
+                            })
+                            .catch(function (error)
+                            {
+                                alert('Opps! There was an error in the process! See ConoleLog');
+                                console.log(error);
+                            });
+                        }
                     </script>
                 </div>
             </div>

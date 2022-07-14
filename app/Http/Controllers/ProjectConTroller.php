@@ -232,4 +232,19 @@ class ProjectConTroller extends Controller
         $result = MainProject::where('id', $id)->update(['color' => $color]);
         return 200;
     }
+
+    public function setVersionViewStatus(Request $request, $version_id){
+        $displayStatus = $request->displayStatus;
+        $version_id = trim($version_id, "version");
+
+        if($displayStatus == 'block'){
+            $is_open = 1;
+        }
+        else{
+            $is_open = 0;
+        }
+        
+        Version::where('id', $version_id)->update(['is_open' => $is_open]);
+        return $is_open;
+    }
 }

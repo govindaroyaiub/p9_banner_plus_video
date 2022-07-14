@@ -78,4 +78,9 @@ class Helper
         $data = Version::where('id', $id)->first();
         return $data['created_at'];
     }
+
+    public static function getVersionStatus($id){
+        $data = Version::where('id', $id)->first();
+        return $data['is_open'];
+    }
 }
