@@ -509,13 +509,19 @@ class BannerController extends Controller
     public function banner_delete($id)
     {
         $sub_project = BannerProject::where('id', $id)->first();
-
+        $version_id = $sub_project['version_id'];
+        $project_id = $sub_project['project_id'];
         $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
         if(file_exists($file_path)){
             unlink('banner_collection/' . $sub_project['file_path']);
             $files = File::deleteDirectory($file_path);    
         }
+        if($version_id != NULL){
+            Version::where('id', $version_id)->delete();
+        }
+        MainProject::where('id', $project_id)->update(['is_version' => 0]);
         BannerProject::where('id', $id)->delete();
+
         return back();
     }
 
