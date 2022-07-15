@@ -12,16 +12,22 @@
             @include('sidebar')
             <div class="flex-1 mx-4">
                 @include('alert')
-                <h3 class="text-xl font-semibold tracking-wide">Statistical Overview</h3>
-                <br>
+                <h3 class="text-2xl underline font-semibold tracking-wide text-center">Statistical Overview</h3>
+
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div id="projectsPerYearChart" style="height: 350px;"></div>
+                    <div id="bannersPerYearChart" style="height: 350px;"></div>
+                </div>
+                <br>    
                 <div class="grid grid-cols-2 gap-4 mt-4">
                     <div id="columnchart_material" style="height: 350px;"></div>
                     <div id="monthly_chart" style="height: 350px;"></div>
                 </div>
                 
                 <br>
+                <br>
                 <div class="flex justify-between w-full">
-                    <h3 class="text-xl font-semibold tracking-wide">Users</h3>
+                    <h3 class="text-2xl underline font-semibold tracking-wide">Users</h3>
                     @if(Auth::user()->is_admin == 1)
                     <a href="/user/add">
                         <button type="button"
@@ -93,6 +99,52 @@
         </div>
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Year', 'Projects'],
+            @php
+                foreach($projectsCreatedByYear as $d) {
+                    echo "['".$d->year."', ".$d->count."],";
+                }
+            @endphp
+          ]);
+  
+          var options = {
+            title: 'Projects Created By Year',
+            pieHole: 0.4,
+          };
+  
+          var chart = new google.visualization.PieChart(document.getElementById('projectsPerYearChart'));
+          chart.draw(data, options);
+        }
+        
+    </script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Year', 'Banners'],
+            @php
+                foreach($bannersCreatedPerYear as $d) {
+                    echo "['".$d->year."', ".$d->count."],";
+                }
+            @endphp
+          ]);
+  
+          var options = {
+            title: 'Banners Created By Year',
+            pieHole: 0.4,
+          };
+  
+          var chart = new google.visualization.PieChart(document.getElementById('bannersPerYearChart'));
+          chart.draw(data, options);
+        }
+        
+    </script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['bar']});
         google.charts.setOnLoadCallback(drawChart);

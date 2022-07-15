@@ -16,6 +16,7 @@ use App\Gif;
 use App\BannerProject;
 use App\Helper\Helper;
 use Exception;
+use DB;
 
 class HomeController extends Controller
 {
@@ -129,6 +130,22 @@ class HomeController extends Controller
             $nov = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '11')->whereYear('created_at', $current_year)->get()->count();
             $dec = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '12')->whereYear('created_at', $current_year)->get()->count();
 
+            $projectsCreatedByYear = MainProject::select(
+                                                DB::raw("(COUNT(*)) as count"),
+                                                DB::raw("YEAR(created_at) as year")
+                                            )
+                                            ->orderBy('created_at', 'DESC')
+                                            ->groupBy('year')
+                                            ->get();
+
+            $bannersCreatedPerYear = BannerProject::select(
+                                                DB::raw("(COUNT(*)) as count"),
+                                                DB::raw("YEAR(created_at) as year")
+                                            )
+                                            ->orderBy('created_at', 'DESC')
+                                            ->groupBy('year')
+                                            ->get();
+
             try{
                 return view('home', compact(
                     'user_list', 
@@ -138,7 +155,9 @@ class HomeController extends Controller
                     'total_gif_projects', 
                     'total_banner_projects', 
                     'total_video_projects', 
-                    'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec' 
+                    'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
+                    'projectsCreatedByYear',
+                    'bannersCreatedPerYear'
                 ));
             }
             catch(Exception $e)
