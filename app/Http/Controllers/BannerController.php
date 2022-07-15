@@ -308,9 +308,11 @@ class BannerController extends Controller
         if (($sub_project_info->count() != 0)) {
             foreach ($sub_project_info as $sub_project) {
                 $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
-                unlink('banner_collection/' . $sub_project['file_path']);
-                $files = File::deleteDirectory($file_path);
-
+                if(file_exists($file_path)){
+                    unlink('banner_collection/' . $sub_project['file_path']);
+                    $files = File::deleteDirectory($file_path);
+    
+                }
                 BannerProject::where('id', $sub_project->id)->delete();
             }
         }
@@ -415,9 +417,10 @@ class BannerController extends Controller
             if (($sub_project_info->count() != 0)) {
                 foreach ($sub_project_info as $sub_project) {
                     $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
-                    unlink('banner_collection/' . $sub_project['file_path']);
-                    $files = File::deleteDirectory($file_path);
-
+                    if(file_exists($file_path)){
+                        unlink('banner_collection/' . $sub_project['file_path']);
+                        $files = File::deleteDirectory($file_path);
+                    }
                     BannerProject::where('id', $sub_project->id)->delete();
                 }
             }
@@ -471,9 +474,10 @@ class BannerController extends Controller
         if (($sub_project_info->count() != 0)) {
             foreach ($sub_project_info as $sub_project) {
                 $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
-                unlink('banner_collection/' . $sub_project['file_path']);
-                $files = File::deleteDirectory($file_path);
-
+                if(file_exists($file_path)){
+                    unlink('banner_collection/' . $sub_project['file_path']);
+                    $files = File::deleteDirectory($file_path);
+                }
                 BannerProject::where('id', $sub_project->id)->delete();
             }
         }
@@ -491,9 +495,10 @@ class BannerController extends Controller
         if (($sub_project_info->count() != 0)) {
             foreach ($sub_project_info as $sub_project) {
                 $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
-                unlink('banner_collection/' . $sub_project['file_path']);
-                $files = File::deleteDirectory($file_path);
-
+                if(file_exists($file_path)){
+                    unlink('banner_collection/' . $sub_project['file_path']);
+                    $files = File::deleteDirectory($file_path);
+                }
                 BannerProject::where('id', $sub_project->id)->delete();
             }
         }
@@ -506,9 +511,10 @@ class BannerController extends Controller
         $sub_project = BannerProject::where('id', $id)->first();
 
         $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
-        unlink('banner_collection/' . $sub_project['file_path']);
-        $files = File::deleteDirectory($file_path);
-
+        if(file_exists($file_path)){
+            unlink('banner_collection/' . $sub_project['file_path']);
+            $files = File::deleteDirectory($file_path);    
+        }
         BannerProject::where('id', $id)->delete();
         return back();
     }
@@ -532,8 +538,11 @@ class BannerController extends Controller
             $banner_id = $id;
             $banner_info = BannerProject::where('id', $banner_id)->first();
             $old_file_directory = public_path() . '/banner_collection/' . str_replace(".zip", "", $banner_info['file_path']);
-            unlink('banner_collection/' . $banner_info['file_path']);
-            $files = File::deleteDirectory($old_file_directory);
+            
+            if(file_exists($old_file_directory)){
+                unlink('banner_collection/' . $banner_info['file_path']);
+                $files = File::deleteDirectory($old_file_directory);
+            }
     
             $project_info = MainProject::where('id', $banner_info['project_id'])->where('project_type', 0)->first();
             $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
@@ -627,9 +636,11 @@ class BannerController extends Controller
                     $new_file_path = NULL;
                 }
                 $old_directory = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
-                $old_files = File::deleteDirectory($old_directory);
-    
-                rename('banner_collection/' . $old_file_path, 'banner_collection/' . $new_file_path);
+
+                if(file_exists($old_directory)){
+                    $old_files = File::deleteDirectory($old_directory);
+                    rename('banner_collection/' . $old_file_path, 'banner_collection/' . $new_file_path);
+                }
     
                 $new_sub_details = [
                     'name' => $new_sub_project_name,

@@ -175,7 +175,9 @@ class TransferController extends Controller
             foreach($sub_transfers as $item)
             {
                 $directory = public_path().'/transfer_files/'.$slug;
-                unlink('transfer_files/'.$slug.'/'.$item->path);
+                if(file_exists($directory)){
+                    unlink('transfer_files/'.$slug.'/'.$item->path);
+                }
             }
             SubTransfer::where('transfer_id', $transfer_id)->delete();
 
@@ -216,7 +218,9 @@ class TransferController extends Controller
 
         $transfer = Transfer::find($id);
         $directory = public_path().'/transfer_files/'.$transfer->slug;
-        File::deleteDirectory($directory);
+        if(file_exists($directory)){
+            File::deleteDirectory($directory);
+        }
         Transfer::where('id', $id)->delete();
         return redirect('/p9_transfer')->with('danger', 'Transfer link been deleted along with files!');
     }
