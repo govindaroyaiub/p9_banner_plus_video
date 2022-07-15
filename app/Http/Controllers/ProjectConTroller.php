@@ -102,31 +102,32 @@ class ProjectConTroller extends Controller
             $versions = Version::where('project_id', $main_project_id)->get();
             $data = [];
 
-            if($versions->count() == 0){
-                return redirect('/project/banner/addon/'.$id)->with('danger', 'Assets been deleted! Please Re-upload.');
-            }
-            else{
-                foreach($versions as $version){
-                    $version_id = $version->id;
-    
-                    $sub_project_info = BannerProject::join('banner_sizes', 'banner_projects.size_id', 'banner_sizes.id')
-                                                ->select(
-                                                    'banner_projects.id',
-                                                    'banner_projects.name',
-                                                    'banner_projects.size',
-                                                    'banner_projects.file_path',
-                                                    'banner_sizes.width',
-                                                    'banner_sizes.height'
-                                                )
-                                                ->where('version_id', $version_id)
-                                                ->get();
-    
+            foreach($versions as $version){
+                $version_id = $version->id;
+
+                $sub_project_info = BannerProject::join('banner_sizes', 'banner_projects.size_id', 'banner_sizes.id')
+                                            ->select(
+                                                'banner_projects.id',
+                                                'banner_projects.name',
+                                                'banner_projects.size',
+                                                'banner_projects.file_path',
+                                                'banner_sizes.width',
+                                                'banner_sizes.height'
+                                            )
+                                            ->where('version_id', $version_id)
+                                            ->get();
+
+                if($sub_project_info->count() == 0){
+                    return redirect('/project/banner/addon/'.$id)->with('danger', 'Assets been deleted! Please Re-upload.');
+                }
+                else{
                     foreach($sub_project_info as $sub_project){
                         $banner_id = $sub_project->id;
                         $data[$version_id][$banner_id] = $sub_project;
                     }
                 }
             }
+
             // return view('view_banner.banner-index', compact(
             // 'main_project_info',
             // 'sub_project_info',
