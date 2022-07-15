@@ -41,7 +41,7 @@ class HomeController extends Controller
         $current_year = date("Y");
         if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
         {
-            if(url('/') != 'http://localhost:8000')
+            if(url('/') != 'http://localhost:8000' || url('/') != "https://creative.planetnine.com")
             {
                 $company_id = Auth::user()->company_id;
                 $user_list = User::select(

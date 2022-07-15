@@ -43,7 +43,7 @@
                         <th class="bg-gray-200 px-4 py-2">No.</th>
                         <th class="bg-gray-200 px-4 py-2">Name</th>
                         <th class="bg-gray-200 px-4 py-2">Email</th>
-                        @if(url('/') == 'http://localhost:8000')
+                        @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
                         <th class="bg-gray-200 px-4 py-2">Company</th>
                         @endif
                         @if(Auth::user()->is_admin == 1)
@@ -59,7 +59,7 @@
                             <td class="border px-4 py-2">{{$i++}}</td>
                             <td class="border px-4 py-2">{{ $user->username }}</td>
                             <td class="border px-4 py-2">{{ $user->email }}</td>
-                            @if(url('/') == 'http://localhost:8000')
+                            @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
                             <td class="border px-4 py-2">{{ $user->logoname }}</td>
                             @endif
                             @if(Auth::user()->is_admin == 1)

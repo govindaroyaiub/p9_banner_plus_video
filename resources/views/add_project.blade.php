@@ -28,7 +28,7 @@
 
                 </div>
 
-                @if(url('/') == 'http://localhost:8000')
+                @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
                     <div class="mb-4">
                         <div class="grid grid-cols-2 gap-4">
                             <div>

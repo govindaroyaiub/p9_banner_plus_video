@@ -26,7 +26,14 @@
                         required />
                 </div>
 
-                @if(url('/') == 'http://localhost:8000')
+                <div class="mb-4">
+                    <label class="text-primary font-light block">Version Title</label>
+                    <input type='text' placeholder="Version 1" name="version_title" value="Version 1"
+                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                        required />
+                </div>
+
+                @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
                 <div class="mb-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div>

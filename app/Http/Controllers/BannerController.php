@@ -98,7 +98,8 @@ class BannerController extends Controller
 
             $version = new Version;
             $version->project_id = $main_project->id;
-            $version->title = 'Version 1';
+            $version->title = $request->version_title;
+            $version->is_open = 1;
             $version->save();
 
             $banner_size_id = $request->banner_size_id;

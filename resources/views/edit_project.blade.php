@@ -19,7 +19,7 @@
                 <input type='text' placeholder="Enter Client Name" name="client_name" value="{{ $project_info['client_name'] }}"
                     class="w-2/3 mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" required/>
                 
-                @if(url('/') == 'http://localhost:8000')
+                @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
                 <br>
 
                 <label class="text-primary font-light">Select Logo</label><br>

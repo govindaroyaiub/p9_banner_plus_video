@@ -24,7 +24,7 @@
                     class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                     required />
 
-                @if(url('/') == 'http://localhost:8000')
+                @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
                 <label class="text-primary font-light">Select User Company</label><br>
                 <select
                     class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
