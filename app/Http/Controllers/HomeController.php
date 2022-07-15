@@ -41,7 +41,7 @@ class HomeController extends Controller
         $current_year = date("Y");
         if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
         {
-            if(url('/') != 'http://localhost:8000' || url('/') != "https://creative.planetnine.com")
+            if(url('/') != 'http://localhost:8000' && url('/') != "https://creative.planetnine.com")
             {
                 $company_id = Auth::user()->company_id;
                 $user_list = User::select(
@@ -139,7 +139,7 @@ class HomeController extends Controller
                     'total_gif_projects', 
                     'total_banner_projects', 
                     'total_video_projects', 
-                    'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
+                    'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
                 ));
             }
             catch(Exception $e)

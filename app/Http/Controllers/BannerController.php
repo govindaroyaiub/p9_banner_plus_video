@@ -170,9 +170,11 @@ class BannerController extends Controller
     public function project_addon($id)
     {
         $main_project_id = $id;
+        $project_info = MainProject::where('id', $main_project_id)->first();
+        $version_status = $project_info['is_version'];
         $versionCount = Version::where('project_id', $main_project_id)->count();
         $size_list = BannerSizes::orderBy('width', 'ASC')->get();
-        return view('view_banner.banner_addon', compact('size_list', 'main_project_id', 'versionCount'));
+        return view('view_banner.banner_addon', compact('size_list', 'main_project_id', 'versionCount', 'version_status'));
     }
 
     public function project_addon_post(Request $request, $id)
