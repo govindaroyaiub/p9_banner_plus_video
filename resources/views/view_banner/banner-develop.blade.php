@@ -105,8 +105,6 @@
                         icons[i].style.color = color;
                     }
 
-                    
-
                     for(var j = 0; j< versions.length; j++){
                         versions[j].style.backgroundColor = color;
                     }
