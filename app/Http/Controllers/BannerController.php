@@ -509,6 +509,7 @@ class BannerController extends Controller
                 BannerProject::where('id', $sub_project->id)->delete();
             }
         }
+        Version::where('project_id', $id)->delete();
         MainProject::where('id', $id)->delete();
         return redirect('/banner')->with('danger', $main_project_info['name'] . ' been deleted along with assets!');
     }
