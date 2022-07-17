@@ -247,7 +247,7 @@
 
         .logo-main {
           width: 200px;
-          height: 45px;
+          height: auto;
         }
 
         .button {
