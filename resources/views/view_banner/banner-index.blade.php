@@ -58,6 +58,11 @@
             float: right!important;
         }
 
+        .custom-radius{
+            border-bottom-left-radius: 0!important;
+            border-bottom-right-radius: 0!important;
+        }
+
     </style>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -93,7 +98,16 @@
                 {
                     document.getElementsByClassName("header")[0].style.borderColor = color;
                     document.getElementsByClassName("footer")[0].style.backgroundColor = color;
-                    document.getElementsByClassName("icons")[0].style.color = color;
+                    var icons = document.getElementsByClassName("icons");
+                    var versions = document.getElementsByClassName("all-versions");
+
+                    for(var i = 0; i < icons.length; i++){
+                        icons[i].style.color = color;
+                    }
+
+                    for(var j = 0; j< versions.length; j++){
+                        versions[j].style.backgroundColor = color;
+                    }
                 }
             })
             .catch(function (error)
@@ -134,7 +148,7 @@
         @if(Auth::user())
         <ul class="flex space-x-4">
             <li>
-                <a class="flex" href="/" target="_blank" style="color: {{ $main_project_info['color'] }}">
+                <a class="flex" href="/" target="_blank">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -253,12 +267,12 @@
             @foreach ($data as $id => $row)
             <div class="container mx-auto px-4 py-3">
                 <div @if(Helper::getVersionStatus($id) == 1) x-data={show:true} @else x-data={show:false} @endif class="rounded-sm">
-                    <div class="bg-gray-100 px-10 py-6 cursor-pointer" id="version{{$id}}" @click="show=!show">
-                        <label class="text-blue-500">{{$i++}}. </label>
-                        <label class="underline text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
+                    <div class="px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{Helper::getVersionColor($id)}}">
+                        <label class="text-white">{{$i++}}. </label>
+                        <label class="underline text-white cursor-pointer" type="button">
                             {{ Helper::getVersionName($id) }}
                         </label> - 
-                        <label class="text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
+                        <label class="text-white cursor-pointer" type="button">
                             {{ \Carbon\Carbon::parse(Helper::getVersionDate($id))->format('d F Y') }}
                         </label>
                     </div>
@@ -351,16 +365,19 @@
                     </div>
                     <script>
                         function reloadAll() {
+                            var versionElement = document.getElementById('version{{$id}}');
                             var versionID = document.getElementById('version{{$id}}').id;
                             var collapseID = document.getElementById('collapse{{$id}}').id;
                             var displayStatus = document.getElementById("collapse{{$id}}").style.display;
 
                             if(displayStatus == 'none'){
                                 // console.log("Version: " + versionID + " Collapse: " + collapseID + " is opened!");
+                                console.log('open');
                                 setHeaderView(versionID, displayStatus);
                             }
                             else{
                                 // console.log("Version: " + versionID + " Collapse: " + collapseID + " is closed!");
+                                console.log('close');
                                 setHeaderView(versionID, displayStatus);
                             }
                             
