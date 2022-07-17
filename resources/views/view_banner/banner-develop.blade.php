@@ -148,7 +148,7 @@
         @if(Auth::user())
         <ul class="flex space-x-4">
             <li>
-                <a class="flex" href="/" target="_blank" style="color: {{ $main_project_info['color'] }}">
+                <a class="flex" href="/" target="_blank">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -267,12 +267,12 @@
             @foreach ($data as $id => $row)
             <div class="container mx-auto px-4 py-3">
                 <div @if(Helper::getVersionStatus($id) == 1) x-data={show:true} @else x-data={show:false} @endif class="rounded-sm">
-                    <div class="bg-gray-100 px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show">
-                        <label class="text-blue-500">{{$i++}}. </label>
-                        <label class="underline text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
+                    <div class="px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{Helper::getVersionColor($id)}}">
+                        <label class="text-white">{{$i++}}. </label>
+                        <label class="underline text-white cursor-pointer" type="button">
                             {{ Helper::getVersionName($id) }}
                         </label> - 
-                        <label class="text-blue-500 hover:text-blue-700 cursor-pointer" type="button">
+                        <label class="text-white cursor-pointer" type="button">
                             {{ \Carbon\Carbon::parse(Helper::getVersionDate($id))->format('d F Y') }}
                         </label>
                     </div>

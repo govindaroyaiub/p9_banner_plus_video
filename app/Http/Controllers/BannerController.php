@@ -99,6 +99,7 @@ class BannerController extends Controller
             $version = new Version;
             $version->project_id = $main_project->id;
             $version->title = $request->version_title;
+            $version->color = '#878787';
             $version->is_open = 1;
             $version->save();
 
@@ -197,6 +198,7 @@ class BannerController extends Controller
                 $version = new Version;
                 $version->project_id = $main_project_id;
                 $version->title = 'Version 1';
+                $version->color = '#878787';
                 $version->save();
 
                 $version_id = $version->id;
@@ -248,9 +250,14 @@ class BannerController extends Controller
                     return redirect('/project/banner/view/' . $main_project_id);
                 }
             }
-            else{ //if add as a new version to the preview
+            else{ 
+                $previousVersionInfo = Version::where('project_id', $main_project_id)->first();
+                $previousVersionColor  = $previousVersionInfo['color'];
+
+                //if add as a new version to the preview
                 $version = new Version;
                 $version->title = $request->version_title;
+                $version->color = $previousVersionColor;
                 $version->project_id = $main_project_id;
                 $version->save();
 

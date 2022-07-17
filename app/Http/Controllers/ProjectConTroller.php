@@ -250,7 +250,8 @@ class ProjectConTroller extends Controller
     public function set_color(Request $request, $id)
     {
         $color = $request->color;
-        $result = MainProject::where('id', $id)->update(['color' => $color]);
+        MainProject::where('id', $id)->update(['color' => $color]);
+        Version::where('project_id', $id)->update(['color' => $color]);
         return 200;
     }
 
