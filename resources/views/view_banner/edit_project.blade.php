@@ -65,6 +65,18 @@
                 <br>
                 <br>
 
+                @if($version_info->count() > 1)
+
+                <label class="text-primary font-light">Set Version Color to Default? <label class="text-red-500">(Don't touch if not needed)</label> </label><br>
+                <select class="w-2/3 border bg-white rounded px-3 py-2 outline-none" name="default_color">
+                    <option value="1" class="py-1">Yes</option>
+                    <option value="2" class="py-1" selected>No</option>
+                </select>
+                <br>
+                <br>
+
+                @endif
+
                 <label class="text-primary font-light">Select Color (Default Selcted Color is PlanetNine Logo
                     Color)</label><br>
                 <input type='color' name="color" value="{{ $project_info['color'] }}" class="w-2/3 mt-2 mb-6 px-4 py-2 border rounded-lg" />

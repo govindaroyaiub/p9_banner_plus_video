@@ -100,13 +100,18 @@
                     document.getElementsByClassName("footer")[0].style.backgroundColor = color;
                     var icons = document.getElementsByClassName("icons");
                     var versions = document.getElementsByClassName("all-versions");
+                    var collapses = document.getElementsByClassName("collapse");
 
                     for(var i = 0; i < icons.length; i++){
                         icons[i].style.color = color;
                     }
 
-                    for(var j = 0; j< versions.length; j++){
+                    for(var j = 0; j < versions.length; j++){
                         versions[j].style.backgroundColor = color;
+                    }
+
+                    for(var k = 0; k < collapses.length; k++){
+                        collapses[k].style.borderColor = color;
                     }
                 }
             })
@@ -142,8 +147,8 @@
         <button class="button button3" id="b3" onclick="get_color(this)"></button>
         <button class="button button4" id="b4" onclick="get_color(this)"></button>
     </div>
-
-    <div class="container mx-auto px-4 py-2">
+    
+    <div class="container mx-auto px-4 py-4">
         {{-- If the user is authenticated, then the user can do these actions --}}
         @if(Auth::user())
         <ul class="flex space-x-4">
@@ -276,7 +281,7 @@
                             {{ \Carbon\Carbon::parse(Helper::getVersionDate($id))->format('d F Y') }}
                         </label>
                     </div>
-                    <div x-show="show" class="border border-b-0 px-1 py-1" id="collapse{{$id}}" class="collapse">
+                    <div x-show="show" class="border border-b-0 px-1 py-1 collapse" id="collapse{{$id}}" style="border-color: {{Helper::getVersionColor($id)}}">
                         @if(Auth::user())
                         <div class="flex float-right" style="z-index: 999;">
                             <a href="/banner/add/version/{{$main_project_id}}/{{$id}}" class="text-green-600">

@@ -150,7 +150,7 @@ class ProjectConTroller extends Controller
             // 'main_project_id'
             // ));
 
-            return view('view_banner.banner-index', compact(
+            return view('view_banner.banner-develop', compact(
                 'main_project_info',
                 'versions',
                 'sub_project_info',

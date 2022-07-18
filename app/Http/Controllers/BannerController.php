@@ -604,8 +604,9 @@ class BannerController extends Controller
         $logo_list = Logo::get();
         $size_list = BannerSizes::orderBy('width', 'DESC')->get();
         $project_info = MainProject::where('id', $id)->first();
+        $version_info = Version::where('project_id', $id)->get();
         
-        return view('view_banner.edit_project', compact('logo_list', 'size_list', 'project_info', 'id', 'naming_convention'));
+        return view('view_banner.edit_project', compact('logo_list', 'size_list', 'project_info', 'id', 'naming_convention', 'version_info'));
     }
 
     public function project_edit_post(Request $request, $id)
@@ -626,6 +627,10 @@ class BannerController extends Controller
             'is_logo' => $request->is_logo,
             'is_footer' => $request->is_footer
         ];
+
+        if($request->default_color == 1){
+            Version::where('project_id', $id)->update(['color' => '#878787']);
+        }
 
         MainProject::where('id', $main_project_id)->update($main_project_details);
 
