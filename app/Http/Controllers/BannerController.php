@@ -343,7 +343,8 @@ class BannerController extends Controller
         $project_info = MainProject::where('id', $project_id)->first();
         $project_name = $project_info['name'];
         $version_name = $version_info['title'];
-        return view('view_banner.version_banner.banner-add', compact('main_project_id', 'version_id', 'version_name', 'project_name'));
+        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+        return view('view_banner.version_banner.banner-add', compact('main_project_id', 'version_id', 'version_name', 'project_name', 'size_list'));
     }
 
     public function addBannerVersionPost(Request $request, $project_id, $id)
