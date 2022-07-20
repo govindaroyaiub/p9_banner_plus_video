@@ -112,7 +112,7 @@ Route::get('/gif/delete/{id}', 'GifController@gif_delete')->name('banner_delete'
 //GIF functions end
 
 //Social Images functions start
-
+Route::get('/social', 'SocialController@view_socials_list')->name('view_socials_list');
 //Social images fucntions end
 
 //Logo function starts
