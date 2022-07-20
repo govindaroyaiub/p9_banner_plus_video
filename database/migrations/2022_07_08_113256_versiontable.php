@@ -17,7 +17,6 @@ class Versiontable extends Migration
             $table->id();
             $table->integer('project_id');
             $table->string('title');
-            $table->string('color');
             $table->integer('is_open')->default(1); // 0 = not open, 1 = is open
             $table->timestamps();
         });

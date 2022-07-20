@@ -83,9 +83,4 @@ class Helper
         $data = Version::where('id', $id)->first();
         return $data['is_open'];
     }
-
-    public static function getVersionColor($id){
-        $data = Version::where('id', $id)->first();
-        return $data['color'];
-    }
 }

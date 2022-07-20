@@ -111,6 +111,10 @@ Route::post('/gif/edit/{id}', 'GifController@gif_edit_post')->name('gif_edit_pos
 Route::get('/gif/delete/{id}', 'GifController@gif_delete')->name('banner_delete');
 //GIF functions end
 
+//Social Images functions start
+
+//Social images fucntions end
+
 //Logo function starts
 Route::get('/logo', 'HomeController@client')->name('logo');
 Route::get('/logo/add', 'HomeController@client_add')->name('logo_add');

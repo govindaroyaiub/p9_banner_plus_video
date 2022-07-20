@@ -12,6 +12,9 @@
         <li class="{{ request()->is('gif') || request()->is('project/gif/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/gif">GIFs</a>
         </li>
+        <li class="{{ request()->is('social') || request()->is('project/social/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/gif">Socials</a>
+        </li>
         @if(Auth::user()->company_id == 1)
         {{-- <li class="{{ request()->is('image-showcase') || request()->is('project/image-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/image-showcase">Image Showcase</a> --}}
