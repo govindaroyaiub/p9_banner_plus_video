@@ -20,6 +20,7 @@ Route::get('/clear-cache', function() {
 Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('banner_view');
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');
 Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_view');
+Route::get('/project/social/view/{id}', 'ProjectConTroller@social_view')->name('social_view');
 Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
 Route::post('/setVersionStatus/{version_id}', 'ProjectConTroller@setVersionViewStatus')->name('setVersionViewStatus');
 
@@ -113,6 +114,8 @@ Route::get('/gif/delete/{id}', 'GifController@gif_delete')->name('banner_delete'
 
 //Social Images functions start
 Route::get('/social', 'SocialController@view_socials_list')->name('view_socials_list');
+Route::get('/project/social/add', 'SocialController@add_socials')->name('add_socials');
+Route::post('/project/social/add', 'SocialController@add_socials_post')->name('add_socials_post');
 //Social images fucntions end
 
 //Logo function starts

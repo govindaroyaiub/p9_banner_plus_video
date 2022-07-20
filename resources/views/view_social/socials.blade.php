@@ -15,7 +15,7 @@
             <br>
             <div class="flex justify-between w-full">
                 <h3 class="text-xl font-semibold tracking-wide">Social Images</h3>
-                <a href="/project/banner/add">
+                <a href="/project/social/add">
                     <button type="button"
                         class="leading-tight bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">Add
                         Social Images</Button>
@@ -35,18 +35,19 @@
                 <?php $i=1; ?>
                 <tbody>
                     <tr style="text-align: center;">
+                        @foreach ($socials as $social)
                         <td class="border px-4 py-2">{{ $i++ }}</td>
                         <td class="border px-4 py-2">
-                            
+                            {{ $social->name }}
                         </td>
-                        <td class="border px-4 py-2" width="140px" max-width="160px"></td>
+                        <td class="border px-4 py-2" width="140px" max-width="160px">{{ $social->client_name }}</td>
                         <td class="border px-4 py-2" width="110px" max-width="135px">
-                            <label class="text-red-500 font-semibold"></label>
+                            <label class="text-red-500 font-semibold">{{ Helper::getUsername($social->uploaded_by_user_id) }}</label>
                             <hr>
-                            <label class="text-red-500 font-semibold"></label>
+                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($social->created_at)->format('F Y') }}</label>
                         </td>
                         <td class="border px-4 py-2"  width="270px" max-width="290px">
-                            <a href="/project/social/addon/">
+                            <a href="/project/social/addon/{{$social->id}}">
                                 <button type="button"
                                     class="bg-indigo-600 text-gray-200 rounded hover:bg-indigo-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -54,7 +55,7 @@
                                       </svg>
                                 </button>
                             </a>
-                            <a href="/project/social/view/" target="_blank">
+                            <a href="/project/social/view/{{$social->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -64,7 +65,7 @@
                                 </button>
                             </a>
                         
-                            <a href="/project/social/edit/">
+                            <a href="/project/social/edit/{{$social->id}}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,6 +83,7 @@
                                 </button>
                             </a>
                         </td>
+                        @endforeach
                     </tr>
                 </tbody>
             </table>

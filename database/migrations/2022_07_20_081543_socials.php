@@ -29,6 +29,6 @@ class Socials extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('socials');
     }
 }

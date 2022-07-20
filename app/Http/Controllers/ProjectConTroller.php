@@ -13,6 +13,7 @@ use App\BannerSizes;
 use App\BannerProject;
 use App\Gif;
 use App\Version;
+Use App\Social;
 use \App\Mail\SendMail;
 use App\Helper\Helper;
 
@@ -201,6 +202,42 @@ class ProjectConTroller extends Controller
             return view('view_gif.gif-index', compact(
             'main_project_info',
             'sub_project_info',
+            'main_project_id'
+            ));
+        }
+        else 
+        {
+            return view('404');
+        }
+    }
+
+    public function social_view($id)
+    {
+        $main_project_id = $id;
+        $main_project_info = MainProject::join('logo', 'main_project.logo_id', 'logo.id')
+                                        ->select(
+                                            'main_project.name as name',
+                                            'main_project.client_name',
+                                            'main_project.logo_id',
+                                            'main_project.color',
+                                            'main_project.is_logo',
+                                            'main_project.is_footer',
+                                            'main_project.uploaded_by_company_id',
+                                            'main_project.uploaded_by_user_id',
+                                            'logo.name as logo_name',
+                                            'logo.website',
+                                            'logo.path' 
+                                        )
+                                        ->where('main_project.id', $main_project_id)
+                                        ->first();
+
+        if($main_project_info != NULL)
+        {
+            $socials_info = Social::where('project_id', $main_project_id)->get();             
+
+            return view('view_social.social-develop', compact(
+            'main_project_info',
+            'socials_info',
             'main_project_id'
             ));
         }
