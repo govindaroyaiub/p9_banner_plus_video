@@ -34,8 +34,9 @@
                 </thead>
                 <?php $i=1; ?>
                 <tbody>
+                    @foreach ($socials as $social)
                     <tr style="text-align: center;">
-                        @foreach ($socials as $social)
+                        
                         <td class="border px-4 py-2">{{ $i++ }}</td>
                         <td class="border px-4 py-2">
                             {{ $social->name }}
@@ -65,16 +66,16 @@
                                 </button>
                             </a>
                         
-                            <a href="/project/social/edit/{{$social->id}}">
+                            {{-- <a href="/project/social/edit/{{$social->id}}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </button>
-                            </a>
+                            </a> --}}
 
-                            <a href="/project/social/delete/" onclick="return confirm('Are you sure you want to delete this social image?');">
+                            <a href="/project/social/delete/{{$social->id}}" onclick="return confirm('Are you sure you want to delete this social image?');">
                                 <button type="button"
                                     class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -83,8 +84,8 @@
                                 </button>
                             </a>
                         </td>
-                        @endforeach
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

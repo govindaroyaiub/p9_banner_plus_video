@@ -116,6 +116,12 @@ Route::get('/gif/delete/{id}', 'GifController@gif_delete')->name('banner_delete'
 Route::get('/social', 'SocialController@view_socials_list')->name('view_socials_list');
 Route::get('/project/social/add', 'SocialController@add_socials')->name('add_socials');
 Route::post('/project/social/add', 'SocialController@add_socials_post')->name('add_socials_post');
+
+Route::get('/project/social/addon/{id}', 'SocialController@social_addon')->name('social_addon');
+Route::post('/project/social/addon/{id}', 'SocialController@social_addon_post')->name('social_addon_post');
+Route::get('/social/delete/{id}', 'SocialController@social_single_delete')->name('social_single_delete');
+Route::get('/project/social/delete/{id}', 'SocialController@social_project_delete')->name('social_project_delete');
+Route::get('/delete-all-socials/{id}', 'SocialController@delete_all_socials')->name('delete_all_socials');
 //Social images fucntions end
 
 //Logo function starts

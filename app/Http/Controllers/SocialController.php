@@ -71,11 +71,11 @@ class SocialController extends Controller
                 $original_file_name = $uploads[$index]->getClientOriginalName();
                 $name = explode('.',$original_file_name);
 
-                $file_name = $pro_name . '_' . $name[0] . '_' . time() . '.' . $uploads[$index]->extension();
+                $file_name = $project_name . '_' . $name[0] . '_' . time() . '.' . $uploads[$index]->extension();
                 $uploads[$index]->move(public_path('social_collection'), $file_name);
 
                 $data = array(
-                    'name' => $pro_name .'_' . $platform . '_' . $name[0],
+                    'name' => $project_name .'_' . $platform . '_' . $name[0],
                     'project_id' => $main_project->id,
                     'file_path' => $file_name
                 );
@@ -86,5 +86,94 @@ class SocialController extends Controller
 
             return redirect('/project/social/view/' . $main_project->id);
         }
+    }
+
+    function social_addon($id){
+        $main_project_id = $id;
+        return view('view_social.social_addon', compact('main_project_id'));
+    }
+
+    function social_addon_post($id, Request $request){
+        if($request->hasfile('upload')){
+
+            $validator = $request->validate([
+                'upload' => 'required',
+                'upload.*' => 'mimes:jpeg,jpg,png'
+            ]);
+
+            $platforms = $request->platform; 
+            $uploads = $request->upload;
+
+            $pro_name = MainProject::where('id', $id)->first();
+            $project_name = str_replace(" ", "_", $pro_name['name']);
+
+            $array = [];
+
+            foreach($platforms as $index => $platform)
+            {
+                $original_file_name = $uploads[$index]->getClientOriginalName();
+                $name = explode('.',$original_file_name);
+
+                $file_name = $project_name . '_' . $name[0] . '_' . time() . '.' . $uploads[$index]->extension();
+                $uploads[$index]->move(public_path('social_collection'), $file_name);
+
+                $data = array(
+                    'name' => $project_name .'_' . $platform . '_' . $name[0],
+                    'project_id' => $id,
+                    'file_path' => $file_name
+                );
+
+                array_push($array, $data);
+            }
+            Social::insert($array);
+
+            return redirect('/project/social/view/' . $id);
+        }
+    }
+
+    function social_project_delete($id){
+        $main_project_info = MainProject::where('id', $id)->first();
+
+        $social_project_info = Social::where('project_id', $id)->get();
+        foreach($social_project_info as $social_project)
+        {
+            if($social_project->file_path != NULL)
+            {
+                $image_path = public_path('social_collection/').$social_project->file_path;
+                if (file_exists($image_path)) {
+                    @unlink($image_path);
+                }
+            }
+            Social::where('id', $social_project->id)->delete();
+        }
+        MainProject::where('id', $id)->delete();
+        return redirect('/social')->with('danger', $main_project_info['name'].' been deleted along with assets!');
+    }
+
+    function social_single_delete($id){
+        $sub_project = Social::where('id', $id)->first();
+        $image_path = public_path('social_collection/').$sub_project['file_path'];
+        if (file_exists($image_path)) {
+            @unlink($image_path);
+        }
+        Social::where('id', $id)->delete();
+        return back();
+    }
+
+    function delete_all_socials($id){
+        $main_project_info = MainProject::where('id', $id)->first();
+
+        $social_project_info = Social::where('project_id', $id)->get();
+        if (($social_project_info->count() != 0)) {
+            foreach ($social_project_info as $social_project) {
+                $image_path = public_path('social_collection/').$social_project->file_path;
+                if (file_exists($image_path)) {
+                    @unlink($image_path);
+                }
+                Social::where('id', $social_project->id)->delete();
+            }
+        }
+
+        return redirect('/project/social/addon/'.$id)->with('danger', 'Assets been deleted! Please Re-upload.');
     }
 }

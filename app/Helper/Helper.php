@@ -10,6 +10,7 @@ use App\Logo;
 use App\BannerSizes;
 use App\BannerProject;
 use App\Version;
+use App\Social;
 
 class Helper
 {
@@ -82,5 +83,26 @@ class Helper
     public static function getVersionStatus($id){
         $data = Version::where('id', $id)->first();
         return $data['is_open'];
+    }
+
+    public static function getImageResolution($id){
+        $social = Social::where('id', $id)->first();
+        $file_path = 'social_collection/'.$social['file_path'];
+        list($width, $height, $type, $attr) = getimagesize($file_path);
+
+        return $width.'x'.$height;
+    }
+
+
+    public static function getImageFileSize($id){
+        $social = Social::where('id', $id)->first();
+        $file_path = 'social_collection/'.$social['file_path'];
+
+        $file_bytes = filesize($file_path);
+        $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+        for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+        $file_size = round($file_bytes, 2) . " " . $label[$i];
+
+        return $file_size;
     }
 }
