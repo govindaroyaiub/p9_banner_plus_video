@@ -119,6 +119,9 @@ Route::post('/project/social/add', 'SocialController@add_socials_post')->name('a
 
 Route::get('/project/social/addon/{id}', 'SocialController@social_addon')->name('social_addon');
 Route::post('/project/social/addon/{id}', 'SocialController@social_addon_post')->name('social_addon_post');
+
+Route::get('/social/edit/{id}', 'SocialController@social_edit_single')->name('social_edit_single');
+Route::post('/social/edit/{id}', 'SocialController@social_edit_single_post')->name('social_edit_single_post');
 Route::get('/social/delete/{id}', 'SocialController@social_single_delete')->name('social_single_delete');
 Route::get('/project/social/delete/{id}', 'SocialController@social_project_delete')->name('social_project_delete');
 Route::get('/delete-all-socials/{id}', 'SocialController@delete_all_socials')->name('delete_all_socials');

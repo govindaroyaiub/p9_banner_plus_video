@@ -131,6 +131,38 @@ class SocialController extends Controller
         }
     }
 
+    function social_edit_single($id){
+        return view('view_social.social_edit_single', compact('id'));
+    }
+
+    function social_edit_single_post(Request $request, $id){
+        $validator = $request->validate([
+            'upload' => 'required|file|mimes:jpeg,jpg,png'
+        ]);
+
+        $social_id = $id;
+        $social_info = Social::where('id', $social_id)->first();
+        $project_info = Mainproject::where('id', $social_info['project_id'])->first();
+        $project_name = str_replace(" ", "_", $project_info['name']);
+
+        unlink('social_collection/' . $social_info['file_path']);
+
+        $original_file_name = $request->upload->getClientOriginalName();
+        $name = explode('.',$original_file_name);
+
+        $file_name = $project_name . '_' . $name[0] . '_' . time() . '.' . $request->upload->extension();
+        $request->upload->move(public_path('social_collection'), $file_name);
+
+        $data = array(
+            'name' => $project_name .'_' . $request->platform . '_' . $name[0],
+            'file_path' => $file_name
+        );
+
+        Social::where('id', $social_id)->update($data);
+
+        return redirect('/project/social/view/' . $project_info['id']);
+    }
+
     function social_project_delete($id){
         $main_project_info = MainProject::where('id', $id)->first();
 
