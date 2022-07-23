@@ -95,7 +95,7 @@
                     '<select name="banner_size_id[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="banner_size_id" required>';
                 rows = rows + '<option value="0" class="py-2">Select Option</option>';
                 @foreach ($size_list as $size)
-                        rows = rows + '<option value='+ {{$size->id}} +' class="py-2">'+ {{$size->width}} + 'x' + {{$size->height}} +'</option>';
+                        rows = rows + '<option value='+ {{$size->width}} + 'x' + {{$size->height}} +' class="py-2">'+ {{$size->width}} + 'x' + {{$size->height}} +'</option>';
                 @endforeach
                 rows = rows + '</select>';
                 rows = rows + '</td>';
