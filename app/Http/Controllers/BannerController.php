@@ -486,7 +486,15 @@ class BannerController extends Controller
             $files = File::deleteDirectory($file_path);    
         }
         BannerProject::where('id', $id)->delete();
-        return back();
+        $banners_check = BannerProject::where('project_id', $project_id)->get();
+        if($banners_check->count() == 0){
+            Version::where('project_id', $project_id)->delete();
+            MainProject::where('id', $project_id)->update(['is_version' => 0]);
+            return redirect('/project/banner/addon/'.$project_id)->with('danger', 'Assets been deleted! Please Re-upload.'); 
+        }
+        else{
+            return back();
+        }
     }
 
     public function banner_edit($id)
