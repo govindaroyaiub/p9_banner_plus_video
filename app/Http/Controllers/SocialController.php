@@ -74,15 +74,12 @@ class SocialController extends Controller
                 $file_name = $project_name . '_' . $name[0] . '_' . time() . '.' . $uploads[$index]->extension();
                 $uploads[$index]->move(public_path('social_collection'), $file_name);
 
-                $data = array(
-                    'name' => $project_name .'_' . $platform . '_' . $name[0],
-                    'project_id' => $main_project->id,
-                    'file_path' => $file_name
-                );
-
-                array_push($array, $data);
+                $social = new Social;
+                $social->name = $project_name .'_' . $platform . '_' . $name[0];
+                $social->project_id = $main_project->id;
+                $social->file_path = $file_name;
+                $social->save();
             }
-            Social::insert($array);
 
             return redirect('/project/social/view/' . $main_project->id);
         }

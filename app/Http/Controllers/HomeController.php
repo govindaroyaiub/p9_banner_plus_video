@@ -13,6 +13,7 @@ use App\Comments;
 use App\Sizes;
 use App\Logo;
 use App\Gif;
+use App\Social;
 use App\BannerProject;
 use App\Helper\Helper;
 use Exception;
@@ -93,6 +94,12 @@ class HomeController extends Controller
                                     ->whereYear('gif_projects.created_at', $current_year)
                                     ->get();
 
+            $socials = Social::join('main_project', 'main_project.id', 'socials.project_id')
+                                    ->where('main_project.project_type', 3)
+                                    ->where('main_project.uploaded_by_company_id', Auth::user()->company_id)
+                                    ->whereYear('socials.created_at', $current_year)
+                                    ->get();
+
             $total_banner_projects = MainProject::where('project_type', 0)
                                                 ->where('uploaded_by_company_id', Auth::user()->company_id)
                                                 ->whereYear('created_at', $current_year)
@@ -108,9 +115,15 @@ class HomeController extends Controller
                                                 ->whereYear('created_at', $current_year)
                                                 ->count();
 
+            $total_social_projects = MainProject::where('project_type', 3)
+                                                ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                                ->whereYear('created_at', $current_year)
+                                                ->count();
+
             $total_videos = $video_sizes->count();
             $total_banners = $banner_sizes->count();
             $total_gifs = $gif_sizes->count();
+            $total_socials = $socials->count();
 
             $total_size = array();
             $total_banner_size = array();
@@ -136,9 +149,11 @@ class HomeController extends Controller
                     'total_banners', 
                     'total_videos',
                     'total_gifs',
+                    'total_socials',
                     'total_gif_projects', 
                     'total_banner_projects', 
                     'total_video_projects', 
+                    'total_social_projects',
                     'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
                 ));
             }
