@@ -12,7 +12,11 @@
             @include('sidebar')
             <div class="flex-1 mx-4">
                 @include('alert')
-                <h3 class="text-2xl underline font-semibold tracking-wide text-center">Statistical Overview</h3>   
+                <h3 class="text-2xl underline font-semibold tracking-wide text-center">Statistical Overview</h3>
+                {{-- @if(Auth::user()->company_id ==1)
+                <br>
+                <div id="donutchart" style="height: 500px;"></div>
+                @endif --}}
                 <div class="grid grid-cols-2 gap-4 mt-4">
                     <div id="columnchart_material" style="height: 350px;"></div>
                     <div id="monthly_chart" style="height: 350px;"></div>
@@ -92,6 +96,28 @@
         </div>
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Planetnine', {{ $planetnine_banners }}],
+            ['Merkle Inc', {{ $merkle_banners }}],
+            ['De Media Maatschap', 1],
+            ['Fusionlab', {{ $fusionlab_banners }}]
+          ]);
+  
+          var options = {
+            title: 'Banner Projects Per Company',
+            pieHole: 0.3,
+            slices: {0: {color: '#4b4e6d'}, 1:{color: '#12295d'}, 2:{color: '#339ad5'}, 3: {color: '#ed7523'}}
+          };
+  
+          var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+          chart.draw(data, options);
+        }
+      </script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['bar']});
         google.charts.setOnLoadCallback(drawChart);

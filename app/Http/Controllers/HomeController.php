@@ -143,6 +143,11 @@ class HomeController extends Controller
             $nov = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '11')->whereYear('created_at', $current_year)->get()->count();
             $dec = BannerProject::whereIn('project_id', $main_banner_ids)->whereMonth('created_at', '12')->whereYear('created_at', $current_year)->get()->count();
 
+            $planetnine_banners = MainProject::join('users', 'users.company_id', 'main_project.uploaded_by_company_id')->where('users.company_id', 1)->where('main_project.project_type', 0)->get()->count();
+            $merkle_banners = MainProject::join('users', 'users.company_id', 'main_project.uploaded_by_company_id')->where('users.company_id', 4)->where('main_project.project_type', 0)->get()->count();
+            // $dmm_banners = MainProject::join('users', 'users.company_id', 'main_project.uploaded_by_company_id')->where('users.company_id', 3)->where('main_project.project_type', 0)->get()->count();
+            $fusionlab_banners = MainProject::join('users', 'users.company_id', 'main_project.uploaded_by_company_id')->where('users.company_id', 5)->where('main_project.project_type', 0)->get()->count();
+
             try{
                 return view('home', compact(
                     'user_list', 
@@ -154,7 +159,10 @@ class HomeController extends Controller
                     'total_banner_projects', 
                     'total_video_projects', 
                     'total_social_projects',
-                    'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+                    'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
+                    'planetnine_banners',
+                    'merkle_banners',
+                    'fusionlab_banners'
                 ));
             }
             catch(Exception $e)
