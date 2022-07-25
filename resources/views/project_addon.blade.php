@@ -15,9 +15,9 @@
                     class="w-2/3 mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" required/>
                     <br>
                 <label class="text-primary font-light">Advertising Format</label><br>
-                <select name="banner_size_id"
+                <select name="size_id"
                                 class="w-2/3 mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                                id="banner_size_id" required>
+                                id="size_id" required>
                     <option value="0" class="py-2">Select Size</option>
                     @foreach($size_list as $size)
                     <option value="{{ $size->id }}" class="py-2">{{ $size->name }} (
