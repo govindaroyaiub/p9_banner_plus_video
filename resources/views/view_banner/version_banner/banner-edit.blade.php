@@ -98,49 +98,9 @@
                 rows = rows +
                     '<select name="banner_size_id[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="banner_size_id" required>';
                 rows = rows + '<option value="0" class="py-2">Select Option</option>';
-                rows = rows + '<option value=' + 1 + ' class="py-2">' + 120 + 'x' + 600 + '</option>';
-                rows = rows + '<option value=' + 2 + ' class="py-2">' + 120 + 'x' + 240 + '</option>';
-                rows = rows + '<option value=' + 3 + ' class="py-2">' + 160 + 'x' + 600 + '</option>';
-                rows = rows + '<option value=' + 4 + ' class="py-2">' + 180 + 'x' + 150 + '</option>';
-                rows = rows + '<option value=' + 5 + ' class="py-2">' + 234 + 'x' + 60 + '</option>';
-                rows = rows + '<option value=' + 6 + ' class="py-2">' + 200 + 'x' + 200 + '</option>';
-                rows = rows + '<option value=' + 7 + ' class="py-2">' + 250 + 'x' + 250 + '</option>';
-                rows = rows + '<option value=' + 8 + ' class="py-2">' + 300 + 'x' + 120 + '</option>';
-                rows = rows + '<option value=' + 9 + ' class="py-2">' + 300 + 'x' + 50 + '</option>';
-                rows = rows + '<option value=' + 10 + ' class="py-2">' + 300 + 'x' + 250 + '</option>';
-                rows = rows + '<option value=' + 11 + ' class="py-2">' + 300 + 'x' + 600 + '</option>';
-                rows = rows + '<option value=' + 12 + ' class="py-2">' + 306 + 'x' + 230 + '</option>';
-                rows = rows + '<option value=' + 13 + ' class="py-2">' + 320 + 'x' + 50 + '</option>';
-                rows = rows + '<option value=' + 14 + ' class="py-2">' + 320 + 'x' + 100 + '</option>';
-                rows = rows + '<option value=' + 15 + ' class="py-2">' + 320 + 'x' + 240 + '</option>';
-                rows = rows + '<option value=' + 16 + ' class="py-2">' + 320 + 'x' + 480 + '</option>';
-                rows = rows + '<option value=' + 17 + ' class="py-2">' + 336 + 'x' + 280 + '</option>';
-                rows = rows + '<option value=' + 18 + ' class="py-2">' + 468 + 'x' + 60 + '</option>';
-                rows = rows + '<option value=' + 19 + ' class="py-2">' + 500 + 'x' + 500 + '</option>';
-                rows = rows + '<option value=' + 20 + ' class="py-2">' + 580 + 'x' + 400 + '</option>';
-                rows = rows + '<option value=' + 21 + ' class="py-2">' + 580 + 'x' + 400 + '</option>';
-                rows = rows + '<option value=' + 22 + ' class="py-2">' + 600 + 'x' + 100 + '</option>';
-                rows = rows + '<option value=' + 23 + ' class="py-2">' + 600 + 'x' + 700 + '</option>';
-                rows = rows + '<option value=' + 24 + ' class="py-2">' + 728 + 'x' + 90 + '</option>';
-                rows = rows + '<option value=' + 25 + ' class="py-2">' + 960 + 'x' + 300 + '</option>';
-                rows = rows + '<option value=' + 26 + ' class="py-2">' + 970 + 'x' + 90 + '</option>';
-                rows = rows + '<option value=' + 27 + ' class="py-2">' + 970 + 'x' + 250 + '</option>';
-                rows = rows + '<option value=' + 28 + ' class="py-2">' + 970 + 'x' + 500 + '</option>';
-                rows = rows + '<option value=' + 29 + ' class="py-2">' + 1272 + 'x' + 328 + '</option>';
-                rows = rows + '<option value=' + 30 + ' class="py-2">' + 1080 + 'x' + 1080 +
-                '</option>';
-                rows = rows + '<option value=' + 31 + ' class="py-2">' + 306 + 'x' + 325 + '</option>';
-                rows = rows + '<option value=' + 32 + ' class="py-2">' + 1115 + 'x' + 300 + '</option>';
-                rows = rows + '<option value=' + 33 + ' class="py-2">' + 300 + 'x' + 60 + '</option>';
-                rows = rows + '<option value=' + 34 + ' class="py-2">' + 768 + 'x' + 1024 + '</option>';
-                rows = rows + '<option value=' + 35 + ' class="py-2">' + 1024 + 'x' + 768 + '</option>';
-                rows = rows + '<option value=' + 36 + ' class="py-2">' + 305 + 'x' + 325 + '</option>';
-                rows = rows + '<option value=' + 37 + ' class="py-2">' + 212 + 'x' + 177 + '</option>';
-                rows = rows + '<option value=' + 38 + ' class="py-2">' + 262 + 'x' + 184 + '</option>';
-                rows = rows + '<option value=' + 39 + ' class="py-2">' + 375 + 'x' + 312 + '</option>';
-                rows = rows + '<option value=' + 40 + ' class="py-2">' + 200 + 'x' + 600 + '</option>';
-                rows = rows + '<option value=' + 41 + ' class="py-2">' + 600 + 'x' + 200 + '</option>';
-                rows = rows + '<option value=' + 42 + ' class="py-2">' + 480 + 'x' + 320 + '</option>';
+                @foreach ($size_list as $size)
+                        rows = rows + '<option value='+ {{$size->width}} + 'x' + {{$size->height}} +' class="py-2">'+ {{$size->width}} + 'x' + {{$size->height}} +'</option>';
+                @endforeach
                 rows = rows + '</select>';
                 rows = rows + '</td>';
                 rows = rows + '</tr>';

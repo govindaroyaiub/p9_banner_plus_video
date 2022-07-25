@@ -369,7 +369,8 @@ class BannerController extends Controller
         $project_info = MainProject::where('id', $project_id)->first();
         $project_name = $project_info['name'];
         $version_name = $version_info['title'];
-        return view('view_banner.version_banner.banner-edit', compact('main_project_id', 'version_id', 'version_name', 'project_name'));
+        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+        return view('view_banner.version_banner.banner-edit', compact('main_project_id', 'version_id', 'version_name', 'project_name', 'size_list'));
     }
 
     public function editBannerVersionPost(Request $request, $project_id, $id)
@@ -391,42 +392,43 @@ class BannerController extends Controller
                     BannerProject::where('id', $sub_project->id)->delete();
                 }
             }
-            $banner_size_id = $request->banner_size_id;
-            $bannerIndex = 0;
+            $banner_size = $request->banner_size_id;
+            $upload = $request->upload;
+            $array = [];
 
-            foreach($request->file('upload') as $upload){
-                if(isset($banner_size_id[$bannerIndex])){
-                    $size_info = BannerSizes::where('id', $banner_size_id[$bannerIndex])->first();
-                    $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
-            
-                    $file_name = $sub_project_name . '_' . time() . '.' . $upload->extension();
-                    $upload->move(public_path('banner_collection'), $file_name);
-                    $file_bytes = filesize(public_path('/banner_collection/' . $file_name));
-            
-                    $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
-                    for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
-                    $file_size = round($file_bytes, 2) . " " . $label[$i];
-            
-                    $sub_project = new BannerProject;
-                    $sub_project->name = $sub_project_name;
-                    $sub_project->project_id = $project_id;
-                    $sub_project->size_id = $banner_size_id[$bannerIndex];
-                    $sub_project->size = $file_size;
-                    $sub_project->version_id = $id;
-                    $sub_project->file_path = $file_name;
-                    $sub_project->save();
-            
-                    $zip = new ZipArchive();
-                    $file_path = str_replace(".zip", "", $sub_project->file_path);
-                    $directory = 'banner_collection/' . $file_path;
-                    if (!is_dir($directory)) {
-                        if ($zip->open('banner_collection/' . $sub_project->file_path) === TRUE) {
-                            // Unzip Path
-                            $zip->extractTo($directory);
-                            $zip->close();
-                        }
+            foreach($banner_size as $index => $size){
+                $removeX = explode("x", $size);
+                $request_width = $removeX[0];
+                $request_height = $removeX[1];
+                $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
+        
+                $file_name = $sub_project_name . '_' . time() . rand() . '.' . $upload[$index]->extension();
+                $upload[$index]->move(public_path('banner_collection'), $file_name);
+                $file_bytes = filesize(public_path('/banner_collection/' . $file_name));
+        
+                $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                $file_size = round($file_bytes, 2) . " " . $label[$i];
+        
+                $sub_project = new BannerProject;
+                $sub_project->name = $sub_project_name;
+                $sub_project->project_id = $project_id;
+                $sub_project->size_id = $size_info['id'];
+                $sub_project->size = $file_size;
+                $sub_project->version_id = $id;
+                $sub_project->file_path = $file_name;
+                $sub_project->save();
+        
+                $zip = new ZipArchive();
+                $file_path = str_replace(".zip", "", $sub_project->file_path);
+                $directory = 'banner_collection/' . $file_path;
+                if (!is_dir($directory)) {
+                    if ($zip->open('banner_collection/' . $sub_project->file_path) === TRUE) {
+                        // Unzip Path
+                        $zip->extractTo($directory);
+                        $zip->close();
                     }
-                    $bannerIndex++;
                 }
             }
         }
