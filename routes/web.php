@@ -65,6 +65,7 @@ Route::post('/project/banner/addon/{id}', 'BannerController@project_addon_post')
 Route::get('/banner/edit/{id}', 'BannerController@banner_edit')->name('banner_edit');
 Route::post('/banner/edit/{id}', 'BannerController@banner_edit_post')->name('banner_edit_post');
 Route::get('/banner/delete/{id}', 'BannerController@banner_delete')->name('banner_delete');
+Route::get('/banner/download/{id}', 'BannerController@banner_download')->name('banner_download');
 
 Route::get('/banner_sizes', 'BannerController@sizes')->name('banner_sizes');
 Route::get('/banner_sizes/add', 'BannerController@size_add')->name('banner_sizes_add');

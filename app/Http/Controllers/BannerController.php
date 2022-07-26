@@ -127,18 +127,20 @@ class BannerController extends Controller
                 $sub_project->size_id = $size_info['id'];
                 $sub_project->size = $file_size;
                 $sub_project->version_id = $version->id;
-                $sub_project->file_path = $file_name;
+                $newFileName = str_replace(".zip", "", $file_name);
+                $sub_project->file_path = $newFileName;
                 $sub_project->save();
 
                 $zip = new ZipArchive();
-                $file_path = str_replace(".zip", "", $sub_project->file_path);
+                $file_path = str_replace(".zip", "", $file_name);
                 $directory = 'banner_collection/' . $file_path;
                 if (!is_dir($directory)) {
-                    if ($zip->open('banner_collection/' . $sub_project->file_path) === TRUE) {
+                    if ($zip->open('banner_collection/' . $file_name) === TRUE) {
                         // Unzip Path
                         $zip->extractTo($directory);
                         $zip->close();
                     }
+                    unlink('banner_collection/' . $file_name);
                 }
             }
 
@@ -244,18 +246,20 @@ class BannerController extends Controller
                     $sub_project->size_id = $size_info['id'];
                     $sub_project->size = $file_size;
                     $sub_project->version_id = $version_id;
-                    $sub_project->file_path = $file_name;
+                    $newFileName = str_replace(".zip", "", $file_name);
+                    $sub_project->file_path = $newFileName;
                     $sub_project->save();
     
                     $zip = new ZipArchive();
-                    $file_path = str_replace(".zip", "", $sub_project->file_path);
+                    $file_path = str_replace(".zip", "", $file_name);
                     $directory = 'banner_collection/' . $file_path;
                     if (!is_dir($directory)) {
-                        if ($zip->open('banner_collection/' . $sub_project->file_path) === TRUE) {
+                        if ($zip->open('banner_collection/' . $file_name) === TRUE) {
                             // Unzip Path
                             $zip->extractTo($directory);
                             $zip->close();
                         }
+                        unlink('banner_collection/' . $file_name);
                     }
                 }
         
@@ -272,9 +276,9 @@ class BannerController extends Controller
         $sub_project_info = BannerProject::where('project_id', $project_id)->where('version_id', $version_id)->get();
         if (($sub_project_info->count() != 0)) {
             foreach ($sub_project_info as $sub_project) {
-                $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
+                $file_path = public_path() . '/banner_collection/' . $sub_project['file_path'];
                 if(file_exists($file_path)){
-                    unlink('banner_collection/' . $sub_project['file_path']);
+                    // unlink('banner_collection/' . $sub_project['file_path']);
                     $files = File::deleteDirectory($file_path);
     
                 }
@@ -342,18 +346,20 @@ class BannerController extends Controller
                 $sub_project->size_id = $size_info['id'];
                 $sub_project->size = $file_size;
                 $sub_project->version_id = $version_id;
-                $sub_project->file_path = $file_name;
+                $newFileName = str_replace(".zip", "", $file_name);
+                $sub_project->file_path = $newFileName;
                 $sub_project->save();
 
                 $zip = new ZipArchive();
-                $file_path = str_replace(".zip", "", $sub_project->file_path);
+                $file_path = str_replace(".zip", "", $file_name);
                 $directory = 'banner_collection/' . $file_path;
                 if (!is_dir($directory)) {
-                    if ($zip->open('banner_collection/' . $sub_project->file_path) === TRUE) {
+                    if ($zip->open('banner_collection/' . $file_name) === TRUE) {
                         // Unzip Path
                         $zip->extractTo($directory);
                         $zip->close();
                     }
+                    unlink('banner_collection/' . $file_name);
                 }
             }
     
@@ -384,9 +390,9 @@ class BannerController extends Controller
 
             if (($sub_project_info->count() != 0)) {
                 foreach ($sub_project_info as $sub_project) {
-                    $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
+                    $file_path = public_path() . '/banner_collection/' . $sub_project['file_path'];
                     if(file_exists($file_path)){
-                        unlink('banner_collection/' . $sub_project['file_path']);
+                        // unlink('banner_collection/' . $sub_project['file_path']);
                         $files = File::deleteDirectory($file_path);
                     }
                     BannerProject::where('id', $sub_project->id)->delete();
@@ -417,18 +423,20 @@ class BannerController extends Controller
                 $sub_project->size_id = $size_info['id'];
                 $sub_project->size = $file_size;
                 $sub_project->version_id = $id;
-                $sub_project->file_path = $file_name;
+                $newFileName = str_replace(".zip", "", $file_name);
+                $sub_project->file_path = $newFileName;
                 $sub_project->save();
         
                 $zip = new ZipArchive();
-                $file_path = str_replace(".zip", "", $sub_project->file_path);
+                $file_path = str_replace(".zip", "", $file_name);
                 $directory = 'banner_collection/' . $file_path;
                 if (!is_dir($directory)) {
-                    if ($zip->open('banner_collection/' . $sub_project->file_path) === TRUE) {
+                    if ($zip->open('banner_collection/' . $file_name) === TRUE) {
                         // Unzip Path
                         $zip->extractTo($directory);
                         $zip->close();
                     }
+                    unlink('banner_collection/' . $file_name);
                 }
             }
         }
@@ -442,9 +450,9 @@ class BannerController extends Controller
         $sub_project_info = BannerProject::where('project_id', $id)->get();
         if (($sub_project_info->count() != 0)) {
             foreach ($sub_project_info as $sub_project) {
-                $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
+                $file_path = public_path() . '/banner_collection/' . $sub_project['file_path'];
                 if(file_exists($file_path)){
-                    unlink('banner_collection/' . $sub_project['file_path']);
+                    // unlink('banner_collection/' . $sub_project['file_path']);
                     $files = File::deleteDirectory($file_path);
                 }
                 BannerProject::where('id', $sub_project->id)->delete();
@@ -463,9 +471,9 @@ class BannerController extends Controller
         $sub_project_info = BannerProject::where('project_id', $id)->get();
         if (($sub_project_info->count() != 0)) {
             foreach ($sub_project_info as $sub_project) {
-                $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
+                $file_path = public_path() . '/banner_collection/' . $sub_project['file_path'];
                 if(file_exists($file_path)){
-                    unlink('banner_collection/' . $sub_project['file_path']);
+                    // unlink('banner_collection/' . $sub_project['file_path']);
                     $files = File::deleteDirectory($file_path);
                 }
                 BannerProject::where('id', $sub_project->id)->delete();
@@ -480,9 +488,9 @@ class BannerController extends Controller
     {
         $sub_project = BannerProject::where('id', $id)->first();
         $project_id = $sub_project['project_id'];
-        $file_path = public_path() . '/banner_collection/' . str_replace(".zip", "", $sub_project['file_path']);
+        $file_path = public_path() . '/banner_collection/' . $sub_project['file_path'];
         if(file_exists($file_path)){
-            unlink('banner_collection/' . $sub_project['file_path']);
+            // unlink('banner_collection/' . $sub_project['file_path']);
             $files = File::deleteDirectory($file_path);    
         }
         BannerProject::where('id', $id)->delete();
@@ -515,10 +523,10 @@ class BannerController extends Controller
         {
             $banner_id = $id;
             $banner_info = BannerProject::where('id', $banner_id)->first();
-            $old_file_directory = public_path() . '/banner_collection/' . str_replace(".zip", "", $banner_info['file_path']);
+            $old_file_directory = public_path() . '/banner_collection/' . $banner_info['file_path'];
             
             if(file_exists($old_file_directory)){
-                unlink('banner_collection/' . $banner_info['file_path']);
+                // unlink('banner_collection/' . $banner_info['file_path']);
                 $files = File::deleteDirectory($old_file_directory);
             }
     
@@ -533,12 +541,14 @@ class BannerController extends Controller
             $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
             for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
             $file_size = round($file_bytes, 2) . " " . $label[$i];
+
+            $newFileName = str_replace(".zip", "", $file_name);
     
             $sub_project_details = [
                 'name' => $sub_project_name,
                 'size_id' => $request->banner_size_id,
                 'size' => $file_size,
-                'file_path' => $file_name
+                'file_path' => $newFileName
             ];
     
             BannerProject::where('id', $banner_id)->update($sub_project_details);
@@ -552,6 +562,7 @@ class BannerController extends Controller
                     $zip->extractTo($directory);
                     $zip->close();
                 }
+                unlink('banner_collection/' . $file_name);
             }
             return redirect('/project/banner/view/' . $project_info['id']);
         }
@@ -618,12 +629,14 @@ class BannerController extends Controller
 
                 if(file_exists($old_directory)){
                     $old_files = File::deleteDirectory($old_directory);
-                    rename('banner_collection/' . $old_file_path, 'banner_collection/' . $new_file_path);
+                    // rename('banner_collection/' . $old_file_path, 'banner_collection/' . $new_file_path);
                 }
+
+                $newFileName = str_replace(".zip", $new_file_path);
     
                 $new_sub_details = [
                     'name' => $new_sub_project_name,
-                    'file_path' => $new_file_path,
+                    'file_path' => $newFileName,
                 ];
     
                 $zip = new ZipArchive();
@@ -635,11 +648,62 @@ class BannerController extends Controller
                         $zip->extractTo($directory);
                         $zip->close();
                     }
+                    unlink('banner_collection/' . $new_file_path);
                 }
     
                 BannerProject::where('id', $sub_project->id)->update($new_sub_details);
             }
         }
         return redirect('/banner')->with('success', $project_name . ' has been updated!');
+    }
+
+    public function banner_download($id){
+        $banner = BannerProject::where('id', $id)->first();
+        $file_name = $banner['file_path'].'.zip';
+        $source = public_path('banner_collection/'.$banner['file_path']);
+        $destination = $source;
+        $zipcreation = $this->zip_creation($source, $destination);
+        return response()->download(public_path('banner_collection/'.$file_name))->deleteFileAfterSend(true);
+    }
+
+    public function zip_creation($source, $destination){
+        $dir = opendir($source);
+        $result = ($dir === false ? false : true);
+    
+        if ($result !== false) {
+            $rootPath = realpath($source);
+             
+            // Initialize archive object
+            $zip = new ZipArchive();
+            $zipfilename = $destination.".zip";
+            $zip->open($zipfilename, ZipArchive::CREATE | ZipArchive::OVERWRITE );
+             
+            // Create recursive directory iterator
+            /** @var SplFileInfo[] $files */
+            $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($rootPath), \RecursiveIteratorIterator::LEAVES_ONLY);
+             
+            foreach ($files as $name => $file)
+            {
+                // Skip directories (they would be added automatically)
+                if (!$file->isDir())
+                {
+                    // Get real and relative path for current file
+                    $filePath = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($rootPath) + 1);
+             
+                    // Add current file to archive
+                    $zip->addFile($filePath, $relativePath);
+                }
+            }
+             
+            // Zip archive will be created only after closing object
+            $zip->close();
+            
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    
+    
     }
 }

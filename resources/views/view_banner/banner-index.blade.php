@@ -208,9 +208,7 @@
                     <div class="banners">
                         @foreach($sub_project_info as $project)
                         <?php
-                            $zip = new ZipArchive;
-                            $file_path = str_replace(".zip","", $project->file_path);
-                            $directory = 'banner_collection/'.$file_path;
+                            $directory = 'banner_collection/'.$project->file_path;
                         ?>
                         <div class="single-div">
                             <small>{{ $project->width }}x{{ $project->height }}</small>
@@ -228,8 +226,8 @@
                                     </i></li>
                                 @if(Auth::user())
                             
-                                <li><a href="{{ asset('/banner_collection/'.$project->file_path) }}"
-                                    class="color-primary underline flex mt-2" download>
+                                <li><a href="/banner/download/{{$project->id}}"
+                                    class="color-primary underline flex mt-2">
                                     <svg class="w-5 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -305,9 +303,7 @@
                             <div class="banners">
                                 @foreach($row as $project)
                                 <?php
-                                    $zip = new ZipArchive;
-                                    $file_path = str_replace(".zip","", $project->file_path);
-                                    $directory = 'banner_collection/'.$file_path;
+                                    $directory = 'banner_collection/'.$project->file_path;
                                 ?>
                                 <div class="single-div">
                                     <small>{{ $project->width }}x{{ $project->height }}</small>
@@ -327,8 +323,8 @@
                                         </li>
                                         @if(Auth::user())
                                         <li>
-                                            <a href="{{ asset('/banner_collection/'.$project->file_path) }}"
-                                            class="color-primary underline flex mt-2" download>
+                                            <li><a href="/banner/download/{{$project->id}}"
+                                            class="color-primary underline flex mt-2">
                                                 <svg class="w-5 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
