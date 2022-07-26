@@ -44,7 +44,7 @@
                         <td class="border px-4 py-2">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($video->uploaded_by_user_id) }}</label>
                             <hr>
-                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($video->created_at)->format('F Y') }}</label>
+                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($video->created_at)->format('d F Y H:s:i') }}</label>
                         </td>
                         <td class="border px-4 py-2">
                             <a href="/project/video/addon/{{$video->id}}">
