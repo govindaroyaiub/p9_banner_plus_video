@@ -41,7 +41,7 @@
                             {{ $video->name }}
                         </td>
                         <td class="border px-4 py-2" width="90px" max-width="100px">{{ $video->client_name }}</td>
-                        <td class="border px-4 py-2">
+                        <td class="border px-4 py-2" style="font-size: 15px;">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($video->uploaded_by_user_id) }}</label>
                             <hr>
                             <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($video->created_at)->format('d F Y H:s:i') }}</label>

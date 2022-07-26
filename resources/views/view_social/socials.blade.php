@@ -42,7 +42,7 @@
                             {{ $social->name }}
                         </td>
                         <td class="border px-4 py-2" width="140px" max-width="160px">{{ $social->client_name }}</td>
-                        <td class="border px-4 py-2" width="110px" max-width="135px">
+                        <td class="border px-4 py-2" width="110px" max-width="135px" style="font-size: 15px;">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($social->uploaded_by_user_id) }}</label>
                             <hr>
                             <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($social->created_at)->format('d F Y H:s:i') }}</label>
