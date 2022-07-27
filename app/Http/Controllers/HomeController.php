@@ -225,9 +225,14 @@ class HomeController extends Controller
 
     public function project_add_post(Request $request)
     {
+        if($request->size_id == 0){
+            return back()->with('danger', 'Please select the size format!');
+        }
+
         $validator = $request->validate([
             'poster' => 'mimes:jpeg,png,jpg,gif',
             'video' => 'required|mimes:mp4',
+            'size_id' => 'required'
         ]);
 
         $pro_name = $request->project_name;
@@ -355,10 +360,15 @@ class HomeController extends Controller
     }
 
     public function project_addon_post(Request $request, $id)
-    {
+    {   
+        if($request->size_id == 0){
+            return back()->with('danger', 'Please select the size format!');
+        }
+
         $validator = $request->validate([
             'poster' => 'mimes:jpeg,png,jpg,gif',
             'video' => 'required|mimes:mp4',
+            'size_id' => 'required'
         ]);
 
         $main_project_id = $id;
