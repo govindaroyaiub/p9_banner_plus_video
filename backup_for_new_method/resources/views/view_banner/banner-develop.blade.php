@@ -272,16 +272,16 @@
             @foreach ($data as $id => $row)
             <div class="container mx-auto px-4 py-3">
                 <div @if(Helper::getVersionStatus($id) == 1) x-data={show:true} @else x-data={show:false} @endif class="rounded-sm">
-                    <div class="px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{ $main_project_info['color'] }}">
+                    <div class="px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{Helper::getVersionColor($id)}}">
                         <label class="text-white">{{$i++}}. </label>
-                        <label class="underline cursor-pointer" type="button" style="color: white; -webkit-text-fill-color: white;">
+                        <label class="underline text-white cursor-pointer" type="button">
                             {{ Helper::getVersionName($id) }}
                         </label> - 
-                        <label class="cursor-pointer" type="button" style="color: white; -webkit-text-fill-color: white;">
-                            {{ \Carbon\Carbon::parse(Helper::getVersionDate($id))->format('d F Y H:s:i') }}
+                        <label class="text-white cursor-pointer" type="button">
+                            {{ \Carbon\Carbon::parse(Helper::getVersionDate($id))->format('d F Y') }}
                         </label>
                     </div>
-                    <div x-show="show" class="border border-b-0 px-1 py-1 collapse" id="collapse{{$id}}" style="border-color: {{ $main_project_info['color'] }}">
+                    <div x-show="show" class="border border-b-0 px-1 py-1 collapse" id="collapse{{$id}}" style="border-color: {{Helper::getVersionColor($id)}}">
                         @if(Auth::user())
                         <div class="flex float-right" style="z-index: 999;">
                             <a href="/banner/add/version/{{$main_project_id}}/{{$id}}" class="text-green-600">
