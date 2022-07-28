@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 html {
     line-height: 1.15;
@@ -18,7 +25,8 @@ h1 {
 }
 
 hr {
-    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
     height: 0;
     overflow: visible
 }
@@ -123,7 +131,8 @@ fieldset {
 }
 
 legend {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     color: inherit;
     display: table;
     max-width: 100%;
@@ -141,7 +150,8 @@ textarea {
 
 [type=checkbox],
 [type=radio] {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     padding: 0
 }
 
@@ -223,7 +233,8 @@ html {
 *,
 :after,
 :before {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     border: 0 solid #e2e8f0
 }
 
@@ -246,6 +257,22 @@ textarea::-moz-placeholder {
 
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
+    color: #a0aec0
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #a0aec0
+}
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+    color: #a0aec0
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: #a0aec0
+}
+
+input::-ms-input-placeholder, textarea::-ms-input-placeholder {
     color: #a0aec0
 }
 
@@ -676,6 +703,8 @@ video {
 }
 
 .flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex
 }
 
@@ -684,6 +713,7 @@ video {
 }
 
 .grid {
+    display: -ms-grid;
     display: grid
 }
 
@@ -692,47 +722,69 @@ video {
 }
 
 .flex-row {
-    flex-direction: row
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row
 }
 
 .flex-col {
-    flex-direction: column
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column
 }
 
 .items-center {
-    align-items: center
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center
 }
 
 .self-end {
-    align-self: flex-end
+    -ms-flex-item-align: end;
+        align-self: flex-end
 }
 
 .justify-start {
-    justify-content: flex-start
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start
 }
 
 .justify-center {
-    justify-content: center
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center
 }
 
 .justify-between {
-    justify-content: space-between
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between
 }
 
 .justify-around {
-    justify-content: space-around
+    -ms-flex-pack: distribute;
+        justify-content: space-around
 }
 
 .flex-1 {
-    flex: 1 1 0%
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 0%;
+            flex: 1 1 0%
 }
 
 .flex-none {
-    flex: none
+    -webkit-box-flex: 0;
+        -ms-flex: none;
+            flex: none
 }
 
 .flex-grow {
-    flex-grow: 1
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1
 }
 
 .font-body {
@@ -1047,15 +1099,18 @@ video {
 }
 
 .shadow-sm {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05)
 }
 
 .shadow {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06)
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06)
 }
 
 .shadow-md {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06)
+    -webkit-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06)
 }
 
 .fill-current {
@@ -1254,10 +1309,12 @@ video {
 }
 
 .grid-cols-2 {
+    -ms-grid-columns: (minmax(0, 1fr))[2];
     grid-template-columns: repeat(2, minmax(0, 1fr))
 }
 
 .grid-cols-5 {
+    -ms-grid-columns: (minmax(0, 1fr))[5];
     grid-template-columns: repeat(5, minmax(0, 1fr))
 }
 
@@ -1269,11 +1326,17 @@ video {
     --transform-skew-y: 0;
     --transform-scale-x: 1;
     --transform-scale-y: 1;
-    transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y))
+    -webkit-transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
+        -ms-transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
+            transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y))
 }
 
 .transition {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform
+    -webkit-transition-property: background-color, border-color, color, fill, stroke, opacity, -webkit-box-shadow, -webkit-transform;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, -webkit-box-shadow, -webkit-transform;
+    -o-transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, -webkit-box-shadow, -webkit-transform
 }
 
 .rounded-sm {
@@ -1282,13 +1345,15 @@ video {
 
 @-webkit-keyframes spin {
     to {
-        transform: rotate(1turn)
+        -webkit-transform: rotate(1turn);
+                transform: rotate(1turn)
     }
 }
 
 @keyframes spin {
     to {
-        transform: rotate(1turn)
+        -webkit-transform: rotate(1turn);
+                transform: rotate(1turn)
     }
 }
 
@@ -1296,7 +1361,8 @@ video {
 
     75%,
     to {
-        transform: scale(2);
+        -webkit-transform: scale(2);
+                transform: scale(2);
         opacity: 0
     }
 }
@@ -1305,7 +1371,8 @@ video {
 
     75%,
     to {
-        transform: scale(2);
+        -webkit-transform: scale(2);
+                transform: scale(2);
         opacity: 0
     }
 }
@@ -1326,13 +1393,15 @@ video {
 
     0%,
     to {
-        transform: translateY(-25%);
+        -webkit-transform: translateY(-25%);
+                transform: translateY(-25%);
         -webkit-animation-timing-function: cubic-bezier(.8, 0, 1, 1);
         animation-timing-function: cubic-bezier(.8, 0, 1, 1)
     }
 
     50% {
-        transform: none;
+        -webkit-transform: none;
+                transform: none;
         -webkit-animation-timing-function: cubic-bezier(0, 0, .2, 1);
         animation-timing-function: cubic-bezier(0, 0, .2, 1)
     }
@@ -1342,13 +1411,15 @@ video {
 
     0%,
     to {
-        transform: translateY(-25%);
+        -webkit-transform: translateY(-25%);
+                transform: translateY(-25%);
         -webkit-animation-timing-function: cubic-bezier(.8, 0, 1, 1);
         animation-timing-function: cubic-bezier(.8, 0, 1, 1)
     }
 
     50% {
-        transform: none;
+        -webkit-transform: none;
+                transform: none;
         -webkit-animation-timing-function: cubic-bezier(0, 0, .2, 1);
         animation-timing-function: cubic-bezier(0, 0, .2, 1)
     }
@@ -1409,6 +1480,8 @@ video {
     }
 
     .md\:flex {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex
     }
 

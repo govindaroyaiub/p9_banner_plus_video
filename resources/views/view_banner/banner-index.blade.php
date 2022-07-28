@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="{{ Helper::getFavicon($main_project_info['uploaded_by_company_id']) }}"
         type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
-    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('/css/style.css') }}" rel="stylesheet"> --}}
     <style>
         .logo-main {
             width: 200px;
@@ -208,7 +208,9 @@
                     <div class="banners">
                         @foreach($sub_project_info as $project)
                         <?php
-                            $directory = 'banner_collection/'.$project->file_path;
+                            $zip = new ZipArchive;
+                            $file_path = str_replace(".zip","", $project->file_path);
+                            $directory = 'banner_collection/'.$file_path;
                         ?>
                         <div class="single-div">
                             <small>{{ $project->width }}x{{ $project->height }}</small>
@@ -272,10 +274,10 @@
                 <div @if(Helper::getVersionStatus($id) == 1) x-data={show:true} @else x-data={show:false} @endif class="rounded-sm">
                     <div class="px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{ $main_project_info['color'] }}">
                         <label class="text-white">{{$i++}}. </label>
-                        <label class="underline text-white cursor-pointer" type="button">
+                        <label class="underline text-white">
                             {{ Helper::getVersionName($id) }}
                         </label> - 
-                        <label class="text-white cursor-pointer" type="button">
+                        <label class="text-white">
                             {{ \Carbon\Carbon::parse(Helper::getVersionDate($id))->format('d F Y H:s:i') }}
                         </label>
                     </div>
@@ -303,7 +305,9 @@
                             <div class="banners">
                                 @foreach($row as $project)
                                 <?php
-                                    $directory = 'banner_collection/'.$project->file_path;
+                                    $zip = new ZipArchive;
+                                    $file_path = str_replace(".zip","", $project->file_path);
+                                    $directory = 'banner_collection/'.$file_path;
                                 ?>
                                 <div class="single-div">
                                     <small>{{ $project->width }}x{{ $project->height }}</small>
