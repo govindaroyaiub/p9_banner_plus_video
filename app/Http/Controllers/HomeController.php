@@ -627,7 +627,7 @@ class HomeController extends Controller
         if($request->logo_file != NULL)
         {
             $request->validate([
-                'logo_file' => 'required|image|mimes:jpeg,png,jpg,svg',
+                'logo_file' => 'required|image|mimes:jpeg,png,jpg,svg,gif',
             ]);
 
             //first delete previous logo

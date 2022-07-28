@@ -128,10 +128,17 @@
 <body class="font-body">
     <header class="header relative border-b" style="border-color: {{ $main_project_info['color'] }}">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            @if($main_project_info['uploaded_by_company_id'] == 1)
             <div>
-                <h3>Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h3>
-                <h3>Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h3>
+                <h1 style="font-size: 16px;">Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
+                <h1 style="font-size: 16px;">Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
             </div>
+            @else
+                <div>
+                    <h1>Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
+                    <h1>Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
+                </div>
+            @endif
 
             <div class="flex">
                 @if($main_project_info->is_logo == 1)

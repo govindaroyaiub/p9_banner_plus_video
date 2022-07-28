@@ -70,10 +70,15 @@
 <nav class="bg-white">
     <div class="relative container mx-auto px-4 py-3 flex justify-between items-center">
         @if(Auth::user())
+        @if(Auth::user()->company_id == 1)
+        <a class="text-xl font-semibold" href="{{ url('/') }}">
+            <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 25%" id="company_logo">
+        </a>
+        @else
             <a class="text-xl font-semibold" href="{{ url('/') }}">
                 <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 20.6%" id="company_logo">
             </a>
-           
+        @endif
         @endif
 
         <ul class="flex space-x-4">
