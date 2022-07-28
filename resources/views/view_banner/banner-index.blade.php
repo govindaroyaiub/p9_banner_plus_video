@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="{{ Helper::getFavicon($main_project_info['uploaded_by_company_id']) }}"
         type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
-    {{-- <link href="{{ asset('/css/style.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <style>
         .logo-main {
             width: 200px;
