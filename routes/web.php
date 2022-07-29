@@ -79,6 +79,10 @@ Route::post('/banner/edit/version/{project_id}/{version_id}', 'BannerController@
 Route::get('/delete/version/{project_id}/{version_id}', 'BannerController@deleteVersion')->name('deleteVersion');
 //banner functions and routes end
 
+//banner showcase function starts
+Route::get('/banner-showcase', 'bannerShowcaseController@bannerShowcaseList')->name('bannerShowcaseList');
+//baner showcase function ends
+
 //video functions and routes
 Route::get('/video', 'HomeController@project')->name('project');
 Route::get('/project/video/add', 'HomeController@project_add')->name('project_add');
