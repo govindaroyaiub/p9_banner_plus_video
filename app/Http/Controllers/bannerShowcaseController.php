@@ -13,7 +13,10 @@ use App\BannerSizes;
 use App\BannerProject;
 use App\Gif;
 use App\Version;
-Use App\Social;
+use App\Social;
+use App\BannerCategories;
+use App\Feedback;
+use App\NewBannerList;
 use \App\Mail\SendMail;
 use App\Helper\Helper;
 
