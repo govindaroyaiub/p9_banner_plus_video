@@ -281,10 +281,10 @@
                 <div @if(Helper::getVersionStatus($id) == 1) x-data={show:true} @else x-data={show:false} @endif class="rounded-sm">
                     <div class="px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{ $main_project_info['color'] }}">
                         <label class="text-white">{{$i++}}. </label>
-                        <label class="underline cursor-pointer" type="button" style="color: white; -webkit-text-fill-color: white;">
+                        <label class="underline" style="color: white; -webkit-text-fill-color: white;">
                             {{ Helper::getVersionName($id) }}
                         </label> - 
-                        <label class="cursor-pointer" type="button" style="color: white; -webkit-text-fill-color: white;">
+                        <label style="color: white; -webkit-text-fill-color: white;">
                             {{ \Carbon\Carbon::parse(Helper::getVersionDate($id))->format('d F Y H:s:i') }}
                         </label>
                     </div>
