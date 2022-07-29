@@ -16,7 +16,7 @@ use App\Version;
 use App\Social;
 use App\BannerCategories;
 use App\Feedback;
-use App\NewBannerList;
+use App\BannerList;
 use \App\Mail\SendMail;
 use App\Helper\Helper;
 
