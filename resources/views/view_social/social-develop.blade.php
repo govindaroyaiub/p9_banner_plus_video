@@ -286,6 +286,10 @@
                 {
                     document.getElementsByClassName("header")[0].style.borderColor = color;
                     document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+                    var icons = document.getElementsByClassName("icons");
+                    for(var i = 0; i < icons.length; i++){
+                        icons[i].style.color = color;
+                    }
                 }
             })
             .catch(function (error)
