@@ -5,11 +5,20 @@
         <div @if(Helper::getFeedbackStatus($id) == 1) x-data={show:true} @else x-data={show:false} @endif class="rounded-sm">
             <div class="px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{ $main_project_info['color'] }}">
                 <label class="text-white">{{$i++}}. </label>
-                <label class="underline text-white cursor-pointer" type="button">
+                <label class="underline text-white">
                     {{ Helper::getFeedbackName($id) }}
                 </label> - 
-                <label class="text-white cursor-pointer" type="button">
+                <label class="text-white">
                     {{ \Carbon\Carbon::parse(Helper::getFeedbackDate($id))->format('d F Y H:s:i') }}
+                </label>
+                <label class="text-white" id="feedback{{$id}}"
+                @if(Helper::getFeedbackStatus($id) == 1) 
+                    style="float: right; tranform-origin: center; transform: rotate(180deg);"
+                @else style="float: right; tranform-origin: center; transform: rotate(0deg);" 
+                @endif>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
+                      </svg>
                 </label>
             </div>
             <div x-show="show" class="border border-b-0 px-1 py-1 collapse" id="collapse{{$id}}" style="border-color: {{ $main_project_info['color'] }}">
@@ -104,6 +113,7 @@
                     </div>
                 </div>
             </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js" integrity="sha512-VEBjfxWUOyzl0bAwh4gdLEaQyDYPvLrZql3pw1ifgb6fhEvZl9iDDehwHZ+dsMzA0Jfww8Xt7COSZuJ/slxc4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script>
                 function reloadAll() {
                     var versionElement = document.getElementById('version{{$id}}');
@@ -136,12 +146,18 @@
                 function setHeaderView(versionID, displayStatus){
                     //display none value is coming after the collapse is opened.
                     //so changing the value to opposite to send understandable axios request
+                    str = versionID.replace("version", "");
+                    var rotate = gsap.timeline({});
 
                     if(displayStatus == 'none'){
                         displayStatus = 'block';
+                        rotate
+                        .to('#feedback' + str, {duration: 0.65, rotate: 180, ease: "power0.none"})
                     }
                     else{
                         displayStatus = 'none';
+                        rotate
+                        .to('#feedback' + str, {duration: 0.65, rotate: 0, ease: "power0.none"})
                     }
 
                     axios.post('/setFeedbackStatus/' + versionID, 
