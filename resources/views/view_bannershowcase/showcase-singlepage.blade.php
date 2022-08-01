@@ -193,7 +193,6 @@
         @endif
 
     </div>
-    {{-- if there are no banners for this project then it will show no banners in the preview --}}
 
     @if($data->count() == 0)
         <main class="main">
@@ -203,7 +202,6 @@
                 <label class="text-red-700">Please Add Banner or Delete This Project.</label>
             </div>
         </main>
-    
     @else
         <main class="main">
             <div x-show="show" class="px-10 py-6">
