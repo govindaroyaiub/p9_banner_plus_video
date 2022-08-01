@@ -81,6 +81,10 @@ Route::get('/delete/version/{project_id}/{version_id}', 'BannerController@delete
 
 //banner showcase function starts
 Route::get('/banner-showcase', 'bannerShowcaseController@bannerShowcaseList')->name('bannerShowcaseList');
+Route::get('/project/banner-showcase/add', 'bannerShowcaseController@banner_project_add_view')->name('banner_project_add_view');
+Route::post('/project/banner-showcase/add', 'bannerShowcaseController@banner_project_add_post')->name('banner_project_add_post');
+
+Route::get('/project/banner-showcase/delete/{id}', 'bannerShowcaseController@banner_project_delete')->name('banner_project_delete');
 //baner showcase function ends
 
 //video functions and routes

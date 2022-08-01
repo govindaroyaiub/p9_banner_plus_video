@@ -15,7 +15,7 @@
             <br>
             <div class="flex justify-between w-full">
                 <h3 class="text-xl font-semibold tracking-wide">Showcase List</h3>
-                <a href="/">    
+                <a href="/project/banner-showcase/add">    
                     <button type="button"
                         class="leading-tight bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -37,26 +37,19 @@
                 </thead>
                 <?php $i=1; ?>
                 <tbody>
+                    @foreach ($data as $row)
                     <tr style="text-align: center;">
                         <td class="border px-4 py-2">{{ $i++ }}</td>
                         <td class="border px-4 py-2">
-                            
+                            {{ $row->name }}
                         </td>
-                        <td class="border px-4 py-2" width="140px" max-width="160px"></td>
+                        <td class="border px-4 py-2" width="140px" max-width="160px">{{ $row->client_name }}</td>
                         <td class="border px-4 py-2" width="110px" max-width="135px" style="font-size: 15px;">
-                            <label class="text-red-500 font-semibold"></label>
+                            <label class="text-red-500 font-semibold">{{ Helper::getUsername($row->uploaded_by_user_id) }}</label>
                             <hr>
-                            <label class="text-red-500 font-semibold"></label>
+                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($row->created_at)->format('d F Y H:s:i') }}</label>
                         </td>
                         <td class="border px-4 py-2"  width="270px" max-width="290px">
-                            <a href="/">
-                                <button type="button"
-                                    class="bg-indigo-600 text-gray-200 rounded hover:bg-indigo-500 px-4 py-2 focus:outline-none">
-                                    <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                    </svg>
-                                </button>
-                            </a>
                             <a href="/" target="_blank">
                                 <button type="button"
                                     class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
@@ -76,7 +69,7 @@
                                 </button>
                             </a>
 
-                            <a href="/" onclick="return confirm('Are you sure you want to delete this project?');">
+                            <a href="/project/banner-showcase/delete/{{$row->id}}" onclick="return confirm('Are you sure you want to delete this project?');">
                                 <button type="button"
                                     class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,6 +79,7 @@
                             </a>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -21,7 +21,7 @@ class BannerCategoriesList extends Migration
             $table->integer('size_id');
             $table->bigInteger('project_id');
             $table->bigInteger('feedback_id');
-            $table->bigInteger('cat_id');
+            $table->bigInteger('category_id');
             $table->timestamps();
         });
     }
