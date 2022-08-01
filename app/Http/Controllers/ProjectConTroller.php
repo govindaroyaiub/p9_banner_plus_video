@@ -13,7 +13,10 @@ use App\BannerSizes;
 use App\BannerProject;
 use App\Gif;
 use App\Version;
-Use App\Social;
+use App\Social;
+use App\BannerCategories;
+use App\Feedback;
+use App\Banner;
 use \App\Mail\SendMail;
 use App\Helper\Helper;
 
@@ -245,6 +248,10 @@ class ProjectConTroller extends Controller
         {
             return view('404');
         }
+    }
+
+    public function banner_showcase_view($id){
+        dd(Feedback::where('project_id', $id)->get());
     }
 
     public function store_comments(Request $request, $id)
