@@ -113,6 +113,16 @@ class Helper
         return $feedback['name'];
     }
 
+    public static function getFeedbackStatus($id){
+        $data = Feedback::where('id', $id)->first();
+        return $data['is_open'];
+    }
+
+    public static function getFeedbackDate($id){
+        $data = Feedback::where('id', $id)->first();
+        return $data['created_at'];
+    }
+
     public static function getCategoryName($id){
         $category = BannerCategories::where('id', $id)->first();
         return $category['name'];

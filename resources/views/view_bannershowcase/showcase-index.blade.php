@@ -171,7 +171,7 @@
                 </a>
             </li>
             <li>
-                <a class="flex text-green-600" href="/project/banner/addon/{{ $main_project_id }}">
+                <a class="flex text-green-600" href="/project/banner-showcase/addon/{{ $main_project_id }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -193,27 +193,21 @@
         @endif
 
     </div>
-    {{-- if there are no banners for this project then it will show no banners in the preview --}}
-
-    <main class="main">
-        <div x-show="show" class="px-10 py-6">
+    @if($banners->count() == 0)
+        <main class="main">
             <div class="container mx-auto px-4 py-4">
-                @foreach ($data as $index => $feedback)
-                    {{ Helper::getFeedbackName($index) }}
-
-                    @foreach ($feedback as $index => $category)
-                        {{ Helper::getCategoryName($index) }}
-
-                        @foreach ($category as $index => $banner)
-                            {{ Helper::getBannerInfo($index) }}
-                        @endforeach
-
-                    @endforeach
-
-                @endforeach
+                <label class="text-red-700">No Banner Found!</label>
+                <br>
+                <label class="text-red-700">Please Add Banner or Delete This Project.</label>
             </div>
-        </div>
-    </main>
+        </main>
+    @else
+        @if($is_version == false)
+            @include('view_bannershowcase.singlepage-part')
+        @else
+            @include('view_bannershowcase.feedback-part')
+        @endif
+    @endif
 
     @if($main_project_info->is_footer == 1)
     <footer class="footer" style="background-color: {{ $main_project_info['color'] }}">

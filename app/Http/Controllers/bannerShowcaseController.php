@@ -153,12 +153,123 @@ class bannerShowcaseController extends Controller
         return redirect('/banner-showcase')->with('danger', $main_project_info['name'] . ' been deleted along with assets!');
     }
 
-    public function banner_add_feedback_view(){
+    public function banner_add_feedback_view($id){
         //show the banner add on page. where the banner can be uploaded to the existing preview or create a new feeback round
+        $main_project_id = $id;
+        $project_info = MainProject::where('id', $main_project_id)->first();
+        $version_status = $project_info['is_version'];
+        $feedbackCount = Feedback::where('project_id', $main_project_id)->count();
+        $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        return view('view_bannershowcase.showcase_addon', compact('size_list', 'main_project_id', 'feedbackCount', 'version_status'));
     }
 
-    public function banner_add_feedback_post(){
+    public function banner_add_feedback_post(Request $request, $id){
         //post function to insert the add on banners. here the main logic will reside into the database
+        $validator = $request->validate([
+            'upload' => 'required',
+            'feedback_request' => 'required',
+            'upload.*' => 'mimes:doc,pdf,docx,zip'
+        ]);
+
+        $feedback_request = $request->feedback_request;
+
+        if($feedback_request!= 0){
+            $main_project_id = $id;
+            $project_info = MainProject::where('id', $main_project_id)->first();
+
+            if($feedback_request == 1){
+                //check version exists or not
+                //if null then create one
+                $feedback_info = Feedback::where('project_id', $project_info['id'])->first();
+
+                if($feedback_info == NULL){
+                    $feedback = new Feedback;
+                    $feedback->project_id = $main_project_id;
+                    $feedback->title = 'Feedback Round 1';
+                    $feedback->is_open = 1;
+                    $feedback->save();
+                    $feedback_id = $feedback->id;
+
+                    $category = new BannerCategories;
+                    $category->name ='Default';
+                    $category->project_id = $main_project_id;
+                    $category->feedback_id = $feedback->id;
+                    $category->save();
+                    $category_id = $category->id;
+                }
+                else{
+                    $feedback_id = $feedback_info['id'];
+                    $category_info = BannerCategories::where('feedback_id', $feedback_id)->first();
+                    $category_id = $category_info['id'];
+                }
+            }
+            else{
+                $feedback = new Feedback;
+                $feedback->name = $request->feedback_name;
+                $feedback->project_id = $main_project_id;
+                $feedback->is_open = 1;
+                $feedback->save();
+                $feedback_id = $feedback->id;
+
+                $category = new BannerCategories;
+                $category->name ='Default';
+                $category->project_id = $main_project_id;
+                $category->feedback_id = $feedback->id;
+                $category->save();
+                $category_id = $category->id;
+
+                MainProject::where('id', $main_project_id)->update(['is_version' => 1]);
+            }
+
+            if($request->hasfile('upload')){
+                $banner_size = $request->banner_size_id;
+                $upload = $request->upload;
+                $array = [];
+                foreach($banner_size as $index => $size){
+                    $removeX = explode("x", $size);
+                    $request_width = $removeX[0];
+                    $request_height = $removeX[1];
+                    $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                    $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
+            
+                    $file_name = $sub_project_name . '_' . time() . rand() . '.' . $upload[$index]->extension();
+                    $upload[$index]->move(public_path('showcase_collection'), $file_name);
+                    $file_bytes = filesize(public_path('/showcase_collection/' . $file_name));
+            
+                    $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                    for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                    $file_size = round($file_bytes, 2) . " " . $label[$i];
+            
+                    $banner = new Banner;
+                    $banner->name = $sub_project_name;
+                    $banner->project_id = $main_project_id;
+                    $banner->size_id = $size_info['id'];
+                    $banner->size = $file_size;
+                    $banner->category_id = $category_id;
+                    $banner->feedback_id = $feedback_id;
+                    $newFileName = str_replace(".zip", "", $file_name);
+                    $banner->file_path = $newFileName;
+                    $banner->save();
+    
+                    $zip = new ZipArchive();
+                    $file_path = str_replace(".zip", "", $file_name);
+                    $directory = 'showcase_collection/' . $file_path;
+                    if (!is_dir($directory)) {
+                        if ($zip->open('showcase_collection/' . $file_name) === TRUE) {
+                            // Unzip Path
+                            $zip->extractTo($directory);
+                            $zip->close();
+                        }
+                        unlink('showcase_collection/' . $file_name);
+                    }
+                }
+        
+                return redirect('/project/banner-showcase/view/' . $main_project_id);
+            }
+        }
+        else{
+            return back();
+        }
     }
 
     public function banner_edit_feedback_view(){

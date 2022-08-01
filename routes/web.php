@@ -24,6 +24,7 @@ Route::get('/project/social/view/{id}', 'ProjectConTroller@social_view')->name('
 Route::get('/project/banner-showcase/view/{id}', 'ProjectConTroller@banner_showcase_view')->name('banner_showcase_view');
 Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
 Route::post('/setVersionStatus/{version_id}', 'ProjectConTroller@setVersionViewStatus')->name('setVersionViewStatus');
+Route::post('/setFeedbackStatus/{version_id}', 'ProjectConTroller@setFeedbackStatus')->name('setFeedbackStatus');
 
 Route::get('/p9_transfer/download/all/{slug}', 'TransferController@download_all')->name('download_all');
 
@@ -84,7 +85,8 @@ Route::get('/delete/version/{project_id}/{version_id}', 'BannerController@delete
 Route::get('/banner-showcase', 'bannerShowcaseController@bannerShowcaseList')->name('bannerShowcaseList');
 Route::get('/project/banner-showcase/add', 'bannerShowcaseController@banner_project_add_view')->name('banner_project_add_view');
 Route::post('/project/banner-showcase/add', 'bannerShowcaseController@banner_project_add_post')->name('banner_project_add_post');
-
+Route::get('/project/banner-showcase/addon/{id}', 'bannerShowcaseController@banner_add_feedback_view')->name('banner_add_feedback_view');
+Route::post('/project/banner-showcase/addon/{id}', 'bannerShowcaseController@banner_add_feedback_post')->name('banner_add_feedback_post');
 Route::get('/project/banner-showcase/delete/{id}', 'bannerShowcaseController@banner_project_delete')->name('banner_project_delete');
 Route::get('/showcase/delete/{id}', 'bannerShowcaseController@banner_delete')->name('banner_delete');
 Route::get('/showcase/download/{id}', 'bannerShowcaseController@banner_download')->name('banner_download');

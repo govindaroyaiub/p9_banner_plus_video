@@ -276,27 +276,39 @@ class ProjectConTroller extends Controller
             $categories = BannerCategories::where('id', $main_project_id)->get();
             $banners = Banner::where('project_id', $main_project_id)->get();
             $data = [];
+            $is_version = false;
+            $is_category = false;
 
             if($main_project_info['is_version'] == 0){
                 $data = Banner::where('project_id', $main_project_id)->get();
-                return view('view_bannershowcase.showcase-singlepage', compact('main_project_id', 'main_project_info', 'data'));
+                $is_version == false;
+                $is_category = false;
             }
             else{
                 foreach($feedbacks as $index => $feedback){
                     $categories = BannerCategories::where('feedback_id', $feedback->id)->get();
+                    if($categories->count() > 1){
+                        $is_version = true;
+                        $is_category = true;
+                    }
                     foreach($categories as $index => $category){
                         $banners = Banner::where('category_id', $category->id)->get();
                         foreach($banners as $index => $banner){
                             $data[$feedback->id][$category->id][$banner->id] = $banner;
                         }
                     }
+                    $is_version = true;
+                    $is_category = false;
                 }
-                return view('view_bannershowcase.showcase-index', compact(
-                    'main_project_info',
-                    'main_project_id',
-                    'data'
-                ));
             }
+            return view('view_bannershowcase.showcase-index', compact(
+                'main_project_info',
+                'main_project_id',
+                'data',
+                'is_version',
+                'is_category',
+                'banners'
+            ));
         }
         else 
         {
@@ -360,6 +372,21 @@ class ProjectConTroller extends Controller
         }
         
         Version::where('id', $version_id)->update(['is_open' => $is_open]);
+        return $is_open;
+    }
+
+    public function setFeedbackStatus(Request $request, $version_id){
+        $displayStatus = $request->displayStatus;
+        $version_id = trim($version_id, "version");
+
+        if($displayStatus == 'block'){
+            $is_open = 1;
+        }
+        else{
+            $is_open = 0;
+        }
+        
+        Feedback::where('id', $version_id)->update(['is_open' => $is_open]);
         return $is_open;
     }
 }
