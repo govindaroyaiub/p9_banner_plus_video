@@ -13,8 +13,8 @@
                 </label>
                 <label class="text-white" id="feedback{{$id}}"
                 @if(Helper::getFeedbackStatus($id) == 1) 
-                    style="float: right; tranform-origin: center; transform: rotate(180deg);"
-                @else style="float: right; tranform-origin: center; transform: rotate(0deg);" 
+                    style="float: right; transform-origin: center; transform: rotate(180deg);"
+                @else style="float: right; transform-origin: center; transform: rotate(0deg);" 
                 @endif>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
