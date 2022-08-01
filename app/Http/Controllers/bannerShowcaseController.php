@@ -196,4 +196,76 @@ class bannerShowcaseController extends Controller
     public function banner_delete_category(){
         //delete the category
     }
+
+    public function banner_delete($id)
+    {
+        $banner = Banner::where('id', $id)->first();
+        $project_id = $banner['project_id'];
+        $file_path = public_path() . '/showcase_collection/' . $banner['file_path'];
+        if(file_exists($file_path)){
+            // unlink('banner_collection/' . $sub_project['file_path']);
+            $files = File::deleteDirectory($file_path);    
+        }
+        Banner::where('id', $id)->delete();
+        $banners_check = Banner::where('project_id', $project_id)->get();
+        if($banners_check->count() == 0){
+            Feedback::where('project_id', $project_id)->delete();
+            BannerCategories::where('project_id', $id)->delete();
+            MainProject::where('id', $project_id)->update(['is_version' => 0]);
+            return redirect('/project/banner/addon/'.$project_id)->with('danger', 'Assets been deleted! Please Re-upload.'); 
+        }
+        else{
+            return back();
+        }
+    }
+
+    public function banner_download($id){
+        $banner = Banner::where('id', $id)->first();
+        $file_name = $banner['file_path'].'.zip';
+        $source = public_path('showcase_collection/'.$banner['file_path']);
+        $destination = $source;
+        $zipcreation = $this->zip_creation($source, $destination);
+        return response()->download(public_path('showcase_collection/'.$file_name))->deleteFileAfterSend(true);
+    }
+
+    public function zip_creation($source, $destination){
+        $dir = opendir($source);
+        $result = ($dir === false ? false : true);
+    
+        if ($result !== false) {
+            $rootPath = realpath($source);
+             
+            // Initialize archive object
+            $zip = new ZipArchive();
+            $zipfilename = $destination.".zip";
+            $zip->open($zipfilename, ZipArchive::CREATE | ZipArchive::OVERWRITE );
+             
+            // Create recursive directory iterator
+            /** @var SplFileInfo[] $files */
+            $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($rootPath), \RecursiveIteratorIterator::LEAVES_ONLY);
+             
+            foreach ($files as $name => $file)
+            {
+                // Skip directories (they would be added automatically)
+                if (!$file->isDir())
+                {
+                    // Get real and relative path for current file
+                    $filePath = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($rootPath) + 1);
+             
+                    // Add current file to archive
+                    $zip->addFile($filePath, $relativePath);
+                }
+            }
+             
+            // Zip archive will be created only after closing object
+            $zip->close();
+            
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    
+    
+    }
 }

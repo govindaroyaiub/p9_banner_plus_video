@@ -86,6 +86,8 @@ Route::get('/project/banner-showcase/add', 'bannerShowcaseController@banner_proj
 Route::post('/project/banner-showcase/add', 'bannerShowcaseController@banner_project_add_post')->name('banner_project_add_post');
 
 Route::get('/project/banner-showcase/delete/{id}', 'bannerShowcaseController@banner_project_delete')->name('banner_project_delete');
+Route::get('/showcase/delete/{id}', 'bannerShowcaseController@banner_delete')->name('banner_delete');
+Route::get('/showcase/download/{id}', 'bannerShowcaseController@banner_download')->name('banner_download');
 //baner showcase function ends
 
 //video functions and routes

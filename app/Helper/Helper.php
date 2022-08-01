@@ -11,6 +11,9 @@ use App\BannerSizes;
 use App\BannerProject;
 use App\Version;
 use App\Social;
+use App\BannerCategories;
+use App\Feedback;
+use App\Banner;
 
 class Helper
 {
@@ -93,7 +96,6 @@ class Helper
         return $width.'x'.$height;
     }
 
-
     public static function getImageFileSize($id){
         $social = Social::where('id', $id)->first();
         $file_path = 'social_collection/'.$social['file_path'];
@@ -104,5 +106,31 @@ class Helper
         $file_size = round($file_bytes, 2) . " " . $label[$i];
 
         return $file_size;
+    }
+
+    public static function getFeedbackName($id){
+        $feedback = Feedback::where('id', $id)->first();
+        return $feedback['name'];
+    }
+
+    public static function getCategoryName($id){
+        $category = BannerCategories::where('id', $id)->first();
+        return $category['name'];
+    }
+
+    public static function getBannerInfo($id){
+        $banner = Banner::where('id', $id)->first();
+        return $banner['name'];
+    }
+
+    public static function getBannerSizeinfo($id){
+        $banner = Banner::where('id', $id)->first();
+        $size = BannerSizes::where('id', $banner['size_id'])->first();
+        return $size['width'].'x'.$size['height'];
+    }
+
+    public static function getBannerFileSize($id){
+        $banner = Banner::where('id', $id)->first();
+        return $banner['size'];
     }
 }

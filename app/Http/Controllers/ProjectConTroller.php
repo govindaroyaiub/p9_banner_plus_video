@@ -251,7 +251,57 @@ class ProjectConTroller extends Controller
     }
 
     public function banner_showcase_view($id){
-        dd(Feedback::where('project_id', $id)->get());
+        $main_project_id = $id;
+        $main_project_info = MainProject::join('logo', 'main_project.logo_id', 'logo.id')
+                                        ->select(
+                                            'main_project.name as name',
+                                            'main_project.client_name',
+                                            'main_project.logo_id',
+                                            'main_project.color',
+                                            'main_project.is_logo',
+                                            'main_project.is_footer',
+                                            'main_project.is_version',
+                                            'main_project.uploaded_by_company_id',
+                                            'main_project.uploaded_by_user_id',
+                                            'logo.name as logo_name',
+                                            'logo.website',
+                                            'logo.path' 
+                                        )
+                                        ->where('main_project.id', $main_project_id)
+                                        ->first();
+
+        if($main_project_info != NULL)
+        {
+            $feedbacks = Feedback::where('project_id', $main_project_id)->get();
+            $categories = BannerCategories::where('id', $main_project_id)->get();
+            $banners = Banner::where('project_id', $main_project_id)->get();
+            $data = [];
+
+            if($main_project_info['is_version'] == 0){
+                $data = Banner::where('project_id', $main_project_id)->get();
+                return view('view_bannershowcase.showcase-singlepage', compact('main_project_id', 'main_project_info', 'data'));
+            }
+            else{
+                foreach($feedbacks as $index => $feedback){
+                    $categories = BannerCategories::where('feedback_id', $feedback->id)->get();
+                    foreach($categories as $index => $category){
+                        $banners = Banner::where('category_id', $category->id)->get();
+                        foreach($banners as $index => $banner){
+                            $data[$feedback->id][$category->id][$banner->id] = $banner;
+                        }
+                    }
+                }
+                return view('view_bannershowcase.showcase-index', compact(
+                    'main_project_info',
+                    'main_project_id',
+                    'data'
+                ));
+            }
+        }
+        else 
+        {
+            return view('404');
+        }
     }
 
     public function store_comments(Request $request, $id)
