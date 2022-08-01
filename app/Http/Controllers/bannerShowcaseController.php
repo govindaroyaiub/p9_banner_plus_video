@@ -210,7 +210,7 @@ class bannerShowcaseController extends Controller
         $banners_check = Banner::where('project_id', $project_id)->get();
         if($banners_check->count() == 0){
             Feedback::where('project_id', $project_id)->delete();
-            BannerCategories::where('project_id', $id)->delete();
+            BannerCategories::where('project_id', $project_id)->delete();
             MainProject::where('id', $project_id)->update(['is_version' => 0]);
             return redirect('/project/banner/addon/'.$project_id)->with('danger', 'Assets been deleted! Please Re-upload.'); 
         }
