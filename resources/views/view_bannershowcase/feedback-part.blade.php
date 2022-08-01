@@ -35,7 +35,7 @@
                 <div class="container mx-auto px-4 py-12">
                     <div class="banners">
                         @foreach($row as $index => $banner)
-                            @if($is_category == false) <label class="underline" style="display:flex; margin-left: 7px;">{{ Helper::getCategoryName($index) }}</label>  @endif
+                            @if($is_category == false) <label class="underline" style="display:flex; margin-left: 7px; font-size: 18px;">{{ Helper::getCategoryName($index) }}</label>  @endif
                             @foreach ($banner as $banner)
                             <?php
                                 $directory = 'showcase_collection/'.$banner->file_path;
