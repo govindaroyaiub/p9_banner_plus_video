@@ -171,7 +171,7 @@
                 </a>
             </li>
             <li>
-                <a class="flex text-green-600" href="/project/banner/addon/{{ $main_project_id }}">
+                <a class="flex text-green-600" href="/project/showcase/addon/{{ $main_project_id }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

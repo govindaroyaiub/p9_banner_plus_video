@@ -212,7 +212,7 @@ class bannerShowcaseController extends Controller
             Feedback::where('project_id', $project_id)->delete();
             BannerCategories::where('project_id', $project_id)->delete();
             MainProject::where('id', $project_id)->update(['is_version' => 0]);
-            return redirect('/project/banner/addon/'.$project_id)->with('danger', 'Assets been deleted! Please Re-upload.'); 
+            return redirect('/project/showcase/addon/'.$project_id)->with('danger', 'Assets been deleted! Please Re-upload.'); 
         }
         else{
             return back();
