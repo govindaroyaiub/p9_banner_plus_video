@@ -45,7 +45,7 @@
                     <div class="banners">
                         @foreach($row as $index => $banner)
                             @if(Helper::getFeedbackCategoryCount($id) > 1) 
-                                <div class="py-2 text-white" style="display:flex; margin-left: 7px; font-size: 18px; background-color: {{ $main_project_info['color'] }}; padding-left: 10px; margin-bottom: 20px;">
+                                <div class="py-2 text-white" style="display:flex; margin-left: 7px; font-size: 18px; background-color: {{ $main_project_info['color'] }}; padding-left: 10px; margin-bottom: 20px; margin-top: 10px;">
                                     {{ Helper::getCategoryName($id) }}
                                 </div>
                             @endif
