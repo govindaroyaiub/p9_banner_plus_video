@@ -44,10 +44,10 @@
                 <div class="container mx-auto px-4 py-12">
                     <div class="banners">
                         @foreach($row as $index => $banner)
-                            @if(Helper::getFeedbackCategoryCount($index) > 1) 
-                                <label class="underline py-6" style="display:flex; margin-left: 7px; font-size: 18px;">
-                                    {{ Helper::getCategoryName($index) }} - {{ Helper::getFeedbackCategoryCount($index) }}
-                                </label>
+                            @if(Helper::getFeedbackCategoryCount($id) > 1) 
+                                <div class="py-6 text-white" style="display:flex; margin-left: 7px; font-size: 18px; background-color: {{ $main_project_info['color'] }}; padding-left: 10px; margin-bottom: 20px;">
+                                    {{ Helper::getCategoryName($id) }}
+                                </div>
                             @endif
 
                             @foreach ($banner as $banner)
@@ -76,7 +76,7 @@
                                     </li>
                                     @if(Auth::user())
                                     <li>
-                                        <li><a href="/banner/download/{{$banner->id}}"
+                                        <li><a href="/showcase/download/{{$banner->id}}"
                                         class="color-primary underline flex mt-2">
                                             <svg class="w-5 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +86,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/banner/edit/{{ $banner->id }}" class="color-primary underline flex mt-2">
+                                        <a href="/showcase/edit/{{ $banner->id }}" class="color-primary underline flex mt-2">
                                             <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -95,7 +95,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/banner/delete/{{ $banner->id }}" class="color-primary underline flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
+                                        <a href="/showcase/delete/{{ $banner->id }}" class="color-primary underline flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
                                             <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2"

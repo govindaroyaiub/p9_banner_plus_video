@@ -104,11 +104,11 @@ class ProjectConTroller extends Controller
         if($main_project_info != NULL)
         {
             $versions = Version::where('project_id', $main_project_id)->get();
-            $totalBanners = BannerProject::where('id', $main_project_id)->get();
+            $totalBanners = BannerProject::where('project_id', $main_project_id)->get();
             $data = [];
 
             //if banner has no version but has banners
-            if($versions->count() == 0 && $totalBanners->count() > 0){
+            if(($versions->count() == 0 && $totalBanners->count() > 0) || ($versions->count() == 0 && $totalBanners->count() == 0)){
                 $sub_project_info = BannerProject::join('banner_sizes', 'banner_projects.size_id', 'banner_sizes.id')
                                                 ->select(
                                                     'banner_projects.id',
@@ -118,12 +118,8 @@ class ProjectConTroller extends Controller
                                                     'banner_sizes.width',
                                                     'banner_sizes.height'
                                                 )
-                                                ->where('project_id', $main_project_id)
+                                                ->where('banner_projects.project_id', $main_project_id)
                                                 ->get();
-            }
-            //if there are no banners and versions
-            else if($versions->count() == 0 && $totalBanners->count() == 0){
-                return redirect('/project/banner/addon/'.$id)->with('danger', 'Assets been deleted! Please Re-upload.');
             }
             //else there are versions and banners
             else{
@@ -139,7 +135,7 @@ class ProjectConTroller extends Controller
                                                     'banner_sizes.width',
                                                     'banner_sizes.height'
                                                 )
-                                                ->where('version_id', $version_id)
+                                                ->where('banner_projects.version_id', $version_id)
                                                 ->get();
 
                     foreach($sub_project_info as $sub_project){
