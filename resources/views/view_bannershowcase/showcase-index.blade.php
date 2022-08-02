@@ -101,6 +101,7 @@
                     var icons = document.getElementsByClassName("icons");
                     var versions = document.getElementsByClassName("all-versions");
                     var collapses = document.getElementsByClassName("collapse");
+                    var feedbacks = document.getElementsByClassName("feedbacks");
 
                     for(var i = 0; i < icons.length; i++){
                         icons[i].style.color = color;
@@ -112,6 +113,10 @@
 
                     for(var k = 0; k < collapses.length; k++){
                         collapses[k].style.borderColor = color;
+                    }
+
+                    for(var l = 0; l < feedbacks.length; l++){
+                        feedbacks[l].style.backgroundColor = color;
                     }
                 }
             })
