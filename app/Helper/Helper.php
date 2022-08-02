@@ -128,6 +128,10 @@ class Helper
         return $category['name'];
     }
 
+    public static function getFeedbackCategoryCount($id){
+        return BannerCategories::where('feedback_id', $id)->get()->count();
+    }
+
     public static function getBannerInfo($id){
         $banner = Banner::where('id', $id)->first();
         return $banner['name'];

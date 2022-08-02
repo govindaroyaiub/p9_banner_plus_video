@@ -34,7 +34,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                           </svg>
                     </a>
-                    <a href="/delete/feedback/{{$main_project_id}}/{{$id}}" class="text-red-600" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete this version?!');">
+                    <a href="/banner/delete/feedback/{{$main_project_id}}/{{$id}}" class="text-red-600" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete this version?!');">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
@@ -44,7 +44,12 @@
                 <div class="container mx-auto px-4 py-12">
                     <div class="banners">
                         @foreach($row as $index => $banner)
-                            @if($is_category == false) <label class="underline" style="display:flex; margin-left: 7px; font-size: 18px;">{{ Helper::getCategoryName($index) }}</label>  @endif
+                            @if(Helper::getFeedbackCategoryCount($index) > 1) 
+                                <label class="underline py-6" style="display:flex; margin-left: 7px; font-size: 18px;">
+                                    {{ Helper::getCategoryName($index) }} - {{ Helper::getFeedbackCategoryCount($index) }}
+                                </label>
+                            @endif
+
                             @foreach ($banner as $banner)
                             <?php
                                 $directory = 'showcase_collection/'.$banner->file_path;

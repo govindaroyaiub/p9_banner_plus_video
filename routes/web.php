@@ -88,6 +88,8 @@ Route::post('/project/banner-showcase/add', 'bannerShowcaseController@banner_pro
 Route::get('/project/banner-showcase/addon/{id}', 'bannerShowcaseController@banner_add_feedback_view')->name('banner_add_feedback_view');
 Route::post('/project/banner-showcase/addon/{id}', 'bannerShowcaseController@banner_add_feedback_post')->name('banner_add_feedback_post');
 Route::get('/project/banner-showcase/delete/{id}', 'bannerShowcaseController@banner_project_delete')->name('banner_project_delete');
+Route::get('/banner/add/feedback/{project_id}/{feedback_id}', 'bannerShowcaseController@banner_add_category_view')->name('banner_add_category_view');
+Route::post('/banner/add/feedback/{project_id}/{feedback_id}', 'bannerShowcaseController@banner_add_category_post')->name('banner_add_category_post');
 Route::get('/showcase/delete/{id}', 'bannerShowcaseController@banner_delete')->name('banner_delete');
 Route::get('/showcase/download/{id}', 'bannerShowcaseController@banner_download')->name('banner_download');
 //baner showcase function ends

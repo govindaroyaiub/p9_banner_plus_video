@@ -282,15 +282,10 @@ class ProjectConTroller extends Controller
             if($main_project_info['is_version'] == 0){
                 $data = Banner::where('project_id', $main_project_id)->get();
                 $is_version == false;
-                $is_category = false;
             }
             else{
                 foreach($feedbacks as $index => $feedback){
                     $categories = BannerCategories::where('feedback_id', $feedback->id)->get();
-                    if($categories->count() > 1){
-                        $is_version = true;
-                        $is_category = true;
-                    }
                     foreach($categories as $index => $category){
                         $banners = Banner::where('category_id', $category->id)->get();
                         foreach($banners as $index => $banner){
@@ -298,7 +293,6 @@ class ProjectConTroller extends Controller
                         }
                     }
                     $is_version = true;
-                    $is_category = false;
                 }
             }
             return view('view_bannershowcase.showcase-index', compact(
@@ -306,7 +300,6 @@ class ProjectConTroller extends Controller
                 'main_project_id',
                 'data',
                 'is_version',
-                'is_category',
                 'banners'
             ));
         }
