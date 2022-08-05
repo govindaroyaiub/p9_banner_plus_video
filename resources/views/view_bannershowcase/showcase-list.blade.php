@@ -60,7 +60,7 @@
                                 </button>
                             </a>
                         
-                            <a href="/">
+                            <a href="/project/banner-showcase/edit/{{ $row->id }}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

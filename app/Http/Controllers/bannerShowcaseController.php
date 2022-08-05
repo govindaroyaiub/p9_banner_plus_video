@@ -30,7 +30,7 @@ class bannerShowcaseController extends Controller
         if(url('/') == $verification['website'])
         {
             $logo_list = Logo::get();
-            $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+            $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
             $company_details = Logo::where('id', Auth::user()->company_id)->first();
             $color = $company_details['default_color'];
             return view('view_bannershowcase.showcase-add', compact('logo_list', 'size_list', 'color'));
@@ -125,19 +125,41 @@ class bannerShowcaseController extends Controller
         }
     }
 
-    public function banner_project_edit_view(){
+    public function banner_project_edit_view($project_id){
         //show the banner project edit page
-        
+        $project_name = MainProject::where('id', $project_id)->first();
+        $naming_convention = str_replace(" ", "_", $project_name['name']);
+        $logo_list = Logo::get();
+        $project_info = MainProject::where('id', $project_id)->first();
+        return view('view_bannershowcase.showcase-edit', compact('logo_list', 'project_info', 'project_id', 'naming_convention'));
     }
 
-    public function banner_project_edit_post(){
+    public function banner_project_edit_post(Request $request, $project_id){
         //post function to update the project
+        $pro_name = $request->project_name;
+        $old_project_details = MainProject::where('id', $project_id)->where('project_type', 4)->first();
+        $project_name = str_replace(" ", "_", $request->project_name);
+        $old_project_name = str_replace(" ", "_", $old_project_details['name']);
 
+        $sub_projects = Banner::where('project_id', $project_id)->get();
+
+        $main_project_details = [
+            'name' => $pro_name,
+            'client_name' => $request->client_name,
+            'logo_id' => $request->logo_id,
+            'color' => $request->color,
+            'is_logo' => $request->is_logo,
+            'is_footer' => $request->is_footer
+        ];
+
+        MainProject::where('id', $project_id)->update($main_project_details);
+        return redirect('/banner-showcase')->with('success', $project_name . ' has been updated!');
     }
 
     public function banner_project_delete($id){
         //delete function to remove the entire project
         $main_project_info = MainProject::where('id', $id)->first();
+        $project_name = $main_project_info['name'];
 
         $banner_info = Banner::where('project_id', $id)->get();
         if (($banner_info->count() != 0)) {
@@ -152,7 +174,7 @@ class bannerShowcaseController extends Controller
         Feedback::where('project_id', $id)->delete();
         BannerCategories::where('project_id', $id)->delete();
         MainProject::where('id', $id)->delete();
-        return redirect('/project/banner-showcase/addon/{id}')->with('danger', $main_project_info['name'] . ' been deleted along with assets!');
+        return redirect('/banner-showcase')->with('danger', $project_name. ' been deleted along with assets!');
     }
 
     public function banner_add_feedback_view($id){
