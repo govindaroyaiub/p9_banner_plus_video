@@ -7,29 +7,19 @@
         <div class="w-3/4 mx-4">
             @include('alert')
             <h4 class="underline text-xl font-semibold tracking-wide py-2">Project: <label class="text-red-500">{{ $project_name }} - {{ $feedback_name }}</label></h4>
-            <h3 class="text-xl font-semibold tracking-wide">Add Banners to Feedback</h3>
+            <h3 class="text-xl font-semibold tracking-wide">Edit Feedback</h3>
+            <span class="text-red-600">Note: If banners are uploaded then current banners will get updated as well!</span>
             <br>
 
-            <form id="project-add-form" class="max-w-xl" method="POST"
-                action="/banner/add/feedback/{{$project_id}}/{{$feedback_id}}" enctype="multipart/form-data">
+            <form id="project-add-form" class="max-w-xl py-3" method="POST"
+                action="/banner/edit/feedback/{{$project_id}}/{{$feedback_id}}" enctype="multipart/form-data">
                 @csrf
-                <div>
-                    <label class="text-primary font-light block">Select Option to Upload</label>
-                    <select name="feedback_request" id="feedback_request" required
-                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
-                        <option value="0" class="py-2">Select Option</option>
-                        @if($category_count <= 1)
-                            <option value="1" class="py-2">Upload to Existing Feedback</option>
-                        @endif
-                        @if($category_count >= 1)
-                            <option value="2" class="py-2">Create New Category</option>
-                        @endif
-                    </select>
-                </div>
-                <input type='text' placeholder="Default" name="category_name" value="Default" id="category_name"
-                               class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
-                               required/>
                 {{-- Drag and Drop --}}
+                <input type='text' placeholder="{{ $feedback_name }}" name="feedback_name" value="{{ $feedback_name }}" id="feedback_name"
+                               class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                               required/>
+
+                
                 <div
                     class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
                     <input name="upload[]" id="upload" type="file" multiple="multiple" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
@@ -59,7 +49,7 @@
                 <div class="flex space-x-4 mt-4">
                     <button type="submit"
                         class="w-full mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">
-                        ADD
+                        EDIT
                     </button>
                     <button type="button" onclick="window.history.back()"
                         class="w-full mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-2 focus:outline-none">
@@ -81,16 +71,6 @@
 <script>
 
     $(document).ready(function () {
-        $('#feedback_request').change(function(){
-            var value = $(this).val();
-            if(value == 2){
-                document.getElementById('category_name').style.display = "block";
-            }
-            else{
-                document.getElementById('category_name').style.display = "none";
-            }
-        });
-
         $("#upload").change(function () {
             var rows = '';
             var select = '';

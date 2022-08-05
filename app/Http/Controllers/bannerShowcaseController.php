@@ -127,10 +127,12 @@ class bannerShowcaseController extends Controller
 
     public function banner_project_edit_view(){
         //show the banner project edit page
+        
     }
 
     public function banner_project_edit_post(){
         //post function to update the project
+
     }
 
     public function banner_project_delete($id){
@@ -150,13 +152,13 @@ class bannerShowcaseController extends Controller
         Feedback::where('project_id', $id)->delete();
         BannerCategories::where('project_id', $id)->delete();
         MainProject::where('id', $id)->delete();
-        return redirect('/banner-showcase')->with('danger', $main_project_info['name'] . ' been deleted along with assets!');
+        return redirect('/project/banner-showcase/addon/{id}')->with('danger', $main_project_info['name'] . ' been deleted along with assets!');
     }
 
     public function banner_add_feedback_view($id){
         //show the banner add on page. where the banner can be uploaded to the existing preview or create a new feeback round
         $main_project_id = $id;
-        $project_info = MainProject::where('id', $main_project_id)->first();
+        $project_info = MainProject::where('id', $id)->first();
         $version_status = $project_info['is_version'];
         $feedbackCount = Feedback::where('project_id', $main_project_id)->count();
         $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
@@ -185,7 +187,7 @@ class bannerShowcaseController extends Controller
                 if($feedback_info == NULL){
                     $feedback = new Feedback;
                     $feedback->project_id = $main_project_id;
-                    $feedback->title = 'Feedback Round 1';
+                    $feedback->name = 'Feedback Round 1';
                     $feedback->is_open = 1;
                     $feedback->save();
                     $feedback_id = $feedback->id;
@@ -272,20 +274,136 @@ class bannerShowcaseController extends Controller
         }
     }
 
-    public function banner_edit_feedback_view(){
+    public function banner_edit_feedback_view($project_id, $feedback_id){
         //banner feedback edit page
+        $feedback_info = Feedback::where('id', $feedback_id)->first();
+        $project_info = MainProject::where('id', $project_id)->first();
+        $project_name = $project_info['name'];
+        $feedback_name = $feedback_info['name'];
+        $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        return view('view_bannershowcase.feedback-edit', compact('project_id', 'feedback_id', 'feedback_name', 'project_name', 'size_list'));
     }
 
-    public function banner_edit_feedback_post(){
+    public function banner_edit_feedback_post(Request $request, $project_id, $feedback_id){
         //post function to update the banner feedback id
+        Feedback::where('id', $feedback_id)->update(['name' => $request->feedback_name]);
+        $project_info = MainProject::where('id', $project_id)->first();
+        
+        //if request has uploads then firstd elete the current banners then add the new ones
+        if($request->has('upload')){
+            $banners = Banner::where('project_id', $project_id)->where('feedback_id', $feedback_id)->get();
+
+            if (($banners->count() != 0)) {
+                foreach ($banners as $banner) {
+                    $file_path = public_path() . '/showcase_collection/' . $banner['file_path'];
+                    if(file_exists($file_path)){
+                        // unlink('banner_collection/' . $sub_project['file_path']);
+                        $files = File::deleteDirectory($file_path);
+                    }
+                }
+                Banner::where('feedback_id', $feedback_id)->delete();
+                BannerCategories::where('feedback_id', $feedback_id)->delete();
+            }
+
+            $category = new BannerCategories;
+            $category->name ='Default';
+            $category->project_id = $project_id;
+            $category->feedback_id = $feedback_id;
+            $category->save();
+            $category_id = $category->id;
+            
+            $banner_size = $request->banner_size_id;
+            $upload = $request->upload;
+            $array = [];
+
+            foreach($banner_size as $index => $size){
+                $removeX = explode("x", $size);
+                $request_width = $removeX[0];
+                $request_height = $removeX[1];
+                $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
+        
+                $file_name = $sub_project_name . '_' . time() . rand() . '.' . $upload[$index]->extension();
+                $upload[$index]->move(public_path('showcase_collection'), $file_name);
+                $file_bytes = filesize(public_path('/showcase_collection/' . $file_name));
+        
+                $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                $file_size = round($file_bytes, 2) . " " . $label[$i];
+        
+                $banner = new Banner;
+                $banner->name = $sub_project_name;
+                $banner->project_id = $project_id;
+                $banner->size_id = $size_info['id'];
+                $banner->size = $file_size;
+                $banner->feedback_id = $feedback_id;
+                $banner->category_id = $category_id;
+                $newFileName = str_replace(".zip", "", $file_name);
+                $banner->file_path = $newFileName;
+                $banner->save();
+        
+                $zip = new ZipArchive();
+                $file_path = str_replace(".zip", "", $file_name);
+                $directory = 'showcase_collection/' . $file_path;
+                if (!is_dir($directory)) {
+                    if ($zip->open('showcase_collection/' . $file_name) === TRUE) {
+                        // Unzip Path
+                        $zip->extractTo($directory);
+                        $zip->close();
+                    }
+                    unlink('showcase_collection/' . $file_name);
+                }
+            }
+        }
+        return redirect('/project/banner-showcase/view/' . $project_id);
     }
 
-    public function banner_delete_feedback(){
+    public function banner_delete_feedback($project_id, $feedback_id){
         //delete the banner feedback id and as well as directories
+        $project_info = MainProject::where('id', $project_id)->first();
+        $banners = Banner::where('project_id', $project_id)->where('feedback_id', $feedback_id)->get();
+        if (($banners->count() != 0)) {
+            foreach ($banners as $banner) {
+                $file_path = public_path() . '/showcase_collection/' . $banner['file_path'];
+                if(file_exists($file_path)){
+                    // unlink('banner_collection/' . $sub_project['file_path']);
+                    $files = File::deleteDirectory($file_path);
+                }
+                Banner::where('id', $banner->id)->delete();
+            }
+        }
+
+        Feedback::where('id', $feedback_id)->delete();
+        BannerCategories::where('feedback_id', $feedback_id)->delete();
+
+        $feedbackCount = Feedback::where('project_id', $project_id)->count();
+
+        if($feedbackCount == 1){
+            MainProject::where('id', $project_id)->update(['is_version' => 0]);
+        }
+        return back();
     }
 
-    public function banner_index_view_delete(){
+    public function banner_index_view_delete($project_id){
         //this is the Delete All Button click action where the banners will be deleted but the project itself will stay
+        $banners = Banner::where('project_id', $project_id)->get();
+        if (($banners->count() != 0)) {
+            foreach ($banners as $banner) {
+                $file_path = public_path() . '/showcase_collection/' . $banner['file_path'];
+                if(file_exists($file_path)){
+                    // unlink('banner_collection/' . $sub_project['file_path']);
+                    $files = File::deleteDirectory($file_path);
+                }
+                Banner::where('id', $banner->id)->delete();
+            }
+        }
+
+        Feedback::where('project_id', $project_id)->delete();
+        BannerCategories::where('project_id', $project_id)->delete();
+        MainProject::where('id', $project_id)->update(['is_version' => 0]);
+        $feedbackCount = Feedback::where('project_id', $project_id)->count();
+
+        return redirect('/project/banner-showcase/addon/'.$project_id)->with('danger', 'Assets been deleted! Please Re-upload.'); 
     }
 
     public function banner_add_category_view($project_id, $feedback_id){
@@ -294,8 +412,9 @@ class bannerShowcaseController extends Controller
         $project_info = MainProject::where('id', $project_id)->first();
         $project_name = $project_info['name'];
         $feedback_name = $project_info['name'];
+        $category_count = BannerCategories::where('feedback_id', $feedback_id)->count();
         $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
-        return view('view_bannershowcase.feedback-addon', compact('project_id', 'feedback_id', 'feedback_name', 'project_name', 'size_list'));
+        return view('view_bannershowcase.feedback-addon', compact('project_id', 'feedback_id', 'feedback_name', 'project_name', 'size_list', 'category_count'));
     }
 
     public function banner_add_category_post(Request $request, $project_id, $feedback_id){
@@ -371,15 +490,15 @@ class bannerShowcaseController extends Controller
             }
         }
         else{
-            dd('0');
+            dd('error');
         }
     }
 
-    public function banner_edit_category_view(){
+    public function banner_edit_category_view($project_id, $feedback_id){
         //category edit function view
     }
 
-    public function banner_edit_category_post(){
+    public function banner_edit_category_post(Requet $request, $project_id, $feedback_id){
         //post function to update the category
     }
 
@@ -402,7 +521,7 @@ class bannerShowcaseController extends Controller
             Feedback::where('project_id', $project_id)->delete();
             BannerCategories::where('project_id', $project_id)->delete();
             MainProject::where('id', $project_id)->update(['is_version' => 0]);
-            return redirect('/project/showcase/addon/'.$project_id)->with('danger', 'Assets been deleted! Please Re-upload.'); 
+            return redirect('/project/banner-showcase/addon/'.$project_id)->with('danger', 'Assets been deleted! Please Re-upload.'); 
         }
         else{
             return back();

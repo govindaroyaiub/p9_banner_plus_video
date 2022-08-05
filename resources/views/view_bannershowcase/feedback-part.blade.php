@@ -5,9 +5,9 @@
         <div @if(Helper::getFeedbackStatus($id) == 1) x-data={show:true} @else x-data={show:false} @endif class="rounded-sm">
             <div class="px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{ $main_project_info['color'] }}">
                 <label class="text-white">{{$i++}}. </label>
-                <label class="underline text-white">
-                    {{ Helper::getFeedbackName($id) }}
-                </label> - 
+                <label class="text-white">
+                    {{ Helper::getFeedbackName($id) }} -
+                </label>  
                 <label class="text-white">
                     {{ \Carbon\Carbon::parse(Helper::getFeedbackDate($id))->format('d F Y H:s:i') }}
                 </label>
@@ -45,8 +45,20 @@
                     <div class="banners">
                         @foreach($row as $index => $banner)
                             @if(Helper::getFeedbackCategoryCount($id) > 1) 
-                                <div class="py-2 text-white rounded-md feedbacks" style="display:flex; margin-left: 7px; font-size: 18px; background-color: {{ $main_project_info['color'] }}; padding-left: 10px; margin-bottom: 20px; margin-top: 10px;">
-                                    {{ Helper::getCategoryName($id) }}
+                                <div class="py-2 text-white rounded-md feedbacks" style="margin-left: 7px; font-size: 18px; background-color: {{ $main_project_info['color'] }}; padding-left: 10px; margin-bottom: 20px; margin-top: 10px;">
+                                    <label>{{ Helper::getCategoryName($index) }}</label>
+                                    <div class="float-right mx-4 flex" style="margin-top: 2px; z-index: 99;">
+                                        <a href="/banner/categories/{{$id}}/category/edit/{{$index}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                        <a href="/banner/categories/{{$id}}/category/delete/{{$index}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
                             @endif
 
@@ -76,7 +88,7 @@
                                     </li>
                                     @if(Auth::user())
                                     <li>
-                                        <li><a href="/showcase/download/{{$banner->id}}"
+                                        <a href="/showcase/download/{{$banner->id}}"
                                         class="color-primary underline flex mt-2">
                                             <svg class="w-5 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +98,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/showcase/edit/{{ $banner->id }}" class="color-primary underline flex mt-2">
+                                        <a href="/showcase/edit/{{ $banner->id }}" class="color-primary flex mt-2">
                                             <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -95,7 +107,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/showcase/delete/{{ $banner->id }}" class="color-primary underline flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
+                                        <a href="/showcase/delete/{{ $banner->id }}" class="color-primary flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
                                             <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2"

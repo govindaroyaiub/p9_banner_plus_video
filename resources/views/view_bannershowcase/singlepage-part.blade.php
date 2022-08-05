@@ -37,7 +37,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/showcase/edit/{{ $banner->id }}" class="color-primary underline flex mt-2">
+                            <a href="/showcase/edit/{{ $banner->id }}" class="color-primary flex mt-2">
                                 <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -46,7 +46,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/showcase/delete/{{ $banner->id }}" class="color-primary underline flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
+                            <a href="/showcase/delete/{{ $banner->id }}" class="color-primary flex mt-2" onclick="return confirm('Are you sure you want to delete this banner?');">
                                 <svg class="w-5 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2"

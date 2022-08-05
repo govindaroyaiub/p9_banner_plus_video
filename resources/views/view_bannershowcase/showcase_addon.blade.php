@@ -18,10 +18,10 @@
                     <select name="feedback_request" id="feedback_request" required
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                         <option value="0" class="py-2">Select Option</option>
-                        @if($feedbackCount < 2) 
+                        @if($feedbackCount <= 1) 
                         <option value="1" class="py-2">Upload to Existing Preview</option>
                         @endif
-                        @if($feedbackCount != 0)
+                        @if($feedbackCount >= 1)
                         <option value="2" class="py-2">Create New Feedback</option>
                         @endif
                     </select>
