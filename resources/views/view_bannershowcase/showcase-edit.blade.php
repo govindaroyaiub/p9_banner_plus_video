@@ -65,8 +65,7 @@
                 <br>
                 <br>
 
-                <label class="text-primary font-light">Select Color (Default Selcted Color is PlanetNine Logo
-                    Color)</label><br>
+                <label class="text-primary font-light">Select Color</label><br>
                 <input type='color' name="color" value="{{ $project_info['color'] }}" class="w-2/3 mt-2 mb-6 px-4 py-2 border rounded-lg" />
                 <br>
 
