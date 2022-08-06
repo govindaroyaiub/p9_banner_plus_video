@@ -22,21 +22,21 @@
                 <div class="mb-4">
                     <label class="text-primary font-light block">Client Name</label>
                     <input type='text' placeholder="Enter Client Name" name="client_name"
-                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                        class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
                 </div>
 
                 <div class="mb-4">
                     <label class="text-primary font-light block">Feedback Round Title</label>
                     <input type='text' placeholder="Feedback Round 1" name="feedback_name" value="Feedback Round 1"
-                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                        class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
                 </div>
 
                 <div class="mb-4">
                     <label class="text-primary font-light block">Category Name</label>
                     <input type='text' placeholder="Default" name="category_name" value="Default"
-                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                        class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
                 </div>
 
