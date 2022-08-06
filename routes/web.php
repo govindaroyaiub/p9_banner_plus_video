@@ -95,6 +95,9 @@ Route::post('/banner/add/feedback/{project_id}/{feedback_id}', 'bannerShowcaseCo
 Route::get('/banner/edit/feedback/{project_id}/{feedback_id}', 'bannerShowcaseController@banner_edit_feedback_view')->name('banner_edit_feedback_view');
 Route::post('/banner/edit/feedback/{project_id}/{feedback_id}', 'bannerShowcaseController@banner_edit_feedback_post')->name('banner_edit_feedback_post');
 Route::get('/banner/delete/feedback/{project_id}/{feedback_id}', 'bannerShowcaseController@banner_delete_feedback')->name('banner_delete_feedback');
+Route::get('/banner/categories/{feedback_id}/edit/{category_id}', 'bannerShowcaseController@banner_edit_category_view')->name('banner_edit_category_view');
+Route::post('/banner/categories/{feedback_id}/edit/{category_id}', 'bannerShowcaseController@banner_edit_category_post')->name('banner_edit_category_post');
+Route::get('/banner/categories/{feedback_id}/delete/{category_id}', 'bannerShowcaseController@banner_delete_category')->name('banner_delete_category');
 Route::get('/delete-all-banners-showcase/{project_id}', 'bannerShowcaseController@banner_index_view_delete')->name('banner_index_view_delete');
 Route::get('/showcase/delete/{id}', 'bannerShowcaseController@banner_delete')->name('banner_delete');
 Route::get('/showcase/download/{id}', 'bannerShowcaseController@banner_download')->name('banner_download');

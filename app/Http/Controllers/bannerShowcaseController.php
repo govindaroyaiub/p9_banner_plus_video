@@ -516,16 +516,95 @@ class bannerShowcaseController extends Controller
         }
     }
 
-    public function banner_edit_category_view($project_id, $feedback_id){
+    public function banner_edit_category_view($feedback_id, $category_id){
         //category edit function view
+        $feedback_info = Feedback::where('id', $feedback_id)->first();
+        $feedback_name = $feedback_info['name'];
+        $project_info = MainProject::where('id', $feedback_info['project_id'])->first();
+        $project_name = $project_info['name'];
+        $category_info = BannerCategories::where('id', $category_id)->first();
+        $category_name = $category_info['name'];
+        $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        return view('view_bannershowcase.category-edit', compact('category_name', 'feedback_id', 'category_id', 'project_name', 'feedback_name', 'size_list'));
     }
 
-    public function banner_edit_category_post(Requet $request, $project_id, $feedback_id){
+    public function banner_edit_category_post(Request $request, $feedback_id, $category_id){
         //post function to update the category
+        $category_info = BannerCategories::where('id', $category_id)->first();
+        BannerCategories::where('id', $category_id)->update(['name' => $request->category_name]);
+        $project_info = MainProject::where('id', $category_info['project_id'])->first();
+        
+        //if request has uploads then firstd elete the current banners then add the new ones
+        if($request->has('upload')){
+            $banners = Banner::where('category_id', $category_id)->get();
+
+            if (($banners->count() != 0)) {
+                foreach ($banners as $banner) {
+                    $file_path = public_path() . '/showcase_collection/' . $banner['file_path'];
+                    if(file_exists($file_path)){
+                        // unlink('banner_collection/' . $sub_project['file_path']);
+                        $files = File::deleteDirectory($file_path);
+                    }
+                    Banner::where('id', $banner->id)->delete();
+                }
+            }
+            $banner_size = $request->banner_size_id;
+            $upload = $request->upload;
+            $array = [];
+
+            foreach($banner_size as $index => $size){
+                $removeX = explode("x", $size);
+                $request_width = $removeX[0];
+                $request_height = $removeX[1];
+                $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
+        
+                $file_name = $sub_project_name . '_' . time() . rand() . '.' . $upload[$index]->extension();
+                $upload[$index]->move(public_path('showcase_collection'), $file_name);
+                $file_bytes = filesize(public_path('/showcase_collection/' . $file_name));
+        
+                $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                $file_size = round($file_bytes, 2) . " " . $label[$i];
+        
+                $banner = new Banner;
+                $banner->name = $sub_project_name;
+                $banner->project_id = $category_info['project_id'];
+                $banner->size_id = $size_info['id'];
+                $banner->size = $file_size;
+                $banner->feedback_id = $feedback_id;
+                $banner->category_id = $category_id;
+                $newFileName = str_replace(".zip", "", $file_name);
+                $banner->file_path = $newFileName;
+                $banner->save();
+        
+                $zip = new ZipArchive();
+                $file_path = str_replace(".zip", "", $file_name);
+                $directory = 'showcase_collection/' . $file_path;
+                if (!is_dir($directory)) {
+                    if ($zip->open('showcase_collection/' . $file_name) === TRUE) {
+                        // Unzip Path
+                        $zip->extractTo($directory);
+                        $zip->close();
+                    }
+                    unlink('showcase_collection/' . $file_name);
+                }
+            }
+        }
+
+        return redirect('/project/banner-showcase/view/' . $category_info['project_id']);
     }
 
-    public function banner_delete_category(){
+    public function banner_delete_category($feedback_id, $category_id){
         //delete the category
+        $banner = Banner::where('category_id', $category_id)->first();
+        $file_path = public_path() . '/showcase_collection/' . $banner['file_path'];
+        if(file_exists($file_path)){
+            // unlink('banner_collection/' . $sub_project['file_path']);
+            $files = File::deleteDirectory($file_path);    
+        }
+        BannerCategories::where('id', $category_id)->delete();
+        return back();
     }
 
     public function banner_delete($id)

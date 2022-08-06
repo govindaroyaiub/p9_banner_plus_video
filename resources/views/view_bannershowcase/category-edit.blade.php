@@ -6,16 +6,16 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h4 class="text-xl font-semibold tracking-wide py-2">Project: <label class="text-red-500">{{ $project_name }} - {{ $feedback_name }}</label></h4>
-            <h3 class="text-xl font-semibold tracking-wide">Edit Feedback</h3>
+            <h4 class="text-xl font-semibold tracking-wide py-2">Project: <label class="text-red-500">{{ $project_name }} - {{ $feedback_name }} - {{ $category_name }}</label></h4>
+            <h3 class="text-xl font-semibold tracking-wide">Edit Category</h3>
             <span class="text-red-600">Note: If banners are uploaded then current banners will get updated as well!</span>
             <br>
 
             <form id="project-add-form" class="max-w-xl py-3" method="POST"
-                action="/banner/edit/feedback/{{$project_id}}/{{$feedback_id}}" enctype="multipart/form-data">
+                action="/banner/categories/{{$feedback_id}}/edit/{{$category_id}}" enctype="multipart/form-data">
                 @csrf
                 {{-- Drag and Drop --}}
-                <input type='text' placeholder="{{ $feedback_name }}" name="feedback_name" value="{{ $feedback_name }}" id="feedback_name"
+                <input type='text' placeholder="{{ $category_name }}" name="category_name" value="{{ $category_name }}" id="category_name"
                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                                required/>
 
