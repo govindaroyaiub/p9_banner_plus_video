@@ -16,7 +16,7 @@
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/social">Social Images</a>
         </li>
         <li class="{{ request()->is('banner-showcase') || request()->is('project/banner-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
-                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner-showcase">Banner Showcase (Test Phase)</a>
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner-showcase">Banner Showcase</a>
         </li>
 
         @if(Auth::user()->company_id == 1)
