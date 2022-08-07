@@ -6,7 +6,7 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h4 class="underline text-xl font-semibold tracking-wide py-2">Project: <label class="text-red-500">{{ $project_name }} - {{ $feedback_name }}</label></h4>
+            <h4 class="text-xl font-semibold tracking-wide py-2">Project: <label class="text-red-500">{{ $project_name }} - {{ $feedback_name }}</label></h4>
             <h3 class="text-xl font-semibold tracking-wide">Add Banners to Feedback</h3>
             <br>
 
