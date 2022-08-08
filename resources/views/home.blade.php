@@ -125,7 +125,7 @@
         function drawChart() {
           var data = google.visualization.arrayToDataTable([
             ['Creative Statistics', 'Projects', 'Total Creatives'],
-            ['Banner', {{ $total_banner_projects }}, {{ $total_banners }}],
+            ['Banner', {{ $total_banner_projects_count }}, {{ $total_banners }}],
             ['Video', {{ $total_video_projects }}, {{ $total_videos }}],
             ['GIF', {{ $total_gif_projects }}, {{ $total_gifs }}],
             ['Social Images', {{ $total_social_projects }}, {{ $total_socials }}],

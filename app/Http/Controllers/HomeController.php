@@ -120,6 +120,8 @@ class HomeController extends Controller
                                                 ->whereYear('created_at', $current_year)
                                                 ->count();
 
+            $total_banner_projects_count = $total_banner_projects + $total_new_banner_projects;
+
             $total_video_projects = MainProject::where('project_type', 1)
                                                 ->where('uploaded_by_company_id', Auth::user()->company_id)
                                                 ->whereYear('created_at', $current_year)
@@ -172,7 +174,7 @@ class HomeController extends Controller
                     'total_gifs',
                     'total_socials',
                     'total_gif_projects', 
-                    'total_banner_projects', 
+                    'total_banner_projects_count', 
                     'total_video_projects', 
                     'total_social_projects',
                     'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
