@@ -26,14 +26,19 @@
                         required />
                 </div>
 
-                <div class="mb-4">
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" id="additional_info" class="h-4 w-4 text-gray-700 border rounded mr-2">
+                    <label for="additional_info_text">Show Additional Info</label>
+                </div>
+
+                <div class="mb-4 hidden" id="feedback_round_title">
                     <label class="text-primary font-light block">Feedback Round Title</label>
                     <input type='text' placeholder="Feedback Round 1" name="feedback_name" value="Feedback Round 1"
                         class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-4 hidden" id="category_name">
                     <label class="text-primary font-light block">Category Name</label>
                     <input type='text' placeholder="Default" name="category_name" value="Default"
                         class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
@@ -122,6 +127,18 @@
 
     <script>
         $(document).ready(function(){
+            $('#additional_info').change(function (){
+                if($("#additional_info").is(':checked')){
+                    // Code in the case checkbox is checked.
+                    document.getElementById("category_name").style.display = 'block';
+                    document.getElementById("feedback_round_title").style.display = 'block';
+                } else {
+                    // Code in the case checkbox is NOT checked.
+                    document.getElementById("category_name").style.display = 'none';
+                    document.getElementById("feedback_round_title").style.display = 'none';
+                }
+            })
+
             $("#upload").change(function() {
                 var rows = '';
                 var select = '';
