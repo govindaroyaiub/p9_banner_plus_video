@@ -3,8 +3,8 @@
         <li class="{{ request()->is('/') || request()->is('user/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/">Dashboard</a>
         </li>
-        <li class="{{ request()->is('banner') || request()->is('project/banner/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
-                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner">Banners</a>
+        <li class="{{ request()->is('banner-showcase') || request()->is('project/banner-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner-showcase">Banner Showcase</a>
         </li>
         <li class="{{ request()->is('video') || request()->is('project/video/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/video">Videos</a>
@@ -14,9 +14,6 @@
         </li>
         <li class="{{ request()->is('social') || request()->is('project/social/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/social">Social Images</a>
-        </li>
-        <li class="{{ request()->is('banner-showcase') || request()->is('project/banner-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
-                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner-showcase">Banner Showcase</a>
         </li>
 
         @if(Auth::user()->company_id == 1)
@@ -37,6 +34,9 @@
                         class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/p9_transfer">Files Transfer</a>
                 </li>
         @endif
+        <li class="{{ request()->is('banner') || request()->is('project/banner/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner">Banners (Old System)</a>
+        </li>
     </ul>
     @if(Auth::check())
     <div class="text-center text-sm text-gray-700 mb-2">&copy; {{ Helper::getTitle(Auth::user()->company_id) }} - <?= Date('Y') ?></div>
