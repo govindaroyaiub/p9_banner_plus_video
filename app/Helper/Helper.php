@@ -72,6 +72,18 @@ class Helper
         return $banner_ids;
     }
 
+    public static function getNewMainBannerIds($id)
+    {
+        $banner_ids = Banner::join('main_project', 'banner_categories_list.project_id', 'main_project.id')
+                                ->select('main_project.id')
+                                ->where('main_project.uploaded_by_company_id', $id)
+                                ->where('main_project.project_type', 4)
+                                ->get()
+                                ->toArray();
+
+        return $banner_ids;
+    }
+
     public static function getVersionName($id)
     {
         $data = Version::where('id', $id)->first();
