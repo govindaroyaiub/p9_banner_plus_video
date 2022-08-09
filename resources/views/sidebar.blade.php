@@ -7,13 +7,13 @@
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner-showcase">Banner Showcase</a>
         </li>
         <li class="{{ request()->is('video') || request()->is('project/video/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
-                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/video">Videos</a>
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/video">Video</a>
         </li>
         <li class="{{ request()->is('gif') || request()->is('project/gif/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
-                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/gif">GIFs</a>
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/gif">GIF</a>
         </li>
         <li class="{{ request()->is('social') || request()->is('project/social/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
-                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/social">Social Images</a>
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/social">Social Image</a>
         </li>
 
         @if(Auth::user()->company_id == 1)
@@ -35,7 +35,7 @@
                 </li>
         @endif
         <li class="{{ request()->is('banner') || request()->is('project/banner/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
-                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner">Banners (Old System)</a>
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner">Banner (Old System)</a>
         </li>
     </ul>
     @if(Auth::check())

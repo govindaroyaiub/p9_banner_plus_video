@@ -14,21 +14,21 @@
                 @include('alert')
                 <h3 class="text-2xl underline font-semibold tracking-wide text-center">Statistical Overview</h3>
                 <div id="donutchart" style="height: 350px;" class="mt-4"></div>
-                 <div id="monthly_chart" style="height: 350px;" class="mt-4"></div>
-                <br>
-                <br>
-                <div class="flex justify-between w-full">
+                <div id="monthly_chart" style="height: 350px;" class="mt-4"></div>
+
+                <div class="flex justify-between w-full mt-4">
                     <h3 class="text-2xl underline font-semibold tracking-wide">Users</h3>
                     @if(Auth::user()->is_admin == 1)
                     <a href="/user/add">
-                        <button type="button"
-                            class="leading-tight mb-4 md:mb-0 bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">Add
-                            User</Button>
+                        <button 
+                          type="button"
+                          class="leading-tight mb-4 md:mb-0 bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">
+                          Add User
+                        </button>
                     </a>
                     @endif
                 </div>
-                <br>
-                <table id="datatable" class="stripe hover table w-full" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                <table id="datatable" class="stripe hover table w-full mt-4" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                     <tr>
                         <th class="bg-gray-200 px-4 py-2">No.</th>
