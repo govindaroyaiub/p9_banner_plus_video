@@ -13,14 +13,8 @@
             <div class="flex-1 mx-4">
                 @include('alert')
                 <h3 class="text-2xl underline font-semibold tracking-wide text-center">Statistical Overview</h3>
-                {{-- @if(Auth::user()->company_id ==1)
-                <br>
-                <div id="donutchart" style="height: 500px;"></div>
-                @endif --}}
-                <div class="grid grid-cols-2 gap-4 mt-4">
-                    <div id="columnchart_material" style="height: 350px;"></div>
-                    <div id="monthly_chart" style="height: 350px;"></div>
-                </div>
+                <div id="donutchart" style="height: 350px;" class="mt-4"></div>
+                 <div id="monthly_chart" style="height: 350px;" class="mt-4"></div>
                 <br>
                 <br>
                 <div class="flex justify-between w-full">
@@ -97,81 +91,57 @@
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Planetnine', {{ $planetnine_banners }}],
-            ['Merkle Inc', {{ $merkle_banners }}],
-            ['De Media Maatschap', 1],
-            ['Fusionlab', {{ $fusionlab_banners }}]
-          ]);
-  
-          var options = {
-            title: 'Banner Projects Per Company',
-            pieHole: 0.3,
-            slices: {0: {color: '#4b4e6d'}, 1:{color: '#12295d'}, 2:{color: '#339ad5'}, 3: {color: '#ed7523'}}
-          };
-  
-          var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-          chart.draw(data, options);
-        }
-      </script>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages':['bar']});
-        google.charts.setOnLoadCallback(drawChart);
-  
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Creative Statistics', 'Projects', 'Total Creatives'],
-            ['Banner', {{ $total_banner_projects_count }}, {{ $total_banners }}],
-            ['Video', {{ $total_video_projects }}, {{ $total_videos }}],
-            ['GIF', {{ $total_gif_projects }}, {{ $total_gifs }}],
-            ['Social Images', {{ $total_social_projects }}, {{ $total_socials }}],
-          ]);
-  
-          var options = {
-            legend: { position: "none" },
-            colors: ['#FCB249', '#40A8C5']
-          };
-  
-          var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-  
-          chart.draw(data, google.charts.Bar.convertOptions(options));
-        }
-      </script>
-
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['bar']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Banner Upload Per Month', 'Count'],
-          ['Jan', {{ $jan }}],
-          ['Feb', {{ $feb }}],
-          ['Mar', {{ $mar }}],
-          ['Apr', {{ $apr }}],
-          ['May', {{ $may }}],
-          ['Jun', {{ $jun }}],
-          ['Jul', {{ $jul }}],
-          ['Aug', {{ $aug }}],
-          ['Sep', {{ $sep }}],
-          ['Oct', {{ $oct }}],
-          ['Nov', {{ $nov }}],
-          ['Dec', {{ $dec }}]
-
+          ['Creatives', 'Count'],
+          ['Banner: {{ $total_banner_projects_count }}', {{ $total_banner_projects_count }}],
+          ['Video: {{ $total_video_projects }}', {{ $total_video_projects }}],
+          ['Gif: {{ $total_gif_projects }}', {{ $total_gif_projects }}],
+          ['Social Image: {{ $total_social_projects }}', {{ $total_social_projects }}]
         ]);
 
-      var options = {
-        legend: { position: "none" }
-      };
+        var options = {
+          title: 'Creative Projects',
+          pieHole: 0.4,
+        };
 
-      var chart = new google.charts.Bar(document.getElementById('monthly_chart'));
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
 
-      chart.draw(data, google.charts.Bar.convertOptions(options));
-    }
-  </script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Banner Upload Per Month (Total: {{ $total_banners }})', 'Count'],
+            ['Jan', {{ $jan }}],
+            ['Feb', {{ $feb }}],
+            ['Mar', {{ $mar }}],
+            ['Apr', {{ $apr }}],
+            ['May', {{ $may }}],
+            ['Jun', {{ $jun }}],
+            ['Jul', {{ $jul }}],
+            ['Aug', {{ $aug }}],
+            ['Sep', {{ $sep }}],
+            ['Oct', {{ $oct }}],
+            ['Nov', {{ $nov }}],
+            ['Dec', {{ $dec }}]
+
+          ]);
+
+        var options = {
+          legend: { position: "none" }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('monthly_chart'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
       
 @endsection
