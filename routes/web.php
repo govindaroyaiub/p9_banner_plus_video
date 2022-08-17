@@ -99,6 +99,8 @@ Route::get('/banner/categories/{feedback_id}/edit/{category_id}', 'bannerShowcas
 Route::post('/banner/categories/{feedback_id}/edit/{category_id}', 'bannerShowcaseController@banner_edit_category_post')->name('banner_edit_category_post');
 Route::get('/banner/categories/{feedback_id}/delete/{category_id}', 'bannerShowcaseController@banner_delete_category')->name('banner_delete_category');
 Route::get('/delete-all-banners-showcase/{project_id}', 'bannerShowcaseController@banner_index_view_delete')->name('banner_index_view_delete');
+Route::get('/showcase/edit/{id}', 'bannerShowcaseController@showcase_banner_edit')->name('showcase_banner_edit');
+Route::post('/showcase/edit/{id}', 'bannerShowcaseController@showcase_banner_edit_post')->name('showcase_banner_edit_post');
 Route::get('/showcase/delete/{id}', 'bannerShowcaseController@banner_delete')->name('banner_delete');
 Route::get('/showcase/download/{id}', 'bannerShowcaseController@banner_download')->name('banner_download');
 //baner showcase function ends

@@ -607,6 +607,73 @@ class bannerShowcaseController extends Controller
         return back();
     }
 
+    public function showcase_banner_edit($id)
+    {
+        $sub_project_id = $id;
+        $sub_project_info = Banner::where('id', $id)->first();
+        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+        return view('view_bannershowcase.banner-edit', compact('sub_project_info', 'size_list', 'sub_project_id'));
+    }
+
+    public function showcase_banner_edit_post(Request $request, $id)
+    {
+        $validator = $request->validate([
+            'upload' => 'required|file|mimes:zip'
+        ]);
+
+        if($request->banner_size_id != 0)
+        {
+            $banner_id = $id;
+            $banner_info = Banner::where('id', $banner_id)->first();
+            $old_file_directory = public_path() . '/showcase_collection/' . $banner_info['file_path'];
+            
+            if(file_exists($old_file_directory)){
+                // unlink('banner_collection/' . $banner_info['file_path']);
+                $files = File::deleteDirectory($old_file_directory);
+            }
+    
+            $project_info = MainProject::where('id', $banner_info['project_id'])->where('project_type', 4)->first();
+            $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
+            $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
+    
+            $file_name = $sub_project_name . '_' . time() . '.' . $request->upload->extension();
+            $request->upload->move(public_path('showcase_collection'), $file_name);
+            $file_bytes = filesize(public_path('/showcase_collection/' . $file_name));
+    
+            $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+            for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+            $file_size = round($file_bytes, 2) . " " . $label[$i];
+
+            $newFileName = str_replace(".zip", "", $file_name);
+    
+            $sub_project_details = [
+                'name' => $sub_project_name,
+                'size_id' => $request->banner_size_id,
+                'size' => $file_size,
+                'file_path' => $newFileName
+            ];
+    
+            Banner::where('id', $banner_id)->update($sub_project_details);
+    
+            $zip = new ZipArchive();
+            $file_path = str_replace(".zip", "", $file_name);
+            $directory = 'showcase_collection/' . $file_path;
+            if (!is_dir($directory)) {
+                if ($zip->open('showcase_collection/' . $file_name) === TRUE) {
+                    // Unzip Path
+                    $zip->extractTo($directory);
+                    $zip->close();
+                }
+                unlink('showcase_collection/' . $file_name);
+            }
+            return redirect('/project/banner-showcase/view/' . $project_info['id']);
+        }
+        else
+        {
+            return back()->with('danger', 'Please Select Size First!');
+        }
+    }
+
     public function banner_delete($id)
     {
         $banner = Banner::where('id', $id)->first();
