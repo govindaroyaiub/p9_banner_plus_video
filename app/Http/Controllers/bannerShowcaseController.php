@@ -636,7 +636,7 @@ class bannerShowcaseController extends Controller
             $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
             $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
     
-            $file_name = $sub_project_name . '_' . time() . '.' . $request->upload->extension();
+            $file_name = $sub_project_name . '_' . time() . rand() . '.' . $request->upload->extension();
             $request->upload->move(public_path('showcase_collection'), $file_name);
             $file_bytes = filesize(public_path('/showcase_collection/' . $file_name));
     
