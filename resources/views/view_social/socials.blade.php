@@ -48,14 +48,14 @@
                             <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($social->created_at)->format('d F Y H:s:i') }}</label>
                         </td>
                         <td class="border px-4 py-2"  width="270px" max-width="290px">
-                            <a href="/project/social/addon/{{$social->id}}">
+                            {{-- <a href="/project/social/addon/{{$social->id}}">
                                 <button type="button"
                                     class="bg-indigo-600 text-gray-200 rounded hover:bg-indigo-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                       </svg>
                                 </button>
-                            </a>
+                            </a> --}}
                             <a href="/project/social/view/{{$social->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
@@ -66,14 +66,14 @@
                                 </button>
                             </a>
                         
-                            {{-- <a href="/project/social/edit/{{$social->id}}">
+                            <a href="/project/social/edit/{{$social->id}}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </button>
-                            </a> --}}
+                            </a>
 
                             <a href="/project/social/delete/{{$social->id}}" onclick="return confirm('Are you sure you want to delete this social image?');">
                                 <button type="button"

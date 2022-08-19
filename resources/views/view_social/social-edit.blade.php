@@ -6,9 +6,9 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h3 class="text-xl font-semibold tracking-wide">Edit Banner Project</h3>
+            <h3 class="text-xl font-semibold tracking-wide">Edit Social Project</h3>
             <br>
-            <form method="POST" action="/project/banner/edit/{{$id}}" enctype="multipart/form-data">
+            <form method="POST" action="/project/social/edit/{{$project_id}}" enctype="multipart/form-data">
                 @csrf
                 <label class="text-primary font-light">Project Name</label><br>
                 <input type='text' placeholder="Enter Project Name" name="project_name" value="{{ $project_info['name'] }}"
@@ -72,7 +72,7 @@
                 <div class="flex mb-4">
                     <button type="submit"
                         class="w-1/3 mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-3 focus:outline-none">SAVE</button>
-                    <button type="button" onclick="window.location.href ='/banner'"
+                    <button type="button" onclick="window.location.href ='/social'"
                         class="w-1/3 mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-3 focus:outline-none">BACK</button>
                 </div>
                 

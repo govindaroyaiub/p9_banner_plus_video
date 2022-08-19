@@ -93,6 +93,34 @@ class SocialController extends Controller
         }
     }
 
+    public function social_edit_view($project_id){
+        $project_name = MainProject::where('id', $project_id)->first();
+        $naming_convention = str_replace(" ", "_", $project_name['name']);
+        $logo_list = Logo::get();
+        $project_info = MainProject::where('id', $project_id)->first();
+        return view('view_social.social-edit', compact('logo_list', 'project_info', 'project_id', 'naming_convention'));
+    }
+
+    public function social_edit_post(Request $request, $project_id){
+        //post function to update the project
+        $pro_name = $request->project_name;
+        $old_project_details = MainProject::where('id', $project_id)->where('project_type', 3)->first();
+        $project_name = str_replace(" ", "_", $request->project_name);
+        $old_project_name = str_replace(" ", "_", $old_project_details['name']);
+
+        $main_project_details = [
+            'name' => $pro_name,
+            'client_name' => $request->client_name,
+            'logo_id' => $request->logo_id,
+            'color' => $request->color,
+            'is_logo' => $request->is_logo,
+            'is_footer' => $request->is_footer
+        ];
+
+        MainProject::where('id', $project_id)->update($main_project_details);
+        return redirect('/project/social/edit/'.$project_id)->with('success', $project_name . ' has been updated!');
+    }
+
     function social_addon($id){
         $main_project_id = $id;
         return view('view_social.social_addon', compact('main_project_id'));

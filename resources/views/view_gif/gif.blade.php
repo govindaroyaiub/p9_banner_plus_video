@@ -47,14 +47,14 @@
                             <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($gif->created_at)->format('d F Y H:s:i') }}</label>
                         </td>
                         <td class="border px-4 py-2">
-                            <a href="/project/gif/addon/{{$gif->id}}">
+                            {{-- <a href="/project/gif/addon/{{$gif->id}}">
                                 <button type="button"
                                     class="bg-indigo-600 text-gray-200 rounded hover:bg-indigo-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                       </svg>
                                 </button>
-                            </a>
+                            </a> --}}
                             <a href="/project/gif/view/{{$gif->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">

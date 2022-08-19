@@ -142,6 +142,8 @@ Route::get('/gif/delete/{id}', 'GifController@gif_delete')->name('banner_delete'
 Route::get('/social', 'SocialController@view_socials_list')->name('view_socials_list');
 Route::get('/project/social/add', 'SocialController@add_socials')->name('add_socials');
 Route::post('/project/social/add', 'SocialController@add_socials_post')->name('add_socials_post');
+Route::get('/project/social/edit/{id}', 'SocialController@social_edit_view')->name('social_edit_view');
+Route::post('/project/social/edit/{id}', 'SocialController@social_edit_post')->name('social_edit_post');
 
 Route::get('/project/social/addon/{id}', 'SocialController@social_addon')->name('social_addon');
 Route::post('/project/social/addon/{id}', 'SocialController@social_addon_post')->name('social_addon_post');
