@@ -17,8 +17,11 @@
                 <h3 class="text-xl font-semibold tracking-wide">Transfer Links</h3>
                 <a href="{{ URL::to('p9_transfer/create') }}">
                     <button type="button"
-                        class="leading-tight bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">Add
-                        Transfer Link</Button>
+                        class="leading-tight bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                    </button>
                 </a>
             </div>
             <br>
@@ -37,7 +40,7 @@
                     @foreach ($transfers as $transfer)
                     <tr style="text-align: center;">
                         <td width="40" class="border px-4 py-2">{{ $i++ }}</td>
-                        <td class="border px-4 py-2">
+                        <td class="border px-4 py-2" width="200px">
                             {{ $transfer->name }}
                         </td>
                         <td class="border px-4 py-2" width="140px" max-width="160px">

@@ -14,7 +14,7 @@
             @include('alert')
             <br>
             <div class="flex justify-between w-full">
-                <h3 class="text-xl font-semibold tracking-wide">Showcase List</h3>
+                <h3 class="text-xl font-semibold tracking-wide">Banner Showcases</h3>
                 <a href="/project/banner-showcase/add">    
                     <button type="button"
                         class="leading-tight bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">
