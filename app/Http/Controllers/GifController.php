@@ -22,10 +22,17 @@ class GifController extends Controller
         $verification = Logo::where('id', Auth::user()->company_id)->first();
         if(url('/') == $verification['website'])
         {
-            $gifs = MainProject::where('project_type', 2)
-                                        ->where('uploaded_by_company_id', Auth::user()->company_id)
-                                        ->orderBy('created_at', 'DESC')
-                                        ->get();
+            if(Auth::user()->company_id == 1){
+                $gifs = MainProject::where('project_type', 2)
+                                    ->orderBy('created_at', 'DESC')
+                                    ->get();
+            }
+            else{
+                $gifs = MainProject::where('project_type', 2)
+                                    ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                    ->orderBy('created_at', 'DESC')
+                                    ->get();
+            }
             return view('view_gif.gif', compact('gifs'));
         }
         else

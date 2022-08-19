@@ -210,7 +210,12 @@ class HomeController extends Controller
         $verification = Logo::where('id', Auth::user()->company_id)->first();
         if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
         {
-            $project_list = MainProject::where('project_type', 1)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+            if(Auth::user()->company_id == 1){
+                $project_list = MainProject::where('project_type', 1)->orderBy('created_at', 'DESC')->get();
+            }
+            else{
+                $project_list = MainProject::where('project_type', 1)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+            }
             return view('project', compact('project_list'));
         }
         else

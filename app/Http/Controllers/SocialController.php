@@ -23,10 +23,18 @@ use App\Helper\Helper;
 class SocialController extends Controller
 {
     function view_socials_list(){
-        $socials = MainProject::where('project_type', 3)
-                                        ->where('uploaded_by_company_id', Auth::user()->company_id)
-                                        ->orderBy('created_at', 'DESC')
-                                        ->get();
+        if(Auth::user()->company_id == 1){
+            $socials = MainProject::where('project_type', 3)
+                                ->orderBy('created_at', 'DESC')
+                                ->get();
+        }
+        else{
+            $socials = MainProject::where('project_type', 3)
+                                ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                ->orderBy('created_at', 'DESC')
+                                ->get();
+        }
+        
         return view('view_social.socials', compact('socials'));
     }
 

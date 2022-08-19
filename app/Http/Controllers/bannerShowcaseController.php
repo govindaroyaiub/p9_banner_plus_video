@@ -20,7 +20,12 @@ use App\Helper\Helper;
 class bannerShowcaseController extends Controller
 {
     public function bannerShowcaseList(){
-        $data = MainProject::where('project_type', 4)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+        if(Auth::user()->company_id == 1){
+            $data = MainProject::where('project_type', 4)->orderBy('created_at', 'DESC')->get();
+        }
+        else{
+            $data = MainProject::where('project_type', 4)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+        }
         return view('view_bannershowcase.showcase-list', compact('data'));
     }
 

@@ -39,10 +39,18 @@ class BannerController extends Controller
         $verification = Logo::where('id', Auth::user()->company_id)->first();
         if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
         {
-            $banner_list = MainProject::where('project_type', 0)
+            if(Auth::user()->company_id == 1){
+                $banner_list = MainProject::where('project_type', 0)
+                                        ->orderBy('created_at', 'DESC')
+                                        ->get();
+            }
+            else{
+                $banner_list = MainProject::where('project_type', 0)
                                         ->where('uploaded_by_company_id', Auth::user()->company_id)
                                         ->orderBy('created_at', 'DESC')
                                         ->get();
+            }
+            
             return view('view_banner.banner', compact('banner_list'));
         }
         else
