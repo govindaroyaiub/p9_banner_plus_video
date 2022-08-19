@@ -28,7 +28,7 @@
                     </a>
                     @endif
                 </div>
-                <table id="datatable" class="stripe hover table w-full mt-4" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                <table id="datatable" class="stripe hover table w-full mt-4" style="width:100%; padding-top: 1rem;  padding-bottom: 1rem;">
                     <thead>
                     <tr>
                         <th class="bg-gray-200 px-4 py-2">No.</th>
