@@ -170,8 +170,8 @@ Route::resource('/p9_transfer', 'TransferController')->name('*', 'p9_transfer');
 
 //planetnine billing function starts
 Route::get('/bills', 'PDFController@billing_list')->name('billing_list');
-Route::get('/billings/add', 'PDFController@create_billing')->name('create_billing');
-Route::post('/billings/add', 'PDFController@create_billing_post')->name('create_billing_post');
+Route::get('/bills/add', 'PDFController@create_billing')->name('create_billing');
+Route::post('/bills/add', 'PDFController@create_billing_post')->name('create_billing_post');
 
 Route::get('/demo', 'PDFController@generatePDF2');
 //planetnine billing function ends

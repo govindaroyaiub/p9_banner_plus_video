@@ -16,7 +16,7 @@
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide mb-4">Add Billing</h3>
             <br>
-            <form id="project-add-form" class="max-w-xl" method="POST" action="/billings/add"
+            <form id="project-add-form" class="max-w-xl" method="POST" action="/bills/add"
                 enctype="multipart/form-data">
                 @csrf
 
