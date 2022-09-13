@@ -82,7 +82,7 @@
 <body>
     <div class="bill">
         <div class="logo1">
-            <img src="planetnine_black_logo.png" alt="planetnine_black_logo">
+            <img src="{{ asset('logo_images/planetnine_black_logo.png') }}" alt="planetnine_black_logo">
         </div>
         <div class="invoice">
             <div id="invoice">
@@ -129,7 +129,7 @@
 		</div>
         
         <div class="footer">
-            <img src="planetnine_logo_vertical.png" alt="planetnine_logo_vertical" id="vertial_logo">
+            <img src="{{ asset('logo_images/planetnine_black_logo.png') }} alt="planetnine_logo_vertical" id="vertial_logo">
 			<div class="footer_table">
 				
 			</div>

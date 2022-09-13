@@ -60,9 +60,9 @@ class PDFController extends Controller
         }
 
         $data = Billing::where('project_id', $main_project->id)->get();
-        $pdf = PDF::loadView('pdf/myPDF', $data);
+        $pdf = PDF::loadView('pdf/demo', compact('data'))->save('demo.pdf');
   
-        return $pdf->download('itsolutionstuff.pdf');
+        return $pdf->download('demo.pdf');
     }
 
     public function generatePDF()
