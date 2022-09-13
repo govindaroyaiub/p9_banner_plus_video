@@ -167,3 +167,11 @@ Route::get('/logo/delete/{id}', 'HomeController@logo_delete')->name('logo_delete
 //Planetnine transfer starts
 Route::resource('/p9_transfer', 'TransferController')->name('*', 'p9_transfer');
 //Planetnine transfer ends
+
+//planetnine billing function starts
+Route::get('/bills', 'PDFController@billing_list')->name('billing_list');
+Route::get('/billings/add', 'PDFController@create_billing')->name('create_billing');
+Route::post('/billings/add', 'PDFController@create_billing_post')->name('create_billing_post');
+
+Route::get('/demo', 'PDFController@generatePDF2');
+//planetnine billing function ends

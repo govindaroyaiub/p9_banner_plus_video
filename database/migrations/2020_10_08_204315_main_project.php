@@ -19,7 +19,7 @@ class MainProject extends Migration
             $table->string('client_name');
             $table->BigInteger('logo_id');
             $table->string('color');
-            $table->integer('project_type'); //0 = banner, 1 = video, 2 = gif, 3 = social. 4 = showcase
+            $table->integer('project_type'); //0 = banner, 1 = video, 2 = gif, 3 = social, 4 = showcase, 5 = billing
             $table->integer('is_logo');
             $table->integer('is_footer');
             $table->integer('is_version')->default(0); //0 = no verion, 1 = there are versions

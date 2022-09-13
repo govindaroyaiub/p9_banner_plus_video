@@ -20,6 +20,9 @@
         <li class="{{ request()->is('logo') || request()->is('logo/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/logo">Logos/Companies</a>
         </li>
+        <li class="{{ request()->is('bills') || request()->is('bills/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/bills">Bills (For Limon Bhai)</a>
+        </li>
         @endif
         
         <li class="{{ request()->is('banner_sizes') || request()->is('banner_sizes/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
