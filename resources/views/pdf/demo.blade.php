@@ -32,6 +32,7 @@
             top: 0;
             right: 0px;
             font-size: 50px;
+            color: #4b4e6d;
         }
 
         .date {
@@ -160,13 +161,13 @@
             </div>
             <div class="date">
                 <div id="date_value">
-                    Date: {{ \Carbon\Carbon::parse($created_at)->format('d/m/Y') }}
+                    <span style="color:#4b4e6d;">Date: </span>{{ \Carbon\Carbon::parse($created_at)->format('d/m/Y') }}
                 </div>
             </div>
         </div>
         <div class="table">
             <table class="center" style="align-items: center; text-align: center;">
-                <tr>
+                <tr style="color: #4b4e6d;">
                     <th style="width: 70%;">DESCRIPTION</th>
                     <th>AMOUNT</th>
                 </tr>
@@ -177,9 +178,9 @@
                 </tr>
                 @endforeach
 
-                <tr>
-                    <td><span style="float: right;"><b>TOTAL</b></span></td>
-                    <td><b>{{ $total_amount }}</b></td>
+                <tr style="color: #4b4e6d;">
+                    <td><b>TOTAL</b></td>
+                    <td><b>{{ $total_amount }}/-</b></td>
                 </tr>
             </table>
             <div class="words">
