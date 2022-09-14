@@ -45,9 +45,10 @@ class HomeController extends Controller
         $current_year = date("Y");
         if(url('/') == $verification['website'] || url('/') == 'http://p9_banner_plus_video.test')
         {
+            $company_id = Auth::user()->company_id;
+
             if(url('/') != 'http://localhost:8000' && url('/') != "https://creative.planetnine.com")
             {
-                $company_id = Auth::user()->company_id;
                 $user_list = User::select(
                                     'id', 
                                     'name as username', 
@@ -61,18 +62,33 @@ class HomeController extends Controller
             }
             else
             {
-                $user_list = User::join('logo', 'logo.id', 'users.company_id')
-                                ->select(
-                                    'users.id',
-                                    'users.name as username',
-                                    'users.email',
-                                    'users.is_send_mail',
-                                    'users.is_admin',
-                                    'logo.name as logoname'
-                                    )
-                                ->orderBy('users.name', 'ASC')
-                                ->where('users.is_deleted', 0)
-                                ->get();
+                if($company_id != 1){
+                    $user_list = User::select(
+                        'id', 
+                        'name as username', 
+                        'email', 
+                        'is_send_mail',
+                        'is_admin')
+                    ->where('company_id', $company_id)
+                    ->where('is_deleted', 0)
+                    ->orderBy('name', 'ASC')
+                    ->get();
+                }
+                else{
+                    $user_list = User::join('logo', 'logo.id', 'users.company_id')
+                    ->select(
+                        'users.id',
+                        'users.name as username',
+                        'users.email',
+                        'users.is_send_mail',
+                        'users.is_admin',
+                        'logo.name as logoname'
+                        )
+                    ->orderBy('users.name', 'ASC')
+                    ->where('users.is_deleted', 0)
+                    ->get();
+                }
+                
             }
             // $total_comments = Comments::get()->count();
 

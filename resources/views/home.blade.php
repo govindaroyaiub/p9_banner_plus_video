@@ -18,7 +18,7 @@
 
                 <div class="flex justify-between w-full mt-4">
                     <h3 class="text-2xl underline font-semibold tracking-wide">Users</h3>
-                    @if(Auth::user()->is_admin == 1)
+                    @if(Auth::user()->is_admin == 1 && Auth::user()->company_id == 1)
                     <a href="/user/add">
                         <button 
                           type="button"

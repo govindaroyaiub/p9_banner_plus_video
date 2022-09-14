@@ -24,23 +24,21 @@
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/bills">Bills (For Limon Bhai)</a>
         </li>
         @endif
-        
+
+        @if(Auth::user()->company_id == 1)
         <li class="{{ request()->is('banner_sizes') || request()->is('banner_sizes/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner_sizes">Banner & GIF Sizes</a>
         </li>
         <li class="{{ request()->is('sizes') || request()->is('sizes/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/sizes">Video Sizes</a>
         </li>
-
-        @if(Auth::user()->company_id == 1)
         <li class="{{ request()->is('p9_transfer') || request()->is('p9_transfer/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/p9_transfer">Files Transfer</a>
         </li>
-        @endif
-
         <li class="{{ request()->is('banner') || request()->is('project/banner/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner">Banner (Old System)</a>
         </li>
+        @endif
     </ul>
     @if(Auth::check())
     <div class="text-center text-sm text-gray-700 mb-2">&copy; {{ Helper::getTitle(Auth::user()->company_id) }} - <?= Date('Y') ?></div>
