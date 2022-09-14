@@ -85,7 +85,7 @@
             @guest
 
             @else
-                <div x-data="{ logout: false}">
+                <div x-data="{ logout: false}" style="z-index: 999;">
 
                     <button @click="logout = true" class="focus:outline-none">{{ Auth::user()->name }}</button>
 
