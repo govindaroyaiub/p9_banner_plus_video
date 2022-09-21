@@ -105,6 +105,10 @@ Route::get('/showcase/delete/{id}', 'bannerShowcaseController@banner_delete')->n
 Route::get('/showcase/download/{id}', 'bannerShowcaseController@banner_download')->name('banner_download');
 //baner showcase function ends
 
+//video showcase function starts
+
+//video showcase function ends
+
 //video functions and routes
 Route::get('/video', 'HomeController@project')->name('project');
 Route::get('/project/video/add', 'HomeController@project_add')->name('project_add');
