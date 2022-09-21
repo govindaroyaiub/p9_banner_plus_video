@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .bill {
+        display: inline;
+    }
+
+    .logo1 {
+        padding-top: 50px;
+        float: right;
+    }
+
+    .invoice {
+        position: absolute;
+        right: 10px;
+    }
+
+    #invoice {
+        padding-top: 120px;
+        font-size: 50px;
+        padding-left: 44px;
+    }
+
+    .date {
+        font-size: 30px;
+        display: flex;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+		display: flex;
+    }
+
+    #vertial_logo {
+        height: 400px;
+        width: auto;
+    }
+
+	.table{
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+        top: 280px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 75%;
+	}
+
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+		height: 30px;
+    }
+
+	.words{
+		padding: 10px 0px 10px 0px;
+	}
+
+	.signature{
+		margin-top: 100px;
+	}
