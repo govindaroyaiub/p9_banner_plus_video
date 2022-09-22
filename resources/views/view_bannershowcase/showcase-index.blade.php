@@ -66,35 +66,45 @@
         /* Extra small devices (phones, 600px and down) */
         @media only screen and (max-width: 600px) {
             #show1{
-                padding-left: 0;
-                padding-right: 0;
+                padding-left: 0!important;
+                padding-right: 0!important;
             }
 
             #show2{
-                padding-left: 0;
-                padding-right: 0;
+                padding-left: 0!important;
+                padding-right: 0!important;
             }
 
             .single-div{
-                padding-left: 0;
-                padding-right: 0;
+                padding-left: 0!important;
+                padding-right: 0!important;
+            }
+
+            #feedbackPart{
+                padding-left: 0.1rem!important;
+                padding-right: 0.1rem!important;
             }
         }
         /* Small devices (portrait tablets and large phones, 600px and up) */
         @media only screen and (min-width: 600px) {
             #show1{
-                padding-left: 0;
-                padding-right: 0;
+                padding-left: 0!important;
+                padding-right: 0!important;
             }
 
             #show2{
-                padding-left: 0;
-                padding-right: 0;
+                padding-left: 0!important;
+                padding-right: 0!important;
             }
 
             .single-div{
-                padding-left: 0;
-                padding-right: 0;
+                padding-left: 0!important;
+                padding-right: 0!important;
+            }
+
+            #feedbackPart{
+                padding-left: 0.1rem!important;
+                padding-right: 0.1rem!important;
             }
         }
 
