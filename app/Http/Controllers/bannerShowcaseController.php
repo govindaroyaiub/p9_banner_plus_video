@@ -24,7 +24,7 @@ class bannerShowcaseController extends Controller
             $data = MainProject::where('project_type', 4)->orderBy('created_at', 'DESC')->get();
         }
         else{
-            $data = MainProject::where('project_type', 4)->where('uploaded_by_company_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+            $data = MainProject::where('project_type', 4)->where('logo_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
         }
         return view('view_bannershowcase.showcase-list', compact('data'));
     }
@@ -56,6 +56,8 @@ class bannerShowcaseController extends Controller
         ]);
 
         if($request->hasfile('upload')){
+            $logo_details = Logo::where('id', $request->logo_id)->first();
+
             $pro_name = $request->project_name;
             $project_name = str_replace(" ", "_", $request->project_name);
 
@@ -63,9 +65,9 @@ class bannerShowcaseController extends Controller
             $main_project->name = $pro_name;
             $main_project->client_name = $request->client_name;
             $main_project->logo_id = $request->logo_id;
-            $main_project->color = $request->color;
+            $main_project->color = $logo_details['default_color'];
             $main_project->is_logo = 1;
-            $main_project->is_footer = 1;
+            $main_project->is_footer = $request->is_footer;
             $main_project->project_type = 4;
             $main_project->is_version = 0;
             $main_project->uploaded_by_user_id = Auth::user()->id;

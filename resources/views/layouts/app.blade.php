@@ -76,7 +76,7 @@
         </a>
         @else
             <a class="text-xl font-semibold" href="{{ url('/') }}">
-                <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 20.6%" id="company_logo">
+                <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 70%" id="company_logo">
             </a>
         @endif
         @endif

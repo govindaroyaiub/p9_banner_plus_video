@@ -141,27 +141,38 @@
             {
                 if(response)
                 {
-                    document.getElementsByClassName("header")[0].style.borderColor = color;
-                    document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+                    var header = document.getElementsByClassName("header")[0];
+                    var footer = document.getElementsByClassName("footer")[0];
                     var icons = document.getElementsByClassName("icons");
                     var versions = document.getElementsByClassName("all-versions");
                     var collapses = document.getElementsByClassName("collapse");
                     var feedbacks = document.getElementsByClassName("feedbacks");
 
-                    for(var i = 0; i < icons.length; i++){
-                        icons[i].style.color = color;
+                    if(header){
+                        document.getElementsByClassName("header")[0].style.borderColor = color;
                     }
-
-                    for(var j = 0; j < versions.length; j++){
-                        versions[j].style.backgroundColor = color;
+                    if(footer){
+                        document.getElementsByClassName("footer")[0].style.backgroundColor = color;
                     }
-
-                    for(var k = 0; k < collapses.length; k++){
-                        collapses[k].style.borderColor = color;
+                    if(icons){
+                        for(var i = 0; i < icons.length; i++){
+                            icons[i].style.color = color;
+                        }
                     }
-
-                    for(var l = 0; l < feedbacks.length; l++){
-                        feedbacks[l].style.backgroundColor = color;
+                    if(versions){
+                        for(var j = 0; j < versions.length; j++){
+                             versions[j].style.backgroundColor = color;
+                        }
+                    }
+                    if(collapses){
+                        for(var k = 0; k < collapses.length; k++){
+                            collapses[k].style.borderColor = color;
+                        }
+                    }
+                    if(feedbacks){
+                        for(var l = 0; l < feedbacks.length; l++){
+                            feedbacks[l].style.backgroundColor = color;
+                        }
                     }
                 }
             })

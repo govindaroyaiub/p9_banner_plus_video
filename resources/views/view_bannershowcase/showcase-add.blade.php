@@ -14,6 +14,7 @@
 
                 <div class="mb-4">
                     <label class="text-primary font-light block">Project Name</label>
+                    <small class="text-x text-red-500">(Please refrain from using special type characters: * / ? ~ ! % etc)</small>
                     <input type='text' placeholder="Enter Project Name" name="project_name"
                         class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
@@ -61,11 +62,13 @@
                             </select>
                         </div>
                         <div>
-                            <label class="text-primary font-light block">Select Color</label>
-                            <small class="text-xs text-red-500">(Default selected Color is PlanetNine Logo
-                                Color)</small>
-                            <input type='color' name="color" value="{{ $color }}"
-                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg" required />
+                            <label class="text-primary font-light block">Show Footer?</label>
+                            <small class="text-xs text-red-500">(Only for Planetnine Footer will show)</small>
+                            <select name="is_footer" id="is_footer"
+                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
+                                <option value="1" class="py-2">YES</option>
+                                <option value="2" class="py-2">NO</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -137,7 +140,17 @@
                     document.getElementById("category_name").style.display = 'none';
                     document.getElementById("feedback_round_title").style.display = 'none';
                 }
-            })
+            });
+
+            $("#logo_id").change(function() {
+                let value = $('#logo_id').val();
+                if(value != 1){
+                    $("#is_footer").val('2');
+                }
+                else{
+                    $("#is_footer").val('1');
+                }
+            });
 
             $("#upload").change(function() {
                 var rows = '';
