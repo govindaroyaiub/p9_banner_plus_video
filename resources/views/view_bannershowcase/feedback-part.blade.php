@@ -41,7 +41,7 @@
                     </a>
                 </div>
                 @endif
-                <div class="container mx-auto px-4 py-12">
+                <div class="container mx-auto px-4 py-12" id="show2">
                     <div class="banners">
                         @foreach($row as $index => $banner)
                             @if(Helper::getFeedbackCategoryCount($id) > 1) 

@@ -1,5 +1,5 @@
 <main class="main">
-    <div x-show="show" class="px-10 py-6">
+    <div x-show="show" class="px-10 py-6" id="show1">
         <div class="container mx-auto px-4 py-4">
             <div class="banners">
                 @foreach($data as $banner)

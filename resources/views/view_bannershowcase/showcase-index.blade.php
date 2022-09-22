@@ -63,6 +63,41 @@
             border-bottom-right-radius: 0!important;
         }
 
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+            #show1{
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            #show2{
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .single-div{
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 600px) {
+            #show1{
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            #show2{
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .single-div{
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
     </style>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
