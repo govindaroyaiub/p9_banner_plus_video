@@ -15,7 +15,7 @@
             <br>
             <div class="flex justify-between w-full">
                 <h3 class="text-xl font-semibold tracking-wide">Videos</h3>
-                <a href="/project/video/add">
+                <a href="/project/video-showcase/add">
                     <button type="button"
                         class="leading-tight bg-primary text-gray-200 rounded px-6 py-3 text-sm focus:outline-none focus:border-white">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

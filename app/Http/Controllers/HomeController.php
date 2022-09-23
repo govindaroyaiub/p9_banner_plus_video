@@ -841,4 +841,14 @@ class HomeController extends Controller
             return 'false';
         }
     }
+
+    public function getVideoSizeInfo($id){
+        if(Auth::user()){
+            $data = Sizes::where('id', $id)->first();
+            return $data;
+        }
+        else{
+            return 'oops!';
+        }
+    }
 }

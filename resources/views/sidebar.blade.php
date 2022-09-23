@@ -9,12 +9,12 @@
         <li class="{{ request()->is('video-showcase') || request()->is('project/video-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/video-showcase">Video Showcase (on development)</a>
         </li>
-        <li class="{{ request()->is('gif-showcase') || request()->is('project/gif-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
+        {{-- <li class="{{ request()->is('gif-showcase') || request()->is('project/gif-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/gif-showcase">GIF Showcase (on development)</a>
         </li>
         <li class="{{ request()->is('social-showcase') || request()->is('project/social-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/social-showcase">Social Image Showcase (on development)</a>
-        </li>
+        </li> --}}
 
         @if(Auth::user()->company_id == 1)
         <li class="{{ request()->is('logo') || request()->is('logo/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a

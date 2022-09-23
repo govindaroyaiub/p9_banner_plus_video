@@ -53,6 +53,8 @@ Route::get('/change-password', 'HomeController@change_password')->name('change_p
 Route::post('/change-password', 'HomeController@change_password_post')->name('change_password_post');
 Route::get('/reset-password/{id}', 'HomeController@reset_password')->name('reset_password');
 
+Route::get('/getVideoSizeInfo/{id}', 'HomeController@getVideoSizeInfo')->name('getVideoSizeInfo');
+
 // Route::post('/change_mail_status', 'HomeController@change_mail_status')->name('change_mail_status');
 
 //banner functions and routes
@@ -182,7 +184,8 @@ Route::get('/bills/delete/{id}', 'PDFController@delete_bill')->name('delete_bill
 //video showcase function starts
 
 Route::get('/video-showcase', 'VideoShowcaseController@video_list')->name('videoshowcaselist');
-
+Route::get('/project/video-showcase/add', 'VideoShowcaseController@videoshowcase_add_view')->name('videoshowcaseaddview');
+Route::post('/project/video-showcase/add', 'VideoShowcaseController@videoshowcase_add_post')->name('videoshowcaseaddpost');
 //video showcase function ends
 
 

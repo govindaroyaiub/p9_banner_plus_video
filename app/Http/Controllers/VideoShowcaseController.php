@@ -31,4 +31,16 @@ class VideoShowcaseController extends Controller
         }
         return view('new_files/video/list', compact('videos'));
     }
+
+    public function videoshowcase_add_view(){
+        $logo_list = Logo::get();
+        $size_list = Sizes::orderBy('width', 'DESC')->get();
+        $company_details = Logo::where('id', Auth::user()->company_id)->first();
+        $color = $company_details['default_color'];
+        return view('new_files/video/add', compact('logo_list', 'size_list', 'color'));
+    }
+
+    public function videoshowcase_add_post(){
+        dd('asdasd');
+    }
 }
