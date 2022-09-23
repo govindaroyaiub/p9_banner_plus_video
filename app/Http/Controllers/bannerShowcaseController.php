@@ -77,6 +77,7 @@ class bannerShowcaseController extends Controller
             $feedback = new Feedback;
             $feedback->project_id = $main_project->id;
             $feedback->name = $request->feedback_name;
+            $feedback->description = $request->feedback_description;
             $feedback->is_open = 1;
             $feedback->save();
 
@@ -216,6 +217,7 @@ class bannerShowcaseController extends Controller
                 if($feedback_info == NULL){
                     $feedback = new Feedback;
                     $feedback->project_id = $main_project_id;
+                    $feedback->description = 'Master Development Started';
                     $feedback->name = 'Feedback Round 1';
                     $feedback->is_open = 1;
                     $feedback->save();
@@ -237,6 +239,7 @@ class bannerShowcaseController extends Controller
             else{
                 $feedback = new Feedback;
                 $feedback->name = $request->feedback_name;
+                $feedback->description = $request->feedback_description;
                 $feedback->project_id = $main_project_id;
                 $feedback->is_open = 1;
                 $feedback->save();

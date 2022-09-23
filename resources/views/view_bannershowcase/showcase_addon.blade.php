@@ -31,6 +31,10 @@
                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
                                required/>
 
+                <textarea placeholder="new feedbacks implemented" name="feedback_description" value="new feedbacks implemented" id="feedback_description"
+                               class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
+                               required></textarea>
+
                 <div
                     class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
                     <input name="upload[]" id="upload" type="file" multiple="multiple" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
@@ -86,9 +90,11 @@
             var value = $(this).val();
             if(value == 2){
                 document.getElementById('feedback_name').style.display = "block";
+                document.getElementById('feedback_description').style.display = "block";
             }
             else{
                 document.getElementById('feedback_name').style.display = "none";
+                document.getElementById('feedback_description').style.display = "none";
             }
         });
 

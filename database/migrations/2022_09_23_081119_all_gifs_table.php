@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Feedbacks extends Migration
+class AllGifsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class Feedbacks extends Migration
      */
     public function up()
     {
-        Schema::create('feedbacks', function (Blueprint $table) {
+        Schema::create('all_gifs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
-            $table->integer('project_id');
-            $table->integer('is_open');
+            $table->string('size_id');
+            $table->string('size');
+            $table->string('file_path');
+            $table->bigInteger('project_id');
+            $table->bigInteger('feedback_id');
+            $table->bigInteger('category_id');
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ class Feedbacks extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedbacks');
+        Schema::dropIfExists('all_gifs');
     }
 }

@@ -105,10 +105,6 @@ Route::get('/showcase/delete/{id}', 'bannerShowcaseController@banner_delete')->n
 Route::get('/showcase/download/{id}', 'bannerShowcaseController@banner_download')->name('banner_download');
 //baner showcase function ends
 
-//video showcase function starts
-
-//video showcase function ends
-
 //video functions and routes
 Route::get('/video', 'HomeController@project')->name('project');
 Route::get('/project/video/add', 'HomeController@project_add')->name('project_add');
@@ -179,3 +175,25 @@ Route::post('/bills/add', 'PDFController@create_billing_post')->name('create_bil
 Route::get('bills/view/{id}', 'PDFController@view_bills')->name('view_bills');
 Route::get('/bills/delete/{id}', 'PDFController@delete_bill')->name('delete_bill');
 //planetnine billing function ends
+
+
+
+
+//video showcase function starts
+
+Route::get('/video-showcase', 'VideoShowcaseController@video_list')->name('videoshowcaselist');
+
+//video showcase function ends
+
+
+//gif showcase function starts
+
+Route::get('/gif-showcase', 'GifShowcaseController@gif_list')->name('gifshowcaselist');
+
+//gif showcase function ends
+
+//social showcase function starts
+
+Route::get('/social-showcase', 'SocialShowcaseController@social_list')->name('socialshowcaselist');
+
+//social showcase function ends

@@ -39,6 +39,13 @@
                         required />
                 </div>
 
+                <div class="mb-4 hidden" id="feedback_description">
+                    <label class="text-primary font-light block">Feedback Description</label>
+                    <input type='text' placeholder="Master Development Started" name="feedback_description" value="Master Development Started"
+                        class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                        required />
+                </div>
+
                 <div class="mb-4 hidden" id="category_name">
                     <label class="text-primary font-light block">Category Name</label>
                     <input type='text' placeholder="Default" name="category_name" value="Default"
@@ -135,10 +142,12 @@
                     // Code in the case checkbox is checked.
                     document.getElementById("category_name").style.display = 'block';
                     document.getElementById("feedback_round_title").style.display = 'block';
+                    document.getElementById("feedback_description").style.display = 'block';
                 } else {
                     // Code in the case checkbox is NOT checked.
                     document.getElementById("category_name").style.display = 'none';
                     document.getElementById("feedback_round_title").style.display = 'none';
+                    document.getElementById("feedback_description").style.display = 'none';
                 }
             });
 
