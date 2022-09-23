@@ -31,7 +31,7 @@
                         <th data-priority="1">No</th>
                         <th data-priority="2">Project Name</th>
                         <th data-priority="3" width="140px" max-width="160px">Client Name</th>
-                        @if(Auth::user()->company == 1)
+                        @if(Auth::user()->company_id == 1)
                         <th data-priority="4" width="110px" max-width="135px">Uploader</th>
                         @endif
                         <th data-priority="5" width="270px" max-width="290px">Actions</th>
@@ -46,7 +46,7 @@
                             {{ $row->name }}
                         </td>
                         <td class="border px-4 py-2" width="140px" max-width="160px">{{ $row->client_name }}</td>
-                        @if(Auth::user()->company == 1)
+                        @if(Auth::user()->company_id == 1)
                         <td class="border px-4 py-2" width="110px" max-width="135px" style="font-size: 15px;">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($row->uploaded_by_user_id) }}</label>
                             <hr>
