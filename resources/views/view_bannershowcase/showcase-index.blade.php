@@ -30,7 +30,7 @@
         }
 
         .button1 {
-            background-color: red;
+            background-color: rgb(213, 0, 28);
         }
 
         .button2 {
