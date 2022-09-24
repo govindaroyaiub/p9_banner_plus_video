@@ -845,7 +845,18 @@ class HomeController extends Controller
     public function getVideoSizeInfo($id){
         if(Auth::user()){
             $data = Sizes::where('id', $id)->first();
-            return $data;
+            if($data){
+                $a = $data['width'];
+                $b = $data['height'];
+                $gcd = function($a, $b) use (&$gcd) {
+                    return ($a % $b) ? $gcd($b, $a % $b) : $b;
+                };
+                $g = $gcd($a, $b);
+                return $a/$g . ':' . $b/$g;
+            }
+            else{
+                return null;
+            }
         }
         else{
             return 'oops!';

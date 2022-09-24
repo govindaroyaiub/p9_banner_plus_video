@@ -115,7 +115,7 @@
                     <input type='text' placeholder="Enter Codec" name="codec" value="H264"
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
-                    <input type='text' placeholder="Enter Aspect Ratio" name="aspect_ratio"
+                    <input type='text' placeholder="Enter Aspect Ratio" name="aspect_ratio" id="aspect_ratio"
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
 
@@ -177,6 +177,22 @@
                 else{
                     $("#is_footer").val('1');
                 }
+            });
+
+            $('#size_id').change(function() {
+                let val = $('#size_id').val();
+
+                axios.get('/getVideoSizeInfo/'+ val)
+                .then(function (response) {
+                    // handle success
+                    console.log(response.data);
+                    document.getElementById('aspect_ratio').value = response.data;
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
             });
         });
     </script>
