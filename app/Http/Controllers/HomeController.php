@@ -846,6 +846,8 @@ class HomeController extends Controller
         if(Auth::user()){
             $data = Sizes::where('id', $id)->first();
             if($data){
+                //aspect ratio calculator
+                
                 $a = $data['width'];
                 $b = $data['height'];
                 $gcd = function($a, $b) use (&$gcd) {
