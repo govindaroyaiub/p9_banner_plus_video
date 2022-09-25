@@ -17,6 +17,10 @@ use App\Social;
 use App\BannerCategories;
 use App\Feedback;
 use App\Banner;
+use App\CreativeCategories;
+use App\AllVideos;
+use App\AllSocials;
+use App\AllGifs;
 use \App\Mail\SendMail;
 use App\Helper\Helper;
 
@@ -297,6 +301,66 @@ class ProjectConTroller extends Controller
                 'data',
                 'is_version',
                 'banners'
+            ));
+        }
+        else 
+        {
+            return view('404');
+        }
+    }
+
+    public function video_showcase_view(Request $request, $id){
+        $main_project_id = $id;
+        $main_project_info = MainProject::join('logo', 'main_project.logo_id', 'logo.id')
+                                        ->select(
+                                            'main_project.name as name',
+                                            'main_project.client_name',
+                                            'main_project.logo_id',
+                                            'main_project.color',
+                                            'main_project.is_logo',
+                                            'main_project.is_footer',
+                                            'main_project.is_version',
+                                            'main_project.uploaded_by_company_id',
+                                            'main_project.uploaded_by_user_id',
+                                            'logo.name as logo_name',
+                                            'logo.website',
+                                            'logo.path' 
+                                        )
+                                        ->where('main_project.id', $main_project_id)
+                                        ->first();
+
+        if($main_project_info != NULL)
+        {
+            $feedbacks = Feedback::where('project_id', $main_project_id)->get();
+            $categories = CreativeCategories::where('id', $main_project_id)->get();
+            $videos = AllVideos::where('project_id', $main_project_id)->get();
+            $data = [];
+            $is_version = false;
+            $is_category = false;
+
+            if($main_project_info['is_version'] == 0){
+                $data = AllVideos::where('project_id', $main_project_id)->get();
+                $is_version == false;
+            }
+            else{
+                foreach($feedbacks as $index => $feedback){
+                    $categories = CreativeCategories::where('feedback_id', $feedback->id)->get();
+                    foreach($categories as $index => $category){
+                        $videos = AllVideos::where('category_id', $category->id)->get();
+                        foreach($videos as $index => $video){
+                            $data[$feedback->id][$category->id][$video->id] = $video;
+                        }
+                    }
+                    $is_version = true;
+                }
+            }
+
+            return view('new_files.video.index', compact(
+                'main_project_info',
+                'main_project_id',
+                'data',
+                'is_version',
+                'videos'
             ));
         }
         else 

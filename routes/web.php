@@ -22,6 +22,7 @@ Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('vi
 Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_view');
 Route::get('/project/social/view/{id}', 'ProjectConTroller@social_view')->name('social_view');
 Route::get('/project/banner-showcase/view/{id}', 'ProjectConTroller@banner_showcase_view')->name('banner_showcase_view');
+Route::get('/project/video-showcase/view/{id}', 'ProjectController@video_showcase_view')->name('video_showcase_view');
 Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
 Route::post('/setVersionStatus/{version_id}', 'ProjectConTroller@setVersionViewStatus')->name('setVersionViewStatus');
 Route::post('/setFeedbackStatus/{version_id}', 'ProjectConTroller@setFeedbackStatus')->name('setFeedbackStatus');

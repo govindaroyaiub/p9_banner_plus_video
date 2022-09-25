@@ -58,7 +58,7 @@
                                       </svg>
                                 </button>
                             </a> --}}
-                            <a href="/project/video/view/{{$video->id}}" target="_blank">
+                            <a href="/project/video-showcase/view/{{$video->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,7 +67,7 @@
                                     </svg>
                                 </button>
                             </a>
-                            <a href="/project/video/edit/{{$video->id}}">
+                            <a href="/project/video-showcase/edit/{{$video->id}}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-900 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +76,7 @@
                                 </button>
                             </a>
 
-                            <a href="/project/video/delete/{{$video->id}}" onclick="return confirm('Are you sure you want to delete this project?');">
+                            <a href="/project/video-showcase/delete/{{$video->id}}" onclick="return confirm('Are you sure you want to delete this project?');">
                                 <button type="button"
                                     class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

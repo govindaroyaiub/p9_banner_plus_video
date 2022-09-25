@@ -14,6 +14,10 @@ use App\Social;
 use App\BannerCategories;
 use App\Feedback;
 use App\Banner;
+use App\AllVideos;
+use App\AllGifs;
+use App\AllSocials;
+use App\CreativeCategories;
 
 class Helper
 {
@@ -158,5 +162,15 @@ class Helper
     public static function getBannerFileSize($id){
         $banner = Banner::where('id', $id)->first();
         return $banner['size'];
+    }
+
+    public static function getVideoResolution($id){
+        $data = Sizes::where('id', $id)->first();
+        return $data['width'].'x'.$data['height'];
+    }
+
+    public static function getVideoAspectRatio($id){
+        $data = AllVideos::where('id', $id)->first();
+        return $data['aspect_ratio'];
     }
 }
