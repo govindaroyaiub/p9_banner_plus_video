@@ -137,7 +137,7 @@ class PDFController extends Controller
         }
             $implode_to_Rupees = implode('', array_reverse($string));
             $get_paise = ($amount_after_decimal > 0) ? "And " . ($change_words[$amount_after_decimal / 10] . " 
-            " . $change_words[$amount_after_decimal % 10]) . ' Poisa' : '';
-            return ($implode_to_Rupees ? $implode_to_Rupees . 'Taka ' : '') . $get_paise;
+            " . $change_words[$amount_after_decimal % 10]) . '' : '';
+            return ($implode_to_Rupees ? $implode_to_Rupees . '' : '') . $get_paise;
     }
 }

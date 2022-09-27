@@ -51,7 +51,7 @@
         .footer {
             position: absolute;
             display: flex;
-            bottom: 0;
+            bottom: 10px;
         }
 
         #vertial_logo {
@@ -105,14 +105,14 @@
             border-left: 1px solid black;
             position: absolute;
             /* display: block; */
-            bottom: 0;
+            bottom: 8px;
             left: 100px;
         }
 
         .footer_text1{
             position: absolute;
             /* display: block; */
-            bottom: 0;
+            bottom: 10px;
             left: 130px;
             font-size: 10px;
             line-height: 2;
@@ -121,7 +121,7 @@
 
         .footer_text2{
             position: absolute;
-            bottom: 0;
+            bottom: 10px;
             left: 260px;
             font-size: 10px;
             line-height: 2;
@@ -134,13 +134,13 @@
             border-left: 1px solid black;
             position: absolute;
             /* display: block; */
-            bottom: 0;
+            bottom: 10px;
             left: 395px;
         }
 
         .footer_text3{
             position: absolute;
-            bottom: 0;
+            bottom: 10px;
             left: 430px;
             font-size: 10px;
             line-height: 2;
