@@ -174,7 +174,8 @@
                     if(displayStatus == 'none'){
                         displayStatus = 'block';
                         rotate
-                        .to('#feedback' + str, {duration: 0.65, rotate: 180, ease: "power0.none"})'] }}'})
+                        .to('#feedback' + str, {duration: 0.65, rotate: 180, ease: "power0.none"})
+                        // .to('#version' + str, {duration: 0, 'background-color': 'white', 'color': '{{ $main_project_info['color'] }}', 'border-width': '1px', 'border-color': '{{ $main_project_info['color'] }}', 'border-bottom': '0px'})
                     }
                     else{
                         displayStatus = 'none';
