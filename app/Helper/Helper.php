@@ -173,4 +173,25 @@ class Helper
         $data = AllVideos::where('id', $id)->first();
         return $data['aspect_ratio'];
     }
+
+    public static function getProjectCreationDate($id){
+        $data = MainProject::where('id', $id)->first();
+        return $data['created_at'];
+    }
+
+    public static function getTotalBannersCount($id){
+        return Banner::where('project_id', $id)->count();
+    }
+
+    public static function getTotalVideosCount($id){
+        return AllVideos::where('project_id', $id)->count();
+    }
+
+    public static function getTotalGifsCount($id){
+        return AllGifs::where('project_id', $id)->count();
+    }
+
+    public static function getTotalSocialsCount($id){
+        return AllSocials::where('project_id', $id)->count();
+    }
 }

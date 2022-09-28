@@ -63,6 +63,33 @@
             border-bottom-right-radius: 0!important;
         }
 
+        .footer{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .feedback-bar{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .left{
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .right{
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
         /* Extra small devices (phones, 600px and down) */
         @media only screen and (max-width: 600px) {
             #show1{
@@ -191,8 +218,10 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             @if($main_project_info['uploaded_by_company_id'] == 1)
             <div>
-                <h1 style="font-size: 16px;">Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
-                <h1 style="font-size: 16px;">Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
+                <h1 style="font-size: 15px;">Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
+                <h1 style="font-size: 15px;">Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
+                <h1 style="font-size: 15px;">Total Creatives: <span class="font-semibold">{{ Helper::getTotalBannersCount($main_project_id) }}</span></h1>
+                <h1 style="font-size: 15px;">Date: <span class="font-semibold">{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate($main_project_id))->format('d F Y') }}</span></h1>
             </div>
             @else
                 <div>

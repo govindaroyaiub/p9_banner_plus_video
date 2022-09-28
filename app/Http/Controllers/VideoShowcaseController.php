@@ -116,5 +116,7 @@ class VideoShowcaseController extends Controller
         $video->feedback_id = $feedback->id;
         $video->category_id = $category->id;
         $video->save();
+
+        return redirect('/project/video-showcase/view/'.$main_project->id);
     }
 }

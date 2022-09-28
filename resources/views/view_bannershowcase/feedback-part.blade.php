@@ -3,23 +3,28 @@
     @foreach ($data as $id => $row)
     <div class="container mx-auto px-4 py-3" id="feedbackPart">
         <div @if(Helper::getFeedbackStatus($id) == 1) x-data={show:true} @else x-data={show:false} @endif class="rounded-sm">
-            <div class="px-10 py-6 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{ $main_project_info['color'] }}">
-                <label class="text-white">{{$i++}}. </label>
-                <label class="text-white">
-                    {{ Helper::getFeedbackName($id) }} -
-                </label>  
-                <label class="text-white">
-                    {{ \Carbon\Carbon::parse(Helper::getFeedbackDate($id))->format('d F Y H:s:i') }}
-                </label>
-                <label class="text-white" id="feedback{{$id}}"
+            <div class="feedback-bar px-10 py-4 cursor-pointer all-versions" id="version{{$id}}" @click="show=!show" style="background-color: {{ $main_project_info['color'] }}">
+                <div id="feedback{{$id}}" class="left"
                 @if(Helper::getFeedbackStatus($id) == 1) 
-                    style="float: right; transform-origin: center; transform: rotate(180deg);"
-                @else style="float: right; transform-origin: center; transform: rotate(0deg);" 
+                    style="transform-origin: center; transform: rotate(180deg);"
+                @else style="transform-origin: center; transform: rotate(0deg);" 
                 @endif>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
-                      </svg>
-                </label>
+                    </svg>
+                </div>
+                <div class="center" style="width: auto; text-align: center;">
+                    <span class="feedback-text">{{$i++}}. {{ Helper::getFeedbackName($id) }} - {{ \Carbon\Carbon::parse(Helper::getFeedbackDate($id))->format('d F Y H:s:i') }}</span>
+                </div>
+                <div id="feedback{{$id}}" class="right"
+                @if(Helper::getFeedbackStatus($id) == 1) 
+                    style="transform-origin: center; transform: rotate(180deg);"
+                @else style="transform-origin: center; transform: rotate(0deg);" 
+                @endif>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
+                    </svg>
+                </div>
             </div>
             <div x-show="show" class="border border-b-0 px-1 py-1 collapse" id="collapse{{$id}}" style="border-color: {{ $main_project_info['color'] }}">
                 @if(Auth::user())
@@ -169,7 +174,7 @@
                     if(displayStatus == 'none'){
                         displayStatus = 'block';
                         rotate
-                        .to('#feedback' + str, {duration: 0.65, rotate: 180, ease: "power0.none"})
+                        .to('#feedback' + str, {duration: 0.65, rotate: 180, ease: "power0.none"})'] }}'})
                     }
                     else{
                         displayStatus = 'none';
