@@ -225,13 +225,13 @@
                         setHeaderView(versionID, displayStatus);
                     }
                     
-                    var els = document.getElementsByClassName("rels{{$id}}");
+                    // var els = document.getElementsByClassName("rels{{$id}}");
 
-                    for(var i = 0; i < els.length; i++)
-                    {
-                        // console.log(els[i]);
-                        els[i].src += "";
-                    }
+                    // for(var i = 0; i < els.length; i++)
+                    // {
+                    //     // console.log(els[i]);
+                    //     els[i].src += "";
+                    // }
                 }
                 var relBtn = document.getElementById("version{{$id}}");
                 relBtn.onclick = reloadAll;
