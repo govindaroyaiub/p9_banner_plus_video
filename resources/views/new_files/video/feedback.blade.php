@@ -81,6 +81,7 @@
                 
                 <div class="container mx-auto px-4 py-4" id="show2">
                     @foreach($row as $index => $project)
+                    {{-- This is the part where version tabs are done if needed --}}
                         @foreach ($project as $project)
                         <?php
                             $resolution = explode("x", Helper::getVideoResolution($project->size_id));
