@@ -178,22 +178,6 @@
                     $("#is_footer").val('1');
                 }
             });
-
-            $('#size_id').change(function() {
-                let val = $('#size_id').val();
-
-                axios.get('/getVideoSizeInfo/'+ val)
-                .then(function (response) {
-                    // handle success
-                    console.log(response.data);
-                    document.getElementById('aspect_ratio').value = response.data;
-
-                })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
-            });
         });
     </script>
     @endsection

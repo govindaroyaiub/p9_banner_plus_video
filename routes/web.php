@@ -54,7 +54,7 @@ Route::get('/change-password', 'HomeController@change_password')->name('change_p
 Route::post('/change-password', 'HomeController@change_password_post')->name('change_password_post');
 Route::get('/reset-password/{id}', 'HomeController@reset_password')->name('reset_password');
 
-Route::get('/getVideoSizeInfo/{id}', 'HomeController@getVideoSizeInfo')->name('getVideoSizeInfo');
+// Route::get('/getVideoSizeInfo/{id}', 'HomeController@getVideoSizeInfo')->name('getVideoSizeInfo');
 
 // Route::post('/change_mail_status', 'HomeController@change_mail_status')->name('change_mail_status');
 
@@ -187,6 +187,10 @@ Route::get('/bills/delete/{id}', 'PDFController@delete_bill')->name('delete_bill
 Route::get('/video-showcase', 'VideoShowcaseController@video_list')->name('videoshowcaselist');
 Route::get('/project/video-showcase/add', 'VideoShowcaseController@videoshowcase_add_view')->name('videoshowcaseaddview');
 Route::post('/project/video-showcase/add', 'VideoShowcaseController@videoshowcase_add_post')->name('videoshowcaseaddpost');
+Route::get('/project/video-showcase/delete/{id}', 'VideoShowcaseController@videoshowcase_delete')->name('videoshowcase_delete');
+Route::get('/video-showcase/edit/{id}', 'VideoShowcaseController@video_edit_view')->name('videoshowcase_video_edit');
+Route::post('/video-showcase/edit/{id}', 'VideoShowcaseController@video_edit_post')->name('videoshowcase_video_edit_post');
+Route::get('/video-showcase/delete/{id}', 'VideoShowcaseController@video_delete')->name('videoshowcase_video_delete');
 //video showcase function ends
 
 
