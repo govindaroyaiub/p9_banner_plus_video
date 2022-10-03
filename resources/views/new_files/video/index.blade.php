@@ -160,12 +160,18 @@
                     var versions = document.getElementsByClassName("all-versions");
                     var collapses = document.getElementsByClassName("collapse");
                     var feedbacks = document.getElementsByClassName("feedbacks");
+                    var videoTitle = document.getElementsByClassName("video-title");
 
                     if(header){
                         document.getElementsByClassName("header")[0].style.borderColor = color;
                     }
                     if(footer){
                         document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+                    }
+                    if(videoTitle){
+                        for(var v = 0; v < videoTitle.length; v++){
+                            videoTitle[v].style.backgroundColor = color;
+                        }
                     }
                     if(icons){
                         for(var i = 0; i < icons.length; i++){

@@ -3,7 +3,7 @@
 @if (glob($direct_name.$project->video_path))
 <div class="md:w-3/4 mx-8">
     <div class="videos">
-        <h2 class="text-xl font-semibold mb-4">
+        <h2 class="text-xl font-semibold mb-4 px-2 py-2 video-title" style="background-color: {{$project_color}}; color: white; border-radius: 5px;">
             {{ $project->title }}
         </h2>
         <div class="video-container aspect-ratio-9-16">

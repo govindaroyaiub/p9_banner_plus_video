@@ -5,9 +5,9 @@
     <div class="videos">
         <div class="md:flex">
             <div class="md:w-2/4">
-            <h2 class="text-xl font-semibold mb-4">
-            {{ $project->title }}
-            </h2>
+                <h2 class="text-xl font-semibold mb-4 px-2 py-2 video-title" style="background-color: {{$project_color}}; color: white; border-radius: 5px;">
+                    {{ $project->title }}
+                </h2>
             <div class="video-container aspect-ratio-07-1" style="aspect-ratio: 1/0.7">
                 <video class="video" playsinline controls controlsList="nodownload" data-poster="poster.jpg" width="560" height="auto">
                     <source src="{{ asset('/banner_videos/'.$project->video_path) }}"

@@ -187,6 +187,8 @@ Route::get('/bills/delete/{id}', 'PDFController@delete_bill')->name('delete_bill
 Route::get('/video-showcase', 'VideoShowcaseController@video_list')->name('videoshowcaselist');
 Route::get('/project/video-showcase/add', 'VideoShowcaseController@videoshowcase_add_view')->name('videoshowcaseaddview');
 Route::post('/project/video-showcase/add', 'VideoShowcaseController@videoshowcase_add_post')->name('videoshowcaseaddpost');
+Route::get('/project/video-showcase/edit/{id}', 'VideoShowcaseController@videoshowcase_edit_view')->name('videoshowcase_edit_view');
+Route::post('/project/video-showcase/edit/{id}', 'VideoShowcaseController@videoshowcase_edit_post')->name('videoshowcase_edit_post');
 Route::get('/project/video-showcase/delete/{id}', 'VideoShowcaseController@videoshowcase_delete')->name('videoshowcase_delete');
 Route::get('/video-showcase/edit/{id}', 'VideoShowcaseController@video_edit_view')->name('videoshowcase_video_edit');
 Route::post('/video-showcase/edit/{id}', 'VideoShowcaseController@video_edit_post')->name('videoshowcase_video_edit_post');

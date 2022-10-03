@@ -120,6 +120,19 @@ class VideoShowcaseController extends Controller
         return redirect('/project/video-showcase/view/'.$main_project->id);
     }
 
+    public function videoshowcase_edit_view($id){
+        $project_name = MainProject::where('id', $id)->first();
+        $naming_convention = str_replace(" ", "_", $project_name['name']);
+        $logo_list = Logo::get();
+        $size_list = Sizes::orderBy('width', 'DESC')->get();
+        $project_info = MainProject::where('id', $id)->first();
+        return view('new_files.video.edit', compact('logo_list', 'size_list', 'project_info', 'id', 'naming_convention'));
+    }
+
+    public function videoshowcase_edit_post(Request $request, $id){
+        
+    }
+
     public function videoshowcase_delete($id){
         $main_project_info = MainProject::where('id', $id)->first();
 
