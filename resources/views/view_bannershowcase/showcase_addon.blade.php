@@ -34,7 +34,7 @@
                 <textarea placeholder="new feedbacks implemented" name="feedback_description" id="feedback_description"
                     rows="4"
                     class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
-                    required></textarea>
+                    required>The following feedbacks are implemented:</textarea>
 
                 <div
                     class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">

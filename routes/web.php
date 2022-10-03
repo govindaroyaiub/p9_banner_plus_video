@@ -191,6 +191,8 @@ Route::get('/project/video-showcase/delete/{id}', 'VideoShowcaseController@video
 Route::get('/video-showcase/edit/{id}', 'VideoShowcaseController@video_edit_view')->name('videoshowcase_video_edit');
 Route::post('/video-showcase/edit/{id}', 'VideoShowcaseController@video_edit_post')->name('videoshowcase_video_edit_post');
 Route::get('/video-showcase/delete/{id}', 'VideoShowcaseController@video_delete')->name('videoshowcase_video_delete');
+Route::get('/project/video-showcase/addon/{id}', 'VideoShowcaseController@videoshowcase_addon_view')->name('videoshowcase_addon_view');
+Route::post('/project/video-showcase/addon/{id}', 'VideoShowcaseController@videoshowcase_addon_post')->name('videoshowcase_addon_post');
 //video showcase function ends
 
 

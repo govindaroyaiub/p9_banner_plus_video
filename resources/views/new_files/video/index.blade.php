@@ -28,18 +28,100 @@
             cursor: pointer;
         }
 
-        .footer{
+        /* .footer{
             position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
-        }
+        } */
 
         .button1 {background-color: red;}
         .button2 {background-color: #03befc;}
         .button3 {background-color: #fc6203;}
         .button4 {background-color: #4c4f6d;}
+
+        .size_text{
+            float: right!important;
+        }
+
+        .custom-radius{
+            border-bottom-left-radius: 0!important;
+            border-bottom-right-radius: 0!important;
+        }
+
+        /* .footer{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        } */
+
+        .feedback-bar{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .left{
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .right{
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+            #show1{
+                padding-left: 0!important;
+                padding-right: 0!important;
+            }
+
+            #show2{
+                padding-left: 0!important;
+                padding-right: 0!important;
+            }
+
+            .single-div{
+                padding-left: 0!important;
+                padding-right: 0!important;
+            }
+
+            #feedbackPart{
+                padding-left: 0.1rem!important;
+                padding-right: 0.1rem!important;
+            }
+        }
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 600px) {
+            #show1{
+                padding-left: 0!important;
+                padding-right: 0!important;
+            }
+
+            #show2{
+                padding-left: 0!important;
+                padding-right: 0!important;
+            }
+
+            .single-div{
+                padding-left: 0!important;
+                padding-right: 0!important;
+            }
+
+            #feedbackPart{
+                padding-left: 0.1rem!important;
+                padding-right: 0.1rem!important;
+            }
+        }
     </style>
+    <?php $project_color = Helper::getProjectColor($main_project_id) ?>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script type="text/javascript">
@@ -92,7 +174,15 @@
                     }
                     if(versions){
                         for(var j = 0; j < versions.length; j++){
-                             versions[j].style.backgroundColor = color;
+
+                            if(versions[j].style.backgroundColor == 'white'){
+                                versions[j].style.borderColor = color;
+                                versions[j].style.color = color;
+                            }
+                            else{
+                                versions[j].style.backgroundColor = color;
+                                versions[j].style.borderColor = color;
+                            }
                         }
                     }
                     if(collapses){
@@ -169,7 +259,7 @@
                     <span>Videos</span>
                 </a>
             </li>
-            <li><a class="flex text-green-600" href="/project/video/addon/{{ $main_project_id }}">
+            <li><a class="flex text-green-600" href="/project/video-showcase/addon/{{ $main_project_id }}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -193,7 +283,7 @@
         @if($is_version == false)
             @include('new_files.video.singlepage')
         @else
-            {{-- @include('view_bannershowcase.feedback-part') --}}
+            @include('new_files.video.feedback')
         @endif
     @endif
 

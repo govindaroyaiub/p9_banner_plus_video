@@ -160,12 +160,13 @@ class VideoShowcaseController extends Controller
         if (file_exists($video_path)) {
             @unlink($video_path);
         }
-        $video_count = MainProject::where('id', $video['project_id'])->count();
-        if($video_count == 1){
+        AllVideos::where('id', $id)->delete();
+
+        $video_count = AllVideos::where('id', $video['project_id'])->count();
+        if($video_count == 0){
             CreativeCategories::where('project_id', $video['project_id'])->delete();
             Feedback::where('project_id', $video['project_id'])->delete();
         }
-        AllVideos::where('id', $id)->delete();
 
         return redirect('/project/video-showcase/view/'.$video['project_id']);
     }
@@ -275,5 +276,123 @@ class VideoShowcaseController extends Controller
 
         AllVideos::where('id', $sub_project_id)->update($sub_project_details);
         return redirect('/project/video-showcase/view/'.$main_project_info['id']);
+    }
+
+    public function videoshowcase_addon_view($id){
+        $main_project_id = $id;
+        $logo_list = Logo::get();
+        $feedbackCount = Feedback::where('project_id', $id)->count();
+        $size_list = Sizes::orderBy('width', 'DESC')->get();
+        return view('new_files/video/addon', compact('logo_list', 'size_list', 'main_project_id', 'feedbackCount'));
+    }
+
+    public function videoshowcase_addon_post($id, Request $request){
+        if($request->size_id == 0){
+            return back()->with('danger', 'Please select the size format!');
+        }
+
+        $validator = $request->validate([
+            'poster' => 'mimes:jpeg,png,jpg,gif',
+            'video' => 'required|mimes:mp4',
+            'size_id' => 'required'
+        ]);
+
+        $feedback_request = $request->feedback_request;
+
+        if($feedback_request!= 0){
+            $main_project_id = $id;
+            $project_info = MainProject::where('id', $main_project_id)->first();
+
+            if($feedback_request == 1){
+                //check version exists or not
+                //if null then create one
+                $feedback_info = Feedback::where('project_id', $project_info['id'])->first();
+
+                if($feedback_info == NULL){
+                    $feedback = new Feedback;
+                    $feedback->project_id = $main_project_id;
+                    $feedback->description = 'Master Development Started';
+                    $feedback->name = 'Feedback Round 1';
+                    $feedback->is_open = 1;
+                    $feedback->save();
+                    $feedback_id = $feedback->id;
+
+                    $category = new CreativeCategories;
+                    $category->name ='Default';
+                    $category->project_id = $main_project_id;
+                    $category->feedback_id = $feedback->id;
+                    $category->save();
+                    $category_id = $category->id;
+                }
+                else{
+                    $feedback_id = $feedback_info['id'];
+                    $category_info = CreativeCategories::where('feedback_id', $feedback_id)->first();
+                    $category_id = $category_info['id'];
+                }
+            }
+            else{
+                $feedback = new Feedback;
+                $feedback->name = $request->feedback_name;
+                $feedback->description = $request->feedback_description;
+                $feedback->project_id = $main_project_id;
+                $feedback->is_open = 1;
+                $feedback->save();
+                $feedback_id = $feedback->id;
+
+                $category = new CreativeCategories;
+                $category->name ='Default';
+                $category->project_id = $main_project_id;
+                $category->feedback_id = $feedback->id;
+                $category->save();
+                $category_id = $category->id;
+
+                MainProject::where('id', $main_project_id)->update(['is_version' => 1]);
+            }
+
+            $main_project_id = $id;
+            $project_info = MainProject::where('id', $main_project_id)->first();
+            $size_info = Sizes::where('id', $request->size_id)->first();
+            $sub_project_name = $project_info['name'].'_'.$size_info['width'].'x'.$size_info['height'];
+
+            if($request->has('poster'))
+            {
+                $poster_name = $sub_project_name.'_'.time().'.'.$request->poster->extension();
+                $request->poster->move(public_path('poster_images'), $poster_name);
+            }
+            else
+            {
+                $poster_name = NULL;
+            }
+
+            $video_name = $sub_project_name.'_'.time().'.'.$request->video->extension();
+            $request->video->move(public_path('banner_videos'), $video_name);
+            $video_bytes = filesize(public_path('/banner_videos/'.$video_name));
+
+            $label = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB' );
+            for( $i = 0; $video_bytes >= 1024 && $i < ( count( $label ) -1 ); $video_bytes /= 1024, $i++ );
+            $video_size = round( $video_bytes, 2 ) . " " . $label[$i];
+
+            $sub_project = new AllVideos;
+            $sub_project->name = $sub_project_name;
+            $sub_project->title = $request->title;
+            $sub_project->project_id = $main_project_id;
+            $sub_project->category_id = $category_id;
+            $sub_project->feedback_id = $feedback_id;
+            $sub_project->size_id = $request->size_id;
+            $sub_project->codec = $request->codec;
+            $sub_project->aspect_ratio = $request->aspect_ratio;
+            $sub_project->fps = $request->fps;
+            $sub_project->size = $video_size;
+            $sub_project->poster_path = $poster_name;
+            $sub_project->video_path = $video_name;
+            $sub_project->save();
+
+            return redirect('/project/video-showcase/view/'.$main_project_id);
+        }
+        else{
+            return back();
+        }
+
+        
     }
 }
