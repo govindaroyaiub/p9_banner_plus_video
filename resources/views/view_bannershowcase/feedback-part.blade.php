@@ -37,7 +37,7 @@
                     
                     <div class="float-left">
                         @if(Helper::getFeedbackList($id) != NULL)
-                        <div id="feedbackList{{$id}}" style="position: absolute; display: none; opacity: 0; width: 300px; height auto; background-color: rgb(255, 247, 209); border-radius: 8px;">
+                        <div id="feedbackList{{$id}}" style="position: absolute; display: none; opacity: 0; width: 350px; height auto; background-color: rgb(255, 247, 209); border-radius: 8px;">
                             <div class="upperPart text-red-500 py-2" style="position: absolute; width: 100%; height: auto; padding: 2px 2px 2px 2px; background-color: rgb(255, 242, 171);">
                                 <div class="cursor-pointer" id="closeFeedbackList{{$id}}" style="float: right;">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
