@@ -16,7 +16,7 @@ class Feedbacks extends Migration
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->integer('project_id');
             $table->integer('is_open');
             $table->timestamps();

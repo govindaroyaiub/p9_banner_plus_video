@@ -6,7 +6,7 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h4 class="text-xl font-semibold tracking-wide py-2">Project: <label class="text-red-500">{{ $project_name }} - {{ $feedback_name }}</label></h4>
+            <h4 class="text-xl font-semibold tracking-wide py-2">Project: <label class="text-red-500">{{ $project_name }} - {{ $feedback_info['name'] }}</label></h4>
             <h3 class="text-xl font-semibold tracking-wide">Edit Feedback</h3>
             <span class="text-red-600">Note: If banners are uploaded then current banners will get updated as well!</span>
             <br>
@@ -15,9 +15,13 @@
                 action="/banner/edit/feedback/{{$project_id}}/{{$feedback_id}}" enctype="multipart/form-data">
                 @csrf
                 {{-- Drag and Drop --}}
-                <input type='text' placeholder="{{ $feedback_name }}" name="feedback_name" value="{{ $feedback_name }}" id="feedback_name"
+                <input type='text' placeholder="{{ $feedback_info['name'] }}" name="feedback_name" value="{{ $feedback_info['name'] }}" id="feedback_name"
                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                                required/>
+
+                <textarea name="feedback_description" id="feedback_description" rows="6"
+                               class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                               required>{{ $feedback_info['description'] }}"</textarea>
 
                 <div class="flex items-center">
                     <input type="checkbox" id="upload_new_files" class="h-4 w-4 text-gray-700 border rounded mr-2">

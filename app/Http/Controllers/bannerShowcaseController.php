@@ -311,14 +311,18 @@ class bannerShowcaseController extends Controller
         $feedback_info = Feedback::where('id', $feedback_id)->first();
         $project_info = MainProject::where('id', $project_id)->first();
         $project_name = $project_info['name'];
-        $feedback_name = $feedback_info['name'];
         $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
-        return view('view_bannershowcase.feedback-edit', compact('project_id', 'feedback_id', 'feedback_name', 'project_name', 'size_list'));
+        return view('view_bannershowcase.feedback-edit', compact('project_id', 'feedback_id', 'project_name', 'size_list', 'feedback_info'));
     }
 
     public function banner_edit_feedback_post(Request $request, $project_id, $feedback_id){
         //post function to update the banner feedback id
-        Feedback::where('id', $feedback_id)->update(['name' => $request->feedback_name]);
+        Feedback::where('id', $feedback_id)->update(
+            [
+                'name' => $request->feedback_name,
+                'description' => $request->feedback_description
+            ]
+        );
         $project_info = MainProject::where('id', $project_id)->first();
         
         //if request has uploads then firstd elete the current banners then add the new ones

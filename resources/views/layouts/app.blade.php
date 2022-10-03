@@ -55,6 +55,10 @@
             .text-primary {
                 color: #ed7523!important;
             }
+
+            #company_logo{
+                max-width: 20%!important;
+            }
         </style>
     @endif
     

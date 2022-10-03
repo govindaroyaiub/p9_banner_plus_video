@@ -1,7 +1,7 @@
 <main class="main">
     <div x-show="show" class="px-10 py-6" id="show1">
         <div class="container mx-auto px-4 py-4">
-            <div class="banners">
+            <div class="banners" style="text-align: center;">
                 @foreach($data as $banner)
                 <?php
                     $directory = 'showcase_collection/'.$banner->file_path;
@@ -11,8 +11,9 @@
                     $height = $resolution[1];
                 ?>
                 <div class="single-div">
-                    <small>{{ $width }}x{{$height}}</small>
+                    <small style="float: left;">{{ $width }}x{{ $height }}</small>
                     <small class="mx-auto text-red-700 size_text">{{ $bannerSize }}</small>
+                    <br>
                     <iframe src="{{ asset($directory.'/index.html') }}" width="{{ $width }}"
                         height="{{ $height }}" frameBorder="0" scrolling="no" id="rel{{ $banner->id }}"></iframe>
                     <ul class="flex space-x-2 icons" style="color:{{ $main_project_info['color'] }};">

@@ -57,6 +57,11 @@ class Helper
         return $company_details['default_color'];
     }
 
+    public static function getProjectColor($id){
+        $data = MainProject::where('id', $id)->first();
+        return $data['color'];
+    }
+
     public static function getUsername($id)
     {
         $user_details = User::where('id', $id)->first();
@@ -127,6 +132,11 @@ class Helper
     public static function getFeedbackName($id){
         $feedback = Feedback::where('id', $id)->first();
         return $feedback['name'];
+    }
+
+    public static function getFeedbackList($id){
+        $feedback = Feedback::where('id', $id)->first();
+        return $feedback['description'];
     }
 
     public static function getFeedbackStatus($id){

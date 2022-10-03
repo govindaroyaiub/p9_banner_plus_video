@@ -51,7 +51,6 @@
 
         .single-div{
             display: inline-block;
-            padding: 0 7px;
         }
 
         .size_text{
@@ -63,12 +62,12 @@
             border-bottom-right-radius: 0!important;
         }
 
-        .footer{
+        /* .footer{
             position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
-        }
+        } */
 
         .feedback-bar{
             display: flex;
@@ -174,6 +173,7 @@
                     var versions = document.getElementsByClassName("all-versions");
                     var collapses = document.getElementsByClassName("collapse");
                     var feedbacks = document.getElementsByClassName("feedbacks");
+                    var feed
 
                     if(header){
                         document.getElementsByClassName("header")[0].style.borderColor = color;
@@ -188,7 +188,15 @@
                     }
                     if(versions){
                         for(var j = 0; j < versions.length; j++){
-                             versions[j].style.backgroundColor = color;
+
+                            if(versions[j].style.backgroundColor == 'white'){
+                                versions[j].style.borderColor = color;
+                                versions[j].style.color = color;
+                            }
+                            else{
+                                versions[j].style.backgroundColor = color;
+                                versions[j].style.borderColor = color;
+                            }
                         }
                     }
                     if(collapses){
@@ -198,7 +206,7 @@
                     }
                     if(feedbacks){
                         for(var l = 0; l < feedbacks.length; l++){
-                            feedbacks[l].style.backgroundColor = color;
+                            feedbacks[l].style.borderColor = color;
                         }
                     }
                 }
@@ -213,22 +221,17 @@
     </script>
 </head>
 
+<?php $project_color = Helper::getProjectColor($main_project_id) ?>
+
 <body class="font-body">
-    <header class="header relative border-b" style="border-color: {{ $main_project_info['color'] }}">
+    <header class="header relative border-b" style="border-color: {{ $project_color }}">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            @if($main_project_info['uploaded_by_company_id'] == 1)
             <div>
                 <h1 style="font-size: 15px;">Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
                 <h1 style="font-size: 15px;">Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
                 <h1 style="font-size: 15px;">Total Creatives: <span class="font-semibold">{{ Helper::getTotalBannersCount($main_project_id) }}</span></h1>
                 <h1 style="font-size: 15px;">Date: <span class="font-semibold">{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate($main_project_id))->format('d F Y') }}</span></h1>
             </div>
-            @else
-                <div>
-                    <h1>Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
-                    <h1>Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
-                </div>
-            @endif
 
             <div class="flex">
                 @if($main_project_info->is_logo == 1)
@@ -258,6 +261,14 @@
                         </path>
                     </svg>
                     <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a class="flex" href="/banner-showcase" target="_blank" style="color: #3182ce;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                      </svg>
+                    <span>Banners</span>
                 </a>
             </li>
             <li>
@@ -300,7 +311,7 @@
     @endif
 
     @if($main_project_info->is_footer == 1)
-    <footer class="footer" style="background-color: {{ $main_project_info['color'] }}">
+    <footer class="footer" style="background-color: {{ $project_color }}">
         <div class="container mx-auto px-4 py-3 text-white text-center">&copy; All Right Reserved. <a
                 href="{{ Helper::getCompanyWebsite($main_project_info->uploaded_by_company_id) }}" target="_blank" style="text-decoration: underline;">{{ Helper::getTitle($main_project_info->uploaded_by_company_id) }}</a>
             - <?= Date('Y') ?></div>

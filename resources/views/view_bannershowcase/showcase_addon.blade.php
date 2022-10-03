@@ -18,26 +18,28 @@
                     <select name="feedback_request" id="feedback_request" required
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                         <option value="0" class="py-2">Select Option</option>
-                        @if($feedbackCount <= 1) 
-                        <option value="1" class="py-2">Upload to Existing Preview</option>
-                        @endif
-                        @if($feedbackCount >= 1)
-                        <option value="2" class="py-2">Create New Feedback</option>
-                        @endif
+                        @if($feedbackCount <= 1) <option value="1" class="py-2">Upload to Existing Preview</option>
+                            @endif
+                            @if($feedbackCount >= 1)
+                            <option value="2" class="py-2">Create New Feedback</option>
+                            @endif
                     </select>
                 </div>
 
-                <input type='text' placeholder="Feedback Round {{ $feedbackCount++ }}" name="feedback_name" value="Feedback Round {{ $feedbackCount++ }}" id="feedback_name"
-                               class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
-                               required/>
+                <input type='text' placeholder="Feedback Round {{ $feedbackCount++ }}" name="feedback_name"
+                    value="Feedback Round {{ $feedbackCount++ }}" id="feedback_name"
+                    class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
+                    required />
 
-                <textarea placeholder="new feedbacks implemented" name="feedback_description" value="new feedbacks implemented" id="feedback_description"
-                               class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
-                               required></textarea>
+                <textarea placeholder="new feedbacks implemented" name="feedback_description" id="feedback_description"
+                    rows="4"
+                    class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
+                    required></textarea>
 
                 <div
                     class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
-                    <input name="upload[]" id="upload" type="file" multiple="multiple" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
+                    <input name="upload[]" id="upload" type="file" multiple="multiple"
+                        accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
                 </div>
 
                 <div id="fileDisplaySection" style="display: none;">
@@ -84,7 +86,6 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-
     $(document).ready(function () {
         $('#feedback_request').change(function(){
             var value = $(this).val();
