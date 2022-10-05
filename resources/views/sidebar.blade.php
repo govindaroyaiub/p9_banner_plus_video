@@ -7,7 +7,7 @@
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner-showcase">Banner Showcase</a>
         </li>
         <li class="{{ request()->is('video-showcase') || request()->is('project/video-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
-                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/video-showcase">Video Showcase (on development)</a>
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/video-showcase">Video Showcase</a>
         </li>
         {{-- <li class="{{ request()->is('gif-showcase') || request()->is('project/gif-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/gif-showcase">GIF Showcase (on development)</a>

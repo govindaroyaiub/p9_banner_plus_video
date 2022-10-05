@@ -21,7 +21,7 @@
 
                 <textarea name="feedback_description" id="feedback_description" rows="6"
                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                               required>{{ $feedback_info['description'] }}"</textarea>
+                               required>{{ $feedback_info['description'] }}</textarea>
 
                 <div class="flex items-center">
                     <input type="checkbox" id="upload_new_files" class="h-4 w-4 text-gray-700 border rounded mr-2">

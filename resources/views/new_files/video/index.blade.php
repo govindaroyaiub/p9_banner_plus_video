@@ -50,7 +50,7 @@
         }
 
         /* .footer{
-            position: fixed;
+            position: absolute;
             left: 0;
             bottom: 0;
             width: 100%;
@@ -213,22 +213,15 @@
     </script>
 </head>
 
-<body class="font-body">
+<body class="font-body" style="position: relative;">
 <header class="header relative border-b" style="border-color: {{ $main_project_info['color'] }}">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-        @if($main_project_info['uploaded_by_company_id'] == 1)
-            <div>
-                <h1 style="font-size: 16px;">Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
-                <h1 style="font-size: 16px;">Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
-                <h1 style="font-size: 16px;">Total Video(s): <span class="font-semibold">{{ Helper::getTotalVideosCount($main_project_id) }}</span></h1>
-                <h1 style="font-size: 16px;">Date: <span class="font-semibold">{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate($main_project_id))->format('d F Y') }}</span></h1>
-            </div>
-            @else
-                <div>
-                    <h1>Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
-                    <h1>Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
-                </div>
-        @endif
+        <div>
+            <h1 style="font-size: 16px;">Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
+            <h1 style="font-size: 16px;">Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
+            <h1 style="font-size: 16px;">Total Video(s): <span class="font-semibold">{{ Helper::getTotalVideosCount($main_project_id) }}</span></h1>
+            <h1 style="font-size: 16px;">Date: <span class="font-semibold">{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate($main_project_id))->format('d F Y') }}</span></h1>
+        </div>
 
         <div class="flex">
             @if($main_project_info->is_logo == 1)

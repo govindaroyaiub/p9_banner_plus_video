@@ -204,4 +204,10 @@ class Helper
     public static function getTotalSocialsCount($id){
         return AllSocials::where('project_id', $id)->count();
     }
+
+    public static function getVideoCountInsideFeedback($id){
+        $video = AllVideos::where('id', $id)->first();
+        $feedback_id = $video['feedback_id'];
+        return AllVideos::where('feedback_id', $feedback_id)->count();
+    }
 }

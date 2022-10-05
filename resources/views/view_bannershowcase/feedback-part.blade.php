@@ -37,8 +37,8 @@
                     
                     <div class="float-left">
                         @if(Helper::getFeedbackList($id) != NULL)
-                        <div id="feedbackList{{$id}}" style="position: absolute; display: none; opacity: 0; width: 350px; height auto; background-color: rgb(255, 247, 209); border-radius: 8px;">
-                            <div class="upperPart text-red-500 py-2" style="position: absolute; width: 100%; height: auto; padding: 2px 2px 2px 2px; background-color: rgb(255, 242, 171);">
+                        <div id="feedbackList{{$id}}" style="position: absolute; display: none; opacity: 0; width: 350px; height auto; z-index: 9999; background-color: rgb(255, 247, 209); border-radius: 8px;">
+                            <div class="upperPart text-red-500" style="position: absolute; width: 100%; height: auto; padding: 2px 2px 2px 2px; background-color: rgb(255, 242, 171);">
                                 <div class="cursor-pointer" id="closeFeedbackList{{$id}}" style="float: right;">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -46,14 +46,14 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="lowerPart px-2" style="word-wrap: break-word; white-space: pre-line;">
+                            <div class="lowerPart px-2 py-2" style="word-wrap: break-word; white-space: pre-line;">
                                 {{ Helper::getFeedbackList($id) }}
                             </div>
                         </div>
                         <div class="cursor-pointer" id="viewFeedbackList{{$id}}" style="color: #256D85">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                            </svg>            
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                            </svg>                  
                         </div>
                         @endif
                     </div>

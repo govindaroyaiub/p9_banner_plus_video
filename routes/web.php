@@ -22,7 +22,7 @@ Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('vi
 Route::get('/project/gif/view/{id}', 'ProjectConTroller@gif_view')->name('gif_view');
 Route::get('/project/social/view/{id}', 'ProjectConTroller@social_view')->name('social_view');
 Route::get('/project/banner-showcase/view/{id}', 'ProjectConTroller@banner_showcase_view')->name('banner_showcase_view');
-Route::get('/project/video-showcase/view/{id}', 'ProjectController@video_showcase_view')->name('video_showcase_view');
+Route::get('/project/video-showcase/view/{id}', 'ProjectConTroller@video_showcase_view')->name('video_showcase_view');
 Route::post('/set_color/{id}', 'ProjectConTroller@set_color')->name('set_color');
 Route::post('/setVersionStatus/{version_id}', 'ProjectConTroller@setVersionViewStatus')->name('setVersionViewStatus');
 Route::post('/setFeedbackStatus/{version_id}', 'ProjectConTroller@setFeedbackStatus')->name('setFeedbackStatus');
@@ -195,6 +195,12 @@ Route::post('/video-showcase/edit/{id}', 'VideoShowcaseController@video_edit_pos
 Route::get('/video-showcase/delete/{id}', 'VideoShowcaseController@video_delete')->name('videoshowcase_video_delete');
 Route::get('/project/video-showcase/addon/{id}', 'VideoShowcaseController@videoshowcase_addon_view')->name('videoshowcase_addon_view');
 Route::post('/project/video-showcase/addon/{id}', 'VideoShowcaseController@videoshowcase_addon_post')->name('videoshowcase_addon_post');
+Route::get('/video/add/feedback/{project_id}/{feedback_id}', 'VideoShowcaseController@video_feedback_add_view')->name('video_feedback_add_view');
+Route::post('/video/add/feedback/{project_id}/{feedback_id}', 'VideoShowcaseController@video_feedback_add_post')->name('video_feedback_add_post');
+Route::get('/video/edit/feedback/{project_id}/{feedback_id}', 'VideoShowcaseController@video_feedback_edit_view')->name('video_feedback_edit_view');
+Route::post('/video/edit/feedback/{project_id}/{feedback_id}', 'VideoShowcaseController@video_feedback_edit_post')->name('video_feedback_edit_post');
+Route::get('/video/delete/feedback/{project_id}/{feedback_id}', 'VideoShowcaseController@video_delete_feedback')->name('video_delete_feedback');
+
 //video showcase function ends
 
 
