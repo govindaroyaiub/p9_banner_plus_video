@@ -18,6 +18,7 @@ use App\BannerProject;
 use App\BannerCategories;
 use App\Feedback;
 use App\Banner;
+use App\AllVideos;
 use App\Helper\Helper;
 use Exception;
 use DB;
@@ -142,6 +143,13 @@ class HomeController extends Controller
                                                 ->where('uploaded_by_company_id', Auth::user()->company_id)
                                                 ->whereYear('created_at', $current_year)
                                                 ->count();
+
+            $total_videoshowcases = MainProject::where('project_type', 6)
+                                                ->where('uploaded_by_company_id', Auth::user()->company_id)
+                                                ->whereYear('created_at', $current_year)
+                                                ->count();
+
+            $total_video_projects = $total_video_projects + $total_videoshowcases;
 
             $total_gif_projects = MainProject::where('project_type', 2)
                                                 ->where('uploaded_by_company_id', Auth::user()->company_id)

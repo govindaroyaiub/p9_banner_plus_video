@@ -50,7 +50,7 @@
                         <td class="border px-4 py-2" width="110px" max-width="135px" style="font-size: 15px;">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($row->uploaded_by_user_id) }}</label>
                             <hr>
-                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($row->created_at)->format('d F Y H:s:i') }}</label>
+                            <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($row->created_at)->format('d F Y') }}</label>
                         </td>
                         @endif
                         <td class="border px-4 py-2"  width="270px" max-width="290px">
