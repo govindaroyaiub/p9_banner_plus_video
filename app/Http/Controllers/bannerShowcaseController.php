@@ -27,7 +27,7 @@ class bannerShowcaseController extends Controller
             $data = MainProject::where('project_type', 4)->where('logo_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
         }
 
-        if(Auth::user()->comapny_id == 7){
+        if(Auth::user()->company_id == 7){
             return view('view_bannershowcase.custom-showcase-list', compact('data'));
         }
         else{
