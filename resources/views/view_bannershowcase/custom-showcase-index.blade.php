@@ -222,100 +222,121 @@
 </head>
 <?php $project_color = Helper::getProjectColor($main_project_id) ?>
 
+
+
 <body class="font-body">
-    <header class="header relative border-b" style="border-color: {{ $project_color }}">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div>
-                <h1 style="font-size: 15px;">Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
-                <h1 style="font-size: 15px;">Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
-                <h1 style="font-size: 15px;">Total Creatives: <span class="font-semibold">{{ Helper::getTotalBannersCount($main_project_id) }}</span></h1>
-                <h1 style="font-size: 15px;">Date: <span class="font-semibold">{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate($main_project_id))->format('d F Y') }}</span></h1>
-            </div>
-
-            <div class="flex">
-                @if($main_project_info->is_logo == 1)
-                <img src="{{ asset('/logo_images/'.'/'.$main_project_info->path) }}"
-                    alt="{{ $main_project_info['client_name'] }}" class="logo-main mr-4" />
-                @endif
-            </div>
-    </header>
-
-    <div class="container mx-auto px-4 py-2">
-        <button class="button button1" id="b1" onclick="get_color(this)"></button>
-        <button class="button button2" id="b2" onclick="get_color(this)"></button>
-        <button class="button button3" id="b3" onclick="get_color(this)"></button>
-        <button class="button button4" id="b4" onclick="get_color(this)"></button>
-    </div>
+    @if(!Auth::user() && $main_project_info['logo_id'] == 7)
+        @include('partials.login')
+    @endif
+    @if(Auth::user())
+    <div class="preview-part">
+        <header class="header relative border-b" style="border-color: {{ $project_color }}">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div>
+                    <h1 style="font-size: 15px;">Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
+                    <h1 style="font-size: 15px;">Project Name: <span class="font-semibold">{{ $main_project_info['name'] }}</span></h1>
+                    <h1 style="font-size: 15px;">Total Creatives: <span class="font-semibold">{{ Helper::getTotalBannersCount($main_project_id) }}</span></h1>
+                    <h1 style="font-size: 15px;">Date: <span class="font-semibold">{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate($main_project_id))->format('d F Y') }}</span></h1>
+                </div>
     
-    <div class="container mx-auto px-4 py-4">
-        {{-- If the user is authenticated, then the user can do these actions --}}
-        @if(Auth::user())
-        <ul class="flex space-x-4">
-            <li>
-                <a class="flex" href="/" target="_blank">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                        </path>
-                    </svg>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a class="flex" href="/banner-showcase" target="_blank" style="color: #3182ce;">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                      </svg>
-                    <span>Banners</span>
-                </a>
-            </li>
-            <li>
-                <a class="flex text-green-600" href="/project/banner-showcase/addon/{{ $main_project_id }}">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                        </path>
-                    </svg>
-                    <span>Add More</span>
-                </a>
-            </li>
-            <li>
-                <a class="flex text-red-600" href="/delete-all-banners-showcase/{{ $main_project_id }}" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete all the banners?!');">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                    <span>Delete All</span>
-                </a>
-            </li>
-        </ul>
-        @endif
-
-    </div>
-    @if($banners->count() == 0)
-        <main class="main">
-            <div class="container mx-auto px-4 py-4">
-                <label class="text-red-700">No Banner Found!</label>
-                <br>
-                <label class="text-red-700">Please Add Banner or Delete This Project.</label>
-            </div>
-        </main>
-    @else
-        @if($is_version == false)
-            @include('view_bannershowcase.singlepage-part')
+                <div class="flex">
+                    @if($main_project_info->is_logo == 1)
+                    <img src="{{ asset('/logo_images/'.'/'.$main_project_info->path) }}"
+                        alt="{{ $main_project_info['client_name'] }}" class="logo-main mr-4" />
+                    @endif
+                </div>
+        </header>
+    
+        <div class="container mx-auto px-4 py-2">
+            <button class="button button1" id="b1" onclick="get_color(this)"></button>
+            <button class="button button2" id="b2" onclick="get_color(this)"></button>
+            <button class="button button3" id="b3" onclick="get_color(this)"></button>
+            <button class="button button4" id="b4" onclick="get_color(this)"></button>
+        </div>
+        
+        <div class="container mx-auto px-4 py-4">
+            {{-- If the user is authenticated, then the user can do these actions --}}
+            @if(Auth::user()->company_id == 1)
+            <ul class="flex space-x-4">
+                <li>
+                    <a class="flex" href="/" target="_blank">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
+                        </svg>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="flex" href="/banner-showcase" target="_blank" style="color: #3182ce;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                          </svg>
+                        <span>Banners</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="flex text-green-600" href="/project/banner-showcase/addon/{{ $main_project_id }}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                        <span>Add More</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="flex text-red-600" href="/delete-all-banners-showcase/{{ $main_project_id }}" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete all the banners?!');">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        <span>Delete All</span>
+                    </a>
+                </li>
+            </ul>
+            @endif
+            @if(Auth::user()->company_id == 7)
+            <ul class="flex space-x-4">
+                <li>
+                    <a class="flex" href="/banner-showcase" target="_blank" style="color: #d5001c;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                          </svg>
+                        <span>Banners List</span>
+                    </a>
+                </li>
+            </ul>
+            @endif
+    
+        </div>
+        @if($banners->count() == 0)
+            <main class="main">
+                <div class="container mx-auto px-4 py-4">
+                    <label class="text-red-700">No Banner Found!</label>
+                    <br>
+                    <label class="text-red-700">Please Add Banner or Delete This Project.</label>
+                </div>
+            </main>
         @else
-            @include('view_bannershowcase.feedback-part')
+            @if($is_version == false)
+                @include('view_bannershowcase.singlepage-part')
+            @else
+                @include('view_bannershowcase.feedback-part')
+            @endif
         @endif
+    
+        @if($main_project_info->is_footer == 1)
+        <footer class="footer" style="background-color: {{ $project_color }}">
+            <div class="container mx-auto px-4 py-3 text-white text-center">&copy; All Right Reserved. <a
+                    href="{{ Helper::getCompanyWebsite($main_project_info->uploaded_by_company_id) }}" target="_blank" style="text-decoration: underline;">{{ Helper::getTitle($main_project_info->uploaded_by_company_id) }}</a>
+                - <?= Date('Y') ?></div>
+        </footer>
+        @endif
+        <script src="{{ asset('/js/app.js') }}"></script>
+    </div>
     @endif
-
-    @if($main_project_info->is_footer == 1)
-    <footer class="footer" style="background-color: {{ $project_color }}">
-        <div class="container mx-auto px-4 py-3 text-white text-center">&copy; All Right Reserved. <a
-                href="{{ Helper::getCompanyWebsite($main_project_info->uploaded_by_company_id) }}" target="_blank" style="text-decoration: underline;">{{ Helper::getTitle($main_project_info->uploaded_by_company_id) }}</a>
-            - <?= Date('Y') ?></div>
-    </footer>
-    @endif
-    <script src="{{ asset('/js/app.js') }}"></script>
 </body>
 </html>

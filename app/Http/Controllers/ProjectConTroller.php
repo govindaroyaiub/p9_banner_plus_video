@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Session;
 use App\User;
 use App\MainProject;
 use App\SubProject;
@@ -295,13 +298,24 @@ class ProjectConTroller extends Controller
                     $is_version = true;
                 }
             }
-            return view('view_bannershowcase.showcase-index', compact(
-                'main_project_info',
-                'main_project_id',
-                'data',
-                'is_version',
-                'banners'
-            ));
+            if($main_project_info['logo_id'] == 7){
+                return view('view_bannershowcase.custom-showcase-index', compact(
+                    'main_project_info',
+                    'main_project_id',
+                    'data',
+                    'is_version',
+                    'banners'
+                ));
+            }
+            else{
+                return view('view_bannershowcase.showcase-index', compact(
+                    'main_project_info',
+                    'main_project_id',
+                    'data',
+                    'is_version',
+                    'banners'
+                ));
+            }
         }
         else 
         {
@@ -441,5 +455,20 @@ class ProjectConTroller extends Controller
         
         Feedback::where('id', $version_id)->update(['is_open' => $is_open]);
         return $is_open;
+    }
+
+    public function doLogin(Request $request){
+        $validator = $request->validate([
+            'email' => 'required|email',   // required and email format validation
+            'password' => 'required', // required and number field validation
+        ]);
+
+        if (Auth::attempt($request->only(["email", "password"]))) {
+            return response()->json(["status" => true]);
+            
+        } else {
+            return 'no login';
+            return response()->json([["Invalid credentials"]],422);
+        }
     }
 }

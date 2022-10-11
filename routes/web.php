@@ -16,6 +16,7 @@ Route::get('/clear-cache', function() {
     return '<h2 style="color: red;">Cache, View, Config, Route cleared!</h2>';
 });
 
+Route::post('/doLogin', 'ProjectConTroller@doLogin')->name('doLogin');
 
 Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('banner_view');
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');
