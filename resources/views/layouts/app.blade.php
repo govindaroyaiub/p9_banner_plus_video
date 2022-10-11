@@ -72,7 +72,7 @@
 </head>
 <body class="bg-gray-100 min-h-screen font-body">
 <nav class="bg-white">
-<div class="relative container mx-auto px-4 py-3 flex justify-between items-center">
+<div class="relative container mx-auto px-4 flex justify-between items-center">
         @if(Auth::user())
         @if(Auth::user()->company_id == 1)
         <a class="text-xl font-semibold" href="{{ url('/') }}">
