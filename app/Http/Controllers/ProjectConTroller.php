@@ -467,7 +467,6 @@ class ProjectConTroller extends Controller
             return response()->json(["status" => true]);
             
         } else {
-            return 'no login';
             return response()->json([["Invalid credentials"]],422);
         }
     }

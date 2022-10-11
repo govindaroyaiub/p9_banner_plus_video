@@ -11,6 +11,7 @@
             <div class="py-6 px-6 lg:px-8">
                 <h3 class="text-2xl font-bold text-center mb-1">Login</h3>
                 @include('alert')
+                
                 <form action="" id="axiosLogin" name="axiosLogin">
                     <div class="mb-4">
                         <label for="email" class="font-semibold mb-2 block">E-Mail Address</label>
@@ -32,6 +33,10 @@
                     </button>
                 </form>
             </div>
+        </div>
+        <div class="relative shadow hidden" id="error_section">
+            <h1 class=" text-red-700 text-center py-3 mt-2 underline">Opps! The credentials do not match.</h1>
+            <img src="{{ asset('/logo_images/error.gif') }}" alt="errorGif" id="errorGif" style="margin-left: auto; margin-right: auto; width: 100%;">
         </div>
     </div>
 </div>
@@ -61,6 +66,7 @@
                }
             })
             .catch(function (error) {
+                document.getElementById('error_section').style.display = 'block';
                 console.log(error);
             });
         });
