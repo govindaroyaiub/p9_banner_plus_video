@@ -2,6 +2,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+<style>
+    .focus\:border-primary:focus {
+        --border-opacity: 1;
+        border-color: {{ $project_color }};
+    }
+</style>
+
 <div id="authentication-modal" tabindex="-1" aria-hidden="true"
     class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full login-part"
     style="background: white;">
@@ -28,7 +35,7 @@
                     </div>
 
                     <button type="submit" class="px-3 py-2 text-white w-full rounded-lg"
-                        style="background-color: #4b4e6d;">
+                        style="background-color: {{ $project_color }};">
                         Login
                     </button>
                 </form>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.custom-app')
 
 @section('content')
 <div class="container mx-auto px-4">
