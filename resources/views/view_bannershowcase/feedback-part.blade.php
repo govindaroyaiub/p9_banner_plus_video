@@ -201,7 +201,7 @@
                         except.addEventListener("click", function (ev) {
                             ev.stopPropagation();
                             ev.preventDefault();
-                        }, true);
+                        }, false);
                         viewFeedback = false;
                     }
                 }
