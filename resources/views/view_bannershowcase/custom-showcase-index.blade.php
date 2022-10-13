@@ -247,11 +247,27 @@
                 </div>
         </header>
     
-        <div class="container mx-auto px-4 py-2">
-            <button class="button button1" id="b1" onclick="get_color(this)"></button>
-            <button class="button button2" id="b2" onclick="get_color(this)"></button>
-            <button class="button button3" id="b3" onclick="get_color(this)"></button>
-            <button class="button button4" id="b4" onclick="get_color(this)"></button>
+        <div class="container mx-auto px-4 py-2 flex justify-between">
+            <div id="colors">
+                <button class="button button1" id="b1" onclick="get_color(this)"></button>
+                <button class="button button2" id="b2" onclick="get_color(this)"></button>
+                <button class="button button3" id="b3" onclick="get_color(this)"></button>
+                <button class="button button4" id="b4" onclick="get_color(this)"></button>
+            </div>
+            <div id="logOut">
+                <button @click="logout = true" class="focus:outline-none" style="background-color: {{ $project_color }}; padding: 5px 10px 5px 10px; border-radius: 5px; color: white">
+                    <a href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                            @csrf
+                        </form>
+                </button>
+            </div>
+
         </div>
         
         <div class="container mx-auto px-4 py-4">

@@ -46,19 +46,20 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="lowerPart px-2 py-2" style="word-wrap: break-word; white-space: pre-line;">
+                            <div class="lowerPart px-2 py-2 feedbackListArea" style="word-wrap: break-word; white-space: pre-line;">
                                 {{ Helper::getFeedbackList($id) }}
                             </div>
                         </div>
-                        <div class="cursor-pointer" id="viewFeedbackList{{$id}}" style="color: #256D85">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                        <div class="cursor-pointer flex underline px-2 py-2" id="viewFeedbackList{{$id}}" style="color: #256D85">
+                            {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                            </svg>                  
+                            </svg>           --}}
+                            View Changes
                         </div>
                         @endif
                     </div>
                     
-                    @if(Auth::user())
+                    @if(Auth::user()->company_id != 7)
                     <div class="flex float-right">
                         <a href="/banner/add/feedback/{{$main_project_id}}/{{$id}}" class="text-green-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -125,7 +126,7 @@
                                             </svg>
                                         </i>
                                     </li>
-                                    @if(Auth::user())
+                                    @if(Auth::user()->company_id != 7)
                                     <li>
                                         <a href="/showcase/download/{{$banner->id}}"
                                         class="color-primary underline flex mt-2">
@@ -169,26 +170,51 @@
                     </div>
                 </div>
             </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js" integrity="sha512-VEBjfxWUOyzl0bAwh4gdLEaQyDYPvLrZql3pw1ifgb6fhEvZl9iDDehwHZ+dsMzA0Jfww8Xt7COSZuJ/slxc4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script>
+                var viewFeedback;
+
                 function viewFeedbackListFunction(){
                     console.log('viewFeedbackList');
+                    viewFeedback = true;
                     var buttonID = document.getElementById('viewFeedbackList{{$id}}').id;
                     var listID = document.getElementById('feedbackList{{$id}}').id;
+                    var except = document.getElementById('feedbackList{{$id}}');
                     
                     let viewFeedbackTimeline = gsap.timeline();
                     viewFeedbackTimeline
-                    .to('#'+listID, {duration: 0.5, display: 'block', opacity: 1, ease: 'power1.out'})
+                    .to('#'+listID, {duration: 0.5, display: 'block', opacity: 1, ease: 'power1.out'});
+
+                    if(viewFeedback == true){
+                        console.log(except);
+
+                        document.body.addEventListener("click", closeThisFeedback, true);
+                        function closeThisFeedback(){
+                            var listID = document.getElementById('feedbackList{{$id}}').id;
+                
+                            let viewFeedbackTimeline = gsap.timeline();
+                            viewFeedbackTimeline
+                            .to('#'+listID, {duration: 0.5, display: 'none', opacity: 0, ease: 'power1.in'});
+                        }
+
+                        except.addEventListener("click", function (ev) {
+                            ev.stopPropagation();
+                            ev.preventDefault();
+                        }, true);
+                        viewFeedback = false;
+                    }
                 }
 
                 function closeFeedbackListFcuntion(){
                     console.log('closeFeedbackList');
+                    
                     var buttonID = document.getElementById('closeFeedbackList{{$id}}').id;
                     var listID = document.getElementById('feedbackList{{$id}}').id;
                     
                     let viewFeedbackTimeline = gsap.timeline();
                     viewFeedbackTimeline
-                    .to('#'+listID, {duration: 0.5, display: 'none', opacity: 0, ease: 'power1.in'})
+                    .to('#'+listID, {duration: 0.5, display: 'none', opacity: 0, ease: 'power1.in'});
                 }
                 
                 function reloadAll() {
