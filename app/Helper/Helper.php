@@ -210,4 +210,9 @@ class Helper
         $feedback_id = $video['feedback_id'];
         return AllVideos::where('feedback_id', $feedback_id)->count();
     }
+
+    public static function getWebsiteOfLogo($id){
+        $logo = Logo::where('id', $id)->first();
+        return $logo['website'];
+    }
 }

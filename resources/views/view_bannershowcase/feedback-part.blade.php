@@ -37,7 +37,7 @@
                     
                     <div class="float-left">
                         @if(Helper::getFeedbackList($id) != NULL)
-                        <div id="feedbackList{{$id}}" style="position: absolute; display: none; opacity: 0; width: 350px; height auto; z-index: 9999; background-color: rgb(255, 247, 209); border-radius: 8px;">
+                        <div id="feedbackList{{$id}}" style="position: absolute; display: none; opacity: 0; width: 350px; height auto; z-index: 999999; background-color: rgb(255, 247, 209); border-radius: 8px;">
                             <div class="upperPart text-red-500" style="position: absolute; width: 100%; height: auto; padding: 2px 2px 2px 2px; background-color: rgb(255, 242, 171);">
                                 <div class="cursor-pointer" id="closeFeedbackList{{$id}}" style="float: right;">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -187,21 +187,15 @@
                     .to('#'+listID, {duration: 0.5, display: 'block', opacity: 1, ease: 'power1.out'});
 
                     if(viewFeedback == true){
-                        console.log(except);
-
-                        document.body.addEventListener("click", closeThisFeedback, true);
-                        function closeThisFeedback(){
-                            var listID = document.getElementById('feedbackList{{$id}}').id;
-                
-                            let viewFeedbackTimeline = gsap.timeline();
-                            viewFeedbackTimeline
-                            .to('#'+listID, {duration: 0.5, display: 'none', opacity: 0, ease: 'power1.in'});
+                        document.addEventListener('click', closeThisFeedback, true);
+                        function closeThisFeedback(e){
+                            if ( !except.contains(e.target) ) { //if the clicked element is the feedback div then it wont disappear
+                                var listID = document.getElementById('feedbackList{{$id}}').id;
+                                let viewFeedbackTimeline = gsap.timeline();
+                                viewFeedbackTimeline
+                                .to('#'+listID, {duration: 0.5, display: 'none', opacity: 0, ease: 'power1.in'});
+                            }
                         }
-
-                        except.addEventListener("click", function (ev) {
-                            ev.stopPropagation();
-                            ev.preventDefault();
-                        }, false);
                         viewFeedback = false;
                     }
                 }
@@ -214,7 +208,7 @@
                     
                     let viewFeedbackTimeline = gsap.timeline();
                     viewFeedbackTimeline
-                    .to('#'+listID, {duration: 0.5, display: 'none', opacity: 0, ease: 'power1.in'});
+                    .to('#'+listID, {duration: 0.35, display: 'none', opacity: 0, ease: 'power1.in'});
                 }
                 
                 function reloadAll() {

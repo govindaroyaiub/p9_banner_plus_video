@@ -67,6 +67,8 @@ class bannerShowcaseController extends Controller
             $pro_name = $request->project_name;
             $project_name = str_replace(" ", "_", $request->project_name);
 
+            $goTo = Helper::getWebsiteOfLogo($request->logo_id);
+
             $main_project = new MainProject;
             $main_project->name = $pro_name;
             $main_project->client_name = $request->client_name;
@@ -135,7 +137,7 @@ class bannerShowcaseController extends Controller
                 }
             }
 
-            return redirect('/project/banner-showcase/view/' . $main_project->id);
+            return redirect($goTo.'/project/banner-showcase/view/' . $main_project->id);
         }
     }
 

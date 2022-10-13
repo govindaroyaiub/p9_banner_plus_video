@@ -54,7 +54,7 @@
                         </td>
                         @endif
                         <td class="border px-4 py-2"  width="270px" max-width="290px">
-                            <a href="/project/banner-showcase/view/{{$row->id}}" target="_blank">
+                            <a href="{{ Helper::getWebsiteOfLogo($row->logo_id) }}/project/banner-showcase/view/{{$row->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
