@@ -27,12 +27,7 @@ class bannerShowcaseController extends Controller
             $data = MainProject::where('project_type', 4)->where('logo_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
         }
 
-        if(Auth::user()->company_id == 7){
-            return view('view_bannershowcase.custom-showcase-list', compact('data'));
-        }
-        else{
-            return view('view_bannershowcase.showcase-list', compact('data'));
-        }
+        return view('view_bannershowcase.showcase-list', compact('data'));
     }
 
     public function banner_project_add_view(){
