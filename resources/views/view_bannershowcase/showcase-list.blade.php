@@ -82,7 +82,8 @@
                                 </button>
                             </a>
 
-                            {{-- <a href="{{ Helper::getWebsiteOfLogo($row->logo_id) }}/project/banner-showcase/view/{{$row->id}}" target="_blank">
+                            @if(Auth::user()->company_id == 1)
+                            <a href="{{ Helper::getWebsiteOfLogo($row->logo_id) }}/project/banner-showcase/view/{{$row->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -90,7 +91,8 @@
                                       </svg>
                                       
                                 </button>
-                            </a> --}}
+                            </a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
