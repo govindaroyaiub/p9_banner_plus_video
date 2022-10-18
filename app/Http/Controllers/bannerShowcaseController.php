@@ -137,7 +137,7 @@ class bannerShowcaseController extends Controller
                 }
             }
 
-            return redirect($goTo.'/project/banner-showcase/view/' . $main_project->id);
+            return redirect('/project/banner-showcase/view/' . $main_project->id);
         }
     }
 

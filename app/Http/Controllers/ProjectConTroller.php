@@ -298,24 +298,13 @@ class ProjectConTroller extends Controller
                     $is_version = true;
                 }
             }
-            if($main_project_info['logo_id'] == 7){
-                return view('view_bannershowcase.custom-showcase-index', compact(
-                    'main_project_info',
-                    'main_project_id',
-                    'data',
-                    'is_version',
-                    'banners'
-                ));
-            }
-            else{
-                return view('view_bannershowcase.showcase-index', compact(
-                    'main_project_info',
-                    'main_project_id',
-                    'data',
-                    'is_version',
-                    'banners'
-                ));
-            }
+            return view('view_bannershowcase.showcase-index', compact(
+                'main_project_info',
+                'main_project_id',
+                'data',
+                'is_version',
+                'banners'
+            ));
         }
         else 
         {

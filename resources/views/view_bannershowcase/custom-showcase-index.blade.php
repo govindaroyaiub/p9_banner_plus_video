@@ -326,7 +326,6 @@
                 </li>
             </ul>
             @endif
-    
         </div>
         @if($banners->count() == 0)
             <main class="main">
@@ -340,7 +339,7 @@
             @if($is_version == false)
                 @include('view_bannershowcase.singlepage-part')
             @else
-                @include('view_bannershowcase.feedback-part')
+                @include('view_bannershowcase.custom-feedback-part')
             @endif
         @endif
     

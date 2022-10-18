@@ -95,12 +95,10 @@
 
                     <div class="dropdown absolute bg-white shadow-md rounded-lg p-6" x-show="logout"
                          @click.away="logout = false">
-                        @if(Auth::user()->company_id != 7)
                         <a href="/change-password">
                             Change Password
                         </a>
                         <hr>
-                        @endif
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
