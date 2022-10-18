@@ -22,12 +22,16 @@ class bannerShowcaseController extends Controller
     public function bannerShowcaseList(){
         if(Auth::user()->company_id == 1){
             $data = MainProject::where('project_type', 4)->orderBy('created_at', 'DESC')->get();
+            return view('view_bannershowcase.showcase-list', compact('data'));
+        }
+        else if(Auth::user()->company_id == 7){
+            $data = MainProject::where('project_type', 4)->where('logo_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+            return view('view_bannershowcase.custom-showcase-list', compact('data'));
         }
         else{
             $data = MainProject::where('project_type', 4)->where('logo_id', Auth::user()->company_id)->orderBy('created_at', 'DESC')->get();
+            return view('view_bannershowcase.showcase-list', compact('data'));
         }
-
-        return view('view_bannershowcase.showcase-list', compact('data'));
     }
 
     public function banner_project_add_view(){

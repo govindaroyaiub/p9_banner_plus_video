@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div x-show="show" class="border border-b-0 px-1 py-1 collapse" id="collapse{{$id}}" style="border-color: {{ $project_color }}" @if(Helper::getFeedbackStatus($id) == 1) style="display: block" @else style="display: none" @endif>
-                <div style="z-index: 999; display: flex; lex-direction: row; flex-wrap: nowrap; justify-content: space-between;">
+                <div style="z-index: 999; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between;">
                     
                     <div class="float-left">
                         @if(Helper::getFeedbackList($id) != NULL)
@@ -59,7 +59,7 @@
                         @endif
                     </div>
                     
-                    @if(Auth::user()->company_id != 7)
+                    @if(Auth::user()->company_id == 1)
                     <div class="flex float-right">
                         <a href="/banner/add/feedback/{{$main_project_id}}/{{$id}}" class="text-green-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -126,7 +126,7 @@
                                             </svg>
                                         </i>
                                     </li>
-                                    @if(Auth::user()->company_id != 7)
+                                    @if(Auth::user()->company_id == 1)
                                     <li>
                                         <a href="/showcase/download/{{$banner->id}}"
                                         class="color-primary underline flex mt-2">

@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div x-show="show" class="border border-b-0 px-1 py-1 collapse" id="collapse{{$id}}" style="border-color: {{ $project_color }}" @if(Helper::getFeedbackStatus($id) == 1) style="display: block" @else style="display: none" @endif>
-                <div style="z-index: 999; display: flex; lex-direction: row; flex-wrap: nowrap; justify-content: space-between;">
+                <div style="z-index: 999; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between;">
                     
                     <div class="float-left">
                         @if(Helper::getFeedbackList($id) != NULL)
@@ -58,6 +58,26 @@
                         </div>
                         @endif
                     </div>
+                    
+                    @if(Auth::user()->company_id == 1)
+                    <div class="flex float-right">
+                        <a href="/banner/add/feedback/{{$main_project_id}}/{{$id}}" class="text-green-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </a>
+                        <a href="/banner/edit/feedback/{{$main_project_id}}/{{$id}}" class="text-blue-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                              </svg>
+                        </a>
+                        <a href="/banner/delete/feedback/{{$main_project_id}}/{{$id}}" class="text-red-600" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete this feedback?!');">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </a>
+                    </div>
+                    @endif
                 </div>
                 
                 <div class="container mx-auto px-4 py-2" id="show2">
@@ -105,6 +125,17 @@
                                                     d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                             </svg>
                                         </i>
+                                    </li>
+                                    @if(Auth::user()->company_id == 1)
+                                    <li>
+                                        <a href="/showcase/download/{{$banner->id}}"
+                                        class="color-primary underline flex mt-2">
+                                            <svg class="w-5 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                            </svg>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="/showcase/edit/{{ $banner->id }}" class="color-primary flex mt-2">

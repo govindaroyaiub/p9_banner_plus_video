@@ -313,8 +313,7 @@
                     </a>
                 </li>
             </ul>
-            @endif
-            @if(Auth::user()->company_id == 7)
+            @else
             <ul class="flex space-x-4">
                 <li>
                     <a class="flex" href="/banner-showcase" target="_blank" style="color: #d5001c;">
