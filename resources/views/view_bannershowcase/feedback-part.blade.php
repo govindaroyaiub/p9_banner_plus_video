@@ -59,7 +59,7 @@
                         @endif
                     </div>
                     
-                    @if(Auth::user()->company_id == 1)
+                    @if(Auth::user())
                     <div class="flex float-right">
                         <a href="/banner/add/feedback/{{$main_project_id}}/{{$id}}" class="text-green-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -126,7 +126,7 @@
                                             </svg>
                                         </i>
                                     </li>
-                                    @if(Auth::user()->company_id == 1)
+                                    @if(Auth::user())
                                     <li>
                                         <a href="/showcase/download/{{$banner->id}}"
                                         class="color-primary underline flex mt-2">
