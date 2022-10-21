@@ -96,6 +96,10 @@
             section {
                 height: 17vh;
             }
+
+            section .content{
+                font-size: 15px;
+            }
         }
 
         /* Medium Devices, Desktops */
@@ -110,6 +114,10 @@
             section {
                 height: 21vh;
             }
+
+            section .content{
+                font-size: 15px;
+            }
         }
 
         /* Large Devices, Wide Screens */
@@ -121,6 +129,10 @@
 
             section {
                 height: 21vh;
+            }
+
+            section .content{
+                font-size: 15px;
             }
         }
 
