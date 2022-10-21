@@ -249,6 +249,7 @@
     
     <div class="container mx-auto px-4 py-4">
         {{-- If the user is authenticated, then the user can do these actions --}}
+        @if(Auth::check())
         @if(Auth::user())
         <ul class="flex space-x-4">
             <li>
@@ -291,7 +292,7 @@
             </li>
         </ul>
         @endif
-
+        @endif
     </div>
     @if($banners->count() == 0)
         <main class="main">

@@ -245,6 +245,7 @@
                         alt="{{ $main_project_info['client_name'] }}" class="logo-main mr-4" />
                     @endif
                 </div>
+            </div>
         </header>
     
         <div class="container mx-auto px-4 py-2 flex justify-between">
@@ -254,6 +255,8 @@
                 <button class="button button3" id="b3" onclick="get_color(this)"></button>
                 <button class="button button4" id="b4" onclick="get_color(this)"></button>
             </div>
+            @if(Auth::check())
+            @if(Auth::user())
             <div id="logOut">
                 <button @click="logout = true" class="focus:outline-none" style="background-color: {{ $project_color }}; padding: 5px 10px 5px 10px; border-radius: 5px; color: white">
                     <a href="{{ route('logout') }}"
@@ -267,11 +270,13 @@
                         </form>
                 </button>
             </div>
-
+            @endif
+            @endif
         </div>
         
         <div class="container mx-auto px-4 py-4">
             {{-- If the user is authenticated, then the user can do these actions --}}
+            @if(Auth::check())
             @if(Auth::user()->company_id == 1)
             <ul class="flex space-x-4">
                 <li>
@@ -314,6 +319,7 @@
                 </li>
             </ul>
             @else
+            @endif
             <ul class="flex space-x-4">
                 <li>
                     <a class="flex" href="/banner-showcase" target="_blank" style="color: #d5001c;">
