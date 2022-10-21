@@ -60,89 +60,166 @@
             height: auto;
             max-width: 500px;
             min-width: 500px;
-            float: right;
         }
 
-        @media only screen and (min-width : 320px) {
-            #polygon{
+        .custom-radius {
+            border-bottom-left-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        /* .footer{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        } */
+
+        .feedback-bar {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .right {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .tabs {
+            position: relative;
+            display: flex;
+            min-height: 500px;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+
+        .tabby-tab {
+            flex: 1;
+        }
+
+        .tabby-tab label {
+            display: block;
+            box-sizing: border-box;
+            /* tab content must clear this */
+            height: 40px;
+            padding: 10px;
+            text-align: center;
+            background: #7B52AB;
+            cursor: pointer;
+            transition: background 0.5s ease;
+        }
+
+        .tabby-tab label:hover {
+            background: #7B52AB;
+        }
+
+        .tabby-content {
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+            right: 0;
+            /* clear the tab labels */
+            top: 40px;
+
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+            background: white;
+            
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+
+            /* show/hide */
+            opacity: 0;
+            transform: scale(0);
+            transform-origin: center;
+
+        }
+
+        .tabby-content img {
+            float: left;
+            margin-right: 20px;
+            border-radius: 8px;
+        }
+
+
+        /* MAKE IT WORK ----- */
+
+        .tabby-tab [type=radio] {
+            display: none;
+        }
+
+        [type=radio]:checked~label {
+            background: #4b4e6d;
+            z-index: 2;
+        }
+
+        [type=radio]:checked~label~.tabby-content {
+            z-index: 1;
+
+            /* show/hide */
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+            #polygon {
                 display: none;
             }
 
-            section .content{
-                font-size: 12px;
-            }
-        }
-
-        /* Extra Small Devices, Phones */
-        @media only screen and (min-width : 480px) {
-            #polygon{
-                display: none;
-            }
-
-            section .content{
+            #topDetails {
+                text-align: center;
                 font-size: 13px;
             }
-        }
 
-        /* Small Devices, Tablets */
-        @media only screen and (min-width : 768px) {
-            #polygon{
-                display: block;
-                max-width: 380px;
-                min-width: 380px;
-                float: right;
-            }
-
-            section {
-                height: 17vh;
-            }
-
-            section .content{
-                font-size: 15px;
+            #planetnineLogo {
+                transform: translate(50%, 0);
             }
         }
 
-        /* Medium Devices, Desktops */
-        @media only screen and (min-width : 992px) {
-            #polygon{
-                display: block;
-                max-width: 380px;
-                min-width: 380px;
-                float: right;
+        @media only screen and (min-width: 481px) and (max-width: 768px) {
+            #polygon {
+                max-width: 300px;
+                min-width: 300px;
             }
 
-            section {
-                height: 21vh;
-            }
-
-            section .content{
-                font-size: 15px;
+            #topDetails {
+                padding-top: 1rem;
             }
         }
 
-        /* Large Devices, Wide Screens */
-        @media only screen and (min-width : 1200px) {
-            #polygon{
-                display: block;
-                float: right;
+        @media only screen and (min-width: 769px) and (max-width: 1024px) {
+            #polygon {
+                max-width: 400px;
+                min-width: 400px;
             }
 
-            section {
-                height: 21vh;
-            }
-
-            section .content{
-                font-size: 15px;
+            #topDetails {
+                padding-top: 1rem;
             }
         }
 
     </style>
+
+
 </head>
+
+<?php $project_color = Helper::getProjectColor($main_project_id) ?>
 
 <body class="font-body">
     <section id="top">
         <div class="content">
-            <div>
+            <div id="topDetails">
                 <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-1" alt="planetnineLogo">
                 <h1>Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
                 <h1>Project Name: <span lass="font-semibold">{{ $main_project_info['name'] }}</span></h1>
@@ -157,23 +234,73 @@
             </div>
         </div>
     </section>
-    <div>
-        @if($banners->count() == 0)
-        <main class="main">
-            <div class="container mx-auto px-4 py-4">
-                <label class="text-red-700">No Banner Found!</label>
-                <br>
-                <label class="text-red-700">Please Add Banner or Delete This Project.</label>
-            </div>
-        </main>
-        @else
-        @if($is_version == false)
-        @include('view_bannershowcase.new_preview.singlepage-part')
-        @else
-
+    <div class="container mx-auto px-4 py-4 flex justify-center">
+        {{-- If the user is authenticated, then the user can do these actions --}}
+        @if(Auth::check())
+        @if(Auth::user())
+        <ul class="flex space-x-4">
+            <li>
+                <a class="flex" href="/" target="_blank">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a class="flex" href="/banner-showcase" target="_blank" style="color: #3182ce;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <span>Banners</span>
+                </a>
+            </li>
+            <li>
+                <a class="flex text-green-600" href="/project/banner-showcase/addon/{{ $main_project_id }}">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg>
+                    <span>Add More</span>
+                </a>
+            </li>
+            <li>
+                <a class="flex text-red-600" href="/delete-all-banners-showcase/{{ $main_project_id }}"
+                    onclick="return confirm('Slow down HOTSHOT! You sure you want to delete all the banners?!');">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    <span>Delete All</span>
+                </a>
+            </li>
+        </ul>
         @endif
         @endif
     </div>
+    @if($banners->count() == 0)
+    <main class="main">
+        <div class="container mx-auto px-4 py-4">
+            <label class="text-red-700">No Banner Found!</label>
+            <br>
+            <label class="text-red-700">Please Add Banner or Delete This Project.</label>
+        </div>
+    </main>
+    @else
+    @if($is_version == false)
+    @include('view_bannershowcase.new_preview.singlepage-part')
+    @else
+    @include('view_bannershowcase.new_preview.feedback-part')
+    @endif
+    @endif
     <footer class="footer" style="background-color: #4b4e6d; border-radius: 50% 50% 0 0 / 100% 100% 0 0;">
         <div class="container mx-auto px-4 py-4 text-white text-center">&copy; All Right Reserved. <a
                 href="{{ Helper::getCompanyWebsite($main_project_info->uploaded_by_company_id) }}" target="_blank"
@@ -186,14 +313,24 @@
     integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#polygon').mousemove(function (e) {
-            let mouseX = e.pageX;
-            let mouseY = e.pageY;
+        $("#top").mouseover(function () {
+            $('#top').mousemove(function (e) {
+                let mouseX = e.pageX;
+                let mouseY = e.pageY;
 
-            $(this).css({
-                'transform': 'translate(' + mouseX / -20 + 'px ,' + mouseY / -20 + 'px'
-            })
+                $('#polygon').css({
+                    'transform': 'translate(' + mouseX / -20 + 'px ,' + mouseY / -20 +
+                        'px',
+                    'transition': ''
+                })
+            });
         });
+
+        $("#top").mouseout(function () {
+            document.getElementById('polygon').style.transform = "translate(0, 0)";
+            document.getElementById('polygon').style.transition = "ease 0.15s";
+        });
+
     });
 
 </script>
