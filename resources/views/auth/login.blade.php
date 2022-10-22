@@ -75,7 +75,7 @@
 </style>
 <div class="header">
     <div class="inner-header">
-        <div class="bg-white shadow-sm p-3 max-w-md mx-auto rounded-lg">
+        <div class="bg-white shadow-sm p-3 max-w-md mx-auto rounded-lg" style="box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%); border-radius: 8px;">
     
             <h3 class="text-2xl font-bold text-center mb-1">{{ __('Login') }}</h3>
             @include('alert')
