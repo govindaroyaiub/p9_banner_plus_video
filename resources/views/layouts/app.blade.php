@@ -27,6 +27,7 @@
         .grid-cols-5 {
             grid-template-columns: repeat(5, minmax(0, 1fr));
         }
+
     </style>
     @if(url('/') == 'https://creative.me-preview.nl')
         <style>
@@ -75,11 +76,11 @@
 <div class="relative container mx-auto px-4 flex justify-between items-center">
         @if(Auth::user())
         @if(Auth::user()->company_id == 1)
-        <a class="text-xl font-semibold" href="{{ url('/') }}">
+        <a class="text-xl font-semibold py-2" href="{{ url('/') }}">
             <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 25%" id="company_logo">
         </a>
         @else
-            <a class="text-xl font-semibold" href="{{ url('/') }}">
+            <a class="text-xl font-semibold py-2" href="{{ url('/') }}">
                 <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 70%" id="company_logo">
             </a>
         @endif
@@ -115,7 +116,7 @@
     </div>
 </nav>
 
-<main class="py-4">
+<main>
     @yield('content')
 </main>
 <script src="{{ asset('js/app.js') }}"></script>

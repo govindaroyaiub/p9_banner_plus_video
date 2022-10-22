@@ -74,7 +74,7 @@
 <nav class="bg-white">
 <div class="relative container mx-auto px-4 flex justify-between items-center">
     
-        <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 70%" id="company_logo">
+        <img src="{{ asset('/logo_images/'.Helper::getLogo(Auth::user()->company_id)) }}" style="max-width: 70%" id="company_logo" class="py-2">
 
         <ul class="flex space-x-4">
             @guest
