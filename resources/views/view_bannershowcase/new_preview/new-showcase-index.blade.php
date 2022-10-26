@@ -94,82 +94,8 @@
             height: 100%;
         }
 
-        .tabs {
-            position: relative;
-            display: flex;
-            min-height: 500px;
-            border-radius: 8px 8px 0 0;
-            overflow: hidden;
-        }
-
-        .tabby-tab {
-            flex: 1;
-        }
-
-        .tabby-tab label {
-            display: block;
-            box-sizing: border-box;
-            /* tab content must clear this */
-            height: 40px;
-            padding: 10px;
-            text-align: center;
-            background: #7B52AB;
-            cursor: pointer;
-            transition: background 0.5s ease;
-        }
-
-        .tabby-tab label:hover {
-            background: #7B52AB;
-        }
-
-        .tabby-content {
-            position: absolute;
-
-            left: 0;
-            bottom: 0;
-            right: 0;
-            /* clear the tab labels */
-            top: 40px;
-
-            padding: 20px;
-            border-radius: 0 0 8px 8px;
-            background: white;
-            
-            transition:
-                opacity 0.8s ease,
-                transform 0.8s ease;
-
-            /* show/hide */
-            opacity: 0;
-            transform: scale(0);
-            transform-origin: center;
-
-        }
-
-        .tabby-content img {
-            float: left;
-            margin-right: 20px;
-            border-radius: 8px;
-        }
-
-
-        /* MAKE IT WORK ----- */
-
-        .tabby-tab [type=radio] {
-            display: none;
-        }
-
-        [type=radio]:checked~label {
-            background: #4b4e6d;
-            z-index: 2;
-        }
-
-        [type=radio]:checked~label~.tabby-content {
-            z-index: 1;
-
-            /* show/hide */
-            opacity: 1;
-            transform: scale(1);
+        #topDetails{
+            padding-left: 5rem;
         }
 
         @media only screen and (min-width: 320px) and (max-width: 480px) {
@@ -180,10 +106,12 @@
             #topDetails {
                 text-align: center;
                 font-size: 13px;
+                padding-left: 0;
             }
 
             #planetnineLogo {
                 transform: translate(50%, 0);
+                padding-top: 0
             }
         }
 
@@ -195,6 +123,7 @@
 
             #topDetails {
                 padding-top: 1rem;
+                padding-left: 0;
             }
         }
 
@@ -210,8 +139,90 @@
         }
 
     </style>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+<script type="text/javascript">
+    function rgb2hex(rgb) {
+        if (  rgb.search("rgb") == -1 ) {
+            return rgb;
+        } else {
+            rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+            function hex(x) {
+                return ("0" + parseInt(x).toString(16)).slice(-2);
+            }
+            return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]); 
+        }
+    }
 
+    function get_color(element)
+    {   
+        var get_color = window.getComputedStyle(element).backgroundColor;
+        var color = rgb2hex(get_color);
+        set_color(color);
+    }
+
+    function set_color(color)
+    {
+        axios.post('/set_color/' + {{ $main_project_id }}, 
+        {
+            color: color
+        })
+        .then(function (response)
+        {
+            if(response)
+            {
+                var header = document.getElementsByClassName("header")[0];
+                var footer = document.getElementsByClassName("footer")[0];
+                var icons = document.getElementsByClassName("icons");
+                var versions = document.getElementsByClassName("all-versions");
+                var collapses = document.getElementsByClassName("collapse");
+                var feedbacks = document.getElementsByClassName("feedbacks");
+                var feed
+
+                if(header){
+                    document.getElementsByClassName("header")[0].style.borderColor = color;
+                }
+                if(footer){
+                    document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+                }
+                if(icons){
+                    for(var i = 0; i < icons.length; i++){
+                        icons[i].style.color = color;
+                    }
+                }
+                if(versions){
+                    for(var j = 0; j < versions.length; j++){
+
+                        if(versions[j].style.backgroundColor == 'white'){
+                            versions[j].style.borderColor = color;
+                            versions[j].style.color = color;
+                        }
+                        else{
+                            versions[j].style.backgroundColor = color;
+                            versions[j].style.borderColor = color;
+                        }
+                    }
+                }
+                if(collapses){
+                    for(var k = 0; k < collapses.length; k++){
+                        collapses[k].style.borderColor = color;
+                    }
+                }
+                if(feedbacks){
+                    for(var l = 0; l < feedbacks.length; l++){
+                        feedbacks[l].style.borderColor = color;
+                    }
+                }
+            }
+        })
+        .catch(function (error)
+        {
+            alert('Opps! There was an error in the process! See ConoleLog');
+            console.log(error);
+        });
+    }
+    
+</script>
 </head>
 
 <?php $project_color = Helper::getProjectColor($main_project_id) ?>
@@ -220,7 +231,7 @@
     <section id="top">
         <div class="content">
             <div id="topDetails">
-                <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-1" alt="planetnineLogo">
+                <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-3" alt="planetnineLogo">
                 <h1>Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
                 <h1>Project Name: <span lass="font-semibold">{{ $main_project_info['name'] }}</span></h1>
                 <h1>Total Creatives: <span

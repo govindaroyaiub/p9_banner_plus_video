@@ -394,12 +394,13 @@
                                 <?php
                                     $file_path = $social->file_path;
                                     $directory = 'social_collection/'.$file_path;
+                                    list($width, $height) = getimagesize($directory);
                                 ?>
                                 <div class="column">
                                     <small class="mx-auto text-red-700 size_text" style="float: left; padding-left: 20px;">{{ Helper::getImageResolution($social->id) }}</small>
                                     <small class="mx-auto text-red-700 size_text" style="float: right; padding-right: 20px;">{{ Helper::getImageFileSize($social->id) }}</small>
                                     <img src="{{ asset($directory) }}" alt="{{ $social->name }}"
-                                        onclick="myFunction(this);" class="images">
+                                        onclick="myFunction(this, {{$width}}, {{$height}});" class="images" style="width: {{$width}}px; height: {{$height}}px">
                                     <ul class="flex space-x-2 icons" style="color:{{ $main_project_info['color'] }}; margin-left: 13px; margin-top: -10px;">
                                         <li><a href="{{ asset('/social_collection/'.$social->file_path) }}"
                                             class="color-primary underline flex mt-2" download>
@@ -460,13 +461,15 @@
             $(this).after('<p class="alt">' + $(this).attr('alt') + '</p>');
         })
 
-        function myFunction(imgs) {
+        function myFunction(imgs, Width, Height) {
             var modal = document.getElementById("myModal");
             var modalImg = document.getElementById("img01");
             var captionText = document.getElementById("caption");
             var anotherCaptionText = document.getElementById("anotherCaption");
             modal.style.display = "block";
             modalImg.src = imgs.src;
+            modalImg.width = imgs.Width;
+            modalImg.height = imgs.Height;
             captionText.innerHTML = imgs.alt;
 
             var span = document.getElementsByClassName("close")[0];

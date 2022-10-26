@@ -224,6 +224,7 @@
                 <?php
                     $file_path = $social->file_path;
                     $directory = 'social_collection/'.$file_path;
+                    list($width, $height) = getimagesize($directory);
                 ?>
                 <div class="column">
                     <img src="{{ asset($directory) }}" alt="{{ $social->name }}"
