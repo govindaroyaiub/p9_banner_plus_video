@@ -468,8 +468,8 @@
             var anotherCaptionText = document.getElementById("anotherCaption");
             modal.style.display = "block";
             modalImg.src = imgs.src;
-            modalImg.width = imgs.Width;
-            modalImg.height = imgs.Height;
+            modalImg.style.width = Width + 'px';
+            modalImg.style.height = Height + 'px';
             captionText.innerHTML = imgs.alt;
 
             var span = document.getElementsByClassName("close")[0];
