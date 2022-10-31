@@ -489,9 +489,17 @@
             captionText.innerHTML = imgs.alt;
 
             var span = document.getElementsByClassName("close")[0];
+            var modal = document.getElementsByClassName("modal")[0];
+            var except = document.getElementById('img01');
 
             span.onclick = function () {
                 modal.style.display = "none";
+            }
+
+            modal.onclick = function (e) {
+                if ( !except.contains(e.target) ) { //if the clicked element is the feedback div then it wont disappear
+                    modal.style.display = "none";
+                }
             }
         }
 
