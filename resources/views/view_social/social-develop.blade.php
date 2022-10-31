@@ -229,14 +229,13 @@
         .alt-wrap p.alt {
             position: absolute;
             opacity: 0;
-            /* hide initially */
             left: 0;
             right: 0;
             bottom: 0px;
             margin: 0;
-            padding: 10px;
+            padding: 5px;
             font-size: 13px;
-            line-height: 22px;
+            line-height: 13px;
             background-color: rgba(0, 0, 0, 0.8);
             transition: all 300ms ease;
             transition-delay: 100ms;
@@ -395,12 +394,19 @@
                                     $file_path = $social->file_path;
                                     $directory = 'social_collection/'.$file_path;
                                     list($width, $height) = getimagesize($directory);
+
+                                    if($width >= 1000){
+                                        $displayWidth = $width / 2.75;
+                                    }
+                                    else{
+                                        $displayWidth = $width;
+                                    }
                                 ?>
                                 <div class="column">
                                     <small class="mx-auto text-red-700 size_text" style="float: left; padding-left: 20px;">{{ Helper::getImageResolution($social->id) }}</small>
                                     <small class="mx-auto text-red-700 size_text" style="float: right; padding-right: 20px;">{{ Helper::getImageFileSize($social->id) }}</small>
                                     <img src="{{ asset($directory) }}" alt="{{ $social->name }}"
-                                        onclick="myFunction(this, {{$width}}, {{$height}});" class="images" style="width: {{$width}}px; height: {{$height}}px">
+                                        onclick="myFunction(this, {{$width}}, {{$height}});" class="images" style="width: {{$displayWidth}}px; height: auto">
                                     <ul class="flex space-x-2 icons" style="color:{{ $main_project_info['color'] }}; margin-left: 13px; margin-top: -10px;">
                                         <li><a href="{{ asset('/social_collection/'.$social->file_path) }}"
                                             class="color-primary underline flex mt-2" download>
@@ -461,15 +467,25 @@
             $(this).after('<p class="alt">' + $(this).attr('alt') + '</p>');
         })
 
-        function myFunction(imgs, Width, Height) {
+        function myFunction(imgs, imageWidth, imageHeight) {
+            console.log(imageWidth + ' ' + imageHeight);
+
             var modal = document.getElementById("myModal");
             var modalImg = document.getElementById("img01");
             var captionText = document.getElementById("caption");
             var anotherCaptionText = document.getElementById("anotherCaption");
             modal.style.display = "block";
             modalImg.src = imgs.src;
-            modalImg.style.width = Width + 'px';
-            modalImg.style.height = Height + 'px';
+
+            if(imageWidth >= 1000){
+                modalImg.style.width = null;
+                modalImg.style.height = null;
+            }
+            else{
+                modalImg.style.width = imageWidth + 'px';
+                modalImg.style.height = imageHeight + 'px';
+            }
+
             captionText.innerHTML = imgs.alt;
 
             var span = document.getElementsByClassName("close")[0];
