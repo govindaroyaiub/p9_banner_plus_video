@@ -12,6 +12,7 @@
         type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+    <?php $project_color = Helper::getProjectColor($main_project_id) ?>
 
     <style>
         section {
@@ -94,7 +95,7 @@
             height: 100%;
         }
 
-        #topDetails{
+        #topDetails {
             padding-left: 5rem;
             padding-bottom: 1rem;
         }
@@ -140,12 +141,68 @@
             }
         }
 
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .tabs label {
+            order: 1;
+            display: block;
+            padding: 0.5rem 2rem;
+            margin-right: 0.2rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background ease 0.2s;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            background: {{ $project_color }};
+
+        }
+
+        .tabs .tab {
+            order: 99;
+            flex-grow: 1;
+            width: 100%;
+            display: none;
+            padding: 1rem;
+            border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
+            border: 1px solid {{ $project_color }};
+        }
+
+        .tabs input[type="radio"] {
+            display: none;
+        }
+
+        .tabs input[type="radio"]:checked+label {
+            
+            background: {{ $project_color }};
+        }
+
+        .tabs input[type="radio"]:checked+label+.tab {
+            display: block;
+        }
+
+        @media (max-width: 45em) {
+
+            .tabs .tab,
+            .tabs label {
+                order: initial;
+            }
+
+            .tabs label {
+                width: 100%;
+                margin-right: 0;
+                margin-top: 0.2rem;
+            }
+        }
+
     </style>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
-<?php $project_color = Helper::getProjectColor($main_project_id) ?>
 
 <body class="font-body">
     <section id="top">
