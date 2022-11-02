@@ -17,7 +17,7 @@
         section {
             position: relative;
             width: 100%;
-            height: 21vh;
+            height: auto;
             overflow: hidden;
         }
 
@@ -27,7 +27,7 @@
             color: white;
             display: flex;
             justify-content: space-between;
-            padding: 1rem 4rem 1rem 4rem;
+            padding: 1rem 4rem 3rem 4rem;
             font-size: 15px;
         }
 
@@ -40,7 +40,7 @@
             height: 100%;
             background: #4b4e6d;
             border-radius: 0 0 50% 50%/0 0 100% 100%;
-            transform: scaleX(1.5);
+            transform: scaleX(1.3);
         }
 
         .single-div {
@@ -49,7 +49,7 @@
 
         #planetnineLogo {
             width: 100%;
-            max-width: 50%;
+            max-width: 80%;
         }
 
         #polygon {
@@ -96,6 +96,7 @@
 
         #topDetails{
             padding-left: 5rem;
+            padding-bottom: 1rem;
         }
 
         @media only screen and (min-width: 320px) and (max-width: 480px) {
@@ -110,7 +111,8 @@
             }
 
             #planetnineLogo {
-                transform: translate(50%, 0);
+                margin: 0 auto;
+                text-align: center;
                 padding-top: 0
             }
         }
@@ -141,88 +143,6 @@
     </style>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<script type="text/javascript">
-    function rgb2hex(rgb) {
-        if (  rgb.search("rgb") == -1 ) {
-            return rgb;
-        } else {
-            rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
-            function hex(x) {
-                return ("0" + parseInt(x).toString(16)).slice(-2);
-            }
-            return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]); 
-        }
-    }
-
-    function get_color(element)
-    {   
-        var get_color = window.getComputedStyle(element).backgroundColor;
-        var color = rgb2hex(get_color);
-        set_color(color);
-    }
-
-    function set_color(color)
-    {
-        axios.post('/set_color/' + {{ $main_project_id }}, 
-        {
-            color: color
-        })
-        .then(function (response)
-        {
-            if(response)
-            {
-                var header = document.getElementsByClassName("header")[0];
-                var footer = document.getElementsByClassName("footer")[0];
-                var icons = document.getElementsByClassName("icons");
-                var versions = document.getElementsByClassName("all-versions");
-                var collapses = document.getElementsByClassName("collapse");
-                var feedbacks = document.getElementsByClassName("feedbacks");
-                var feed
-
-                if(header){
-                    document.getElementsByClassName("header")[0].style.borderColor = color;
-                }
-                if(footer){
-                    document.getElementsByClassName("footer")[0].style.backgroundColor = color;
-                }
-                if(icons){
-                    for(var i = 0; i < icons.length; i++){
-                        icons[i].style.color = color;
-                    }
-                }
-                if(versions){
-                    for(var j = 0; j < versions.length; j++){
-
-                        if(versions[j].style.backgroundColor == 'white'){
-                            versions[j].style.borderColor = color;
-                            versions[j].style.color = color;
-                        }
-                        else{
-                            versions[j].style.backgroundColor = color;
-                            versions[j].style.borderColor = color;
-                        }
-                    }
-                }
-                if(collapses){
-                    for(var k = 0; k < collapses.length; k++){
-                        collapses[k].style.borderColor = color;
-                    }
-                }
-                if(feedbacks){
-                    for(var l = 0; l < feedbacks.length; l++){
-                        feedbacks[l].style.borderColor = color;
-                    }
-                }
-            }
-        })
-        .catch(function (error)
-        {
-            alert('Opps! There was an error in the process! See ConoleLog');
-            console.log(error);
-        });
-    }
-    
-</script>
 </head>
 
 <?php $project_color = Helper::getProjectColor($main_project_id) ?>
