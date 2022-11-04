@@ -21,6 +21,10 @@
                 @include('new_files.video.057_1')
             @elseif($width == 1080 && $height == 1536)
                 @include('new_files.video.07_1')
+            @elseif($width == 1440 && $height == 1080)
+                @include('new_files.video.043_1')
+            @elseif($width == 1080 && $height == 2536)
+                @include('new_files.video.4_3')
             @endif
             <div class="md:w-1/4 mx-8">
                 <h2 class="text-xl font-semibold" style="text-decoration: underline;">Specifications:</h2>
