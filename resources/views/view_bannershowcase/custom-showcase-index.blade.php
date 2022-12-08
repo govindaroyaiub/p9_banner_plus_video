@@ -242,7 +242,7 @@
                 <div class="flex">
                     @if($main_project_info->is_logo == 1)
                     <img src="{{ asset('/logo_images/'.'/'.$main_project_info->path) }}"
-                        alt="{{ $main_project_info['client_name'] }}" class="logo-main mr-4" />
+                        alt="{{ $main_project_info['client_name'] }}" class="logo-main" />
                     @endif
                 </div>
             </div>
@@ -256,80 +256,72 @@
                 <button class="button button4" id="b4" onclick="get_color(this)"></button>
             </div>
             @if(Auth::check())
-            @if(Auth::user())
-            <div id="logOut">
-                <button @click="logout = true" class="focus:outline-none" style="background-color: {{ $project_color }}; padding: 5px 10px 5px 10px; border-radius: 5px; color: white">
-                    <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            @csrf
-                        </form>
-                </button>
-            </div>
-            @endif
+                @if(Auth::user())
+                    <a href="/doLogout">
+                        <div id="logOut" style="background-color: {{ $project_color }}; padding: 5px 10px 5px 10px; color: white; border-radius: 5px;">
+                            Logout
+                        </div>
+                    </a>
+                @endif
             @endif
         </div>
         
         <div class="container mx-auto px-4 py-4">
             {{-- If the user is authenticated, then the user can do these actions --}}
             @if(Auth::check())
-            @if(Auth::user()->company_id == 1)
-            <ul class="flex space-x-4">
-                <li>
-                    <a class="flex" href="/" target="_blank">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                            </path>
-                        </svg>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex" href="/banner-showcase" target="_blank" style="color: #3182ce;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                          </svg>
-                        <span>Banners</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex text-green-600" href="/project/banner-showcase/addon/{{ $main_project_id }}">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                            </path>
-                        </svg>
-                        <span>Add More</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="flex text-red-600" href="/delete-all-banners-showcase/{{ $main_project_id }}" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete all the banners?!');">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        <span>Delete All</span>
-                    </a>
-                </li>
-            </ul>
-            @else
-            @endif
-            <ul class="flex space-x-4">
-                <li>
-                    <a class="flex" href="/banner-showcase" target="_blank" style="color: #d5001c;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                          </svg>
-                        <span>Banners List</span>
-                    </a>
-                </li>
-            </ul>
+                @if(Auth::user()->company_id == 1)
+                    <ul class="flex space-x-4">
+                        <li>
+                            <a class="flex" href="/" target="_blank">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                                    </path>
+                                </svg>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex" href="/banner-showcase" target="_blank" style="color: #3182ce;">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                                <span>Banners</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex text-green-600" href="/project/banner-showcase/addon/{{ $main_project_id }}">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    </path>
+                                </svg>
+                                <span>Add More</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex text-red-600" href="/delete-all-banners-showcase/{{ $main_project_id }}" onclick="return confirm('Slow down HOTSHOT! You sure you want to delete all the banners?!');">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                <span>Delete All</span>
+                            </a>
+                        </li>
+                    </ul>
+                @else
+                    <ul class="flex space-x-4">
+                        <li>
+                            <a class="flex" href="/banner-showcase" target="_blank" style="color: #d5001c;">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                                <span>Banners List</span>
+                            </a>
+                        </li>
+                    </ul>
+                @endif
             @endif
         </div>
         @if($banners->count() == 0)
