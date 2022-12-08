@@ -18,6 +18,12 @@
             <div class="py-6 px-6 lg:px-8">
                 <h3 class="text-2xl font-bold text-center mb-1">Login</h3>
                 @include('alert')
+
+                <div class="relative shadow hidden" id="error_section">
+                    <h1 class=" text-red-700 text-center py-3 mt-2 underline">Opps! The credentials do not match. Please try again</h1>
+                    {{-- <img src="{{ asset('/logo_images/error.gif') }}" alt="errorGif" id="errorGif" style="margin-left: auto; margin-right: auto; width: 100%;"> --}}
+                </div>
+                <br>
                 
                 <form action="" id="axiosLogin" name="axiosLogin">
                     <div class="mb-4">
@@ -41,15 +47,23 @@
                 </form>
             </div>
         </div>
-        <div class="relative shadow hidden" id="error_section">
+        {{-- <div class="relative shadow hidden" id="error_section">
             <h1 class=" text-red-700 text-center py-3 mt-2 underline">Opps! The credentials do not match. Please try again</h1>
             <img src="{{ asset('/logo_images/error.gif') }}" alt="errorGif" id="errorGif" style="margin-left: auto; margin-right: auto; width: 100%;">
-        </div>
+        </div> --}}
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
+        $('#password').on('input',function(e){
+            let passwordValue = $('#password').val();
+
+            if(passwordValue == 0){
+                document.getElementById('error_section').style.display = 'none';
+            }
+        });
+
         $("#axiosLogin").submit(function (e) {
             var data = new FormData();
             data.append('email', document.getElementById('email').value);
