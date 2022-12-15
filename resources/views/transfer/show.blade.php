@@ -193,6 +193,7 @@
             font-size: 1.25rem;
             color: #363e49;
             font-weight: 700;
+            word-break: break-word;
         }
 
         .astronaut {
