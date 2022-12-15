@@ -308,21 +308,21 @@ class ProjectConTroller extends Controller
                 ));
             }
             else{
-                return view('view_bannershowcase.showcase-index', compact(
-                    'main_project_info',
-                    'main_project_id',
-                    'data',
-                    'is_version',
-                    'banners'
-                ));
-
-                // return view('view_bannershowcase.new_preview.new-showcase-index', compact(
+                // return view('view_bannershowcase.showcase-index', compact(
                 //     'main_project_info',
                 //     'main_project_id',
                 //     'data',
                 //     'is_version',
                 //     'banners'
                 // ));
+
+                return view('view_bannershowcase.new_preview.new-showcase-index', compact(
+                    'main_project_info',
+                    'main_project_id',
+                    'data',
+                    'is_version',
+                    'banners'
+                ));
             }
         }
         else 

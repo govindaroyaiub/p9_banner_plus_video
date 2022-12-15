@@ -28,8 +28,8 @@
             color: white;
             display: flex;
             justify-content: space-between;
-            padding: 1rem 4rem 3rem 4rem;
             font-size: 15px;
+            padding-bottom: 3rem;
         }
 
         section::before {
@@ -93,11 +93,6 @@
             display: flex;
             align-items: center;
             height: 100%;
-        }
-
-        #topDetails {
-            padding-left: 5rem;
-            padding-bottom: 1rem;
         }
 
         @media only screen and (min-width: 320px) and (max-width: 480px) {
@@ -206,7 +201,7 @@
 
 <body class="font-body">
     <section id="top">
-        <div class="content">
+        <div class="container mx-auto px-4 py-4 flex justify-center content">
             <div id="topDetails">
                 <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-3" alt="planetnineLogo">
                 <h1>Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
