@@ -144,14 +144,14 @@
         .tabs label {
             order: 1;
             display: block;
-            padding: 0.5rem 2rem;
+            padding: 0.5rem 1rem;
             margin-right: 0.2rem;
             cursor: pointer;
             font-weight: bold;
             transition: background ease 0.2s;
             color: white;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
             background: {{ $project_color }};
 
         }
@@ -195,9 +195,7 @@
 
     </style>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
 </head>
-
 
 <body class="font-body">
     <section id="top">
