@@ -29,7 +29,7 @@
             display: flex;
             justify-content: space-between;
             font-size: 15px;
-            padding-bottom: 3rem;
+            padding-bottom: 5rem;
         }
 
         section::before {
@@ -96,6 +96,15 @@
         }
 
         @media only screen and (min-width: 320px) and (max-width: 480px) {
+            section .content {
+                position: relative;
+                z-index: 1;
+                color: white;
+                display: flex;
+                justify-content: space-between;
+                font-size: 15px;
+                padding-bottom: 2rem;
+            }
             #polygon {
                 display: none;
             }
@@ -104,6 +113,9 @@
                 text-align: center;
                 font-size: 13px;
                 padding-left: 0;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
             }
 
             #planetnineLogo {
@@ -114,13 +126,22 @@
         }
 
         @media only screen and (min-width: 481px) and (max-width: 768px) {
+            section .content {
+                position: relative;
+                z-index: 1;
+                color: white;
+                display: flex;
+                justify-content: space-between;
+                font-size: 15px;
+                padding-bottom: 7rem;
+            }
             #polygon {
                 max-width: 300px;
                 min-width: 300px;
+                top: 0;
             }
 
             #topDetails {
-                padding-top: 1rem;
                 padding-left: 0;
             }
         }
