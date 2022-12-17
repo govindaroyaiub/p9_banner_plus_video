@@ -9,7 +9,7 @@
 
     <title>{{ $main_project_info['name'] }}</title>
     <link rel="shortcut icon" href="{{ Helper::getFavicon($main_project_info['uploaded_by_company_id']) }}"
-        type="image/x-icon">s
+        type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <?php $project_color = Helper::getProjectColor($main_project_id) ?>
