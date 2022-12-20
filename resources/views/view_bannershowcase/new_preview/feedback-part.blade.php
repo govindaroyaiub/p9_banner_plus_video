@@ -3,12 +3,18 @@
     <div class="container mx-auto px-4 py-3">
         <div id="tabs">
             @foreach ($data as $id => $row)
-            <div id="version{{$id}}" class="versions @if($id == 2) active @endif">
+            <div id="version{{$id}}" class="versions @if($id == 3) active @endif">
                 {{ $i++ }}.{{ Helper::getFeedbackName($id) }}</div>
             @endforeach
         </div>
-        <div id="bannershow" class="py-2 relative">
-            This is the div show part
+        <div id="bannershow" class="relative overflow-hidden">
+            <div id="feedbackInfo">
+                <label for="feedbackInfo" id="feedbackLabel">This is where the feedback info will appear</label>
+            </div>
+            <div id="bannerShowcase">
+                this is where the banners will show
+            </div>
+            <br>
         </div>
     </div>
     <script>

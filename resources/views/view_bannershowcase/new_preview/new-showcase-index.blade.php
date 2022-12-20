@@ -183,9 +183,38 @@
             border-bottom-left-radius: 8px; 
             border-bottom-right-radius: 8px;
             border-top-right-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
             justify-content: center;
-            text-align: center;
+            align-items: center;
             border-color: {{ $project_color }};
+        }
+
+        #feedbackInfo{
+            display: block;
+            width: fit-content;
+            height: auto;
+            border: 1px solid;
+            color: white;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            text-align: center;
+            background: {{ $project_color }};
+            border-color: {{ $project_color }};
+        }
+
+        #feedbackLabel{
+            padding: 20px;
+            word-break: break-word;
+        }
+
+        #bannerShowcase{
+            margin-top: 10px;
+            border: 1px solid;
+            width: 100%;
+            height: auto;
+            text-align: center;
         }
 
         #tabs > :nth-child(n+2) { 
