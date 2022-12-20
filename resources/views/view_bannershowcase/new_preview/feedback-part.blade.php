@@ -1,28 +1,29 @@
 <main class="main">
     <?php $i=1; ?>
     <div class="container mx-auto px-4 py-3">
-        <div class="tabs">
-
+        <div id="tabs">
             @foreach ($data as $id => $row)
-            <input type="radio" name="tabs" id="version{{$id}}" checked="checked" class="versions">
-            <label for="version{{$id}}">{{$i++}}. {{ Helper::getFeedbackName($id) }}</label>
-            <div class="tab">
-                <div style="border-color: {{ $project_color }}"></div>
-            </div>
+            <div id="version{{$id}}" class="versions @if($id == 2) active @endif">
+                {{ $i++ }}.{{ Helper::getFeedbackName($id) }}</div>
             @endforeach
+        </div>
+        <div id="bannershow" class="py-2 relative">
+            This is the div show part
         </div>
     </div>
     <script>
-        var versions = document.getElementsByClassName('versions')
+        var header = document.getElementById("tabs");
+        var btns = header.getElementsByClassName("versions");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                let versionId = this.id;
 
-        for (var i = 0; i < versions.length; ++i) {
-            versions[i].addEventListener('click', getVersionData);
-        }
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
 
-        function getVersionData() {
-            var versionElement = this.id;
-
-            
+                console.log(versionId);
+            });
         }
 
     </script>

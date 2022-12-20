@@ -157,61 +157,38 @@
             }
         }
 
-        .tabs {
+        #tabs{
             display: flex;
             flex-wrap: wrap;
         }
 
-        .tabs label {
-            order: 1;
-            display: block;
-            padding: 0.5rem 1rem;
-            margin-right: 0.2rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background ease 0.2s;
+        #tabs div{
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
             color: white;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            background: {{ $project_color }};
-
+            padding: 5px 10px 5px 10px;
+            /* margin-left: 2px; */
+            cursor: pointer;
+            transform-origin: center;
+            background-color: #6a6e94;
         }
 
-        .tabs .tab {
-            order: 99;
-            flex-grow: 1;
-            width: 100%;
-            display: none;
-            padding: 1rem;
-            border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
-            border: 1px solid {{ $project_color }};
+        .active, #tabs div:hover{
+            box-shadow: 2px 2px 5px black;
+            background-color: {{ $project_color }}!important;
         }
 
-        .tabs input[type="radio"] {
-            display: none;
+        #bannershow{
+            border: 1px solid;
+            border-bottom-left-radius: 10px; 
+            border-bottom-right-radius: 10px;
+            justify-content: center;
+            text-align: center;
+            border-color: {{ $project_color }};
         }
 
-        .tabs input[type="radio"]:checked+label {
-            
-            background: {{ $project_color }};
-        }
-
-        .tabs input[type="radio"]:checked+label+.tab {
-            display: block;
-        }
-
-        @media (max-width: 45em) {
-
-            .tabs .tab,
-            .tabs label {
-                order: initial;
-            }
-
-            .tabs label {
-                width: 100%;
-                margin-right: 0;
-                margin-top: 0.2rem;
-            }
+        #tabs > :nth-child(n+2) { 
+            margin-left: 2px; 
         }
 
     </style>
