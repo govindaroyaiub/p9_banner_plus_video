@@ -3,7 +3,7 @@
     <div class="container mx-auto px-4 py-3">
         <div id="tabs">
             @foreach ($data as $id => $row)
-            <div id="version{{$id}}" class="versions @if($id == 3) active @endif">
+            <div id="version{{$id}}" class="versions @if(Helper::getFeedbackStatus($id) == 1) active @endif">
                 {{ $i++ }}.{{ Helper::getFeedbackName($id) }}</div>
             @endforeach
         </div>
@@ -28,8 +28,22 @@
                 current[0].className = current[0].className.replace(" active", "");
                 this.className += " active";
 
-                console.log(versionId);
+                getBanners(versionId);
             });
+        }
+
+        function getBanners(id){
+            console.log('this is :' + id);
+
+            axios.get('/getBannersForFeedback/'+ {{ $main_project_id }} + '/' + id)
+            .then(function (response) {
+                // handle success
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
         }
 
     </script>

@@ -483,4 +483,31 @@ class ProjectConTroller extends Controller
         Auth::logout();
         return redirect()->back();
     }
+
+
+    public function getBannersForFeedback($project_id, $id){
+        $feedback_id = trim($id,"version");
+        Feedback::where('id', $feedback_id)->update(['is_open' => 1]);
+
+        $exceptionFeedbacks = Feedback::select('id')->where('id', '!=', $feedback_id)->get()->toArray();
+
+        Feedback::whereIn('id', $exceptionFeedbacks)->update(['is_open' => 0]);
+
+        $feedbacks = Feedback::where('id', $feedback_id)->get();
+        $categories = BannerCategories::where('project_id', $project_id)->where('feedback_id', $feedback_id)->get();
+        $banners = Banner::where('project_id', $project_id)->where('feedback_id', $feedback_id)->get();
+        $data = [];
+
+        foreach($feedbacks as $index => $feedback){
+            $categories = BannerCategories::where('feedback_id', $feedback->id)->get();
+            foreach($categories as $index => $category){
+                $banners = Banner::where('category_id', $category->id)->get();
+                foreach($banners as $index => $banner){
+                    $data[$feedback->id][$category->id][$banner->id] = $banner;
+                }
+            }
+        }
+
+        return $data;
+    }
 }

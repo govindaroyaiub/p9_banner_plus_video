@@ -179,6 +179,8 @@
         }
 
         #bannershow{
+            width: 100%;
+            height: auto;
             border: 1px solid;
             border-bottom-left-radius: 8px; 
             border-bottom-right-radius: 8px;
