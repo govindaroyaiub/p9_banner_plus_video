@@ -1,5 +1,6 @@
 <main class="main">
     <?php $i=1; ?>
+    
     <div class="container mx-auto px-4 py-3">
         <div id="tabs">
             @foreach ($data as $id => $row)
@@ -7,6 +8,7 @@
                 {{ $i++ }}.{{ Helper::getFeedbackName($id) }}</div>
             @endforeach
         </div>
+
         <div id="bannershow" class="relative overflow-hidden">
             <div id="feedbackInfo">
                 <label for="feedbackInfo" id="feedbackLabel">This is where the feedback info will appear</label>
@@ -17,9 +19,14 @@
             <br>
         </div>
     </div>
+
     <script>
         var header = document.getElementById("tabs");
         var btns = header.getElementsByClassName("versions");
+
+        var isOpenVersion = document.querySelector('.active').id;
+        getBanners(isOpenVersion);
+
         for (var i = 0; i < btns.length; i++) {
             btns[i].addEventListener("click", function () {
                 let versionId = this.id;
@@ -33,7 +40,7 @@
         }
 
         function getBanners(id){
-            console.log('this is :' + id);
+            console.log('Current active Version: ' + id);
 
             axios.get('/getBannersForFeedback/'+ {{ $main_project_id }} + '/' + id)
             .then(function (response) {
