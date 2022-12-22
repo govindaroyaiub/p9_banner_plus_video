@@ -26,6 +26,7 @@ use App\AllSocials;
 use App\AllGifs;
 use \App\Mail\SendMail;
 use App\Helper\Helper;
+use Carbon\Carbon;
 
 class ProjectConTroller extends Controller
 {
@@ -511,6 +512,11 @@ class ProjectConTroller extends Controller
 
     public function getFeedbackNameDate($id){
         $category = BannerCategories::where('id', $id)->first();
-        return $category['name'].' | '.$category['created_at'];
+        return $category['name'].' | '.Carbon::parse($category['created_at'])->format('d F Y H:s:i');
+    }
+
+    public function getBannersData($feedbackId, $categoryId){
+        $feedback_id = trim($feedbackId,"version");
+        return Banner::where('category_id', $categoryId)->where('feedback_id', $feedback_id)->get();
     }
 }

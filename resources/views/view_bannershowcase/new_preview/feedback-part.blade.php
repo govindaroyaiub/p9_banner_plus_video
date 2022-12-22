@@ -14,7 +14,7 @@
                 <label for="feedbackInfo" id="feedbackLabel"></label>
             </div>
             <div id="bannerShowcase">
-                this is where the banners will show
+                <iframe></iframe>
             </div>
             <br>
         </div>
@@ -25,7 +25,7 @@
         var btns = header.getElementsByClassName("versions");
 
         var isOpenVersion = document.querySelector('.active').id;
-        getBanners(isOpenVersion);
+        getBannerData(isOpenVersion);
 
         for (var i = 0; i < btns.length; i++) {
             btns[i].addEventListener("click", function () {
@@ -35,11 +35,11 @@
                 current[0].className = current[0].className.replace(" active", "");
                 this.className += " active";
 
-                getBanners(versionId);
+                getBannerData(versionId);
             });
         }
 
-        function getBanners(id){
+        function getBannerData(id){
             console.log('Current active Version: ' + id);
 
             axios.get('/getBannersForFeedback/'+ {{ $main_project_id }} + '/' + id)
@@ -48,7 +48,8 @@
                 console.log(response.data);
                 var rows = '';
                 $.each(response.data, function (key, value) {
-                    getCategoryName(key);
+                    assignCategoryname(key);
+                    assignBanners(id, key);
                 });
             })
             .catch(function (error) {
@@ -57,7 +58,26 @@
             })
         }
 
-        function getCategoryName(value){
+        function assignBanners(feedbackValue, categoryValue){
+            axios.get('/getBannersData/'+ feedbackValue + '/' + categoryValue)
+            .then(function (response) {
+                // handle success
+                var rows = '';
+                $.each(response.data, function (key, value) {
+                    var bannerPath = '/showcase_collection/' + value.file_path + '/index.html';
+                    console.log(bannerPath);
+                    $("#bannerShowcase iframe").attr({'src':bannerPath,'height': 90,'width': 728});
+                });
+
+                // $('#bannerShowcase').html(rows);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        }
+
+        function assignCategoryname(value){
             axios.get('/getCategoryName/'+ value)
             .then(function (response){
                 $('#feedbackLabel').html(response.data);

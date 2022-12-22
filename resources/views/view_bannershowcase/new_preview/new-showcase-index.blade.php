@@ -190,7 +190,6 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            border-color: {{ $project_color }};
         }
 
         #feedbackInfo{
@@ -213,7 +212,6 @@
 
         #bannerShowcase{
             margin-top: 10px;
-            border: 1px solid;
             width: 100%;
             height: auto;
             text-align: center;
