@@ -20,7 +20,7 @@ Route::post('/doLogin', 'ProjectConTroller@doLogin')->name('doLogin');
 Route::get('/doLogout', 'ProjectConTroller@doLogout')->name('doLogout');
 
 Route::get('/getBannersForFeedback/{project_id}/{id}', 'ProjectController@getBannersForFeedback')->name('getBannersForFeedback');
-
+Route::get('/getCategoryName/{id}', 'ProjectConTroller@getFeedbackNameDate')->name('getFeedbackNameDate');
 
 Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('banner_view');
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');

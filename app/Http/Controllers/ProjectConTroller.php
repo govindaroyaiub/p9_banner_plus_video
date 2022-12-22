@@ -498,16 +498,19 @@ class ProjectConTroller extends Controller
         $banners = Banner::where('project_id', $project_id)->where('feedback_id', $feedback_id)->get();
         $data = [];
 
-        foreach($feedbacks as $index => $feedback){
-            $categories = BannerCategories::where('feedback_id', $feedback->id)->get();
-            foreach($categories as $index => $category){
-                $banners = Banner::where('category_id', $category->id)->get();
-                foreach($banners as $index => $banner){
-                    $data[$feedback->id][$category->id][$banner->id] = $banner;
-                }
+        $categories = BannerCategories::where('feedback_id', $feedback_id)->get();
+        foreach($categories as $index => $category){
+            $banners = Banner::where('category_id', $category->id)->get();
+            foreach($banners as $index => $banner){
+                $data[$category->id][$banner->id] = $banner;
             }
         }
 
-        return $data;
+        return response()->json($data);
+    }
+
+    public function getFeedbackNameDate($id){
+        $category = BannerCategories::where('id', $id)->first();
+        return $category['name'];
     }
 }

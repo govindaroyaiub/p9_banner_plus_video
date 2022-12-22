@@ -11,7 +11,7 @@
 
         <div id="bannershow" class="relative overflow-hidden">
             <div id="feedbackInfo">
-                <label for="feedbackInfo" id="feedbackLabel">This is where the feedback info will appear</label>
+                <label for="feedbackInfo" id="feedbackLabel"></label>
             </div>
             <div id="bannerShowcase">
                 this is where the banners will show
@@ -45,7 +45,25 @@
             axios.get('/getBannersForFeedback/'+ {{ $main_project_id }} + '/' + id)
             .then(function (response) {
                 // handle success
-                console.log(response);
+                console.log(response.data);
+                var rows = '';
+                $.each(response.data, function (key, value) {
+                    value
+                    rows = rows + getCategoryName(key);
+                    $('#feedbackLabel').html(rows);
+                });
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        }
+
+        function getCategoryName(value){
+            axios.get('/getCategoryName/'+ value)
+            .then(function (response){
+                console.log(response.data);
+                return response.data;
             })
             .catch(function (error) {
                 // handle error
