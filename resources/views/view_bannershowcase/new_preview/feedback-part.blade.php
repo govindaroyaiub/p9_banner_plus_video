@@ -48,9 +48,7 @@
                 console.log(response.data);
                 var rows = '';
                 $.each(response.data, function (key, value) {
-                    value
-                    rows = rows + getCategoryName(key);
-                    $('#feedbackLabel').html(rows);
+                    getCategoryName(key);
                 });
             })
             .catch(function (error) {
@@ -62,8 +60,7 @@
         function getCategoryName(value){
             axios.get('/getCategoryName/'+ value)
             .then(function (response){
-                console.log(response.data);
-                return response.data;
+                $('#feedbackLabel').html(response.data);
             })
             .catch(function (error) {
                 // handle error

@@ -511,6 +511,6 @@ class ProjectConTroller extends Controller
 
     public function getFeedbackNameDate($id){
         $category = BannerCategories::where('id', $id)->first();
-        return $category['name'];
+        return $category['name'].' | '.$category['created_at'];
     }
 }
