@@ -1,4 +1,4 @@
-<main class="main">
+<div>
     <?php $i=1; ?>
     
     <div class="container mx-auto px-4 py-3">
@@ -9,12 +9,19 @@
             @endforeach
         </div>
 
-        <div id="bannershow" class="relative overflow-hidden">
+        <div id="bannershow" class="relative">
             <div id="feedbackInfo">
                 <label for="feedbackInfo" id="feedbackLabel"></label>
             </div>
             <div id="bannerShowcase">
-                <iframe></iframe>
+                <div class="single-div">
+                    <div class="bannerResSize flex justify-between">
+                        <small style="float: left;" id="bannerRes"></small>
+                        <small class="float: right; text-red-700" id="bannerSize"></small>
+                    </div>
+                    
+                    <iframe></iframe>
+                </div>
             </div>
             <br>
         </div>
@@ -23,12 +30,12 @@
     <script>
         var header = document.getElementById("tabs");
         var btns = header.getElementsByClassName("versions");
-
         var isOpenVersion = document.querySelector('.active').id;
         getBannerData(isOpenVersion);
 
         for (var i = 0; i < btns.length; i++) {
             btns[i].addEventListener("click", function () {
+                document.getElementById('loaderArea').style.display = 'block';
                 let versionId = this.id;
 
                 var current = document.getElementsByClassName("active");
@@ -45,7 +52,6 @@
             axios.get('/getBannersForFeedback/'+ {{ $main_project_id }} + '/' + id)
             .then(function (response) {
                 // handle success
-                console.log(response.data);
                 var rows = '';
                 $.each(response.data, function (key, value) {
                     assignCategoryname(key);
@@ -56,20 +62,24 @@
                 // handle error
                 console.log(error);
             })
+            .finally(function(){
+                document.getElementById('loaderArea').style.display = 'none';
+            })
         }
 
         function assignBanners(feedbackValue, categoryValue){
             axios.get('/getBannersData/'+ feedbackValue + '/' + categoryValue)
             .then(function (response) {
                 // handle success
-                var rows = '';
+                console.log(response.data);
                 $.each(response.data, function (key, value) {
+                    var resolution = value.size_id;
                     var bannerPath = '/showcase_collection/' + value.file_path + '/index.html';
-                    console.log(bannerPath);
-                    $("#bannerShowcase iframe").attr({'src':bannerPath,'height': 90,'width': 728});
+                    var sizeText = value.width;
+                    $('#bannerRes').html((value.width + 'x' + value.height));
+                    $('#bannerSize').html(value.size);
+                    $("#bannerShowcase iframe").attr({'src':bannerPath,'height': value.height,'width': value.width, 'id': 'rel'+value.id});
                 });
-
-                // $('#bannerShowcase').html(rows);
             })
             .catch(function (error) {
                 // handle error
@@ -89,4 +99,4 @@
         }
 
     </script>
-</main>
+</div>

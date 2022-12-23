@@ -1,4 +1,4 @@
-<main class="main">
+<div>
     <div x-show="show" id="show1">
         <div class="container mx-auto px-4 py-4">
             <div class="banners" style="text-align: center;">
@@ -70,4 +70,4 @@
             </div>
         </div>
     </div>
-</main>
+</div>

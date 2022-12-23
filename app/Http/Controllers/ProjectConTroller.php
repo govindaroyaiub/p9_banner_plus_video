@@ -517,6 +517,23 @@ class ProjectConTroller extends Controller
 
     public function getBannersData($feedbackId, $categoryId){
         $feedback_id = trim($feedbackId,"version");
-        return Banner::where('category_id', $categoryId)->where('feedback_id', $feedback_id)->get();
+        return Banner::join('banner_sizes', 'banner_sizes.id', 'banner_categories_list.size_id')
+                        ->select(
+                            'banner_categories_list.id', 
+                            'banner_sizes.width', 
+                            'banner_sizes.height', 
+                            'banner_categories_list.size',
+                            'banner_categories_list.file_path',
+                            'banner_categories_list.project_id',
+                            'banner_categories_list.feedback_id',
+                            'banner_categories_list.category_id')
+                        ->where('category_id', $categoryId)
+                        ->where('feedback_id', $feedback_id)
+                        ->get();
+    }
+
+    public function getBannerSizeinfo($size_id){
+        $size = BannerSizes::where('id', $size_id)->first();
+        return $size['width'].'x'.$size['height'];
     }
 }
