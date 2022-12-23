@@ -258,6 +258,14 @@
             left: 50%;
         }
 
+        .footer{
+            position: absolute; 
+            bottom: 0; 
+            width: 100%;
+            background-color: #4b4e6d; 
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        }
+
     </style>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
@@ -350,8 +358,8 @@
                 @include('view_bannershowcase.new_preview.feedback-part')
             @endif
         @endif
-        
-        <footer class="footer" style="background-color: #4b4e6d; border-radius: 50% 50% 0 0 / 100% 100% 0 0;">
+
+        <footer class="footer">
             <div class="container mx-auto px-4 py-4 text-white text-center">&copy; All Right Reserved. <a
                     href="{{ Helper::getCompanyWebsite($main_project_info->uploaded_by_company_id) }}" target="_blank"
                     style="text-decoration: underline;">{{ Helper::getTitle($main_project_info->uploaded_by_company_id) }}</a>
