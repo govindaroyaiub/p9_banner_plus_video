@@ -15,6 +15,11 @@
     <?php $project_color = Helper::getProjectColor($main_project_id) ?>
 
     <style>
+        body{ 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
         section {
             position: relative;
             width: 100%;
@@ -67,13 +72,6 @@
             border-bottom-left-radius: 0 !important;
             border-bottom-right-radius: 0 !important;
         }
-
-        /* .footer{
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-        } */
 
         .feedback-bar {
             display: flex;
@@ -249,8 +247,9 @@
             left: 0;
             background: rgba(0, 0, 0, 0.5);
             width: 100%;
-            height: 100%;
+            height: 120vh;
             z-index: 9999;
+            display: inline-block;
         }
         .loader{
             position: relative;
@@ -259,9 +258,11 @@
         }
 
         .footer{
-            position: absolute; 
-            bottom: 0; 
+            position: relative;
+            margin-top: auto;
             width: 100%;
+            height: 4rem;
+            clear:both;
             background-color: #4b4e6d; 
             border-radius: 50% 50% 0 0 / 100% 100% 0 0;
         }
@@ -271,10 +272,10 @@
 </head>
 
 <body class="font-body">
+    <div id="loaderArea">
+        <span class="loader"></span>
+    </div>
     <main class="main">
-        <div id="loaderArea">
-            <span class="loader"></span>
-        </div>
         <section id="top">
             <div class="container mx-auto px-4 py-4 flex justify-center content">
                 <div id="topDetails">
@@ -353,6 +354,9 @@
             </div>
         @else
             @if($is_version == false)
+                <script>
+                    document.getElementById('loaderArea').style.display = 'none';
+                </script>
                 @include('view_bannershowcase.new_preview.singlepage-part')
             @else
                 @include('view_bannershowcase.new_preview.feedback-part')

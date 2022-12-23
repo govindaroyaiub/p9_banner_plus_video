@@ -14,14 +14,7 @@
                 <label for="feedbackInfo" id="feedbackLabel"></label>
             </div>
             <div id="bannerShowcase">
-                <div class="single-div">
-                    <div class="bannerResSize flex justify-between">
-                        <small style="float: left;" id="bannerRes"></small>
-                        <small class="float: right; text-red-700" id="bannerSize"></small>
-                    </div>
-                    
-                    <iframe></iframe>
-                </div>
+                
             </div>
             <br>
         </div>
@@ -72,14 +65,22 @@
             .then(function (response) {
                 // handle success
                 console.log(response.data);
+                var row = '';
+
                 $.each(response.data, function (key, value) {
                     var resolution = value.size_id;
                     var bannerPath = '/showcase_collection/' + value.file_path + '/index.html';
-                    var sizeText = value.width;
-                    $('#bannerRes').html((value.width + 'x' + value.height));
-                    $('#bannerSize').html(value.size);
-                    $("#bannerShowcase iframe").attr({'src':bannerPath,'height': value.height,'width': value.width, 'id': 'rel'+value.id});
+                    
+                    row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 10px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between;">';
+                    row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
+                    row = row + '<small class="float: right; text-red-700" id="bannerSize">'+ value.size +'</small>';
+                    row = row + '</div>';
+                    row = row + ' <iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
+                    row = row + '</div>';
                 });
+
+                $('#bannerShowcase').html(row);
             })
             .catch(function (error) {
                 // handle error
