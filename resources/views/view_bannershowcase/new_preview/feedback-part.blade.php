@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div>
     <?php $i=1; ?>
     
@@ -76,7 +78,13 @@
                     row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
                     row = row + '<small class="float: right; text-red-700" id="bannerSize">'+ value.size +'</small>';
                     row = row + '</div>';
-                    row = row + ' <iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
+                    row = row + '<iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
+                    row = row + '<ul style="display: flex; margin-left: 0.5rem; color:{{ $main_project_info['color'] }};">';
+                    row = row + '<li><i id="relBt'+ value.id +'" class="fa fa-refresh" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
+                    row = row + '<li><i id="relBt'+ value.id +'" class="fa fa-wrench" style="display: flex; margin-top: 0.5rem; cursor: pointer; margin-left: 0.25rem; font-size:20px;"></i></li>';
+                    row = row + '<li><i id="relBt'+ value.id +'" class="fa fa-download" style="display: flex; margin-top: 0.5rem; cursor: pointer; margin-left: 0.25rem; font-size:20px;"></i></li>';
+                    row = row + '<li><i id="relBt'+ value.id +'" class="fa fa-trash" style="display: flex; margin-top: 0.5rem; cursor: pointer; margin-left: 0.25rem; font-size:20px;"></i></li>';
+                    row = row + '</ul>';
                     row = row + '</div>';
                 });
 

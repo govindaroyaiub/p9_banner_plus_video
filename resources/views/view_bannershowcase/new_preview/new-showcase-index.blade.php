@@ -15,11 +15,27 @@
     <?php $project_color = Helper::getProjectColor($main_project_id) ?>
 
     <style>
-        body{ 
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        :root {
+        --default_color: {{ $project_color }}
         }
+        html {
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            position: relative;
+            margin: 0;
+            padding-bottom: 6rem;
+            min-height: 100%;
+        }
+
         section {
             position: relative;
             width: 100%;
@@ -103,6 +119,7 @@
                 font-size: 15px;
                 padding-bottom: 2rem;
             }
+
             #polygon {
                 display: none;
             }
@@ -133,6 +150,7 @@
                 font-size: 15px;
                 padding-bottom: 7rem;
             }
+
             #polygon {
                 max-width: 300px;
                 min-width: 300px;
@@ -155,12 +173,12 @@
             }
         }
 
-        #tabs{
+        #tabs {
             display: flex;
             flex-wrap: wrap;
         }
 
-        #tabs div{
+        #tabs div {
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             color: white;
@@ -171,16 +189,16 @@
             background-color: #6a6e94;
         }
 
-        .active, #tabs div:hover{
+        .active,#tabs div:hover {
             box-shadow: 2px 2px 5px black;
-            background-color: {{ $project_color }}!important;
+            background-color: var(--default_color)!important;
         }
 
-        #bannershow{
+        #bannershow {
             width: 100%;
             height: auto;
             border: 1px solid;
-            border-bottom-left-radius: 8px; 
+            border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
             border-top-right-radius: 8px;
             display: flex;
@@ -191,7 +209,7 @@
             overflow: hidden;
         }
 
-        #feedbackInfo{
+        #feedbackInfo {
             display: block;
             width: fit-content;
             height: auto;
@@ -200,27 +218,41 @@
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
             text-align: center;
-            background: {{ $project_color }};
-            border-color: {{ $project_color }};
+            background: var(--default_color);
+            border-color: var(--default_color);
         }
 
-        #feedbackLabel{
+        #feedbackLabel {
             padding: 20px;
             word-break: break-word;
         }
 
-        #bannerShowcase{
+        #bannerShowcase {
             margin-top: 10px;
             width: 100%;
             height: auto;
             text-align: center;
         }
 
-        #tabs > :nth-child(n+2) { 
-            margin-left: 2px; 
+        #tabs> :nth-child(n+2) {
+            margin-left: 2px;
+        }
+
+        #loaderArea {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: inline-block;
         }
 
         .loader {
+            position: relative;
+            top: 50%;
+            left: 50%;
             width: 48px;
             height: 48px;
             border: 5px solid #FFF;
@@ -228,7 +260,7 @@
             display: inline-block;
             box-sizing: border-box;
             animation: rotation 1s linear infinite;
-            border-bottom-color: {{ $project_color }};
+            border-bottom-color: var(--default_color);
         }
 
         @keyframes rotation {
@@ -241,30 +273,15 @@
             }
         }
 
-        #loaderArea{
+        .footer {
             position: absolute;
-            top: 0;
+            right: 0;
+            bottom: 0;
             left: 0;
-            background: rgba(0, 0, 0, 0.5);
-            width: 100%;
-            height: 120vh;
-            z-index: 9999;
-            display: inline-block;
-        }
-        .loader{
-            position: relative;
-            top: 50%;
-            left: 50%;
-        }
-
-        .footer{
-            position: relative;
-            margin-top: auto;
-            width: 100%;
-            height: 4rem;
-            clear:both;
-            background-color: #4b4e6d; 
+            padding: 0;
+            background-color: #4b4e6d;
             border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            text-align: center;
         }
 
     </style>
@@ -279,7 +296,8 @@
         <section id="top">
             <div class="container mx-auto px-4 py-4 flex justify-center content">
                 <div id="topDetails">
-                    <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-3" alt="planetnineLogo">
+                    <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-3"
+                        alt="planetnineLogo">
                     <h1>Client Name: <span class="font-semibold">{{ $main_project_info['client_name'] }}</span></h1>
                     <h1>Project Name: <span lass="font-semibold">{{ $main_project_info['name'] }}</span></h1>
                     <h1>Total Creatives: <span
@@ -347,20 +365,21 @@
         </div>
 
         @if($banners->count() == 0)
-            <div class="container mx-auto px-4 py-4">
-                <label class="text-red-700">No Banner Found!</label>
-                <br>
-                <label class="text-red-700">Please Add Banner or Delete This Project.</label>
-            </div>
+        <div class="container mx-auto px-4 py-4">
+            <label class="text-red-700">No Banner Found!</label>
+            <br>
+            <label class="text-red-700">Please Add Banner or Delete This Project.</label>
+        </div>
         @else
-            @if($is_version == false)
-                <script>
-                    document.getElementById('loaderArea').style.display = 'none';
-                </script>
-                @include('view_bannershowcase.new_preview.singlepage-part')
-            @else
-                @include('view_bannershowcase.new_preview.feedback-part')
-            @endif
+        @if($is_version == false)
+        <script>
+            document.getElementById('loaderArea').style.display = 'none';
+
+        </script>
+        @include('view_bannershowcase.new_preview.singlepage-part')
+        @else
+        @include('view_bannershowcase.new_preview.feedback-part')
+        @endif
         @endif
 
         <footer class="footer">
