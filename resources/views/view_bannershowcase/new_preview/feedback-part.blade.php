@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <div>
     <?php $i=1; ?>
     
@@ -72,6 +72,7 @@
                 $.each(response.data, function (key, value) {
                     var resolution = value.size_id;
                     var bannerPath = '/showcase_collection/' + value.file_path + '/index.html';
+                    var bannerReloadID = value.id;
                     
                     row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 10px;">';
                     row = row + '<div style="display: flex; justify-content: space-between;">';
@@ -79,11 +80,13 @@
                     row = row + '<small class="float: right; text-red-700" id="bannerSize">'+ value.size +'</small>';
                     row = row + '</div>';
                     row = row + '<iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
-                    row = row + '<ul style="display: flex; margin-left: 0.5rem; color:{{ $main_project_info['color'] }};">';
-                    row = row + '<li><i id="relBt'+ value.id +'" class="fa fa-refresh" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
-                    row = row + '<li><i id="relBt'+ value.id +'" class="fa fa-wrench" style="display: flex; margin-top: 0.5rem; cursor: pointer; margin-left: 0.25rem; font-size:20px;"></i></li>';
-                    row = row + '<li><i id="relBt'+ value.id +'" class="fa fa-download" style="display: flex; margin-top: 0.5rem; cursor: pointer; margin-left: 0.25rem; font-size:20px;"></i></li>';
-                    row = row + '<li><i id="relBt'+ value.id +'" class="fa fa-trash" style="display: flex; margin-top: 0.5rem; cursor: pointer; margin-left: 0.25rem; font-size:20px;"></i></li>';
+                    row = row + '<ul style="display: flex; color:{{ $main_project_info['color'] }}; flex-direction: row;">';
+                    row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
+                    row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
+                    row = row + '<li><a href="/showcase/edit/'+ value.id +'"><i class="fa-solid fa-pen-to-square" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                    row = row + '<li><a href="/showcase/download/'+ value.id +'"><i class="fa-solid fa-cloud-arrow-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                    row = row + '<li><a href="/showcase/delete/'+ value.id +'"><i class="fa-solid fa-trash" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                    row = row + '@endif @endif';
                     row = row + '</ul>';
                     row = row + '</div>';
                 });
@@ -94,6 +97,10 @@
                 // handle error
                 console.log(error);
             })
+        }
+
+        function reload(bannerReloadID) {
+            document.getElementById("rel"+bannerReloadID).src += '';
         }
 
         function assignCategoryname(value){
