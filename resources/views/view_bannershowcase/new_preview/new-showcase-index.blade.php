@@ -204,12 +204,13 @@
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
+            /* justify-content: center; */
+            /* align-items: center; */
             overflow: hidden;
         }
 
         #feedbackInfo {
+            position: relative;
             display: block;
             width: fit-content;
             height: auto;
@@ -218,6 +219,9 @@
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
             text-align: center;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
             background: var(--default_color);
             border-color: var(--default_color);
         }

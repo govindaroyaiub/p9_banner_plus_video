@@ -12,12 +12,9 @@
         </div>
 
         <div id="bannershow" class="relative">
-            <div id="feedbackInfo">
-                <label for="feedbackInfo" id="feedbackLabel"></label>
-            </div>
-            <div id="bannerShowcase">
-                
-            </div>
+            <div id="feedbackInfo"><label for="feedbackInfo" id="feedbackLabel"></label></div>
+            <div style="z-index: 999; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between;" id="feedbackSettings"></div>
+            <div id="bannerShowcase"></div>
             <br>
         </div>
     </div>
@@ -50,6 +47,7 @@
                 var rows = '';
                 $.each(response.data, function (key, value) {
                     assignCategoryname(key);
+                    assignFeedbackSettings(id);
                     assignBanners(id, key);
                 });
             })
@@ -60,6 +58,32 @@
             .finally(function(){
                 document.getElementById('loaderArea').style.display = 'none';
             })
+        }
+
+        function assignFeedbackSettings(id){
+            var ret = id.replace('version','');
+            restURL = {{$main_project_id}} + '/' + ret;
+
+            rows = '';
+
+            rows = rows + '<div style="float: left; margin-left: 0.5rem;"><label>View Changes</label>';
+            rows = rows + '</div>';
+            rows = rows + '<div style="float: right; margin-right: 0.5rem;">';
+            rows = rows + '@if(Auth::check())';
+            rows = rows + '@if(Auth::user()->company_id == 7) ';
+            rows = rows + '@else';
+            rows = rows + '<div style="display: flex; color:{{ $main_project_info['color'] }}; font-size:25px;">';
+            rows = rows + '<a href="/banner/add/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-plus"></i></a>';
+            rows = rows + '<a href="/banner/edit/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
+            rows = rows + '<a href="/banner/delete/feedback/'+ restURL +'"><i class="fa-solid fa-delete-left"></i></a>';
+            rows = rows + '</div>';
+            rows = rows + '@endif';
+            rows = rows + '@endif';
+            rows = rows + '</div>';
+
+            
+
+            $('#feedbackSettings').html(rows);
         }
 
         function assignBanners(feedbackValue, categoryValue){
