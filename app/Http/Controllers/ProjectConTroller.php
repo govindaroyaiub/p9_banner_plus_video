@@ -510,6 +510,12 @@ class ProjectConTroller extends Controller
         return response()->json($data);
     }
 
+    public function getFeedbackData($project_id, $feedbackId){
+        $feedback_id = trim($feedbackId,"version");
+
+        return Feedback::where('id', $feedback_id)->where('project_id', $project_id)->first();
+    }
+
     public function getFeedbackNameDate($id){
         $category = BannerCategories::where('id', $id)->first();
         return $category['name'].' | '.Carbon::parse($category['created_at'])->format('d F Y H:s:i');

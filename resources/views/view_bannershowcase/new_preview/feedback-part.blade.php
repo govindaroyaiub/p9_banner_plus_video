@@ -27,6 +27,7 @@
         var btns = header.getElementsByClassName("versions");
         var isOpenVersion = document.querySelector('.active').id;
         getBannerData(isOpenVersion);
+        getFeedbackData(isOpenVersion);
 
         for (var i = 0; i < btns.length; i++) {
             btns[i].addEventListener("click", function () {
@@ -38,6 +39,7 @@
                 this.className += " active";
 
                 getBannerData(versionId);
+                getFeedbackData(versionId);
             });
         }
 
@@ -47,11 +49,9 @@
             axios.get('/getBannersForFeedback/'+ {{ $main_project_id }} + '/' + id)
             .then(function (response) {
                 // handle success
-                var rows = '';
                 $.each(response.data, function (key, value) {
                     assignCategoryname(key);
                     assignFeedbackSettings(id);
-                    assignFeedbacks(id);
                     assignBanners(id, key);
                 });
             })
@@ -64,11 +64,39 @@
             })
         }
 
-        function assignFeedbacks(id){
+        function getFeedbackData(id){
+            axios.get('/getFeedbackData/'+ {{ $main_project_id }} + '/' + id)
+            .then(function (response) {
+                // handle success
+                assignFeedbacks(response.data.description);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        }
+
+        function assignFeedbacks(data){
             rows = '';
 
-            rows = rows + '<div">';
-                rows = rows + '<label>View Changes</label>';
+            rows = rows + '<div style="position: absolute; display: none; opacity: 0; width: 350px; height auto; z-index: 999999; background-color: rgb(255, 247, 209); border-radius: 8px;">'
+                rows = rows + '<div style="position: absolute; width: 100%; height: auto; padding: 2px 2px 2px 2px; background-color: rgb(255, 242, 171);">';
+                    rows = rows + '<div style="float: right; color: red; font-size:16px;">';
+                        rows = rows + '<i class="fa-solid fa-circle-minus"></i>';
+                    rows = rows + '</div>';
+                rows = rows + '</div>';
+
+                rows = rows + '<br>';
+
+                rows = rows + '<div style="word-wrap: break-word; white-space: pre-line; padding: 0.5rem;">';
+                    rows = rows + data;
+                rows + rows + '</div>';
+
+                rows = rows + '</div>';
+            rows = rows + '</div>';
+
+            rows = rows + '<div style="text-decoration: underline; cursor: pointer;">';
+                rows = rows + 'View Changes';
             rows = rows + '</div>';
 
             $('#feedbacks').html(rows);
@@ -85,9 +113,9 @@
                     rows = rows + '@if(Auth::user()->company_id == 7) ';
                     rows = rows + '@else';
                         rows = rows + '<div style="display: flex; color:{{ $main_project_info['color'] }}; font-size:25px;">';
-                        rows = rows + '<a href="/banner/add/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-plus"></i></a>';
-                        rows = rows + '<a href="/banner/edit/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
-                        rows = rows + '<a href="/banner/delete/feedback/'+ restURL +'"><i class="fa-solid fa-delete-left"></i></a>';
+                            rows = rows + '<a href="/banner/add/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-plus"></i></a>';
+                            rows = rows + '<a href="/banner/edit/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
+                            rows = rows + '<a href="/banner/delete/feedback/'+ restURL +'"><i class="fa-solid fa-trash"></i></a>';
                         rows = rows + '</div>';
                     rows = rows + '@endif';
                 rows = rows + '@endif';
