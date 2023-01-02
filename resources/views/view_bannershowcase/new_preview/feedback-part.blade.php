@@ -105,10 +105,23 @@
         }
 
         function feedbackAppear(){
+            viewFeedback = true;
+            var except = document.getElementById('feedbackDescription');
             var tl = gsap.timeline();
 
             tl
             .to('#feedbackDescription', {duration: 0.5, top: 0, left: 0, opacity: 1, display: 'block', ease: 'power3.out'});
+
+            if(viewFeedback == true){
+                document.addEventListener('click', closeThisFeedback, true);
+                function closeThisFeedback(e){
+                    if ( !except.contains(e.target) ) { //if the clicked element is the feedback div then it wont disappear
+                        tl
+                        .to('#feedbackDescription', {duration: 0.5, top: '-25%', left: '-25%', opacity: 0, display: 'none', ease: 'power3.in'});
+                    }
+                }
+                viewFeedback = false;
+            }
         }
 
         function feedbackDisappear(){
