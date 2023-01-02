@@ -13,7 +13,10 @@
 
         <div id="bannershow" class="relative">
             <div id="feedbackInfo"><label for="feedbackInfo" id="feedbackLabel"></label></div>
-            <div style="z-index: 999; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between;" id="feedbackSettings"></div>
+            <div style="z-index: 999; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between;">
+                <div id="feedbacks" style="float: left; margin-left: 0.5rem;"></div>
+                <div id="feedbackSettings" style="float: right; margin-right: 0.5rem;"></div>
+            </div>
             <div id="bannerShowcase"></div>
             <br>
         </div>
@@ -48,6 +51,7 @@
                 $.each(response.data, function (key, value) {
                     assignCategoryname(key);
                     assignFeedbackSettings(id);
+                    assignFeedbacks(id);
                     assignBanners(id, key);
                 });
             })
@@ -60,28 +64,34 @@
             })
         }
 
+        function assignFeedbacks(id){
+            rows = '';
+
+            rows = rows + '<div">';
+                rows = rows + '<label>View Changes</label>';
+            rows = rows + '</div>';
+
+            $('#feedbacks').html(rows);
+        }
+
         function assignFeedbackSettings(id){
             var ret = id.replace('version','');
             restURL = {{$main_project_id}} + '/' + ret;
 
             rows = '';
-
-            rows = rows + '<div style="float: left; margin-left: 0.5rem;"><label>View Changes</label>';
-            rows = rows + '</div>';
-            rows = rows + '<div style="float: right; margin-right: 0.5rem;">';
-            rows = rows + '@if(Auth::check())';
-            rows = rows + '@if(Auth::user()->company_id == 7) ';
-            rows = rows + '@else';
-            rows = rows + '<div style="display: flex; color:{{ $main_project_info['color'] }}; font-size:25px;">';
-            rows = rows + '<a href="/banner/add/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-plus"></i></a>';
-            rows = rows + '<a href="/banner/edit/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
-            rows = rows + '<a href="/banner/delete/feedback/'+ restURL +'"><i class="fa-solid fa-delete-left"></i></a>';
-            rows = rows + '</div>';
-            rows = rows + '@endif';
-            rows = rows + '@endif';
-            rows = rows + '</div>';
-
             
+            rows = rows + '<div>';
+                rows = rows + '@if(Auth::check())';
+                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@else';
+                        rows = rows + '<div style="display: flex; color:{{ $main_project_info['color'] }}; font-size:25px;">';
+                        rows = rows + '<a href="/banner/add/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-plus"></i></a>';
+                        rows = rows + '<a href="/banner/edit/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
+                        rows = rows + '<a href="/banner/delete/feedback/'+ restURL +'"><i class="fa-solid fa-delete-left"></i></a>';
+                        rows = rows + '</div>';
+                    rows = rows + '@endif';
+                rows = rows + '@endif';
+            rows = rows + '</div>';
 
             $('#feedbackSettings').html(rows);
         }
@@ -99,19 +109,20 @@
                     var bannerReloadID = value.id;
                     
                     row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 10px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between;">';
-                    row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
-                    row = row + '<small class="float: right; text-red-700" id="bannerSize">'+ value.size +'</small>';
-                    row = row + '</div>';
-                    row = row + '<iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
-                    row = row + '<ul style="display: flex; color:{{ $main_project_info['color'] }}; flex-direction: row;">';
-                    row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
-                    row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
-                    row = row + '<li><a href="/showcase/edit/'+ value.id +'"><i class="fa-solid fa-pen-to-square" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                    row = row + '<li><a href="/showcase/download/'+ value.id +'"><i class="fa-solid fa-cloud-arrow-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                    row = row + '<li><a href="/showcase/delete/'+ value.id +'"><i class="fa-solid fa-trash" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                    row = row + '@endif @endif';
-                    row = row + '</ul>';
+                        row = row + '<div style="display: flex; justify-content: space-between;">';
+                            row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
+                            row = row + '<small class="float: right; text-red-700" id="bannerSize">'+ value.size +'</small>';
+                        row = row + '</div>';
+                        row = row + '<iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
+                        row = row + '<ul style="display: flex; color:{{ $main_project_info['color'] }}; flex-direction: row;">';
+                            row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
+                                row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
+                                    row = row + '<li><a href="/showcase/edit/'+ value.id +'"><i class="fa-solid fa-pen-to-square" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                    row = row + '<li><a href="/showcase/download/'+ value.id +'"><i class="fa-solid fa-cloud-arrow-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                    row = row + '<li><a href="/showcase/delete/'+ value.id +'"><i class="fa-solid fa-trash" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                row = row + '@endif';
+                            row = row + '@endif';
+                        row = row + '</ul>';
                     row = row + '</div>';
                 });
 
