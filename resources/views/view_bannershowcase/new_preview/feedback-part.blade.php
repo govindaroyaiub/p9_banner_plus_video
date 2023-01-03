@@ -29,6 +29,7 @@
         var header = document.getElementById("tabs");
         var btns = header.getElementsByClassName("versions");
         var isOpenVersion = document.querySelector('.active').id;
+        var viewFeedback = false;
         getBannerData(isOpenVersion);
         getFeedbackData(isOpenVersion);
 
