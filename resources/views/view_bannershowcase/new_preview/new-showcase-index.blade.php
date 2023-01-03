@@ -138,6 +138,10 @@
                 text-align: center;
                 padding-top: 0
             }
+
+            #preview-shapes{
+                display: none;
+            }
         }
 
         @media only screen and (min-width: 481px) and (max-width: 768px) {
@@ -160,6 +164,10 @@
             #topDetails {
                 padding-left: 0;
             }
+            
+            #preview-shapes{
+                display: none;
+            }
         }
 
         @media only screen and (min-width: 769px) and (max-width: 1024px) {
@@ -170,6 +178,10 @@
 
             #topDetails {
                 padding-top: 1rem;
+            }
+
+            #preview-shapes{
+                display: none;
             }
         }
 
@@ -297,6 +309,29 @@
         <span class="loader"></span>
     </div>
     <main class="main">
+        <div id="preview-shapes">
+            <div id="left-shapes" style="position: fixed; top: 35%; left: -2rem; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
+                <div class="left-shape-left" style="display: flex;">
+                    <div id="left-shape1" style="width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
+                    <div id="left-shape2" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -1.5rem;"></div>
+                </div>
+                <div class="left-shape-right" style="display: flex; margin-top: 8px;">
+                    <div id="left-shape1" style="width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
+                    <div id="left-shape2" style="position: relative; width: 20px; height: 20px; background-color: rgb(217, 218, 227); border-radius: 50%; left: -0.5rem;"></div>
+                </div>
+            </div>
+
+            <div id="right-shapes" style="position: fixed; top: 80%; right: -2rem; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(-200deg);">
+                <div class="right-shape-left" style="display: flex;">
+                    <div id="right-shape1" style="width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
+                    <div id="right-shape2" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -1.5rem;"></div>
+                </div>
+                <div class="right-shape-right" style="display: flex; margin-top: 8px;">
+                    <div id="right-shape1" style="width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
+                    <div id="right-shape2" style="position: relative; width: 20px; height: 20px; background-color: rgb(217, 218, 227); border-radius: 50%; left: -0.5rem;"></div>
+                </div>
+            </div>
+        </div>
         <section id="top">
             <div class="container mx-auto px-4 py-4 flex justify-center content">
                 <div id="topDetails">
@@ -399,6 +434,20 @@
     integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $(window).resize(function() {
+            // This will execute whenever the window is resized
+            console.log($(window).width()); // New width
+
+            var screenWidth = $(window).width();
+
+            if(screenWidth < 1631){
+                $('#preview-shapes').css('display', 'none');
+            }
+            else{
+                $('#preview-shapes').css('display', 'block');
+            }
+        });
+
         $("#top").mouseover(function () {
             $('#top').mousemove(function (e) {
                 let mouseX = e.pageX;
