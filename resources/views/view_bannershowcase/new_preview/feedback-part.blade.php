@@ -85,9 +85,9 @@
             rows = rows + '<div id="feedbackDescription" style="position: absolute; display: none; opacity: 0; width: 350px; height auto; top: -25%; left: -25%; z-index: 9999; margin-top: 0.5rem; margin-left: 0.5rem;">'
                 rows = rows + '<div style="position: absolute; width: 100%; height: auto; padding: 2px 2px 2px 2px; background-color: {{ $main_project_info['color'] }}; border-top-right-radius: 12px;">';
                     rows = rows + '<div style="float: left; color: white; font-size:16px;">';
-                        rows = rows + 'The following feedbacks are implemented:';
+                        rows = rows + '<label style="margin-left: 0.25rem;">The following feedbacks are implemented:</label>';
                     rows = rows + '</div>';
-                    rows = rows + '<div style="float: right; color: red; font-size:16px;">';
+                    rows = rows + '<div style="float: right; color: white; font-size:16px;">';
                         rows = rows + '<i class="fa-solid fa-circle-minus" onClick="feedbackDisappear();" style="cursor: pointer;"></i>';
                     rows = rows + '</div>';
                 rows = rows + '</div>';

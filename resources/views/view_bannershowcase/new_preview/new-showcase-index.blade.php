@@ -36,6 +36,28 @@
             min-height: 100%;
         }
 
+        /* width */
+        ::-webkit-scrollbar {
+        width: 6px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+        background: #4b4e6d;
+        border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+        background: #6a6e94; 
+        }
+
         section {
             position: relative;
             width: 100%;
@@ -209,7 +231,8 @@
         #bannershow {
             width: 100%;
             height: auto;
-            border: 1px solid;
+            border: 1px solid var(--default_color);
+            border-top-width: medium;
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
             border-top-right-radius: 8px;
@@ -310,25 +333,25 @@
     </div>
     <main class="main">
         <div id="preview-shapes">
-            <div id="left-shapes" style="position: fixed; top: 35%; left: -2rem; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
+            <div id="left-shapes" style="position: fixed; top: 30%; left: 0; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
                 <div class="left-shape-left" style="display: flex;">
-                    <div id="left-shape1" style="width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
-                    <div id="left-shape2" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -1.5rem;"></div>
+                    <div id="left-shape11" style="position: relative; left: -2rem; width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
+                    <div id="left-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -3.5rem;"></div>
                 </div>
                 <div class="left-shape-right" style="display: flex; margin-top: 8px;">
-                    <div id="left-shape1" style="width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
-                    <div id="left-shape2" style="position: relative; width: 20px; height: 20px; background-color: rgb(217, 218, 227); border-radius: 50%; left: -0.5rem;"></div>
+                    <div id="left-shape21" style="position: relative; left: -4rem; width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
+                    <div id="left-shape22" style="position: relative; width: 20px; height: 20px; background-color: rgb(217, 218, 227); border-radius: 50%; left: -4.5rem;"></div>
                 </div>
             </div>
 
-            <div id="right-shapes" style="position: fixed; top: 80%; right: -2rem; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(-200deg);">
+            <div id="right-shapes" style="position: fixed; bottom: 5%; right: 0; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(135deg);">
                 <div class="right-shape-left" style="display: flex;">
-                    <div id="right-shape1" style="width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
-                    <div id="right-shape2" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -1.5rem;"></div>
+                    <div id="right-shape11" style="position: relative; right: 6rem; width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
+                    <div id="right-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -7.5rem;"></div>
                 </div>
                 <div class="right-shape-right" style="display: flex; margin-top: 8px;">
-                    <div id="right-shape1" style="width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
-                    <div id="right-shape2" style="position: relative; width: 20px; height: 20px; background-color: rgb(217, 218, 227); border-radius: 50%; left: -0.5rem;"></div>
+                    <div id="right-shape21" style="position: relative; right: 8rem; width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
+                    <div id="right-shape22" style="position: relative; width: 20px; height: 20px; background-color: rgb(217, 218, 227); border-radius: 50%; left: -8.5rem;"></div>
                 </div>
             </div>
         </div>
@@ -434,10 +457,18 @@
     integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        console.log($(window).width()); // New width
+        var screenWidth = $(window).width();
+
+        if(screenWidth < 1631){
+                $('#preview-shapes').css('display', 'none');
+            }
+            else{
+                $('#preview-shapes').css('display', 'block');
+            }
+
         $(window).resize(function() {
             // This will execute whenever the window is resized
-            console.log($(window).width()); // New width
-
             var screenWidth = $(window).width();
 
             if(screenWidth < 1631){
