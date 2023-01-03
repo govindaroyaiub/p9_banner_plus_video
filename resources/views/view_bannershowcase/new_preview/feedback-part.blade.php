@@ -134,6 +134,8 @@
 
             tl
             .to('#feedbackDescription', {duration: 0.5, top: '-25%', left: '-25%', opacity: 0, display: 'none', ease: 'power3.in'});
+
+            viewFeedback = false;
         }
 
         function assignFeedbackSettings(id){
