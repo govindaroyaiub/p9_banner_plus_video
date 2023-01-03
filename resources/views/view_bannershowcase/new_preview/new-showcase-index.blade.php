@@ -333,7 +333,7 @@
     </div>
     <main class="main">
         <div id="preview-shapes">
-            <div id="left-shapes" style="position: fixed; top: 30%; left: 0; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
+            <div id="left-shapes" style="position: fixed; top: 50%; left: -50%; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
                 <div class="left-shape-left" style="display: flex;">
                     <div id="left-shape11" style="position: relative; left: -2rem; width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
                     <div id="left-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -3.5rem;"></div>
@@ -344,7 +344,7 @@
                 </div>
             </div>
 
-            <div id="right-shapes" style="position: fixed; bottom: 5%; right: 0; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(135deg);">
+            <div id="right-shapes" style="position: fixed; bottom: 50%; right: -50%; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(135deg);">
                 <div class="right-shape-left" style="display: flex;">
                     <div id="right-shape11" style="position: relative; right: 6rem; width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
                     <div id="right-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -7.5rem;"></div>
@@ -455,7 +455,16 @@
 
 <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
     integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+<script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script>
 <script type="text/javascript">
+    var masterTimeline = gsap.timeline();
+
+    masterTimeline
+
+    .add('f1', '+=2')
+    .to('#left-shapes', {duration: 1, top: '30%', left: 0, ease: 'power2.out'}, 'f1')
+    .to('#right-shapes', {duration: 1, bottom: '5%', right: 0, ease: 'power2.out'}, 'f1')
+
     $(document).ready(function () {
         console.log($(window).width()); // New width
         var screenWidth = $(window).width();
