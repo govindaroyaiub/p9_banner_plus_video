@@ -333,23 +333,23 @@
     </div>
     <main class="main">
         <div id="preview-shapes">
-            <div id="left-shapes" style="position: fixed; top: 50%; left: -50%; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
-                <div class="left-shape-left" style="display: flex;">
+            <div id="left-shapes" style="position: fixed; top: 30%; left: 0%; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
+                <div class="left-shape-left left-shape-left-right" style="display: flex; position: relative; top: -90%; left: -90%;">
                     <div id="left-shape11" style="position: relative; left: -2rem; width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
                     <div id="left-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -3.5rem;"></div>
                 </div>
-                <div class="left-shape-right" style="display: flex; margin-top: 8px;">
+                <div class="left-shape-right left-shape-left-right" style="display: flex; margin-top: 8px; position: relative; top: -90%; left: -90%;">
                     <div id="left-shape21" style="position: relative; left: -4rem; width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
                     <div id="left-shape22" style="position: relative; width: 20px; height: 20px; background-color: rgb(217, 218, 227); border-radius: 50%; left: -4.5rem;"></div>
                 </div>
             </div>
 
-            <div id="right-shapes" style="position: fixed; bottom: 50%; right: -50%; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(135deg);">
-                <div class="right-shape-left" style="display: flex;">
+            <div id="right-shapes" style="position: fixed; bottom: 17%; right: 0%; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(135deg);">
+                <div class="right-shape-left right-shape-left-right" style="display: flex; position: relative; bottom: 90%; right: 90%;">
                     <div id="right-shape11" style="position: relative; right: 6rem; width: 200px; height: 45px; background: {{ $main_project_info['color'] }};"></div>
                     <div id="right-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $main_project_info['color'] }}; border-radius: 50%; left: -7.5rem;"></div>
                 </div>
-                <div class="right-shape-right" style="display: flex; margin-top: 8px;">
+                <div class="right-shape-right right-shape-left-right" style="display: flex; margin-top: 8px; position: relative; bottom: 90%; right: 90%;">
                     <div id="right-shape21" style="position: relative; right: 8rem; width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
                     <div id="right-shape22" style="position: relative; width: 20px; height: 20px; background-color: rgb(217, 218, 227); border-radius: 50%; left: -8.5rem;"></div>
                 </div>
@@ -462,8 +462,8 @@
     masterTimeline
 
     .add('f1', '+=2')
-    .to('#left-shapes', {duration: 1, top: '30%', left: 0, ease: 'power2.out'}, 'f1')
-    .to('#right-shapes', {duration: 1, bottom: '5%', right: 0, ease: 'power2.out'}, 'f1')
+    .to('.left-shape-left-right', {duration: 0.75, top: '30%', left: 0, ease: 'power2.out', stagger: 0.2}, 'f1')
+    .to('.right-shape-left-right', {duration: 0.75, bottom: '17%', right: 0, ease: 'power2.out', stagger: 0.2}, 'f1')
 
     $(document).ready(function () {
         console.log($(window).width()); // New width
