@@ -151,7 +151,7 @@
                         rows = rows + '<div style="display: flex; color:{{ $main_project_info['color'] }}; font-size:25px;">';
                             rows = rows + '<a href="/banner/add/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-plus"></i></a>';
                             rows = rows + '<a href="/banner/edit/feedback/'+ restURL +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
-                            rows = rows + '<a href="/banner/delete/feedback/'+ restURL +'"><i class="fa-solid fa-trash"></i></a>';
+                            rows = rows + '<a href="/banner/delete/feedback/'+ restURL +'" onclick="return confirmDeleteFeedback()"><i class="fa-solid fa-trash"></i></a>';
                         rows = rows + '</div>';
                     rows = rows + '@endif';
                 rows = rows + '@endif';
@@ -183,7 +183,7 @@
                                 row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
                                     row = row + '<li><a href="/showcase/edit/'+ value.id +'"><i class="fa-solid fa-pen-to-square" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                                     row = row + '<li><a href="/showcase/download/'+ value.id +'"><i class="fa-solid fa-cloud-arrow-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                                    row = row + '<li><a href="/showcase/delete/'+ value.id +'"><i class="fa-solid fa-trash" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                    row = row + '<li><a href="/showcase/delete/'+ value.id +'" onclick="return confirmDeleteBanner()"><i class="fa-solid fa-trash" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                                 row = row + '@endif';
                             row = row + '@endif';
                         row = row + '</ul>';
@@ -211,6 +211,14 @@
                 // handle error
                 console.log(error);
             })
+        }
+
+        function confirmDeleteBanner() {
+            return confirm('SLOW DOWN HOTSHOT! Are you sure you want to delete this banner?!');
+        }
+
+        function confirmDeleteFeedback(){
+            return confirm('SLOW DOWN HOTSHOT! Are you sure you want to delete this feedback?!');
         }
 
     </script>

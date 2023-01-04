@@ -469,7 +469,7 @@
         console.log($(window).width()); // New width
         var screenWidth = $(window).width();
 
-        if(screenWidth < 1631){
+        if(screenWidth < 1560){
                 $('#preview-shapes').css('display', 'none');
             }
             else{
@@ -480,7 +480,7 @@
             // This will execute whenever the window is resized
             var screenWidth = $(window).width();
 
-            if(screenWidth < 1631){
+            if(screenWidth < 1560){
                 $('#preview-shapes').css('display', 'none');
             }
             else{
