@@ -49,13 +49,13 @@
 
         function getBannerData(id){
             console.log('Current active Version: ' + id);
+            assignFeedbackName(id);
+            assignFeedbackSettings(id);
 
             axios.get('/getBannersForFeedback/'+ {{ $main_project_id }} + '/' + id)
             .then(function (response) {
                 // handle success
                 $.each(response.data, function (key, value) {
-                    assignCategoryname(key);
-                    assignFeedbackSettings(id);
                     assignBanners(id, key);
                 });
             })
@@ -88,15 +88,15 @@
                     rows = rows + '<div style="float: left; color: white; font-size:16px;">';
                         rows = rows + '<label style="margin-left: 0.25rem;">The following feedbacks are implemented:</label>';
                     rows = rows + '</div>';
-                    rows = rows + '<div style="float: right; color: white; font-size:16px;">';
-                        rows = rows + '<i class="fa-solid fa-circle-minus" onClick="feedbackDisappear();" style="cursor: pointer;"></i>';
+                    rows = rows + '<div style="float: right; font-size:16px;">';
+                        rows = rows + '<div onClick="feedbackDisappear();" style="cursor: pointer; display: flex; margin-right: 0.5rem; margin-top: 0.2rem; align-items: center; text-align: center; justify-content: center; background: white; border-radius: 50%; width: 20px; height: 20px; transform-origin: center; color: {{ $main_project_info['color'] }};"><i class="fa-solid fa-xmark"></i></div>';
                     rows = rows + '</div>';
                 rows = rows + '</div>';
 
                 rows = rows + '<br>';
 
-                rows = rows + '<div style="word-wrap: break-word; white-space: pre-line; padding: 0.5rem; background-color: rgb(217, 218, 227);  border-bottom-right-radius: 12px;  border-bottom-left-radius: 12px;">';
-                    rows = rows + data;
+                rows = rows + '<div style="word-wrap: break-word; white-space: pre-line; background-color: rgb(217, 218, 227);  border-bottom-right-radius: 12px;  border-bottom-left-radius: 12px;">';
+                    rows = rows + '<div style="padding: 0.5rem;"><span>' + data + '</span></div>';
                 rows + rows + '</div>';
 
                 rows = rows + '</div>';
@@ -202,8 +202,8 @@
             document.getElementById("rel"+bannerReloadID).src += '';
         }
 
-        function assignCategoryname(value){
-            axios.get('/getCategoryName/'+ value)
+        function assignFeedbackName(value){
+            axios.get('/getFeedbackName/'+ value)
             .then(function (response){
                 $('#feedbackLabel').html(response.data);
             })

@@ -517,8 +517,10 @@ class ProjectConTroller extends Controller
     }
 
     public function getFeedbackNameDate($id){
-        $category = BannerCategories::where('id', $id)->first();
-        return Carbon::parse($category['created_at'])->format('d F Y H:s:i');
+        $feedback_id = trim($id,"version");
+
+        $feedback = Feedback::where('id', $feedback_id)->first();
+        return Carbon::parse($feedback['created_at'])->format('d F Y');
     }
 
     public function getBannersData($feedbackId, $categoryId){

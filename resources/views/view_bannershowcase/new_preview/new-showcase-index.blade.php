@@ -104,6 +104,7 @@
             height: auto;
             max-width: 500px;
             min-width: 500px;
+            transform-origin: center;
         }
 
         .custom-radius {
@@ -493,16 +494,12 @@
                 let mouseX = e.pageX;
                 let mouseY = e.pageY;
 
-                $('#polygon').css({
-                    'transform': 'translate(' + mouseX / -20 + 'px ,' + mouseY / -20 +
-                        'px',
-                    'transition': ''
-                })
+                $('#polygon').css({'transform': 'scale(1.3)', 'transition': 'ease 0.15s'})
             });
         });
 
         $("#top").mouseout(function () {
-            document.getElementById('polygon').style.transform = "translate(0, 0)";
+            document.getElementById('polygon').style.transform = "scale(1)";
             document.getElementById('polygon').style.transition = "ease 0.15s";
         });
 
