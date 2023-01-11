@@ -84,7 +84,7 @@
             rows = '';
 
             rows = rows + '<div id="feedbackDescription" style="position: absolute; display: none; opacity: 0; width: 350px; height auto; top: -25%; left: -25%; z-index: 9999; margin-top: 0.5rem; margin-left: 0.5rem;">'
-                rows = rows + '<div style="position: absolute; width: 100%; height: auto; padding: 2px 2px 2px 2px; background-color: {{ $main_project_info['color'] }}; border-top-right-radius: 12px;">';
+                rows = rows + '<div style="position: absolute; width: 100%; height: auto; padding: 2px 2px 2px 2px; background-color: {{ $main_project_info['color'] }}; border-top-left-radius: 10px; border-top-right-radius: 10px;">';
                     rows = rows + '<div style="float: left; color: white; font-size:16px;">';
                         rows = rows + '<label style="margin-left: 0.25rem;">The following feedbacks are implemented:</label>';
                     rows = rows + '</div>';
@@ -95,7 +95,7 @@
 
                 rows = rows + '<br>';
 
-                rows = rows + '<div style="word-wrap: break-word; white-space: pre-line; background-color: rgb(217, 218, 227);  border-bottom-right-radius: 12px;  border-bottom-left-radius: 12px;">';
+                rows = rows + '<div style="word-wrap: break-word; white-space: pre-line; background-color: rgb(217, 218, 227);  border-bottom-right-radius: 10px;  border-bottom-left-radius: 10px;">';
                     rows = rows + '<div style="padding: 0.5rem;"><span>' + data + '</span></div>';
                 rows + rows + '</div>';
 

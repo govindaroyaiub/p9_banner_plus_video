@@ -243,7 +243,7 @@
             /* justify-content: center; */
             /* align-items: center; */
             overflow: hidden;
-            min-height: 300px;
+            min-height: 320px;
         }
 
         #feedbackInfo {
