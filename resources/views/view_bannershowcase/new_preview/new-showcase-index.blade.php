@@ -442,7 +442,7 @@
         </script>
         @include('view_bannershowcase.new_preview.singlepage-part')
         @else
-        @include('view_bannershowcase.new_preview.feedback-part')
+        @include('view_bannershowcase.new_preview.feedback-part-new')
         @endif
         @endif
 
@@ -507,5 +507,13 @@
     });
 
 </script>
-
+<script type="text/javascript">
+    function chkInternetStatus() {
+        if(navigator.onLine) {
+            alert("Hurray! You're online!!!");
+        } else {
+            alert("Oops! You're offline. Please check your network connection...");
+        }
+    }
+</script>
 </html>

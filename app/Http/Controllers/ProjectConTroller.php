@@ -485,6 +485,18 @@ class ProjectConTroller extends Controller
         return redirect()->back();
     }
 
+    public function getCategoryData($project_id, $id){
+        $feedback_id = trim($id,"version");
+        Feedback::where('id', $feedback_id)->update(['is_open' => 1]);
+
+        $exceptionFeedbacks = Feedback::select('id')->where('id', '!=', $feedback_id)->get()->toArray();
+        Feedback::whereIn('id', $exceptionFeedbacks)->update(['is_open' => 0]);
+
+        $categories = BannerCategories::where('feedback_id', $feedback_id)->get();
+
+        return $categories;
+    }
+
 
     public function getBannersForFeedback($project_id, $id){
         $feedback_id = trim($id,"version");
@@ -494,9 +506,9 @@ class ProjectConTroller extends Controller
 
         Feedback::whereIn('id', $exceptionFeedbacks)->update(['is_open' => 0]);
 
-        $feedbacks = Feedback::where('id', $feedback_id)->get();
-        $categories = BannerCategories::where('project_id', $project_id)->where('feedback_id', $feedback_id)->get();
-        $banners = Banner::where('project_id', $project_id)->where('feedback_id', $feedback_id)->get();
+        // $feedbacks = Feedback::where('id', $feedback_id)->get();
+        // $categories = BannerCategories::where('project_id', $project_id)->where('feedback_id', $feedback_id)->get();
+        // $banners = Banner::where('project_id', $project_id)->where('feedback_id', $feedback_id)->get();
         $data = [];
 
         $categories = BannerCategories::where('feedback_id', $feedback_id)->get();
@@ -523,8 +535,7 @@ class ProjectConTroller extends Controller
         return Carbon::parse($feedback['created_at'])->format('d F Y');
     }
 
-    public function getBannersData($feedbackId, $categoryId){
-        $feedback_id = trim($feedbackId,"version");
+    public function getBannersData($categoryId){
         return Banner::join('banner_sizes', 'banner_sizes.id', 'banner_categories_list.size_id')
                         ->select(
                             'banner_categories_list.id', 
@@ -536,7 +547,6 @@ class ProjectConTroller extends Controller
                             'banner_categories_list.feedback_id',
                             'banner_categories_list.category_id')
                         ->where('category_id', $categoryId)
-                        ->where('feedback_id', $feedback_id)
                         ->get();
     }
 

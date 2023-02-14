@@ -20,8 +20,9 @@ Route::post('/doLogin', 'ProjectConTroller@doLogin')->name('doLogin');
 Route::get('/doLogout', 'ProjectConTroller@doLogout')->name('doLogout');
 
 Route::get('/getBannersForFeedback/{project_id}/{id}', 'ProjectController@getBannersForFeedback')->name('getBannersForFeedback');
+Route::get('/getCategoryData/{project_id}/{id}', 'ProjectConTroller@getCategoryData')->name('getCategoryData');
 Route::get('/getFeedbackName/{id}', 'ProjectConTroller@getFeedbackNameDate')->name('getFeedbackNameDate');
-Route::get('/getBannersData/{feedbackId}/{categoryId}', 'ProjectController@getBannersData')->name('getBannersData');
+Route::get('/getBannersData/{categoryId}', 'ProjectController@getBannersData')->name('getBannersData');
 Route::get('/getFeedbackData/{project_id}/{feedbackId}', 'ProjectController@getFeedbackData')->name('getFeedbackData');
 Route::get('/getBannerSizeinfo/{size_id}', 'ProjectController@getBannerSizeinfo')->name('getBannerSizeinfo');
 
