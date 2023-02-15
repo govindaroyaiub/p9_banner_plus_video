@@ -52,56 +52,69 @@
             assignFeedbackName(id);
             assignFeedbackSettings(id);
 
-            axios.get('/getCategoryData/'+ {{ $main_project_id }} + '/' + id)
+            axios.get('/getFeedbackcategoryCount/' + id)
             .then(function (response) {
                 // handle success
-                row = '';
-                $.each(response.data, function (key, category){
-                    axios.get('/getBannersData/' + category.id)
-                    .then(function (response) {
-                        // handle success
 
-                        $.each(response.data, function (key, value) {
-                            row = row + '<div id="categoryName">';
-                                row = row + '<div style="width: 100%; height: auto; display: flex; flex-wrap: nowrap; color: white; text-align: center; justify-content: center; background:{{ $main_project_info['color'] }}; padding: 5px 5px 5px 5px; border-radius: 8px;">'+ category.name +'</div>';
+                const categoryCount = response.data;
 
-                            row = row + '</div>';
-                            var resolution = value.size_id;
-                            var bannerPath = '/showcase_collection/' + value.file_path + '/index.html';
-                            var bannerReloadID = value.id;
-                            
-                            row = row + '<div id="bannerShowcase">';
-                                row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 10px;">';
-                                    row = row + '<div style="display: flex; justify-content: space-between;">';
-                                        row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
-                                        row = row + '<small class="float: right; text-red-700" id="bannerSize">'+ value.size +'</small>';
+                axios.get('/getCategoryData/'+ {{ $main_project_id }} + '/' + id)
+                .then(function (response) {
+                    // handle success
+                    row = '';
+                    $.each(response.data, function (key, category){
+                        axios.get('/getBannersData/' + category.id)
+                        .then(function (response) {
+                            // handle success
+
+                            $.each(response.data, function (key, value) {
+                                if(categoryCount > 1){
+                                    row = row + '<div id="categoryName">';
+                                        row = row + '<div style="width: 100%; height: auto; display: flex; flex-wrap: nowrap; color: white; text-align: center; justify-content: center; background:{{ $main_project_info['color'] }}; padding: 5px 5px 5px 5px; border-radius: 8px;">'+ category.name +'</div>';
                                     row = row + '</div>';
-                                    row = row + '<iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
-                                    row = row + '<ul style="display: flex; color:{{ $main_project_info['color'] }}; flex-direction: row;">';
-                                        row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
-                                            row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
-                                                row = row + '<li><a href="/showcase/edit/'+ value.id +'"><i class="fa-solid fa-pen-to-square" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                                                row = row + '<li><a href="/showcase/download/'+ value.id +'"><i class="fa-solid fa-cloud-arrow-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                                                row = row + '<li><a href="/showcase/delete/'+ value.id +'" onclick="return confirmDeleteBanner()"><i class="fa-solid fa-trash" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                }
+                                
+                                var resolution = value.size_id;
+                                var bannerPath = '/showcase_collection/' + value.file_path + '/index.html';
+                                var bannerReloadID = value.id;
+                                
+                                row = row + '<div id="bannerShowcase">';
+                                    row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 10px;">';
+                                        row = row + '<div style="display: flex; justify-content: space-between;">';
+                                            row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
+                                            row = row + '<small class="float: right; text-red-700" id="bannerSize">'+ value.size +'</small>';
+                                        row = row + '</div>';
+                                        row = row + '<iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
+                                        row = row + '<ul style="display: flex; color:{{ $main_project_info['color'] }}; flex-direction: row;">';
+                                            row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
+                                                row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
+                                                    row = row + '<li><a href="/showcase/edit/'+ value.id +'"><i class="fa-solid fa-pen-to-square" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                                    row = row + '<li><a href="/showcase/download/'+ value.id +'"><i class="fa-solid fa-cloud-arrow-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                                    row = row + '<li><a href="/showcase/delete/'+ value.id +'" onclick="return confirmDeleteBanner()"><i class="fa-solid fa-trash" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                                row = row + '@endif';
                                             row = row + '@endif';
-                                        row = row + '@endif';
-                                    row = row + '</ul>';
+                                        row = row + '</ul>';
+                                    row = row + '</div>';
                                 row = row + '</div>';
-                            row = row + '</div>';
-                            row = row + '<br>';
-                        });
-                        $('#banners').html(row);
+                                row = row + '<br>';
+                            });
+                            $('#banners').html(row);
 
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .finally(function(){
-                        document.getElementById('loaderArea').style.display = 'none';
-                    })
-                });
-                
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        })
+                        .finally(function(){
+                            document.getElementById('loaderArea').style.display = 'none';
+                        })
+                    });
+                    
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
             })
             .catch(function (error) {
                 // handle error

@@ -25,6 +25,7 @@ Route::get('/getFeedbackName/{id}', 'ProjectConTroller@getFeedbackNameDate')->na
 Route::get('/getBannersData/{categoryId}', 'ProjectController@getBannersData')->name('getBannersData');
 Route::get('/getFeedbackData/{project_id}/{feedbackId}', 'ProjectController@getFeedbackData')->name('getFeedbackData');
 Route::get('/getBannerSizeinfo/{size_id}', 'ProjectController@getBannerSizeinfo')->name('getBannerSizeinfo');
+Route::get('/getFeedbackcategoryCount/{feedback_id}', 'ProjectConTroller@getFeedbackcategoryCount')->name('getFeedbackcategoryCount');
 
 Route::get('/project/banner/view/{id}', 'ProjectConTroller@banner_view')->name('banner_view');
 Route::get('/project/video/view/{id}', 'ProjectConTroller@video_view')->name('video_view');

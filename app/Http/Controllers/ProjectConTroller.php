@@ -535,6 +535,12 @@ class ProjectConTroller extends Controller
         return Carbon::parse($feedback['created_at'])->format('d F Y');
     }
 
+    public function getFeedbackcategoryCount($feedback_id){
+        $feedback_id = trim($feedback_id,"version");
+
+        return BannerCategories::where('feedback_id', $feedback_id)->get()->count();
+    }
+
     public function getBannersData($categoryId){
         return Banner::join('banner_sizes', 'banner_sizes.id', 'banner_categories_list.size_id')
                         ->select(
