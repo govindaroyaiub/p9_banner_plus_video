@@ -244,7 +244,14 @@ class bannerShowcaseController extends Controller
                 }
             }
             else if($feedback_request == 3){
-                
+                $feedback_info = Feedback::where('project_id', $project_info['id'])->first();
+                $feedback_id = $feedback_info['id'];
+                $category = new BannerCategories;
+                $category->name ='Default';
+                $category->project_id = $main_project_id;
+                $category->feedback_id = $feedback_info['id'];
+                $category->save();
+                $category_id = $category->id;
             }
             else{
                 $feedback = new Feedback;

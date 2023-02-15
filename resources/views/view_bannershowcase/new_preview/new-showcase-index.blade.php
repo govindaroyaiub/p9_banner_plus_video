@@ -438,7 +438,6 @@
         @if($is_version == false)
         <script>
             document.getElementById('loaderArea').style.display = 'none';
-
         </script>
         @include('view_bannershowcase.new_preview.singlepage-part')
         @else
