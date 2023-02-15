@@ -243,6 +243,9 @@ class bannerShowcaseController extends Controller
                     $category_id = $category_info['id'];
                 }
             }
+            else if($feedback_request == 3){
+                
+            }
             else{
                 $feedback = new Feedback;
                 $feedback->name = $request->feedback_name;

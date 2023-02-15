@@ -18,13 +18,20 @@
                     <select name="feedback_request" id="feedback_request" required
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                         <option value="0" class="py-2">Select Option</option>
-                        @if($feedbackCount <= 1) <option value="1" class="py-2">Upload to Existing Preview</option>
-                            @endif
-                            @if($feedbackCount >= 1)
+                        @if($feedbackCount <= 1) 
+                            <option value="1" class="py-2">Upload to Existing Preview</option>
+                        @endif
+                        <option value="3" class="py-2">Create New Category</option>
+                        @if($feedbackCount >= 1)
                             <option value="2" class="py-2">Create New Feedback</option>
-                            @endif
+                        @endif
                     </select>
                 </div>
+
+                <input type='text' placeholder="Category Name" name="category_name"
+                    value="Default" id="category_name"
+                    class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
+                    required />
 
                 <input type='text' placeholder="Feedback Round {{ $feedbackCount++ }}" name="feedback_name"
                     value="Version {{ $feedbackCount++ }}" id="feedback_name"
@@ -92,8 +99,15 @@
             if(value == 2){
                 document.getElementById('feedback_name').style.display = "block";
                 document.getElementById('feedback_description').style.display = "block";
+                document.getElementById('category_name').style.display = 'none';
+            }
+            else if(value == 3){
+                document.getElementById('category_name').style.display = "block";
+                document.getElementById('feedback_name').style.display = "none";
+                document.getElementById('feedback_description').style.display = "none";
             }
             else{
+                document.getElementById('category_name').style.display = 'none';
                 document.getElementById('feedback_name').style.display = "none";
                 document.getElementById('feedback_description').style.display = "none";
             }

@@ -34,7 +34,7 @@
 
                 <div class="mb-4 hidden" id="feedback_round_title">
                     <label class="text-primary font-light block">Feedback Round Title</label>
-                    <input type='text' placeholder="Feedback Round 1 (Master Development)" name="feedback_name" value="Feedback Round 1 (Master Development)"
+                    <input type='text' placeholder="Version 1" name="feedback_name" value="Version 1"
                         class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
                 </div>
