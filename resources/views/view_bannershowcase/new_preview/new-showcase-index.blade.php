@@ -239,10 +239,11 @@
             height: 50px;
             position: absolute;
             top: 50%;
-            transform: translateY(-30%);
+            transform: translateY(-60%);
             cursor: pointer;
             display: flex;
             justify-content: center;
+            align-items: center;
             color: #4b4e6d;
             border-radius: 50%;
         }
