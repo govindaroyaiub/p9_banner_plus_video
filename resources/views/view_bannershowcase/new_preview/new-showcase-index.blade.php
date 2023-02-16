@@ -208,9 +208,18 @@
             }
         }
 
+        #tab-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+            justify-content: center;
+        }
+
         #tabs {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         #tabs div {
@@ -222,6 +231,28 @@
             cursor: pointer;
             transform-origin: center;
             background-color: #6a6e94;
+            /* flex-shrink: 0; */
+        }
+
+        #left-arrow, #right-arrow {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-30%);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            color: #4b4e6d;
+            border-radius: 50%;
+        }
+
+        #left-arrow {
+            left: 0;
+        }
+
+        #right-arrow {
+            right: 0;
         }
 
         .active,#tabs div:hover {
@@ -237,6 +268,7 @@
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
             border-top-right-radius: 8px;
+            border-top-left-radius: 8px;
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;

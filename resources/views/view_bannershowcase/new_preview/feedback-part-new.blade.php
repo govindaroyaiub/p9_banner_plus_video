@@ -7,12 +7,25 @@
     <?php $i=1; ?>
     
     <div class="container mx-auto px-4 py-3">
-        <div id="tabs">
-            @foreach ($data as $id => $row)
-            <div id="version{{$id}}" class="versions @if(Helper::getFeedbackStatus($id) == 1) active @endif">
-                {{ $i++ }}.{{ Helper::getFeedbackName($id) }}</div>
-            @endforeach
+        <div id="tab-container">
+            <div id="left-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>                  
+              </div>
+            <div id="tabs">
+                @foreach ($data as $id => $row)
+                <div id="version{{$id}}" class="versions @if(Helper::getFeedbackStatus($id) == 1) active @endif">
+                    {{ Helper::getFeedbackName($id) }}</div>
+                @endforeach
+            </div>
+            <div id="right-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>                  
+              </div>
         </div>
+
 
         <div id="bannershow" class="relative">
             <div id="feedbackInfo"><label for="feedbackInfo" id="feedbackLabel"></label></div>
@@ -39,8 +52,8 @@
                 let versionId = this.id;
 
                 var current = document.getElementsByClassName("active");
-                current[0].className = current[0].className.replace(" active", "");
-                this.className += " active";
+                current[0].className = current[0].className.replace("active", "");
+                this.className += "active";
 
                 getCategoryData(versionId);
                 getFeedbackData(versionId);
