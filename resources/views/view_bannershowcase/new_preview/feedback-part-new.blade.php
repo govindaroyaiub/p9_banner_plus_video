@@ -15,7 +15,7 @@
               </div>
             <div id="tabs">
                 @foreach ($data as $id => $row)
-                <div id="version{{$id}}" class="versions @if(Helper::getFeedbackStatus($id) == 1) active @endif">
+                <div id="version{{$id}}" class="versions @if(Helper::getFeedbackStatus($id) == 1)active @endif">
                     {{ Helper::getFeedbackName($id) }}</div>
                 @endforeach
             </div>

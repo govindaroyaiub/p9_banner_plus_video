@@ -214,11 +214,12 @@
             justify-content: space-between;
             position: relative;
             width: 100%;
-            justify-content: center;
+            /* justify-content: center; */
         }
 
         #tabs {
             display: flex;
+            flex: 1;
             flex-wrap: nowrap;
         }
 
@@ -235,9 +236,9 @@
         }
 
         #left-arrow, #right-arrow {
+            position: absolute;
             width: 50px;
             height: 50px;
-            position: absolute;
             top: 50%;
             transform: translateY(-60%);
             cursor: pointer;
