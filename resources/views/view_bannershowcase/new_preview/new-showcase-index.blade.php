@@ -495,7 +495,7 @@
                 let mouseY = e.pageY;
 
                 $('#polygon').css({
-                    'transform': 'scale(1.3) translate(' + mouseX / -20 + 'px ,' + mouseY / -20 + 'px)', 'transition': 'ease 0.2s',
+                    'transform': 'scale(1.2) translate(' + mouseX / -20 + 'px ,' + mouseY / -20 + 'px)', 'transition': 'ease 0.2s',
                 });
             });
         });
