@@ -302,6 +302,7 @@
             box-sizing: border-box;
             animation: rotation 1s linear infinite;
             border-bottom-color: var(--default_color);
+            border-right-color: var(--default_color);
         }
 
         @keyframes rotation {
@@ -457,6 +458,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
     integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
 <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" integrity="sha512-9CWGXFSJ+/X0LWzSRCZFsOPhSfm6jbnL+Mpqo0o8Ke2SYr8rCTqb4/wGm+9n13HtDE1NQpAEOrMecDZw4FXQGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     var masterTimeline = gsap.timeline();
 

@@ -47,6 +47,10 @@
             });
         }
 
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel();
+        });
+
         function getCategoryData(id){
             console.log('Current active Version: ' + id);
             assignFeedbackName(id);
