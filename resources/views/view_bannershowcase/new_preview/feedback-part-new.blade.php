@@ -68,9 +68,19 @@
                             // handle success
 
                             $.each(response.data, function (key, value) {
+                                var ret = id.replace('version','');
                                 if(categoryCount > 1){
                                     row = row + '<div id="categoryName">';
-                                        row = row + '<div style="width: 100%; height: auto; display: flex; flex-wrap: nowrap; color: white; text-align: center; justify-content: center; background:{{ $main_project_info['color'] }}; padding: 5px 5px 5px 5px; border-radius: 8px;">'+ category.name +'</div>';
+                                        row = row + '<div style="width: 100%; height: auto; color: white; text-align: center; background:{{ $main_project_info['color'] }}; padding: 5px 5px 5px 5px; border-radius: 8px;">';
+                                            row = row + '<label>'+ category.name +'</label>';
+                                            row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else';
+                                                row = row + '<div style="position: relative; right: 10px; display: flex; float: right; margin-top: -5px;">';
+                                                    row = row + '<a href="/banner/categories/' + ret + '/edit/'+ category.id +'"><i class="fa-solid fa-pen-to-square" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a>'
+                                                    row = row + '<a href="/banner/categories/' + ret + '/delete/'+ category.id +'" onclick="return confirmDeleteCategory()"><i class="fa-solid fa-trash" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>'
+                                                row = row +'</div>';
+                                            row = row + '@endif';
+                                            row = row + '@endif';
+                                        row = row +'</div>';
                                     row = row + '</div>';
                                 }
                                 
@@ -241,11 +251,15 @@
         }
 
         function confirmDeleteBanner() {
-            return confirm('SLOW DOWN HOTSHOT! Are you sure you want to delete this banner?!');
+            return confirm('SLOW DOWN HOTSHOT! Are you sure you want to delete this BANNER?!');
         }
 
         function confirmDeleteFeedback(){
-            return confirm('SLOW DOWN HOTSHOT! Are you sure you want to delete this feedback?!');
+            return confirm('SLOW DOWN HOTSHOT! Are you sure you want to delete this FEEDBACK?!');
+        }
+
+        function confirmDeleteCategory(){
+            return confirm('SLOW DOWN HOTSHOT! Are you sure you want to delete this CATEGORY?!');
         }
 
         function feedbackAppear(){

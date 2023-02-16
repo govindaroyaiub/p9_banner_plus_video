@@ -20,8 +20,8 @@
                         <option value="0" class="py-2">Select Option</option>
                         @if($feedbackCount <= 1) 
                             <option value="1" class="py-2">Upload to Existing Preview</option>
+                            <option value="3" class="py-2">Create New Category</option>
                         @endif
-                        <option value="3" class="py-2">Create New Category</option>
                         @if($feedbackCount >= 1)
                             <option value="2" class="py-2">Create New Feedback</option>
                         @endif

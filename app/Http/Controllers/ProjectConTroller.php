@@ -284,19 +284,20 @@ class ProjectConTroller extends Controller
             $is_category = false;
 
             if($main_project_info['is_version'] == 0){
-                $data = Banner::where('project_id', $main_project_id)->get();
+                // $data = Banner::where('project_id', $main_project_id)->get();
                 $is_version == false;
             }
             else{
-                foreach($feedbacks as $index => $feedback){
-                    $categories = BannerCategories::where('feedback_id', $feedback->id)->get();
-                    foreach($categories as $index => $category){
-                        $banners = Banner::where('category_id', $category->id)->get();
-                        foreach($banners as $index => $banner){
-                            $data[$feedback->id][$category->id][$banner->id] = $banner;
-                        }
+                $is_version = true;
+                
+            }
+            foreach($feedbacks as $index => $feedback){
+                $categories = BannerCategories::where('feedback_id', $feedback->id)->get();
+                foreach($categories as $index => $category){
+                    $banners2 = Banner::where('category_id', $category->id)->get();
+                    foreach($banners2 as $index => $banner){
+                        $data[$feedback->id][$category->id][$banner->id] = $banner;
                     }
-                    $is_version = true;
                 }
             }
             if($main_project_info['logo_id'] == 7){
@@ -322,7 +323,8 @@ class ProjectConTroller extends Controller
                     'main_project_id',
                     'data',
                     'is_version',
-                    'banners'
+                    'banners',
+                    'categories'
                 ));
             }
         }

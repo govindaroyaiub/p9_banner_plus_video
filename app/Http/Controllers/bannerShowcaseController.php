@@ -261,6 +261,8 @@ class bannerShowcaseController extends Controller
                 $feedback->is_open = 1;
                 $feedback->save();
                 $feedback_id = $feedback->id;
+                $exceptionFeedbacks = Feedback::select('id')->where('id', '!=', $feedback_id)->get()->toArray();
+                Feedback::whereIn('id', $exceptionFeedbacks)->update(['is_open' => 0]);
 
                 $category = new BannerCategories;
                 $category->name ='Default';
@@ -427,12 +429,14 @@ class bannerShowcaseController extends Controller
         }
 
         Feedback::where('id', $feedback_id)->delete();
-        BannerCategories::where('feedback_id', $feedback_id)->delete();
-
         $feedbackCount = Feedback::where('project_id', $project_id)->count();
-
+        BannerCategories::where('feedback_id', $feedback_id)->delete();
         if($feedbackCount == 1){
             MainProject::where('id', $project_id)->update(['is_version' => 0]);
+        }
+        else{
+            $getLastFeedback = Feedback::orderBy('id', 'DESC')->first();
+            Feedback::where('id', $getLastFeedback['id'])->update(['is_open' => 1]);
         }
         return back();
     }
@@ -634,6 +638,7 @@ class bannerShowcaseController extends Controller
             // unlink('banner_collection/' . $sub_project['file_path']);
             $files = File::deleteDirectory($file_path);    
         }
+        Banner::where('category_id', $category_id)->delete();
         BannerCategories::where('id', $category_id)->delete();
         return back();
     }

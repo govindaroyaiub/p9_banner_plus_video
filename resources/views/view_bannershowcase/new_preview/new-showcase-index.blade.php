@@ -280,7 +280,7 @@
         }
 
         #loaderArea {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             background: rgba(0, 0, 0, 0.5);
@@ -494,13 +494,16 @@
                 let mouseX = e.pageX;
                 let mouseY = e.pageY;
 
-                $('#polygon').css({'transform': 'scale(1.3)', 'transition': 'ease 0.15s'})
+                $('#polygon').css({
+                    'transform': 'scale(1.3) translate(' + mouseX / -20 + 'px ,' + mouseY / -20 + 'px)', 'transition': 'ease 0.2s',
+                });
             });
         });
 
         $("#top").mouseout(function () {
-            document.getElementById('polygon').style.transform = "scale(1)";
-            document.getElementById('polygon').style.transition = "ease 0.15s";
+            $('#polygon').css({
+                'transform': 'scale(1)', 'transition': 'ease 0.2s',
+            });
         });
 
     });
