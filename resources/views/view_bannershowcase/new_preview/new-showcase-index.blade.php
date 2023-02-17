@@ -213,8 +213,49 @@
             align-items: center;
             justify-content: space-between;
             position: relative;
+            width: 1240px!important;
+
+            overflow: hidden;
+            text-align: center;
+            color: white;
+            margin-left: 5px;
+        }
+
+        .owl-item.active > div:after {
+            content: 'active';
+        }
+        .owl-item.center > div:after {
+            content: 'center';
+        }
+        .owl-item.active.center > div:after {
+            content: 'active center';
+        }
+
+        #tabs div {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transform-origin: center;
+            background-color: #6a6e94;
+        }
+
+        .owl-item{
+            width: 150px!important;
+            margin-right: 5px;
+        }
+
+        .active,#tabs div:hover {
+            box-shadow: 2px 2px 5px black;
+            background-color: var(--default_color)!important;
+        }
+
+        /* #tab-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
             width: 100%;
-            /* justify-content: center; */
         }
 
         #tabs {
@@ -228,11 +269,9 @@
             border-top-right-radius: 10px;
             color: white;
             padding: 5px 10px 5px 10px;
-            /* margin-left: 2px; */
             cursor: pointer;
             transform-origin: center;
             background-color: #6a6e94;
-            /* flex-shrink: 0; */
         }
 
         #left-arrow, #right-arrow {
@@ -247,20 +286,15 @@
             align-items: center;
             color: #4b4e6d;
             border-radius: 50%;
-        }
+        } */
 
-        #left-arrow {
+        /* #left-arrow {
             left: 0;
         }
 
         #right-arrow {
             right: 0;
-        }
-
-        .active,#tabs div:hover {
-            box-shadow: 2px 2px 5px black;
-            background-color: var(--default_color)!important;
-        }
+        } */
 
         #bannershow {
             width: 100%;
@@ -307,10 +341,6 @@
             width: 100%;
             height: auto;
             text-align: center;
-        }
-
-        #tabs> :nth-child(n+2) {
-            margin-left: 2px;
         }
 
         #loaderArea {
