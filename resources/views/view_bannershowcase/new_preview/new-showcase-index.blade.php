@@ -220,7 +220,7 @@
             opacity: 1;
             display: block;
             overflow: hidden;
-            width: 1152px;
+            width: 1150px;
             left: 45px;
         }
 
