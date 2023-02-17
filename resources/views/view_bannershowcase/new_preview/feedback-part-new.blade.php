@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -9,22 +9,22 @@
     
     <div class="container mx-auto px-4 py-3">
         <div id="tab-container" >
-            {{-- <div id="left-arrow">
+            <div id="left-arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>                  
-              </div> --}}
+              </div>
             <div id="tabs" class="owl-carousel">
                 @foreach ($data as $id => $row)
                 <div id="version{{$id}}" class="item versions @if(Helper::getFeedbackStatus($id) == 1)active @endif">
                     {{ Helper::getFeedbackName($id) }}</div>
                 @endforeach
             </div>
-            {{-- <div id="right-arrow">
+            <div id="right-arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>                  
-              </div> --}}
+              </div>
         </div>
 
         <div id="bannershow" class="relative">
@@ -61,31 +61,29 @@
         }
 
         $(document).ready(function(){
-            $('.owl-carousel').owlCarousel({
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
                 loop: true,
                 mouseDrag: true,
                 touchDrag: true,
                 center: true,
                 mergeFit: true,
                 margin: 10,
-                margin:10,
+                nav: true,
+                navText: [$('#right-arrow'),$('#left-arrow')],
                 responsiveClass:true,
                 responsive:{
                     0:{
-                        items:1,
-                        nav:true
+                        items:1
                     },
                     600:{
-                        items:3,
-                        nav:false
+                        items:3
                     },
                     1000:{
-                        items:5,
-                        nav:true,
-                        loop:false
+                        items:5
                     }
                 }
-            })
+            });
         });
 
         function getCategoryData(id){
