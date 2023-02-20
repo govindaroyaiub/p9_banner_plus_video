@@ -276,7 +276,7 @@ class ProjectConTroller extends Controller
 
         if($main_project_info != NULL)
         {
-            $feedbacks = Feedback::where('project_id', $main_project_id)->get();
+            $feedbacks = Feedback::where('project_id', $main_project_id)->orderBy('is_open', 'DESC')->get();
             $categories = BannerCategories::where('id', $main_project_id)->get();
             $banners = Banner::where('project_id', $main_project_id)->get();
             $data = [];

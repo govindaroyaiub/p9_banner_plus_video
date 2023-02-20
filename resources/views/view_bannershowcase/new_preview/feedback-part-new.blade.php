@@ -60,30 +60,28 @@
             });
         }
 
-        $(document).ready(function(){
-            var owl = $('.owl-carousel');
-            owl.owlCarousel({
-                loop: true,
-                mouseDrag: true,
-                touchDrag: true,
-                center: true,
-                mergeFit: true,
-                margin: 10,
-                nav: true,
-                navText: [$('#right-arrow'),$('#left-arrow')],
-                responsiveClass:true,
-                responsive:{
-                    0:{
-                        items:1
-                    },
-                    600:{
-                        items:3
-                    },
-                    1000:{
-                        items:5
-                    }
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            loop: false,
+            mouseDrag: true,
+            touchDrag: true,
+            center: true,
+            mergeFit: true,
+            margin: 5,
+            nav: true,
+            navText: [$('#right-arrow'),$('#left-arrow')],
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
                 }
-            });
+            }
         });
 
         function getCategoryData(id){
