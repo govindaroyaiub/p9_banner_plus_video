@@ -213,15 +213,15 @@
             position: relative;
             text-align: center;
             color: white;
-            margin-left: 5px;
+            /* margin-left: 5px; */
         }
 
         #tabs{
             opacity: 1;
             display: block;
             overflow: hidden;
-            width: 1150px;
-            left: 45px;
+            /* width: 1150px; */
+            /* left: 45px; */
         }
 
         #tabs .versions {
@@ -233,10 +233,10 @@
             background-color: #6a6e94;
         }
 
-        .owl-item{
+        /* .owl-item{
             width: 225px!important;
             margin-right: 5px;
-        }
+        } */
 
         .active,#tabs .versions:hover {
             box-shadow: 2px 2px 5px black;

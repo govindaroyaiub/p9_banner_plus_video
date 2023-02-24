@@ -65,11 +65,10 @@
             loop: false,
             mouseDrag: true,
             touchDrag: true,
-            center: true,
             mergeFit: true,
-            margin: 5,
+            margin: 10,
             nav: true,
-            navText: [$('#right-arrow'),$('#left-arrow')],
+            navText: [$('#left-arrow'),$('#right-arrow')],
             responsiveClass:true,
             responsive:{
                 0:{
