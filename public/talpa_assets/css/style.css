@@ -1,0 +1,57 @@
+@font-face {
+    font-family: "Radio10";
+    src: url("../fonts/Radio10-Regular.otf");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    display: none;
+    position: absolute;
+    width: 3840px;
+    height: 2160px;
+    top: 0;
+    left: 0;
+}
+
+#banner {
+    position: relative;
+    width: 3840px;
+    height: 2160px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #d7d7d7;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+
+#price_div{
+    position: absolute;
+    font-family: "Radio10";
+    color: white;
+    font-size: 600px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 700px;
+    display: flex;
+    justify-content: center;
+}
+
+/* .texts{
+    opacity: 0;
+    transform: translateY(300px);
+    -webkit-transform: translateY(300px);
+    -moz-transform: translateY(300px);
+    -ms-transform: translateY(300px);
+    -o-transform: translateY(300px);
+}
+
+#price_div{
+    opacity: 0;
+} */

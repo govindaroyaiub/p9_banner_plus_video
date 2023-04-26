@@ -213,7 +213,7 @@
     </script>
 </head>
 
-<body class="font-body" style="position: relative;">
+<body class="font-body" style="position: relative; min-height: 100vh; display:flex; flex-direction: column;">
 <header class="header relative border-b" style="border-color: {{ $main_project_info['color'] }}">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
         <div>
@@ -287,7 +287,7 @@
 
 
 @if($main_project_info->is_footer == 1)
-    <footer class="footer" style="background-color: {{ $main_project_info['color'] }}">
+    <footer class="footer" style="background-color: {{ $main_project_info['color'] }}; margin-top: auto;">
         <div class="container mx-auto px-4 py-3 text-white text-center">&copy; All Right Reserved. <a
                 href="{{ Helper::getCompanyWebsite($main_project_info->uploaded_by_company_id) }}" target="_blank" style="text-decoration: underline;">{{ Helper::getTitle($main_project_info->uploaded_by_company_id) }}</a>
             - <?= Date('Y') ?></div>

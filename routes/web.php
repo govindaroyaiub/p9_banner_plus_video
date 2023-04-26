@@ -225,3 +225,8 @@ Route::get('/gif-showcase', 'GifShowcaseController@gif_list')->name('gifshowcase
 Route::get('/social-showcase', 'SocialShowcaseController@social_list')->name('socialshowcaselist');
 
 //social showcase function ends
+
+
+Route::get('/talpa', function (){
+    return view('talpa_project.index');
+});

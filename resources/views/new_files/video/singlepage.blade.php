@@ -19,6 +19,8 @@
                 @include('new_files.video.08_1')
             @elseif($width == 328 && $height == 574)
                 @include('new_files.video.057_1')
+            @elseif($width == 336 && $height == 280)
+                @include('new_files.video.6_5')
             @elseif($width == 1080 && $height == 1536)
                 @include('new_files.video.07_1')
             @elseif($width == 1440 && $height == 1080)

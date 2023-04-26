@@ -207,37 +207,6 @@
                 display: none;
             }
         }
-
-        #tab-container {
-            align-items: center;
-            position: relative;
-            text-align: center;
-            color: white;
-            /* margin-left: 5px; */
-        }
-
-        #tabs{
-            /* opacity: 1; */
-            /* display: block; */
-            /* overflow: hidden; */
-            /* width: 1150px; */
-            /* left: 45px; */
-        }
-
-        #tabs .versions {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            color: white;
-            cursor: pointer;
-            transform-origin: center;
-            background-color: #6a6e94;
-        }
-
-        /* .owl-item{
-            width: 225px!important;
-            margin-right: 5px;
-        } */
-
         .owl-dots{
             display: none;
         }
@@ -268,44 +237,6 @@
             box-shadow: 2px 2px 5px black;
             background-color: var(--default_color)!important;
         }
-
-        /* #tab-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            width: 100%;
-        }
-
-        #tabs {
-            display: flex;
-            flex: 1;
-            flex-wrap: nowrap;
-        }
-
-        #tabs div {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            color: white;
-            padding: 5px 10px 5px 10px;
-            cursor: pointer;
-            transform-origin: center;
-            background-color: #6a6e94;
-        }
-
-        #left-arrow, #right-arrow {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            top: 50%;
-            transform: translateY(-60%);
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #4b4e6d;
-            border-radius: 50%;
-        } */
 
         #bannershow {
             width: 100%;
@@ -362,7 +293,7 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            display: inline-block;
+            display: none;
         }
 
         .loader {
@@ -517,7 +448,7 @@
         </script>
         @include('view_bannershowcase.new_preview.singlepage-part')
         @else
-        @include('view_bannershowcase.new_preview.feedback-part-new')
+        @include('view_bannershowcase.new_preview.feedback-part-new2')
         @endif
         @endif
 
