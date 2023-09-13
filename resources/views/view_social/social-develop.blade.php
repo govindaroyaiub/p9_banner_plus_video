@@ -61,7 +61,7 @@
 
         /* Style the images inside the grid */
         .column img {
-            opacity: 0.8;
+            /* opacity: 0.8; */
             cursor: pointer;
         }
 
@@ -86,6 +86,7 @@
             width: 300px;
             height: auto;
             border-radius: 10px;
+            border: 1px solid #dedede;
         }
 
         .row {

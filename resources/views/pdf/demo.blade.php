@@ -135,13 +135,13 @@
             position: absolute;
             /* display: block; */
             bottom: 10px;
-            left: 395px;
+            left: 405px;
         }
 
         .footer_text3{
             position: absolute;
             bottom: 10px;
-            left: 430px;
+            left: 440px;
             font-size: 10px;
             line-height: 2;
             color: rgb(77, 77, 79);
@@ -207,8 +207,8 @@
         </div>
         <div class="footer_text2">
             Dhaka Office<br>
-            Road 17, Rupsha Tower<br> 
-            Banani, Dhaka<br>
+            House 943, Road 14, Avenue 2<br> 
+            Mirpur DOHS, Dhaka<br>
             Bangladesh
         </div>
         <div class="footer_line2"></div>

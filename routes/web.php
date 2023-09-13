@@ -230,3 +230,5 @@ Route::get('/social-showcase', 'SocialShowcaseController@social_list')->name('so
 Route::get('/talpa', function (){
     return view('talpa_project.index');
 });
+
+Route::get('/view-previews', 'PreviewController@viewPreviews');

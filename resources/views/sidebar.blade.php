@@ -3,6 +3,9 @@
         <li class="{{ request()->is('/') || request()->is('user/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/">Dashboard</a>
         </li>
+        <li class="{{ request()->is('view-previews') || request()->is('project/view-previews/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
+                class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/view-previews">New Preview System</a>
+        </li>
         <li class="{{ request()->is('banner-showcase') || request()->is('project/banner-showcase/*') ? 'bg-primary text-white rounded-lg' : '' }}"><a
                 class="rounded-lg hover:bg-primary hover:text-white px-3 py-2 block" href="/banner-showcase">Banner Showcase</a>
         </li>
