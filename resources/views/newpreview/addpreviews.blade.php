@@ -321,5 +321,39 @@
                     $('#fileTable').html(rows);
                 }
             });
+
+            $("#socialupload").change(function() {
+                var rows = '';
+                var select = '';
+                var rowNumber = 1;
+                var files = $("#socialupload")[0].files;
+                for (var i = 0; i < files.length; i++) {
+                    var fileName = files[i].name;
+
+                    document.getElementById('fileDisplaySection').style.display = 'block';
+
+                    rows = rows + '<tr class="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
+                    rows = rows + '<td class="px-4 py-4">'+ rowNumber++ +'</td>';
+                    rows = rows + '<td class="px-4 py-4">'+ fileName +'</td>';
+                    rows = rows + '<td class="text-center py-4">';
+                    rows = rows + '<div class="mb-4">';
+                    rows = rows + '<select name="platform[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="banner_size_id" required>';
+                    rows = rows + '<option value="0" class="py-2">Select Option</option>';
+                    rows = rows + '<option value='+ 'Facebook' +' class="py-2">'+ 'Facebook' +'</option>';
+                    rows = rows + '<option value='+ 'Youtube' +' class="py-2">'+ 'Youtube' +'</option>';
+                    rows = rows + '<option value='+ 'Whatsapp' +' class="py-2">'+ 'Whatsapp' +'</option>';
+                    rows = rows + '<option value='+ 'Instagram' +' class="py-2">'+ 'Instagram' +'</option>';
+                    rows = rows + '<option value='+ 'Facebook-Messenger' +' class="py-2">'+ 'Facebook Messenger' +'</option>';
+                    rows = rows + '<option value='+ 'WeChat' +' class="py-2">'+ 'WeChat' +'</option>';
+                    rows = rows + '<option value='+ 'Tiktok' +' class="py-2">'+ 'Tiktok' +'</option>';
+                    rows = rows + '<option value='+ 'LinkedIn' +' class="py-2">'+ 'LinkedIn' +'</option>';
+                    rows = rows + '<option value='+ 'Snapchat' +' class="py-2">'+ 'Snapchat' +'</option>';
+                    rows = rows + '<option value='+ 'Twitter' +' class="py-2">'+ 'Twitter' +'</option>';
+                    rows = rows + '</select>';
+                    rows = rows + '</td>';
+                    rows = rows + '</tr>';
+                    $('#fileTable').html(rows);
+                }
+            });
         });
     </script>

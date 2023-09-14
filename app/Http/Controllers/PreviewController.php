@@ -44,6 +44,24 @@ class PreviewController extends Controller
     }
 
     function addPreviewsPost(Request $request){
-        dd($request->all());
+        if($request->project_type == 1){
+            //this is banner upload method
+            dd('this is banner');
+        }
+        else if($request->project_type == 2){
+            //this is video upload method
+            dd('this is video');
+        }
+        else if($request->project_type == 3){
+            //this is gif upload method
+            dd('this is gif');
+        }
+        else if($request->project_type == 4){
+            //this is social upload method
+            dd('this is social');
+        }
+        else{
+            return back()->with('danger', 'Pleae select correct project type');
+        }
     }
 }
