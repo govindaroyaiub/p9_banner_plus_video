@@ -232,3 +232,5 @@ Route::get('/talpa', function (){
 });
 
 Route::get('/view-previews', 'PreviewController@viewPreviews');
+Route::get('/project/preview/add', 'PreviewController@addPreviewsView');
+Route::post('/project/preview/add', 'PreviewController@addPreviewsPost');

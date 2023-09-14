@@ -17,6 +17,7 @@ class NewVersionsTable extends Migration
             $table->id();
             $table->integer('feedback_id');
             $table->string('name');
+            $table->integer('is_active')->default(1); // 1 = active, 0 = inactive
             $table->timestamps();
         });
     }
