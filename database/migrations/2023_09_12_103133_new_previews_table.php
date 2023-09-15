@@ -21,7 +21,7 @@ class NewPreviewsTable extends Migration
             $table->string('color');
             $table->integer('is_logo');
             $table->integer('is_footer');
-            $table->integer('is_version')->default(0); //0 = no verion, 1 = there are versions
+            $table->integer('is_version')->default(1); //0 = no verion, 1 = there are versions
             $table->integer('uploaded_by_user_id');
             $table->integer('uploaded_by_company_id');
             $table->timestamps();

@@ -15,6 +15,7 @@ class NewFeedbacksTable extends Migration
     {
         Schema::create('new_feedbacks_table', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->BigInteger('project_id');
             $table->integer('type_id');
             $table->integer('is_active')->default(1); // 1 = active, 0 = inactive

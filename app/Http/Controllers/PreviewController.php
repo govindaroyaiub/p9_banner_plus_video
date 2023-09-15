@@ -44,9 +44,51 @@ class PreviewController extends Controller
     }
 
     function addPreviewsPost(Request $request){
+        $project_type = $request->project_type;
         if($request->project_type == 1){
             //this is banner upload method
-            dd('this is banner');
+            if($request->hasfile('bannerupload')){
+                $logo_details = Logo::where('id', $request->logo_id)->first();
+    
+                $pro_name = $request->project_name;
+                $project_name = str_replace(" ", "_", $request->project_name);
+    
+                $goTo = Helper::getWebsiteOfLogo($request->logo_id);
+    
+                $main_project = new newPreview;
+                $main_project->name = $pro_name;
+                $main_project->client_name = $request->client_name;
+                $main_project->logo_id = $request->logo_id;
+                $main_project->color = $logo_details['default_color'];
+                $main_project->is_logo = 1;
+                $main_project->is_footer = $request->is_footer;
+                $main_project->is_version = 0;
+                $main_project->uploaded_by_user_id = Auth::user()->id;
+                $main_project->uploaded_by_company_id = Auth::user()->company_id;
+                $main_project->save();
+
+                $projectType = new newPreviewType;
+                $projectType->project_id = $main_project->id;
+                $projectType->project_type = $project_type;
+                $projectType->save();
+    
+                $feedback = new newFeedback;
+                $feedback->project_id = $main_project->id;
+                $feedback->name = $request->feedback_name;
+                $feedback->type_id = $project_type;
+                $feedback->description = $request->feedback_description;
+                $feedback->is_active = 1;
+                $feedback->save();
+    
+                $version = new newVersion;
+                $version->name = $request->version_name;
+                $version->feedback_id = $feedback->id;
+                $version->is_active = 1;
+                $version->save();
+    
+                $banner_size = $request->banner_size_id;
+                $upload = $request->upload;
+            }
         }
         else if($request->project_type == 2){
             //this is video upload method
