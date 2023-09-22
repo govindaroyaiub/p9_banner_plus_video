@@ -52,7 +52,7 @@
                         </td>
                         @endif
                         <td class="border px-4 py-2"  width="270px" max-width="290px">
-                            <a href="/project/banner-showcase/view/{{$row->id}}" target="_blank">
+                            <a href="/project/preview/view/{{$row->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-primary text-gray-200 rounded px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,7 +62,7 @@
                                 </button>
                             </a>
                         
-                            <a href="/project/banner-showcase/edit/{{ $row->id }}">
+                            <a href="/project/preview/edit/{{ $row->id }}">
                                 <button type="button"
                                     class="bg-blue-600 text-gray-200 rounded hover:bg-blue-500 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,7 +71,7 @@
                                 </button>
                             </a>
 
-                            <a href="/project/banner-showcase/delete/{{$row->id}}" onclick="return confirm('Are you sure you want to delete this project?');">
+                            {{-- <a href="/project/banner-showcase/delete/{{$row->id}}" onclick="return confirm('Are you sure you want to delete this project?');">
                                 <button type="button"
                                     class="bg-red-500 text-gray-200 rounded hover:bg-red-400 px-4 py-2 focus:outline-none">
                                     <svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -89,7 +89,7 @@
                                       </svg>                                      
                                 </button>
                             </a>
-                            @endif
+                            @endif --}}
                         </td>
                     </tr>
                     @endforeach

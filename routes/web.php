@@ -231,6 +231,10 @@ Route::get('/talpa', function (){
     return view('talpa_project.index');
 });
 
+Route::get('/project/preview/view/{id}', 'ViewController@view');
+
 Route::get('/view-previews', 'PreviewController@viewPreviews');
 Route::get('/project/preview/add', 'PreviewController@addPreviewsView');
 Route::post('/project/preview/add', 'PreviewController@addPreviewsPost');
+Route::get('/project/preview/edit/{id}', 'PreviewController@editPreviewView');
+Route::post('/project/preview/edit/{id}', 'PreviewController@editPreviewPost');

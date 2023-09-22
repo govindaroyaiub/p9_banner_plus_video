@@ -18,6 +18,7 @@ use App\AllVideos;
 use App\AllGifs;
 use App\AllSocials;
 use App\CreativeCategories;
+use App\newPreview;
 
 class Helper
 {
@@ -59,6 +60,11 @@ class Helper
 
     public static function getProjectColor($id){
         $data = MainProject::where('id', $id)->first();
+        return $data['color'];
+    }
+
+    public static function getProjectColor2($id){
+        $data = newPreview::where('id', $id)->first();
         return $data['color'];
     }
 
@@ -186,6 +192,11 @@ class Helper
 
     public static function getProjectCreationDate($id){
         $data = MainProject::where('id', $id)->first();
+        return $data['created_at'];
+    }
+
+    public static function getProjectCreationDate2($id){
+        $data = newPreview::where('id', $id)->first();
         return $data['created_at'];
     }
 
