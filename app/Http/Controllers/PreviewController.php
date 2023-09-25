@@ -127,6 +127,8 @@ class PreviewController extends Controller
                     }
                 }
             }
+
+            return redirect('/project/preview/view/'.$main_project->id);
         }
         else if($request->project_type == 2){
             //this is video upload method

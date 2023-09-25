@@ -1,0 +1,424 @@
+:root {
+    --default_color: {{ $project_color }}
+}
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+box-shadow: inset 0 0 5px grey; 
+border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #4b4e6d;
+border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #6a6e94; 
+}
+
+section {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+section .content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    padding-bottom: 5rem;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #4b4e6d;
+    border-radius: 0 0 50% 50%/0 0 100% 100%;
+    transform: scaleX(1.3);
+}
+
+.single-div {
+    display: inline-block;
+}
+
+#planetnineLogo {
+    width: 100%;
+    max-width: 80%;
+}
+
+#polygon {
+    position: absolute;
+    top: -30%;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    min-width: 500px;
+    transform-origin: center;
+}
+
+.custom-radius {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.feedback-bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    color: white;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    section .content {
+        position: relative;
+        z-index: 1;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        padding-bottom: 2rem;
+    }
+
+    #polygon {
+        display: none;
+    }
+
+    #topDetails {
+        text-align: center;
+        font-size: 13px;
+        padding-left: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    #planetnineLogo {
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 0
+    }
+
+    #preview-shapes{
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    section .content {
+        position: relative;
+        z-index: 1;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        padding-bottom: 7rem;
+    }
+
+    #polygon {
+        max-width: 300px;
+        min-width: 300px;
+        top: 0;
+    }
+
+    #topDetails {
+        padding-left: 0;
+    }
+    
+    #preview-shapes{
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    #polygon {
+        max-width: 400px;
+        min-width: 400px;
+    }
+
+    #topDetails {
+        padding-top: 1rem;
+    }
+
+    #preview-shapes{
+        display: none;
+    }
+}
+
+#loaderArea {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+}
+
+.loader {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    border-bottom-color: var(--default_color);
+    border-right-color: var(--default_color);
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    background-color: #4b4e6d;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    text-align: center;
+}
+
+#menuToggle
+{
+    display: block;
+    position: relative;
+    top: 50px;
+    left: 50px;
+
+    z-index: 1;
+
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#menuToggle a
+{
+    text-decoration: none;
+    color: #232323;
+
+    transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+    color: tomato;
+}
+
+
+#menuToggle input
+{
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+    cursor: pointer;
+    opacity: 0; /* hide this */
+    z-index: 2; /* and place it over the hamburger */
+    -webkit-touch-callout: none;
+}
+
+/*
+* Just a quick hamburger
+*/
+#menuToggle span
+{
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+
+    background: #cdcdcd;
+    border-radius: 3px;
+
+    z-index: 1;
+
+    transform-origin: 4px 0px;
+
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+            background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+            opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+    transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+    transform-origin: 0% 100%;
+}
+
+/* 
+* Transform all the slices of hamburger
+* into a crossmark.
+*/
+#menuToggle input:checked ~ span
+{
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+}
+
+/*
+* But let's hide the middle one.
+*/
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+* Ohyeah and the last one should go the other direction
+*/
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+    transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+* Make this absolute positioned
+* at the top left of the screen
+*/
+#menu
+{
+    position: absolute;
+    width: 300px;
+    margin: -100px 0 0 -50px;
+    padding: 50px;
+    padding-top: 125px;
+
+    background: #ededed;
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+    /* to stop flickering of text in safari */
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+    padding: 10px 0;
+    font-size: 22px;
+}
+
+/*
+* And let's slide it in from the left
+*/
+#menuToggle input:checked ~ ul
+{
+    transform: none;
+}
+
+#bannershow {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--default_color);
+    border-top-width: medium;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    /* align-items: center; */
+    overflow: hidden;
+    min-height: 320px;
+}
+
+#feedbackInfo {
+    position: relative;
+    display: block;
+    width: fit-content;
+    height: auto;
+    border: 1px solid;
+    color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-color: #4b4e6d;
+    border-color: #4b4e6d;
+}
+
+#feedbackLabel {
+    padding: 20px;
+    word-break: break-word;
+}
+
+#bannerShowcase {
+    margin-top: 10px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}

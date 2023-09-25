@@ -24,7 +24,7 @@ class ViewController extends Controller
 {
     function view($id){
         $main_project_id = $id;
-        $main_project_info = newPreview::join('logo', 'new_previews_table.logo_id', 'logo.id')
+        $info = newPreview::join('logo', 'new_previews_table.logo_id', 'logo.id')
                                         ->select(
                                             'new_previews_table.name as name',
                                             'new_previews_table.client_name',
@@ -43,8 +43,8 @@ class ViewController extends Controller
                                         ->first();
 
         return view('newpreview.index', compact(
-            'main_project_info',
+            'info',
             'main_project_id'
-        ));                                 
+        ));
     }
 }
