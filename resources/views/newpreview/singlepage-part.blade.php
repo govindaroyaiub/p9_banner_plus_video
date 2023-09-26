@@ -12,8 +12,33 @@
 <script>
     //first know the type of the project
     document.getElementById('loaderArea').style.display = 'block';
+    checkType();
     getFeedbackName();
-    getBannersData();
+
+    function checkType(){
+        axios.get('/getProjectType/'+ {{ $main_project_id }})
+        .then(function (response){
+            if(response.data == 1){
+                //project_type 1 == banner
+                getBannersData();
+            }
+            else if(response.data == 2){
+                //project_type 2 == video
+                getVideoData();
+            }
+            else if(response.data == 3){
+                //project_type 3 == gif
+                getGifData();
+            }
+            else{
+                //project_type 4 or else == social
+                getSocialData();
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
     
     function getFeedbackName(){
         axios.get('/getNewFeedbackName/'+ {{ $main_project_id }})
@@ -65,6 +90,18 @@
 
     function reload(bannerReloadID) {
         document.getElementById("rel"+bannerReloadID).src += '';
+    }
+
+    function getVideoData(){
+        console.log('Video');
+    }
+
+    function getGifData(){
+        console.log('Gif');
+    }
+
+    function getSocialData(){
+        console.log('Social');
     }
     
 </script>

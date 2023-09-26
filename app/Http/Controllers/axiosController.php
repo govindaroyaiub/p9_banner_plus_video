@@ -21,6 +21,11 @@ use Carbon\Carbon;
 
 class axiosController extends Controller
 {
+    function getProjectType(Request $request, $id){
+        $data = newPreviewType::where('project_id', $id)->first();
+        return $data['project_type'];
+    }
+
     function getNewFeedbackName(Request $request, $id){
         $feedback = newFeedback::where('project_id', $id)->first();
         return $feedback['description'].' '.Carbon::parse($feedback['created_at'])->format('d.m.Y');

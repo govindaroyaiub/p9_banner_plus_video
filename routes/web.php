@@ -239,5 +239,6 @@ Route::post('/project/preview/add', 'PreviewController@addPreviewsPost');
 Route::get('/project/preview/edit/{id}', 'PreviewController@editPreviewView');
 Route::post('/project/preview/edit/{id}', 'PreviewController@editPreviewPost');
 
+Route::get('/getProjectType/{id}', 'axiosController@getProjectType');
 Route::get('/getNewFeedbackName/{id}', 'axiosController@getNewFeedbackName');
 Route::get('/getNewBannersData/{id}', 'axiosController@getNewBannersData');
