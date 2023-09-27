@@ -47,7 +47,7 @@
         .then(function (response){
             var row = '';
             $.each(response.data.versions, function (key, value) {
-                row = row + value.name;
+                row = row + '<div style="margin-left: 2px; padding: 5px 35px 5px 35px; border: 1px solid #4b4e6d; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
             });
 
             assignBannerFeedbackSettings(response.data.isActiveVersion['id']);

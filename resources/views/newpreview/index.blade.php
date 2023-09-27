@@ -114,13 +114,9 @@
         </div>
 
         <br>
-        <br>
 
         <div id="showcase-section" class="mx-auto container mt-2">
-            <div class="versions">
-                <div>Version 1</div>
-                <div>Version 2</div>
-            </div>
+            <div class="versions" style="display: flex; justify-content: center; flex-direction: row;"></div>
             <div id="showcase"  style="border: 2px solid #4b4e6d; border-radius: 6px; width: 100%; height: auto; overflow: hidden;">
                 @if($info['is_version'] == 0)
                     @include('newpreview.singlepage-part')
