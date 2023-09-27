@@ -45,4 +45,16 @@ class axiosController extends Controller
                             ->get();
         return $banners;
     }
+
+    function deleteBanner(Request $request, $id){
+        $banner = newBanner::where('id', $id)->first();
+        $file_path = public_path() . '/new_showcase_collection/' . $banner['file_path'];
+        if(file_exists($file_path)){
+            // unlink('banner_collection/' . $sub_project['file_path']);
+            $files = File::deleteDirectory($file_path);    
+        }
+        newBanner::where('id', $id)->delete();
+        
+        return 200;
+    }
 }

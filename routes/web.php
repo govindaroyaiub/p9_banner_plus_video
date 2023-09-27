@@ -239,6 +239,11 @@ Route::post('/project/preview/add', 'PreviewController@addPreviewsPost');
 Route::get('/project/preview/edit/{id}', 'PreviewController@editPreviewView');
 Route::post('/project/preview/edit/{id}', 'PreviewController@editPreviewPost');
 
+Route::get('/project/preview/banner/edit/{id}', 'PreviewController@bannerEditView');
+Route::post('/project/preview/banner/edit/{id}', 'PreviewController@bannerEditPost');
+Route::get('/project/preview/banner/download/{id}', 'PreviewController@bannerDownload');
+
 Route::get('/getProjectType/{id}', 'axiosController@getProjectType');
 Route::get('/getNewFeedbackName/{id}', 'axiosController@getNewFeedbackName');
 Route::get('/getNewBannersData/{id}', 'axiosController@getNewBannersData');
+Route::get('/deleteBanner/{id}', 'axiosController@deleteBanner');

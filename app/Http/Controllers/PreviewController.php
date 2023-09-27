@@ -173,4 +173,119 @@ class PreviewController extends Controller
         newPreview::where('id', $project_id)->update($main_project_details);
         return redirect('/view-previews')->with('success', $project_name . ' has been updated!');
     }
+
+    function bannerEditView($id){
+        $sub_project_id = $id;
+        $sub_project_info = newBanner::where('id', $id)->first();
+        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+        return view('newpreview.banner.banner_edit', compact('sub_project_info', 'size_list', 'sub_project_id'));
+    }
+
+    function bannerEditPost(Request $request, $id){
+        $validator = $request->validate([
+            'upload' => 'required|file|mimes:zip'
+        ]);
+
+        if($request->banner_size_id != 0)
+        {
+            $banner_id = $id;
+            $banner_info = newBanner::where('id', $banner_id)->first();
+            $old_file_directory = public_path() . '/new_showcase_collection/' . $banner_info['file_path'];
+            
+            if(file_exists($old_file_directory)){
+                // unlink('banner_collection/' . $banner_info['file_path']);
+                $files = File::deleteDirectory($old_file_directory);
+            }
+
+            $version_info = newVersion::where('id', $banner_info['version_id'])->first();
+            $feedback_info = newFeedback::where('id', $version_info['feedback_id'])->first();
+            $project_info = newPreview::where('id', $feedback_info['project_id'])->first();
+            $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
+            $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
+    
+            $file_name = $sub_project_name . '_' . time() . rand() . '.' . $request->upload->extension();
+            $request->upload->move(public_path('new_showcase_collection'), $file_name);
+            $file_bytes = filesize(public_path('/new_showcase_collection/' . $file_name));
+    
+            $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+            for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+            $file_size = round($file_bytes, 2) . " " . $label[$i];
+
+            $newFileName = str_replace(".zip", "", $file_name);
+    
+            $sub_project_details = [
+                'name' => $sub_project_name,
+                'size_id' => $request->banner_size_id,
+                'size' => $file_size,
+                'file_path' => $newFileName
+            ];
+    
+            newBanner::where('id', $banner_id)->update($sub_project_details);
+    
+            $zip = new ZipArchive();
+            $file_path = str_replace(".zip", "", $file_name);
+            $directory = 'new_showcase_collection/' . $file_path;
+            if (!is_dir($directory)) {
+                if ($zip->open('new_showcase_collection/' . $file_name) === TRUE) {
+                    // Unzip Path
+                    $zip->extractTo($directory);
+                    $zip->close();
+                }
+                unlink('new_showcase_collection/' . $file_name);
+            }
+            return redirect('/project/preview/view/' . $project_info['id']);
+        }
+        else
+        {
+            return back()->with('danger', 'Please Select Size First!');
+        }
+    }
+
+    public function bannerDownload($id){
+        $banner = newBanner::where('id', $id)->first();
+        $file_name = $banner['file_path'].'.zip';
+        $source = public_path('new_showcase_collection/'.$banner['file_path']);
+        $destination = $source;
+        $zipcreation = $this->zip_creation($source, $destination);
+        return response()->download(public_path('new_showcase_collection/'.$file_name))->deleteFileAfterSend(true);
+    }
+
+    public function zip_creation($source, $destination){
+        $dir = opendir($source);
+        $result = ($dir === false ? false : true);
+    
+        if ($result !== false) {
+            $rootPath = realpath($source);
+             
+            // Initialize archive object
+            $zip = new ZipArchive();
+            $zipfilename = $destination.".zip";
+            $zip->open($zipfilename, ZipArchive::CREATE | ZipArchive::OVERWRITE );
+             
+            // Create recursive directory iterator
+            /** @var SplFileInfo[] $files */
+            $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($rootPath), \RecursiveIteratorIterator::LEAVES_ONLY);
+             
+            foreach ($files as $name => $file)
+            {
+                // Skip directories (they would be added automatically)
+                if (!$file->isDir())
+                {
+                    // Get real and relative path for current file
+                    $filePath = $file->getRealPath();
+                    $relativePath = substr($filePath, strlen($rootPath) + 1);
+             
+                    // Add current file to archive
+                    $zip->addFile($filePath, $relativePath);
+                }
+            }
+             
+            // Zip archive will be created only after closing object
+            $zip->close();
+            
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 }
