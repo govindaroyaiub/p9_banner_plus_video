@@ -33,7 +33,7 @@ class axiosController extends Controller
     }
 
     function getNewFeedbackName(Request $request, $id){
-        $feedback = newFeedback::where('project_id', $id)->first();
+        $feedback = newFeedback::find($id);
         return $feedback['name'].' '.Carbon::parse($feedback['created_at'])->format('d.m.Y');
     }
 
@@ -65,9 +65,11 @@ class axiosController extends Controller
 
     function getVersionsFromFeedback(Request $request, $id){
         $versions = newVersion::where('feedback_id', $id)->get();
+        $versionCount = $versions->count();
         $isActiveVersion = newVersion::where('feedback_id', $id)->where('is_active', 1)->first();
         return $data = [
             'versions' => $versions,
+            'versionCount' => $versionCount,
             'isActiveVersion' => $isActiveVersion
         ];
     }

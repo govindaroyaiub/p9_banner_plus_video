@@ -14,7 +14,6 @@
 
     $(document).ready(function(){
         checkType();
-        getFeedbackName();
     });
 
     function checkType(){
@@ -45,13 +44,24 @@
     function checkBannerVersions(feedback_id){
         axios.get('/getVersionsFromFeedback/'+ feedback_id)
         .then(function (response){
-            var row = '';
-            $.each(response.data.versions, function (key, value) {
-                row = row + '<div style="margin-left: 2px; padding: 5px 35px 5px 35px; border: 1px solid #4b4e6d; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
-            });
+            var isActive;
 
+            if(response.data.versionCount > 1){
+                var row = '';
+                $.each(response.data.versions, function (key, value) {
+                    if(value.id == response.data.isActiveVersion['id']){
+                        isActive = ' versionTabActive';
+                    }
+                    else{
+                        isActive = '';
+                    }
+                    row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" style="margin-left: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
+                });
+            }
+            
             assignBannerFeedbackSettings(response.data.isActiveVersion['id']);
             getBannersData(response.data.isActiveVersion['id']);
+            getFeedbackName(feedback_id);
 
             $('.versions').html(row);
         })
@@ -60,8 +70,8 @@
         })
     }
     
-    function getFeedbackName(){
-        axios.get('/getNewFeedbackName/'+ {{ $main_project_id }})
+    function getFeedbackName(feedback_id){
+        axios.get('/getNewFeedbackName/'+ feedback_id)
         .then(function (response){
             $('#feedbackLabel').html(response.data);
         })
