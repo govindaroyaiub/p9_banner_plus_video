@@ -23,17 +23,21 @@ class axiosController extends Controller
 {
     function getProjectType(Request $request, $id){
         $data = newPreviewType::where('project_id', $id)->first();
-        return $data['project_type'];
+        $feedback = newFeedback::where('project_id', $id)->first();
+        $version = newVersion::where('feedback_id', $feedback['id'])->first();
+        return $data = [
+            'project_type' => $data['project_type'],
+            'feedback_id' => $feedback['id'],
+            'version_id' => $version['id']
+        ];
     }
 
     function getNewFeedbackName(Request $request, $id){
         $feedback = newFeedback::where('project_id', $id)->first();
-        return $feedback['description'].' '.Carbon::parse($feedback['created_at'])->format('d.m.Y');
+        return $feedback['name'].' '.Carbon::parse($feedback['created_at'])->format('d.m.Y');
     }
 
     function getNewBannersData(Request $request, $id){
-        $feedback = newFeedback::where('project_id', $id)->first();
-        $version = newVersion::where('feedback_id', $feedback['id'])->first();
         $banners = newBanner::join('banner_sizes', 'banner_sizes.id', 'new_banners_table.size_id')
                             ->select(
                                 'new_banners_table.id', 
@@ -42,6 +46,7 @@ class axiosController extends Controller
                                 'new_banners_table.size',
                                 'new_banners_table.file_path',
                                 'new_banners_table.version_id')
+                            ->where('new_banners_table.version_id', $id)
                             ->get();
         return $banners;
     }
@@ -56,5 +61,14 @@ class axiosController extends Controller
         newBanner::where('id', $id)->delete();
         
         return 200;
+    }
+
+    function getVersionsFromFeedback(Request $request, $id){
+        $versions = newVersion::where('feedback_id', $id)->get();
+        $isActiveVersion = newVersion::where('feedback_id', $id)->where('is_active', 1)->first();
+        return $data = [
+            'versions' => $versions,
+            'isActiveVersion' => $isActiveVersion
+        ];
     }
 }

@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
-    integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <div id="bannershow" class="relative">
     <div id="feedbackInfo"><label for="feedbackInfo" id="feedbackLabel"></label></div>
+    <div style="z-index: 999; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; justify-content: center; padding: 10px;">
+        <div id="feedbackSettings"></div>
+    </div>
+    <br>
     <div id="bannerShowcase"></div>
     <br>
 </div>
@@ -20,15 +20,15 @@
     function checkType(){
         axios.get('/getProjectType/'+ {{ $main_project_id }})
         .then(function (response){
-            if(response.data == 1){
+            if(response.data.project_type == 1){
                 //project_type 1 == banner
-                getBannersData();
+                checkBannerVersions(response.data.feedback_id);
             }
-            else if(response.data == 2){
+            else if(response.data.project_type == 2){
                 //project_type 2 == video
                 getVideoData();
             }
-            else if(response.data == 3){
+            else if(response.data.project_type == 3){
                 //project_type 3 == gif
                 getGifData();
             }
@@ -36,6 +36,24 @@
                 //project_type 4 or else == social
                 getSocialData();
             }
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    function checkBannerVersions(feedback_id){
+        axios.get('/getVersionsFromFeedback/'+ feedback_id)
+        .then(function (response){
+            var row = '';
+            $.each(response.data.versions, function (key, value) {
+                row = row + value.name;
+            });
+
+            assignBannerFeedbackSettings(response.data.isActiveVersion['id']);
+            getBannersData(response.data.isActiveVersion['id']);
+
+            $('.versions').html(row);
         })
         .catch(function (error) {
             console.log(error);
@@ -52,9 +70,28 @@
         })
     }
 
-    function getBannersData(){
-        axios.get('/getNewBannersData/'+ {{ $main_project_id }})
+    function assignBannerFeedbackSettings(version_id){
+        rows = '';
+            
+        rows = rows + '<div>';
+            rows = rows + '@if(Auth::check())';
+                rows = rows + '@if(Auth::user()->company_id == 7) ';
+                rows = rows + '@else';
+                    rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                        rows = rows + '<a href="/project/preview/banner/add/version/'+ version_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-plus"></i></a>';
+                        rows = rows + '<a href="/project/preview/banner/edit/version/'+ version_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
+                    rows = rows + '</div>';
+                rows = rows + '@endif';
+            rows = rows + '@endif';
+        rows = rows + '</div>';
+
+        $('#feedbackSettings').html(rows);
+    }
+
+    function getBannersData(version_id){
+        axios.get('/getNewBannersData/'+ version_id)
         .then(function (response){
+            console.log(response);
             var row = '';
 
             $.each(response.data, function (key, value) {
@@ -91,17 +128,35 @@
     }
 
     function confirmDeleteBanner(id) {
-        if(confirm('SLOW DOWN HOTSHOT! Are you sure you want to delete this banner?!')){
-            axios.get('/deleteBanner/'+ id)
-            .then(function (response){
-                if(response.data == 200){
-                    getBannersData();
-                }
-            })
-            .catch(function (error){
-                console.log(error);
-            })
-        }
+        Swal.fire({
+            title: 'Are you sure you want to delete this banner?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Maybe I will think About It`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteBanner/'+ id)
+                .then(function (response){
+                    if(response.data == 200){
+                        getBannersData();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Banner Has Been Deleted!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
+        })
     }
 
     function reload(bannerReloadID) {

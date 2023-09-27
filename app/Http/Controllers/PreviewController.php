@@ -288,4 +288,84 @@ class PreviewController extends Controller
             return FALSE;
         }
     }
+
+    function bannerAddVersionView($id){
+        $version_id = $id;
+        $version = newVersion::find($id);
+        $feedback = newFeedback::where('id', $version['feedback_id'])->first();
+        $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        $versionCount = newVersion::where('feedback_id', $feedback['id'])->count();
+        return view('newpreview.banner.bannerversionaddon', compact('size_list', 'version', 'feedback', 'versionCount', 'version_id'));
+    }
+
+    function bannerAddVersionPost(Request $request, $id){
+        $version_id = $id;
+        $version = newVersion::find($id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        $project_id = $feedback['project_id'];
+        $project = newPreview::find($project_id);
+        $project_name = str_replace(" ", "_", $project['name']);
+
+        if($request->version_request == 1){
+            $version_id = $id;
+        }
+        else if($request->version_request == 2){
+            $version = new newVersion;
+            $version->name = $request->version_name;
+            $version->feedback_id = $feedback['id'];
+            $version->is_active = 1;
+            $version->save();
+
+            $version_id = $version->id;
+
+            $exceptionVersions = newVersion::select('id')->where('id', '!=', $version_id)->get()->toArray();
+            newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+        }
+        else{
+            return back()->with('danger', 'Please Select Correct Option!');
+        }
+
+        if($request->hasfile('bannerupload')){
+            $banner_size = $request->banner_size_id;
+            $bannerupload = $request->bannerupload;
+
+            foreach($banner_size as $index => $size){
+                $removeX = explode("x", $size);
+                $request_width = $removeX[0];
+                $request_height = $removeX[1];
+                $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
+        
+                $file_name = $sub_project_name . '_' . time() . rand() . '.' . $bannerupload[$index]->extension();
+                $bannerupload[$index]->move(public_path('new_showcase_collection/'), $file_name);
+                $file_bytes = filesize(public_path('new_showcase_collection/' . $file_name));
+        
+                $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                $file_size = round($file_bytes, 2) . " " . $label[$i];
+        
+                $banner = new newBanner;
+                $banner->name = $sub_project_name;
+                $banner->size = $file_size;
+                $newFileName = str_replace(".zip", "", $file_name);
+                $banner->file_path = $newFileName;
+                $banner->size_id = $size_info['id'];
+                $banner->version_id = $version_id;
+                $banner->save();
+
+                $zip = new ZipArchive();
+                $file_path = str_replace(".zip", "", $file_name);
+                $directory = 'new_showcase_collection/' . $file_path;
+                if (!is_dir($directory)) {
+                    if ($zip->open('new_showcase_collection/' . $file_name) === TRUE) {
+                        // Unzip Path
+                        $zip->extractTo($directory);
+                        $zip->close();
+                    }
+                    unlink('new_showcase_collection/' . $file_name);
+                }
+            }
+        }
+        return redirect('/project/preview/view/'.$project_id);
+    }
 }

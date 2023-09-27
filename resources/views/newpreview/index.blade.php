@@ -13,8 +13,17 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/preview.css') }}" rel="stylesheet">
+
     <?php $project_color = Helper::getProjectColor2($main_project_id) ?>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+        integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+        integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="font-body">
@@ -107,30 +116,35 @@
         <br>
         <br>
 
-        <div id="showcase" class="mx-auto container mt-2" style="border: 2px solid #4b4e6d; border-radius: 6px; width: 100%; height: auto; overflow: hidden;">
-            @if($info['is_version'] == 0)
-                @include('newpreview.singlepage-part')
-            @else
-            <nav role="navigation">
-                <div id="menuToggle">
-                    <input type="checkbox" />
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <ul id="menu">
-                        <a href="#"><li>Home</li></a>
-                        <a href="#"><li>About</li></a>
-                        <a href="#"><li>Info</li></a>
-                        <a href="#"><li>Contact</li></a>
-                        <a href="https://erikterwan.com/" target="_blank"><li>Show me more</li></a>
-                    </ul>
-                </div>
-            </nav>
-            @endif
+        <div id="showcase-section" class="mx-auto container mt-2">
+            <div class="versions">
+                <div>Version 1</div>
+                <div>Version 2</div>
+            </div>
+            <div id="showcase"  style="border: 2px solid #4b4e6d; border-radius: 6px; width: 100%; height: auto; overflow: hidden;">
+                @if($info['is_version'] == 0)
+                    @include('newpreview.singlepage-part')
+                @else
+                <nav role="navigation">
+                    <div id="menuToggle">
+                        <input type="checkbox" />
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <ul id="menu">
+                            <a href="#"><li>Home</li></a>
+                            <a href="#"><li>About</li></a>
+                            <a href="#"><li>Info</li></a>
+                            <a href="#"><li>Contact</li></a>
+                            <a href="https://erikterwan.com/" target="_blank"><li>Show me more</li></a>
+                        </ul>
+                    </div>
+                </nav>
+                @endif
+            </div>
         </div>
 
-        
-
+        <br>
         <footer class="footer">
             <div class="container mx-auto px-4 py-4 text-white text-center">&copy; All Right Reserved. <a
                     href="{{ Helper::getCompanyWebsite($info->uploaded_by_company_id) }}" target="_blank"
@@ -140,10 +154,6 @@
     </main>
 </body>
 
-<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
-    integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
-<script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" integrity="sha512-9CWGXFSJ+/X0LWzSRCZFsOPhSfm6jbnL+Mpqo0o8Ke2SYr8rCTqb4/wGm+9n13HtDE1NQpAEOrMecDZw4FXQGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     var masterTimeline = gsap.timeline();
 
