@@ -53,6 +53,7 @@ class axiosController extends Controller
 
     function deleteBanner(Request $request, $id){
         $banner = newBanner::where('id', $id)->first();
+        $version = $banner['version_id'];
         $file_path = public_path() . '/new_showcase_collection/' . $banner['file_path'];
         if(file_exists($file_path)){
             // unlink('banner_collection/' . $sub_project['file_path']);
@@ -60,7 +61,9 @@ class axiosController extends Controller
         }
         newBanner::where('id', $id)->delete();
         
-        return 200;
+        return $data = [
+            'version_id' => $version
+        ];
     }
 
     function getVersionsFromFeedback(Request $request, $id){

@@ -158,16 +158,14 @@
             if (result.isConfirmed) {
                 axios.get('/deleteBanner/'+ id)
                 .then(function (response){
-                    if(response.data == 200){
-                        getBannersData();
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Banner Has Been Deleted!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }
+                    updateActiveVersion(response.data.version_id);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Banner Has Been Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 })
                 .catch(function (error){
                     console.log(error);
