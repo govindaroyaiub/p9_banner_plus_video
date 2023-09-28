@@ -10,8 +10,6 @@
 
 <script>
     //first know the type of the project
-    document.getElementById('loaderArea').style.display = 'block';
-
     $(document).ready(function(){
         checkType();
     });
@@ -55,7 +53,7 @@
                     else{
                         isActive = '';
                     }
-                    row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" style="margin-left: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
+                    row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateActiveVersion('+ value.id +')" style="margin-left: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
                 });
             }
             
@@ -64,6 +62,16 @@
             getFeedbackName(feedback_id);
 
             $('.versions').html(row);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    function updateActiveVersion(version_id){
+        axios.get('/setActiveVersion/' + version_id)
+        .then(function (response){
+            checkBannerVersions(response.data.feedback_id);
         })
         .catch(function (error) {
             console.log(error);
@@ -99,6 +107,7 @@
     }
 
     function getBannersData(version_id){
+        document.getElementById('loaderArea').style.display = 'block';
         axios.get('/getNewBannersData/'+ version_id)
         .then(function (response){
             console.log(response);

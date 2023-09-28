@@ -73,4 +73,16 @@ class axiosController extends Controller
             'isActiveVersion' => $isActiveVersion
         ];
     }
+
+    function setActiveVersion(Request $request, $id){
+        $version = newVersion::find($id);
+        $feedback = newFeedback::where('id', $version['feedback_id'])->first();
+        newVersion::where('id', $id)->update(['is_active' => 1]);
+        $exceptionVersions = newVersion::select('id')->where('id', '!=', $id)->get()->toArray();
+        newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+
+        return $data = [
+            'feedback_id' => $feedback['id']
+        ];
+    }
 }

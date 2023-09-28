@@ -251,3 +251,4 @@ Route::get('/getNewFeedbackName/{id}', 'axiosController@getNewFeedbackName');
 Route::get('/getNewBannersData/{id}', 'axiosController@getNewBannersData');
 Route::get('/deleteBanner/{id}', 'axiosController@deleteBanner');
 Route::get('/getVersionsFromFeedback/{id}', 'axiosController@getVersionsFromFeedback');
+Route::get('/setActiveVersion/{id}', 'axiosController@setActiveVersion');
