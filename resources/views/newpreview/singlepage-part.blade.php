@@ -107,7 +107,7 @@
     }
 
     function getBannersData(version_id){
-        document.getElementById('loaderArea').style.display = 'block';
+        document.getElementById('loaderArea').style.display = 'flex';
         axios.get('/getNewBannersData/'+ version_id)
         .then(function (response){
             console.log(response);
@@ -142,7 +142,7 @@
             console.log(error);
         })
         .finally(function(){
-            document.getElementById('loaderArea').style.display = 'none';
+            document.getElementById('loaderArea').style.display = 'flex';
         })
     }
 
