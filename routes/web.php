@@ -245,6 +245,8 @@ Route::get('/project/preview/banner/download/{id}', 'PreviewController@bannerDow
 
 Route::get('/project/preview/banner/add/version/{id}', 'PreviewController@bannerAddVersionView');
 Route::post('/project/preview/banner/add/version/{id}', 'PreviewController@bannerAddVersionPost');
+Route::get('/project/preview/banner/edit/version/{id}', 'PreviewController@bannerEditVersionView');
+Route::post('/project/preview/banner/edit/version/{id}', 'PreviewController@bannerEditVersionPost');
 
 Route::get('/getProjectType/{id}', 'axiosController@getProjectType');
 Route::get('/getNewFeedbackName/{id}', 'axiosController@getNewFeedbackName');
@@ -252,3 +254,4 @@ Route::get('/getNewBannersData/{id}', 'axiosController@getNewBannersData');
 Route::get('/deleteBanner/{id}', 'axiosController@deleteBanner');
 Route::get('/getVersionsFromFeedback/{id}', 'axiosController@getVersionsFromFeedback');
 Route::get('/setActiveVersion/{id}', 'axiosController@setActiveVersion');
+Route::get('/deleteBannerVersion/{id}', 'axiosController@deleteBannerVersion');

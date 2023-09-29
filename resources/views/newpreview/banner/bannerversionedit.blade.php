@@ -6,28 +6,19 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h3 class="text-xl font-semibold tracking-wide mt-2">Add Banner To Version</h3>
+            <h3 class="text-xl font-semibold tracking-wide mt-2">Edit Banner To Version</h3>
             <br>
 
-            <h3 class="text-xl font-semibold tracking-wide" style="color: red;">Inserting Banners into {{ $feedback['name'] }} > {{ $version['name'] }}</h3>
+            <h3 class="text-xl font-semibold tracking-wide" style="color: red;">Updating Banners into {{ $feedback['name'] }} > {{ $version['name'] }}</h3>
             <br>
 
             <form id="project-add-form" class="max-w-xl" method="POST"
-                action="/project/preview/banner/add/version/{{ $version_id }}" enctype="multipart/form-data">
+                action="/project/preview/banner/edit/version/{{ $version['id'] }}" enctype="multipart/form-data">
                 @csrf
                 {{-- Drag and Drop --}}
-                <div>
-                    <label class="text-primary font-light block">Select Option to Upload</label>
-                    <select name="version_request" id="version_request" required
-                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
-                        <option value="0" class="py-2">Select Option</option>
-                        <option value="1" class="py-2">Upload to Existing</option>
-                        <option value="2" class="py-2">Add as New version</option>
-                    </select>
-                </div>
-
-                <input type='text' placeholder="Version {{ $versionCount++ }}" name="version_name" value="Version {{ $versionCount++ }}" id="version_name"
-                               class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
+                
+                <input type='text' name="version_name" value="{{ $version['name'] }}" id="version_name"
+                               class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                                required/>
 
                 <div
@@ -81,15 +72,6 @@
 <script>
 
     $(document).ready(function () {
-        $('#version_request').change(function(){
-            var value = $(this).val();
-            if(value == 2){
-                document.getElementById('version_name').style.display = "block";
-            }
-            else{
-                document.getElementById('version_name').style.display = "none";
-            }
-        });
 
         $("#bannerupload").change(function () {
             var rows = '';

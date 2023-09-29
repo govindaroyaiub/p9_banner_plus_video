@@ -53,15 +53,18 @@
                     else{
                         isActive = '';
                     }
-                    row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateActiveVersion('+ value.id +')" style="margin-left: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
+                    row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateActiveVersion('+ value.id +')" style="margin-left: 2px; margin-right: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
                 });
             }
-            
+            else{
+                var row = '';
+            }
+            $('.versions').html(row);
+
             assignBannerFeedbackSettings(response.data.isActiveVersion['id']);
             getBannersData(response.data.isActiveVersion['id']);
             getFeedbackName(feedback_id);
 
-            $('.versions').html(row);
         })
         .catch(function (error) {
             console.log(error);
@@ -96,8 +99,9 @@
                 rows = rows + '@if(Auth::user()->company_id == 7) ';
                 rows = rows + '@else';
                     rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
-                        rows = rows + '<a href="/project/preview/banner/add/version/'+ version_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-plus"></i></a>';
-                        rows = rows + '<a href="/project/preview/banner/edit/version/'+ version_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
+                        rows = rows + '<a href="/project/preview/banner/add/version/'+ version_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
+                        rows = rows + '<a href="/project/preview/banner/edit/version/'+ version_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
+                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ version_id +')" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
                     rows = rows + '</div>';
                 rows = rows + '@endif';
             rows = rows + '@endif';
@@ -125,11 +129,11 @@
                     row = row + '</div>';
                     row = row + '<iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
                     row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';
-                        row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
+                        row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-arrows-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
                             row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
-                                row = row + '<li><a href="/project/preview/banner/edit/'+ value.id +'"><i class="fa-solid fa-pen-to-square" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                                row = row + '<li><a href="/project/preview/banner/download/'+ value.id +'"><i class="fa-solid fa-cloud-arrow-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                                row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteBanner('+ value.id +')"><i class="fa-solid fa-trash" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                row = row + '<li><a href="/project/preview/banner/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                row = row + '<li><a href="/project/preview/banner/download/'+ value.id +'"><i class="fa-solid fa-circle-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteBanner('+ value.id +')"><i class="fa-solid fa-trash-can" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                             row = row + '@endif';
                         row = row + '@endif';
                     row = row + '</ul>';
@@ -142,7 +146,7 @@
             console.log(error);
         })
         .finally(function(){
-            document.getElementById('loaderArea').style.display = 'flex';
+            document.getElementById('loaderArea').style.display = 'none';
         })
     }
 
@@ -163,6 +167,36 @@
                         position: 'top-end',
                         icon: 'success',
                         title: 'Banner Has Been Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
+        })
+    }
+
+    function confirmBannerVersionDelete(version_id){
+        Swal.fire({
+            title: 'Are you sure you want to delete this version?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Maybe I will think About It`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteBannerVersion/'+ version_id)
+                .then(function (response){
+                    checkBannerVersions(response.data.feedback_id);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Version Has Been Deleted!',
                         showConfirmButton: false,
                         timer: 1500
                     })

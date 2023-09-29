@@ -88,4 +88,28 @@ class axiosController extends Controller
             'feedback_id' => $feedback['id']
         ];
     }
+
+    function deleteBannerVersion($version_id){
+        $banners = newBanner::where('version_id', $version_id)->get();
+        foreach ($banners as $banner) {
+            $file_path = public_path() . '/new_showcase_collection/' . $banner['file_path'];
+            if(file_exists($file_path)){
+                // unlink('banner_collection/' . $sub_project['file_path']);
+                $files = File::deleteDirectory($file_path);
+            }
+            newBanner::where('id', $banner->id)->delete();
+        }
+
+        $version = newVersion::find($version_id);
+        $feedback_id = $version['feedback_id'];
+
+        newVersion::where('id', $version_id)->delete();
+
+        $lastVersion = newVersion::all()->last();
+        newVersion::where('id', $lastVersion['id'])->update(['is_active' => 1]);
+
+        return $data = [
+            'feedback_id' => $feedback_id
+        ];
+    }
 }
