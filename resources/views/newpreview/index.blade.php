@@ -87,7 +87,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="flex text-green-600" href="/project/banner-showcase/addon/{{ $main_project_id }}">
+                    <a class="flex text-green-600" href="/project/preview/add/FeedbackOrProjectType/{{ $main_project_id }}">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -121,21 +121,7 @@
                 @if($info['is_version'] == 0)
                     @include('newpreview.singlepage-part')
                 @else
-                <nav role="navigation">
-                    <div id="menuToggle">
-                        <input type="checkbox" />
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <ul id="menu">
-                            <a href="#"><li>Home</li></a>
-                            <a href="#"><li>About</li></a>
-                            <a href="#"><li>Info</li></a>
-                            <a href="#"><li>Contact</li></a>
-                            <a href="https://erikterwan.com/" target="_blank"><li>Show me more</li></a>
-                        </ul>
-                    </div>
-                </nav>
+                    @include('newpreview.feedback-part')
                 @endif
             </div>
         </div>

@@ -112,4 +112,18 @@ class axiosController extends Controller
             'feedback_id' => $feedback_id
         ];
     }
+
+    function getActiveFeedbackProjectType($id){
+        $feedback = newFeedback::find($id);
+        $projectType = newPreviewType::where('id', $feedback['type_id'])->first();
+        $versions = newVersion::where('feedback_id', $feedback['id'])->get();
+        $activeVersion = newVersion::where('feedback_id', $feedback['id'])->where('is_active', 1)->first();
+
+        return $data = [
+            'feedback_name' => $feedback['name'].' '.Carbon::parse($feedback['created_at'])->format('d.m.Y'),
+            'project_type' => $projectType['project_type'],
+            'versions' => $versions,
+            'active_version' => $activeVersion['id']
+        ];
+    }
 }

@@ -73,7 +73,7 @@ class PreviewController extends Controller
         $feedback = new newFeedback;
         $feedback->project_id = $main_project->id;
         $feedback->name = $request->feedback_name;
-        $feedback->type_id = $project_type;
+        $feedback->type_id = $projectType->id;
         $feedback->description = $request->feedback_description;
         $feedback->is_active = 1;
         $feedback->save();
@@ -440,5 +440,109 @@ class PreviewController extends Controller
         }
 
         return redirect('/project/preview/view/'.$project_id);
+    }
+
+    function addFeedbackOrProjectTypeView($id){
+        $project = newPreview::find($id);
+        $logo_list = Logo::get();
+        $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        $company_details = Logo::where('id', Auth::user()->company_id)->first();
+        $color = $company_details['default_color'];
+        return view('newpreview.banner.addprojecttype', compact('logo_list', 'size_list', 'color', 'project'));
+    }
+
+    function addFeedbackOrProjectTypePost(Request $request, $id){
+        $project = newPreview::find($id);
+        $project_name = str_replace(" ", "_", $project['name']);
+        $project_type = $request->project_type;
+
+        $projectType = new newPreviewType;
+        $projectType->project_id = $id;
+        $projectType->project_type = $project_type;
+        $projectType->save();
+
+        $feedback = new newFeedback;
+        $feedback->project_id = $id;
+        $feedback->name = $request->feedback_name;
+        $feedback->type_id = $projectType->id;
+        $feedback->description = $request->feedback_description;
+        $feedback->is_active = 1;
+        $feedback->save();
+
+        $exceptionFeedbacks = newFeedback::select('id')->where('id', '!=', $feedback->id)->get()->toArray();
+        newFeedback::whereIn('id', $exceptionFeedbacks)->update(['is_active' => 0]);
+
+        $version = new newVersion;
+        $version->name = $request->version_name;
+        $version->feedback_id = $feedback->id;
+        $version->is_active = 1;
+        $version->save();
+
+        $exceptionVersions = newVersion::select('id')->where('id', '!=', $version->id)->get()->toArray();
+        newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+
+        newPreview::where('id', $id)->update(['is_version' => 1]);
+
+        if($project_type == 1){
+            //this is banner upload method
+            if($request->hasfile('bannerupload')){
+                $banner_size = $request->banner_size_id;
+                $bannerupload = $request->bannerupload;
+
+                foreach($banner_size as $index => $size){
+                    $removeX = explode("x", $size);
+                    $request_width = $removeX[0];
+                    $request_height = $removeX[1];
+                    $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                    $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
+            
+                    $file_name = $sub_project_name . '_' . time() . rand() . '.' . $bannerupload[$index]->extension();
+                    $bannerupload[$index]->move(public_path('new_showcase_collection/'), $file_name);
+                    $file_bytes = filesize(public_path('new_showcase_collection/' . $file_name));
+            
+                    $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                    for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                    $file_size = round($file_bytes, 2) . " " . $label[$i];
+            
+                    $banner = new newBanner;
+                    $banner->name = $sub_project_name;
+                    $banner->size = $file_size;
+                    $newFileName = str_replace(".zip", "", $file_name);
+                    $banner->file_path = $newFileName;
+                    $banner->size_id = $size_info['id'];
+                    $banner->version_id = $version->id;
+                    $banner->save();
+    
+                    $zip = new ZipArchive();
+                    $file_path = str_replace(".zip", "", $file_name);
+                    $directory = 'new_showcase_collection/' . $file_path;
+                    if (!is_dir($directory)) {
+                        if ($zip->open('new_showcase_collection/' . $file_name) === TRUE) {
+                            // Unzip Path
+                            $zip->extractTo($directory);
+                            $zip->close();
+                        }
+                        unlink('new_showcase_collection/' . $file_name);
+                    }
+                }
+            }
+
+            return redirect('/project/preview/view/'.$id);
+        }
+        else if($request->project_type == 2){
+            //this is video upload method
+            dd('this is video');
+        }
+        else if($request->project_type == 3){
+            //this is gif upload method
+            dd('this is gif');
+        }
+        else if($request->project_type == 4){
+            //this is social upload method
+            dd('this is social');
+        }
+        else{
+            return back()->with('danger', 'Pleae select correct project type');
+        }
     }
 }

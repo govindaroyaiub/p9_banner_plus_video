@@ -42,9 +42,14 @@ class ViewController extends Controller
                                         ->where('new_previews_table.id', $main_project_id)
                                         ->first();
 
+        $feedbacks = newFeedback::where('project_id', $id)->get();
+        $activeFeedback = newFeedback::where('project_id', $id)->where('is_active', 1)->first();
+
         return view('newpreview.index', compact(
             'info',
-            'main_project_id'
+            'main_project_id',
+            'feedbacks',
+            'activeFeedback'
         ));
     }
 }
