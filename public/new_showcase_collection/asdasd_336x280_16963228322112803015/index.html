@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Title -->
+    <title>MKB brandstof</title>
+
+    <!--META TAG-->
+    <meta name="ad.size" content="width=336,height=280">
+
+    <!--CUSTOM STYLE-->
+    <link rel="stylesheet" href="css/style.css">
+<body onload="myFunc()">
+
+<div id="banner">
+
+    <img src="assets/bg.jpg" id="bg">
+    <img src="assets/header1.png" id="h1">
+    <img src="assets/header2.png" id="h2">
+    <img src="assets/obj1.png" id="obj">
+    <img src="assets/t1.png" id="t1">
+    <img src="assets/t2.png" id="t2">
+    <img src="assets/t3.png" id="t3">
+    
+    <img src="assets/sticker1.png" id="s1">
+    <img src="assets/guy.png" id="guy">
+    <img src="assets/sticker2.png" id="s2">
+    <img src="assets/bg2.png" id="bg2">
+    
+    <div id=cta>
+        <img src="assets/cta_text.png" id="cta_text">
+        <img src="assets/arrow.png" id="arrow">
+    </div>
+    <img src="assets/logo.png" id="logo">
+   
+    
+</div><!--END OF /. BANNER-->
+
+<!--CUSTOM SCRIPT-->
+<script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.20.0_d360d9a082ccc13b1a1a9b153f86b378_min.js"></script>
+
+<script>
+    var t1 = new TimelineMax({});    
+    var t2 = new TimelineMax({});
+
+  
+    function myFunc() {
+        t1
+            .to('img', 0, {display: 'block'})
+            .to('#cta', .5, {opacity:1, ease:Power2.easeOut})
+            .from('#h1', 0.4, {y: -100, ease:Power2.easeOut})
+            
+            .add('f1')
+            .from('#t1', .5, {x:-336, ease: Power2.easeOut}, 'f1')
+            .from('#obj', .5, {x:336, ease: Power2.easeOut}, 'f1')
+            .from('#s1', .5, {scale:0, ease: Back.easeOut})
+        
+            .to('#t1', .5, {x:-100, opacity:0, ease: Power1.easeIn}, '+=1.5')
+            
+            .from('#t2', .5, {x:-300, ease: Power2.easeOut, onComplete:s1})
+            .to('#t2', .5, {x:-100, opacity:0, ease: Power1.easeIn}, '+=1.5')
+        
+            .from('#t3', .5, {x:-336, ease: Power2.easeOut, onComplete:s1})
+            
+            .add('f2', '+=2')
+            .to('#t3', .5, {x:-100, opacity:0, ease: Power1.easeIn}, 'f2')
+            .to('#obj', .5, {x:336, ease: Power1.easeIn}, 'f2')
+            .to('#s1', .5, {opacity:0, ease: Power1.easeIn}, 'f2-=.5')
+            .to('#h1', 0.4, {y: -100, ease:Power1.easeIn}, 'f2')
+        
+            .add('f3', '+=.5')
+            .from('#h2', 0.4, {x: -336, ease:Power2.easeOut}, 'f3-=.5')
+            .to('#guy', .5, {top:0, opacity:1, scale:1, ease: Power1.easeOut}, 'f3')
+            .from('#s2', .5, {scale:0, ease: Back.easeOut}, 'f3+=.5')
+        
+            .to('#s2', 0.25, {scale:1.08, ease:Power0.easeNone}, '+=.5')            
+            .to('#s2', 0.25, {scale:1, ease:Power0.easeNone})
+
+            .to('#s2', 0.25, {scale:1.08, ease:Power0.easeNone})            
+            .to('#s2', 0.25, {scale:1, ease:Power0.easeNone})
+        
+            .to('#arrow', 0.25, {x:3, ease:Power0.easeNone}, '+=.5')            
+            .to('#arrow', 0.25, {x:0, ease:Power0.easeNone})
+
+            .to('#arrow', 0.25, {x:3, ease:Power0.easeNone})            
+            .to('#arrow', 0.25, {x:0, ease:Power0.easeNone})
+    }
+    
+    function s1()
+    {
+        t2
+        .to('#s1', 0.25, {scale:1.08, ease:Power0.easeNone}, '+=.5')            
+        .to('#s1', 0.25, {scale:1, ease:Power0.easeNone})
+
+        .to('#s1', 0.25, {scale:1.08, ease:Power0.easeNone})            
+        .to('#s1', 0.25, {scale:1, ease:Power0.easeNone})
+    }
+
+
+</script>
+<!-- DCM Code -->
+<script type="text/javascript">
+    var clickTag = "https://www.mkb-brandstof.nl/";
+    var banner = document.getElementById("banner");
+    banner.style.cursor = "pointer";
+
+    banner.addEventListener("click", goURL);
+
+
+    function goURL() {
+        window.open(clickTag);
+    }
+
+
+</script>
+
+
+</body>
+</html>

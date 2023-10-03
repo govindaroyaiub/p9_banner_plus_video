@@ -1,21 +1,17 @@
-
 <nav role="navigation">
     <div id="menuToggle">
-        <input type="checkbox" />
+        <input type="checkbox" id="menuClick" />
         <span></span>
         <span></span>
         <span></span>
-        <ul id="menu">
-            @foreach ($feedbacks as $feedback)
-                <a href="#" class="feedbacks" id="feedback{{$feedback->id}}"><li @if($feedback['is_active'] == 1) class="menuToggleActive" @endif>{{ $feedback->name }}</li></a>
-            @endforeach
-        </ul>
+        <ul id="menu"></ul>
     </div>
 </nav>
 <div id="bannershow" class="relative" style="top: -27px;">
     <div id="feedbackInfo"><label for="feedbackInfo" id="feedbackLabel"></label></div>
-    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; justify-content: center; padding: 10px;">
-        <div id="feedbackSettings"></div>
+    <div style="position: relative; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; justify-content: center; padding: 10px;">
+        <div id="versionSettings"></div>
+        <div id="feedbackSettings" style="position: absolute; right: 2%;"></div>
     </div>
     <br>
     <div id="bannerShowcase"></div>
@@ -24,41 +20,107 @@
 
 <script>
     $(document).ready(function(){
-        getActiveFeedbackProjectType();
+        getAllFeedbacks();
     });
 
-    function getActiveFeedbackProjectType(){
-        document.getElementById('loaderArea').style.display = 'flex';
-        axios.get('/getActiveFeedbackProjectType/'+ {{ $activeFeedback['id'] }})
+    function getAllFeedbacks(){
+        axios.get('/getAllFeedbacks/'+ {{ $main_project_id }})
+        .then(function (response){
+            var active;
+            var row = '';
+
+            $.each(response.data.feedbacks, function (key, value) {
+                if(value.is_active == 1){
+                    active = 'menuToggleActive';
+                }
+                else{
+                    active = '';
+                }
+                row = row + '<a href="javascript:void(0)" class="feedbacks" onclick="return updateActiveFeedback('+ value.id +')" id="feedback'+value.id+'">'
+                    row = row + '<li class="'+ active +'">'+ value.name +'</li>'
+                row = row + '</a>';
+            });
+
+            $('#menu').html(row);
+
+            checkFeedbackType(response.data.activeFeedback_id);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    function updateActiveFeedback(feedback_id){
+        axios.get('/updateActiveFeedback/'+ feedback_id)
+        .then(function (response){
+            document.getElementById('menuClick').click();
+
+            var active;
+            var row = '';
+            $.each(response.data.feedbacks, function (key, value) {
+                if(value.is_active == 1){
+                    active = 'menuToggleActive';
+                }
+                else{
+                    active = '';
+                }
+                row = row + '<a href="javascript:void(0)" class="feedbacks" onclick="return updateActiveFeedback('+ value.id +')" id="feedback'+value.id+'">'
+                    row = row + '<li class="'+ active +'">'+ value.name +'</li>'
+                row = row + '</a>';
+            });
+
+            $('#menu').html(row);
+
+            checkFeedbackType(response.data.activeFeedback_id);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    function checkFeedbackType(activeFeedback_id){
+        axios.get('/getFeedbackType/'+ activeFeedback_id)
         .then(function (response){
             if(response.data.project_type == 1){
-                displayActiveVersionBanners(response.data.active_version);
-                displayActiveVersionSettings(response.data.active_version);
+                //project_type 1 == banner
+                setFeedbackName(response.data.feedback_name);
                 setBannerFeedbackVersions(response.data.versions);
-                setBannerFeedbackName(response.data.feedback_name);
+                setBannerActiveVersionSettings(response.data.activeVersion_id);
+                setBannerActiveFeedbackSettings(activeFeedback_id);
+                setBannerDisplayOfActiveVersion(response.data.activeVersion_id);
+            }
+            else if(response.data.project_type == 2){
+                //project_type 2 == video
+                getVideoData();
+            }
+            else if(response.data.project_type == 3){
+                //project_type 3 == gif
+                getGifData();
+            }
+            else{
+                //project_type 4 or else == social
+                getSocialData();
             }
         })
         .catch(function (error) {
             console.log(error);
         })
-        .finally(function(){
-            document.getElementById('loaderArea').style.display = 'none';
-        })
     }
 
     function setBannerFeedbackVersions(versions){
+        var versionCount = versions.length;
         var isActive;
 
-        if(versions.length > 1){
+        if(versionCount > 1){
             var row = '';
             $.each(versions, function (key, value) {
-                if(value.id == response.data.isActiveVersion['id']){
+                if(value.is_active == 1){
                     isActive = ' versionTabActive';
                 }
                 else{
                     isActive = '';
                 }
-                row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateActiveVersion('+ value.id +')" style="margin-left: 2px; margin-right: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
+                row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateBannerActiveVersion('+ value.id +')" style="margin-left: 2px; margin-right: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
             });
         }
         else{
@@ -67,7 +129,23 @@
         $('.versions').html(row);
     }
 
-    function displayActiveVersionSettings(version){
+    function updateBannerActiveVersion(version_id){
+        axios.get('/setBannerActiveVersion/' + version_id)
+        .then(function (response){
+            setBannerFeedbackVersions(response.data.versions);
+            setBannerActiveVersionSettings(response.data.activeVersion_id);
+            setBannerDisplayOfActiveVersion(response.data.activeVersion_id);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+    
+    function setFeedbackName(feedback_name){
+        $('#feedbackLabel').html(feedback_name);
+    }
+
+    function setBannerActiveVersionSettings(activeVersion_id){
         rows = '';
             
         rows = rows + '<div>';
@@ -75,9 +153,27 @@
                 rows = rows + '@if(Auth::user()->company_id == 7) ';
                 rows = rows + '@else';
                     rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
-                        rows = rows + '<a href="/project/preview/banner/add/version/'+ version +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
-                        rows = rows + '<a href="/project/preview/banner/edit/version/'+ version +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
-                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ version +')" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                        rows = rows + '<a href="/project/preview/banner/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
+                        rows = rows + '<a href="/project/preview/banner/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
+                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ activeVersion_id +')" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                    rows = rows + '</div>';
+                rows = rows + '@endif';
+            rows = rows + '@endif';
+        rows = rows + '</div>';
+
+        $('#versionSettings').html(rows);
+    }
+
+    function setBannerActiveFeedbackSettings(activeFeedback_id){
+        rows = '';
+            
+        rows = rows + '<div>';
+            rows = rows + '@if(Auth::check())';
+                rows = rows + '@if(Auth::user()->company_id == 7) ';
+                rows = rows + '@else';
+                    rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                        rows = rows + '<a href="/project/preview/edit/feedback/'+ activeFeedback_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
+                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmFeedbackDelete('+ activeFeedback_id +')" style="margin-right: 0.5rem;"><i class="fa-solid fa-circle-minus"></i></a>';
                     rows = rows + '</div>';
                 rows = rows + '@endif';
             rows = rows + '@endif';
@@ -86,8 +182,9 @@
         $('#feedbackSettings').html(rows);
     }
 
-    function displayActiveVersionBanners(active_version){
-        axios.get('/getNewBannersData/'+ active_version)
+    function setBannerDisplayOfActiveVersion(activeVersion_id){
+        document.getElementById('loaderArea').style.display = 'flex';
+        axios.get('/getActiveVwersionBannerData/'+ activeVersion_id)
         .then(function (response){
             var row = '';
 
@@ -107,7 +204,7 @@
                             row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
                                 row = row + '<li><a href="/project/preview/banner/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                                 row = row + '<li><a href="/project/preview/banner/download/'+ value.id +'"><i class="fa-solid fa-circle-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                                row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteBanner('+ value.id +',' + active_version + ')"><i class="fa-solid fa-trash-can" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                                row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteBanner('+ value.id +')"><i class="fa-solid fa-trash-can" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                             row = row + '@endif';
                         row = row + '@endif';
                     row = row + '</ul>';
@@ -119,14 +216,35 @@
         .catch(function (error){
             console.log(error);
         })
-
+        .finally(function(){
+            document.getElementById('loaderArea').style.display = 'none';
+        })
     }
 
-    function setBannerFeedbackName(feedbackName){
-        $('#feedbackLabel').html(feedbackName);
+    function confirmFeedbackDelete(feedback_id){
+        Swal.fire({
+            title: 'Are you sure you want to delete this feedback?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Maybe I will think About It`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteFeedback/'+ feedback_id)
+                .then(function (response){
+                    location.reload();
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
+        })
     }
 
-    function confirmDeleteBanner(id, activeVersion) {
+    function confirmDeleteBanner(id) {
         Swal.fire({
             title: 'Are you sure you want to delete this banner?!',
             showDenyButton: true,
@@ -138,7 +256,7 @@
             if (result.isConfirmed) {
                 axios.get('/deleteBanner/'+ id)
                 .then(function (response){
-                    displayActiveVersionBanners(activeVersion);
+                    setBannerDisplayOfActiveVersion(response.data.version_id);
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -168,7 +286,7 @@
             if (result.isConfirmed) {
                 axios.get('/deleteBannerVersion/'+ version_id)
                 .then(function (response){
-                    checkBannerVersions(response.data.feedback_id);
+                    checkFeedbackType(response.data.feedback_id);
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -189,4 +307,17 @@
     function reload(bannerReloadID) {
         document.getElementById("rel"+bannerReloadID).src += '';
     }
+
+    function getVideoData(){
+        console.log('Video');
+    }
+
+    function getGifData(){
+        console.log('Gif');
+    }
+
+    function getSocialData(){
+        console.log('Social');
+    }
+    
 </script>

@@ -244,8 +244,8 @@ section::before {
 #menuToggle {
     display: block;
     position: relative;
-    top: 50px;
-    left: 50px;
+    top: 30px;
+    left: 30px;
     z-index: 1;
     width: 35px;
     -webkit-user-select: none;

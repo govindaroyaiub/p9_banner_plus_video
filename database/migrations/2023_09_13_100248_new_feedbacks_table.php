@@ -17,7 +17,7 @@ class NewFeedbacksTable extends Migration
             $table->id();
             $table->string('name');
             $table->BigInteger('project_id');
-            $table->integer('type_id');
+            $table->integer('project_type');
             $table->integer('is_active')->default(1); // 1 = active, 0 = inactive
             $table->string('description');
             $table->timestamps();

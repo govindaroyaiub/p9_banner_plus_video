@@ -65,15 +65,10 @@ class PreviewController extends Controller
         $main_project->uploaded_by_company_id = Auth::user()->company_id;
         $main_project->save();
 
-        $projectType = new newPreviewType;
-        $projectType->project_id = $main_project->id;
-        $projectType->project_type = $project_type;
-        $projectType->save();
-
         $feedback = new newFeedback;
         $feedback->project_id = $main_project->id;
         $feedback->name = $request->feedback_name;
-        $feedback->type_id = $projectType->id;
+        $feedback->project_type = $project_type;
         $feedback->description = $request->feedback_description;
         $feedback->is_active = 1;
         $feedback->save();
@@ -199,7 +194,6 @@ class PreviewController extends Controller
 
             $version_info = newVersion::where('id', $banner_info['version_id'])->first();
             $feedback_info = newFeedback::where('id', $version_info['feedback_id'])->first();
-            $project_info = newPreview::where('id', $feedback_info['project_id'])->first();
             $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
             $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
     
@@ -318,7 +312,7 @@ class PreviewController extends Controller
 
             $version_id = $version->id;
 
-            $exceptionVersions = newVersion::select('id')->where('id', '!=', $version_id)->get()->toArray();
+            $exceptionVersions = newVersion::select('id')->where('id', '!=', $version_id)->where('feedback_id', $feedback['id'])->get()->toArray();
             newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
         }
         else{
@@ -456,15 +450,10 @@ class PreviewController extends Controller
         $project_name = str_replace(" ", "_", $project['name']);
         $project_type = $request->project_type;
 
-        $projectType = new newPreviewType;
-        $projectType->project_id = $id;
-        $projectType->project_type = $project_type;
-        $projectType->save();
-
         $feedback = new newFeedback;
         $feedback->project_id = $id;
         $feedback->name = $request->feedback_name;
-        $feedback->type_id = $projectType->id;
+        $feedback->project_type = $project_type;
         $feedback->description = $request->feedback_description;
         $feedback->is_active = 1;
         $feedback->save();
@@ -478,8 +467,8 @@ class PreviewController extends Controller
         $version->is_active = 1;
         $version->save();
 
-        $exceptionVersions = newVersion::select('id')->where('id', '!=', $version->id)->get()->toArray();
-        newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+        // $exceptionVersions = newVersion::select('id')->where('id', '!=', $version->id)->get()->toArray();
+        // newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
 
         newPreview::where('id', $id)->update(['is_version' => 1]);
 
@@ -544,5 +533,18 @@ class PreviewController extends Controller
         else{
             return back()->with('danger', 'Pleae select correct project type');
         }
+    }
+
+    function feedbackEditView($id){
+        $feedback = newFeedback::find($id);
+
+        return view('newpreview.feedbackedit', compact('feedback', 'id'));
+    }
+
+    function feedbackEditPost(Request $request, $id){
+        $feedback = newFeedback::find($id);
+        newFeedback::where('id', $id)->update(['name' => $request->feedback_name, 'description' => $request->feedback_description]);
+
+        return redirect('/project/preview/view/'.$feedback['project_id']);
     }
 }

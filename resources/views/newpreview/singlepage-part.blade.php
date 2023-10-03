@@ -11,15 +11,18 @@
 <script>
     //first know the type of the project
     $(document).ready(function(){
-        checkType();
+        checkFeedbackType();
     });
 
-    function checkType(){
-        axios.get('/getProjectType/'+ {{ $main_project_id }})
+    function checkFeedbackType(){
+        axios.get('/getFeedbackType/'+ {{ $activeFeedback['id'] }})
         .then(function (response){
             if(response.data.project_type == 1){
                 //project_type 1 == banner
-                checkBannerVersions(response.data.feedback_id);
+                setFeedbackName(response.data.feedback_name);
+                setBannerFeedbackVersions(response.data.versions);
+                setBannerActiveVersionSettings(response.data.activeVersion_id);
+                setBannerDisplayOfActiveVersion(response.data.activeVersion_id);
             }
             else if(response.data.project_type == 2){
                 //project_type 2 == video
@@ -39,59 +42,45 @@
         })
     }
 
-    function checkBannerVersions(feedback_id){
-        axios.get('/getVersionsFromFeedback/'+ feedback_id)
-        .then(function (response){
-            var isActive;
+    function setBannerFeedbackVersions(versions){
+        var versionCount = versions.length;
+        var isActive;
 
-            if(response.data.versionCount > 1){
-                var row = '';
-                $.each(response.data.versions, function (key, value) {
-                    if(value.id == response.data.isActiveVersion['id']){
-                        isActive = ' versionTabActive';
-                    }
-                    else{
-                        isActive = '';
-                    }
-                    row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateActiveVersion('+ value.id +')" style="margin-left: 2px; margin-right: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
-                });
-            }
-            else{
-                var row = '';
-            }
-            $('.versions').html(row);
-
-            assignBannerFeedbackSettings(response.data.isActiveVersion['id']);
-            getBannersData(response.data.isActiveVersion['id']);
-            getFeedbackName(feedback_id);
-
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+        if(versionCount > 1){
+            var row = '';
+            $.each(versions, function (key, value) {
+                if(value.is_active == 1){
+                    isActive = ' versionTabActive';
+                }
+                else{
+                    isActive = '';
+                }
+                row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateBannerActiveVersion('+ value.id +')" style="margin-left: 2px; margin-right: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
+            });
+        }
+        else{
+            var row = '';
+        }
+        $('.versions').html(row);
     }
 
-    function updateActiveVersion(version_id){
-        axios.get('/setActiveVersion/' + version_id)
+    function updateBannerActiveVersion(version_id){
+        axios.get('/setBannerActiveVersion/' + version_id)
         .then(function (response){
-            checkBannerVersions(response.data.feedback_id);
+            setBannerFeedbackVersions(response.data.versions);
+            setBannerActiveVersionSettings(response.data.activeVersion_id);
+            setBannerDisplayOfActiveVersion(response.data.activeVersion_id);
         })
         .catch(function (error) {
             console.log(error);
         })
     }
     
-    function getFeedbackName(feedback_id){
-        axios.get('/getNewFeedbackName/'+ feedback_id)
-        .then(function (response){
-            $('#feedbackLabel').html(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+    function setFeedbackName(feedback_name){
+        $('#feedbackLabel').html(feedback_name);
     }
 
-    function assignBannerFeedbackSettings(version_id){
+    function setBannerActiveVersionSettings(activeVersion_id){
         rows = '';
             
         rows = rows + '<div>';
@@ -99,9 +88,9 @@
                 rows = rows + '@if(Auth::user()->company_id == 7) ';
                 rows = rows + '@else';
                     rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
-                        rows = rows + '<a href="/project/preview/banner/add/version/'+ version_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
-                        rows = rows + '<a href="/project/preview/banner/edit/version/'+ version_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
-                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ version_id +')" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                        rows = rows + '<a href="/project/preview/banner/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
+                        rows = rows + '<a href="/project/preview/banner/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
+                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ activeVersion_id +')" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
                     rows = rows + '</div>';
                 rows = rows + '@endif';
             rows = rows + '@endif';
@@ -110,9 +99,9 @@
         $('#feedbackSettings').html(rows);
     }
 
-    function getBannersData(version_id){
+    function setBannerDisplayOfActiveVersion(activeVersion_id){
         document.getElementById('loaderArea').style.display = 'flex';
-        axios.get('/getNewBannersData/'+ version_id)
+        axios.get('/getActiveVwersionBannerData/'+ activeVersion_id)
         .then(function (response){
             console.log(response);
             var row = '';
@@ -162,7 +151,7 @@
             if (result.isConfirmed) {
                 axios.get('/deleteBanner/'+ id)
                 .then(function (response){
-                    updateActiveVersion(response.data.version_id);
+                    setBannerDisplayOfActiveVersion(response.data.version_id);
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -192,7 +181,7 @@
             if (result.isConfirmed) {
                 axios.get('/deleteBannerVersion/'+ version_id)
                 .then(function (response){
-                    checkBannerVersions(response.data.feedback_id);
+                    checkFeedbackType();
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
