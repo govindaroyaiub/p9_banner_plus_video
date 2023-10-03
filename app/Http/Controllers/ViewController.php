@@ -44,12 +44,16 @@ class ViewController extends Controller
 
         $feedbacks = newFeedback::where('project_id', $id)->get();
         $activeFeedback = newFeedback::where('project_id', $id)->where('is_active', 1)->first();
+        $versionCount = newVersion::where('feedback_id', $activeFeedback['id'])->count();
+
+        // dd($versionCount);
 
         return view('newpreview.index', compact(
             'info',
             'main_project_id',
             'feedbacks',
-            'activeFeedback'
+            'activeFeedback',
+            'versionCount'
         ));
     }
 }

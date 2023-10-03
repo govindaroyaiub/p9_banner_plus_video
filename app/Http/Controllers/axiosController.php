@@ -41,7 +41,8 @@ class axiosController extends Controller
             'project_type' => $feedback['project_type'],
             'versions' => $versions,
             'feedback_name' => $feedback['name'].' '.Carbon::parse($feedback['created_at'])->format('d.m.Y'),
-            'activeVersion_id' => $activeVersion['id']
+            'activeVersion_id' => $activeVersion['id'],
+            'feedback_description' => $feedback['description']
         ];
     }
 
@@ -198,5 +199,11 @@ class axiosController extends Controller
         if($feedbackCount == 1){
             newPreview::where('id', $project_id)->update(['is_version' => '0']);
         }
+    }
+
+    function checkVersionCount($id){
+        $version = newVersion::find($id);
+        $feedback = newFeedback::where('id', $version['feedback_id'])->first();
+        return newVersion::where('feedback_id', $feedback['id'])->count();
     }
 }

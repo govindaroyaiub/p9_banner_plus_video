@@ -266,3 +266,4 @@ Route::get('/getActiveFeedbackProjectType/{id}', 'axiosController@getActiveFeedb
 Route::get('/getAllFeedbacks/{project_id}', 'axiosController@getAllFeedbacks');
 Route::get('/updateActiveFeedback/{id}', 'axiosController@updateActiveFeedback');
 Route::get('/deleteFeedback/{id}', 'axiosController@feedbackDelete');
+Route::get('/checkVersionCount/{id}', 'axiosController@checkVersionCount');

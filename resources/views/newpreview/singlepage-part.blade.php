@@ -81,6 +81,13 @@
     }
 
     function setBannerActiveVersionSettings(activeVersion_id){
+        var countVersions = {{ $versionCount }};
+        if(countVersions == 1){
+            var display = 'display: none;';
+        }
+        else{
+            var display = 'display: block;';
+        }
         rows = '';
             
         rows = rows + '<div>';
@@ -90,7 +97,7 @@
                     rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                         rows = rows + '<a href="/project/preview/banner/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
                         rows = rows + '<a href="/project/preview/banner/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
-                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ activeVersion_id +')" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
                     rows = rows + '</div>';
                 rows = rows + '@endif';
             rows = rows + '@endif';
@@ -111,10 +118,10 @@
                 var bannerPath = '/new_showcase_collection/' + value.file_path + '/index.html';
                 var bannerReloadID = value.id;
                 
-                row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 10px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between;">';
+                row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #F15A29; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
                         row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
-                        row = row + '<small class="float: right; text-red-700" id="bannerSize">'+ value.size +'</small>';
+                        row = row + '<small class="float: right; id="bannerSize">'+ value.size +'</small>';
                     row = row + '</div>';
                     row = row + '<iframe src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
                     row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';

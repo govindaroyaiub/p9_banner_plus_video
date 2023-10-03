@@ -244,7 +244,7 @@ section::before {
 #menuToggle {
     display: block;
     position: relative;
-    top: 30px;
+    top: 50px;
     left: 30px;
     z-index: 1;
     width: 35px;
@@ -295,9 +295,11 @@ section::before {
     border-radius: 3px;
     z-index: 1;
     transform-origin: 4px 0px;
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
-        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
-        opacity 0.55s ease;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        opacity 0.55s ease;
+    -webkit-transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        opacity 0.55s ease;
+    -moz-transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        opacity 0.55s ease;
+    -ms-transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        opacity 0.55s ease;
+    -o-transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),        opacity 0.55s ease;
 }
 
 #menuToggle span:first-child {
@@ -365,6 +367,7 @@ section::before {
 */
 #menuToggle input:checked~ul {
     transform: none;
+    text-align: center;
 }
 
 #bannershow {
@@ -427,4 +430,61 @@ section::before {
 .versionTabActive{
     background-color: #F15A29;
     border: 2px solid #4b4e6d;
+}
+
+#feedbackArea{
+    position: absolute; 
+    top: 145px; 
+    right: 0px;
+}
+
+#feedbackCLick{
+    font-size: 30px; 
+    padding: 5px 10px 5px 10px; 
+    background: #4b4e6d; 
+    width: 50px;
+    position: absolute;
+    right: 0px;
+    color: white;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    cursor: pointer;
+}
+
+#feedbackDescription{
+    display: flex;
+    flex-direction: column;
+    transform: translateX(310px);
+}
+
+#feedbackDescriptionUpperpart{
+    border: 1px solid #F15A29;
+    border-top-left-radius: 5px;
+    padding: 5px;
+    background-color: #F15A29;
+    color: white;
+}
+
+#feedbackDescriptionLowerPart{
+    background-color: #4b4e6d;
+    color: white;
+    padding: 5px 10px 15px 5px;
+    height: auto;
+    width: 300px;
+    white-space: pre-line;
+    text-overflow: ellipsis;
+    border-bottom-left-radius: 5px;
+}
+
+.showFeedback{
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transition: transform 2s linear 1s;
+    -webkit-transition: transform 2s linear 1s;
+    -moz-transition: transform 2s linear 1s;
+    -ms-transition: transform 2s linear 1s;
+    -o-transition: transform 2s linear 1s;
 }
