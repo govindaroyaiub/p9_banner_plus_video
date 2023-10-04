@@ -152,7 +152,7 @@
             showDenyButton: true,
             showCancelButton: true,
             confirmButtonText: 'Delete',
-            denyButtonText: `Maybe I will think About It`,
+            denyButtonText: `Thinking....`,
         }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
@@ -182,7 +182,7 @@
             showDenyButton: true,
             showCancelButton: true,
             confirmButtonText: 'Delete',
-            denyButtonText: `Maybe I will think About It`,
+            denyButtonText: `Thinking....`,
         }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {

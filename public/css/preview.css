@@ -419,17 +419,16 @@ section::before {
 
 .versionTab{
     cursor: pointer;
-    background-color: #4b4e6d;
+    background-color: #8384A0;
     color: white;
 }
 
 .versionTab:hover{
-    background-color: #F15A29;
+    background-color: #4b4e6d;
 }
 
 .versionTabActive{
-    background-color: #F15A29;
-    border: 2px solid #4b4e6d;
+    background-color: #4b4e6d;
 }
 
 #feedbackArea{
@@ -439,16 +438,21 @@ section::before {
 }
 
 #feedbackCLick{
-    font-size: 30px; 
-    padding: 5px 10px 5px 10px; 
-    background: #4b4e6d; 
+    font-size: 30px;
+    padding: 5px 10px 5px 10px;
+    background: #4b4e6d;
     width: 50px;
     position: absolute;
     right: 0px;
     color: white;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     cursor: pointer;
+    transform: rotateY(175deg);
+    -webkit-transform: rotateY(175deg);
+    -moz-transform: rotateY(175deg);
+    -ms-transform: rotateY(175deg);
+    -o-transform: rotateY(175deg);
 }
 
 #feedbackDescription{
@@ -466,7 +470,7 @@ section::before {
 }
 
 #feedbackDescriptionLowerPart{
-    background-color: #4b4e6d;
+    background-color: #6a6e94;
     color: white;
     padding: 5px 10px 15px 5px;
     height: auto;
