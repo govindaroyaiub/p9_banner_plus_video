@@ -132,17 +132,17 @@
                         <label class="text-primary font-light block">Video Title (example: Pre-Roll/Bumper Interstitial
                             for
                             Youtube)</label>
-                        <input type='text' placeholder="Enter Video Title" name="title" value="demo"
+                        <input type='text' placeholder="Enter Video Title" name="video_title" value="Demo Video Title"
                             class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                             required />
                     </div>
     
                     <div class="mb-2">
                         <label class="text-primary font-light block">Advertising Format</label>
-                        <select name="size_id" id="size_id"
+                        <select name="video_size_id" id="video_size_id"
                             class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" required>
                             <option value="0" class="py-2">Select Size</option>
-                            @foreach($size_list as $size)
+                            @foreach($video_sizes as $size)
                             <option value="{{ $size->id }}" class="py-2">{{ $size->name }} - {{ $size->width }}x{{ $size->height }}
                             </option>
                             @endforeach

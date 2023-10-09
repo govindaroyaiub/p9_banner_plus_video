@@ -14,6 +14,9 @@ use App\newPreviewType;
 use App\newFeedback;
 use App\newVersion;
 use App\newBanner;
+use App\newVideo;
+use App\newGif;
+use App\newSocial;
 use App\Sizes;
 use App\Logo;
 use App\BannerSizes;
@@ -32,9 +35,10 @@ class PreviewController extends Controller
         {
             $logo_list = Logo::get();
             $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+            $video_sizes = Sizes::orderBy('width', 'DESC')->get();
             $company_details = Logo::where('id', Auth::user()->company_id)->first();
             $color = $company_details['default_color'];
-            return view('newpreview.addpreviews', compact('logo_list', 'size_list', 'color'));
+            return view('newpreview.addpreviews', compact('logo_list', 'size_list', 'color', 'video_sizes'));
         }
         else
         {
@@ -123,11 +127,50 @@ class PreviewController extends Controller
                 }
             }
 
-            return redirect('/project/preview/view/'.$main_project->id);
         }
         else if($request->project_type == 2){
             //this is video upload method
-            dd('this is video');
+            $validator = $request->validate([
+                'poster' => 'mimes:jpeg,png,jpg,gif',
+                'video' => 'required|mimes:mp4',
+                'video_size_id' => 'required'
+            ]);
+
+            $size_info = Sizes::where('id', $request->video_size_id)->first();
+            $sub_project_name = $project_name.'_'.$size_info['width'].'x'.$size_info['height'];
+
+            if($request->has('poster'))
+            {
+                $poster_name = $sub_project_name.'_'.time().'.'.$request->poster->extension();
+                $request->poster->move(public_path('new_posters'), $poster_name);
+            }
+            else
+            {
+                $poster_name = NULL;
+            }
+
+
+            $video_name = $sub_project_name.'_'.time().'.'.$request->video->extension();
+            $request->video->move(public_path('new_videos'), $video_name);
+            $video_bytes = filesize(public_path('/new_videos/'.$video_name));
+
+            $label = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB' );
+            for( $i = 0; $video_bytes >= 1024 && $i < ( count( $label ) -1 ); $video_bytes /= 1024, $i++ );
+            $video_size = round( $video_bytes, 2 ) . " " . $label[$i];
+
+            $video = new newVideo;
+            $video->name = $sub_project_name;
+            $video->title = $request->video_title;
+            $video->size_id = $request->video_size_id;
+            $video->codec = $request->codec;
+            $video->aspect_ratio = $request->aspect_ratio;
+            $video->fps = $request->fps;
+            $video->size = $video_size;
+            $video->poster_path = $poster_name;
+            $video->video_path = $video_name;
+            $video->version_id = $version->id;
+            $video->save();
+
         }
         else if($request->project_type == 3){
             //this is gif upload method
@@ -140,6 +183,8 @@ class PreviewController extends Controller
         else{
             return back()->with('danger', 'Pleae select correct project type');
         }
+
+        return redirect('/project/preview/view/'.$main_project->id);
     }
 
     function editPreviewView($project_id){

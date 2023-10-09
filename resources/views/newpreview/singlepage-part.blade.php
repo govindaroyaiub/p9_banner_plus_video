@@ -26,6 +26,7 @@
             }
             else if(response.data.project_type == 2){
                 //project_type 2 == video
+                setFeedbackName(response.data.feedback_name);
                 getVideoData();
             }
             else if(response.data.project_type == 3){
