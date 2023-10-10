@@ -485,9 +485,10 @@ class PreviewController extends Controller
         $project = newPreview::find($id);
         $logo_list = Logo::get();
         $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        $video_sizes = Sizes::orderBy('width', 'DESC')->get();
         $company_details = Logo::where('id', Auth::user()->company_id)->first();
         $color = $company_details['default_color'];
-        return view('newpreview.banner.addprojecttype', compact('logo_list', 'size_list', 'color', 'project'));
+        return view('newpreview.banner.addprojecttype', compact('logo_list', 'size_list', 'color', 'project', 'video_sizes'));
     }
 
     function addFeedbackOrProjectTypePost(Request $request, $id){

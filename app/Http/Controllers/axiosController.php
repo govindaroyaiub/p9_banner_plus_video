@@ -14,6 +14,9 @@ use App\newPreviewType;
 use App\newFeedback;
 use App\newVersion;
 use App\newBanner;
+use App\newVideo;
+use App\newGif;
+use App\newSocial;
 use App\Sizes;
 use App\Logo;
 use App\BannerSizes;
@@ -205,5 +208,24 @@ class axiosController extends Controller
         $version = newVersion::find($id);
         $feedback = newFeedback::where('id', $version['feedback_id'])->first();
         return newVersion::where('feedback_id', $feedback['id'])->count();
+    }
+
+    function getActiveVersionVideoData($id){
+        $videos = newVideo::join('sizes', 'sizes.id', 'new_video_table.size_id')
+                            ->select(
+                                'new_video_table.id', 
+                                'sizes.width', 
+                                'sizes.height',
+                                'new_video_table.title',
+                                'new_video_table.codec',
+                                'new_video_table.aspect_ratio',
+                                'new_video_table.fps',
+                                'new_video_table.size',
+                                'new_video_table.video_path',
+                                'new_video_table.poster_path',
+                                'new_video_table.version_id')
+                            ->where('new_video_table.version_id', $id)
+                            ->get();
+        return $videos;
     }
 }

@@ -256,7 +256,8 @@ Route::post('/project/preview/add/FeedbackOrProjectType/{id}', 'PreviewControlle
 
 // Route::get('/getProjectType/{id}', 'axiosController@getProjectType');
 Route::get('/getFeedbackType/{id}', 'axiosController@getFeedbackType');
-Route::get('/getActiveVwersionBannerData/{id}', 'axiosController@getActiveVwersionBannerData');
+Route::get('/getActiveVersionBannerData/{id}', 'axiosController@getActiveVwersionBannerData');
+Route::get('/getActiveVersionVideoData/{id}', 'axiosController@getActiveVersionVideoData');
 Route::get('/deleteBanner/{id}', 'axiosController@deleteBanner');
 Route::get('/getVersionsFromFeedback/{id}', 'axiosController@getVersionsFromFeedback');
 Route::get('/setBannerActiveVersion/{id}', 'axiosController@setBannerActiveVersion');

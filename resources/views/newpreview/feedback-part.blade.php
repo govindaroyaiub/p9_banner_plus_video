@@ -125,7 +125,10 @@
             }
             else if(response.data.project_type == 2){
                 //project_type 2 == video
-                getVideoData();
+                setFeedbackName(response.data.feedback_name);
+                setVideoFeedbackVersions(response.data.versions);
+                setVideoActiveVersionSettings(response.data.activeVersion_id);
+                setVideoDisplayOfActiveVersion(response.data.activeVersion_id);
             }
             else if(response.data.project_type == 3){
                 //project_type 3 == gif
@@ -236,7 +239,7 @@
 
     function setBannerDisplayOfActiveVersion(activeVersion_id){
         document.getElementById('loaderArea').style.display = 'flex';
-        axios.get('/getActiveVwersionBannerData/'+ activeVersion_id)
+        axios.get('/getActiveVersionBannerData/'+ activeVersion_id)
         .then(function (response){
             var row = '';
 
@@ -360,8 +363,222 @@
         document.getElementById("rel"+bannerReloadID).src += '';
     }
 
-    function getVideoData(){
-        console.log('Video');
+    function setVideoFeedbackVersions(versions){
+        var versionCount = versions.length;
+        var isActive;
+
+        if(versionCount > 1){
+            var row = '';
+            $.each(versions, function (key, value) {
+                if(value.is_active == 1){
+                    isActive = ' versionTabActive';
+                }
+                else{
+                    isActive = '';
+                }
+                row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateBannerActiveVersion('+ value.id +')" style="margin-left: 2px; margin-right: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
+            });
+        }
+        else{
+            var row = '';
+        }
+        $('.versions').html(row);
+    }
+
+    function setVideoActiveVersionSettings(activeVersion_id){
+        var countVersions = {{ $versionCount }};
+        if(countVersions == 1){
+            var display = 'display: none;';
+        }
+        else{
+            var display = 'display: block;';
+        }
+        rows = '';
+            
+        rows = rows + '<div>';
+            rows = rows + '@if(Auth::check())';
+                rows = rows + '@if(Auth::user()->company_id == 7) ';
+                rows = rows + '@else';
+                    rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                        rows = rows + '<a href="/project/preview/video/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
+                        rows = rows + '<a href="/project/preview/video/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
+                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmVideoVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                    rows = rows + '</div>';
+                rows = rows + '@endif';
+            rows = rows + '@endif';
+        rows = rows + '</div>';
+
+        $('#feedbackSettings').html(rows);
+    }
+
+    function setVideoDisplayOfActiveVersion(activeVersion_id){
+        document.getElementById('loaderArea').style.display = 'flex';
+        axios.get('/getActiveVersionVideoData/'+ activeVersion_id)
+        .then(function (response){
+            console.log(response);
+            var row = '';
+
+            $.each(response.data, function (key, value) {
+                var videoPath = '/new_videos/' + value.video_path;
+                var posterPath = '/new_posters/' + value.poster_path;
+                if((value.width == 1920 && value.height == 1080) || (value.width == 3840 && value.height == 2160)){
+                    var class1 = '';
+                    var class2 = '';
+                    var innerClass = 'aspect-ratio-16-9';
+                    var styleAspectRatio = '';
+                    var innerWidth = 560;
+                    var innerheight = 315;
+                }
+                else if(value.width == 1080 && value.height == 1080){
+                    var class1 = 'md:flex';
+                    var class2 = 'md:w-2/4';
+                    var innerClass = 'aspect-ratio-1-1';
+                    var styleAspectRatio = '';
+                    var innerWidth = 560;
+                    var innerheight = 'auto';
+                }
+                else if((value.width == 1080 && value.height == 1920) || (value.width == 2160 || value.height == 3840) || (value.width == 720 && value.height == 1280)){
+                    var class1 = 'md:flex';
+                    var class2 = 'md:w-2/4';
+                    var innerClass = 'aspect-ratio-056-1';
+                    var styleAspectRatio = 'aspect-ratio: 1/0.56';
+                    var innerWidth = 560;
+                    var innerheight = 'auto';
+                }
+                else if (value.width == 1080 && value.height == 1350){
+                    var class1 = 'md:flex';
+                    var class2 = 'md:w-2/4';
+                    var innerClass = 'aspect-ratio-08-1';
+                    var styleAspectRatio = 'aspect-ratio: 1/0.8';
+                    var innerWidth = 560;
+                    var innerheight = 'auto';
+                }
+                else if(value.width == 328 && value.height == 574){
+                    var class1 = 'md:flex';
+                    var class2 = 'md:w-2/4';
+                    var innerClass = 'aspect-ratio-057-1';
+                    var styleAspectRatio = 'aspect-ratio: 1/0.57';
+                    var innerWidth = 560;
+                    var innerheight = 'auto';
+                }
+                else if(value.width == 336 && value.height == 280){
+                    var class1 = 'md:flex';
+                    var class2 = '';
+                    var innerClass = '';
+                    var styleAspectRatio = 'aspect-ratio: 1.2/1; width: 336px; height: 280px;';
+                    var innerWidth = '';
+                    var innerheight = '';
+                }
+                else if(value.width == 1080 && value.height == 1536){
+                    var class1 = 'md:flex';
+                    var class2 = 'md:w-2/4';
+                    var innerClass = 'aspect-ratio-07-1';
+                    var styleAspectRatio = 'aspect-ratio: 1/0.7';
+                    var innerWidth = 560;
+                    var innerheight = 'auto';
+                }
+                else if(value.width == 1440 && value.height == 1080){
+                    var class1 = 'md:flex';
+                    var class2 = 'md:w-2/4';
+                    var innerClass = 'aspect-ratio-043_1';
+                    var styleAspectRatio = 'aspect-ratio: 1/0.43';
+                    var innerWidth = 560;
+                    var innerheight = 'auto';
+                }
+                else if(value.width == 1080 && value.height == 2536){
+                    var class1 = '';
+                    var class2 = '';
+                    var innerClass = 'aspect-ratio-4-3';
+                    var styleAspectRatio = '';
+                    var innerWidth = 560;
+                    var innerheight = 315;
+                }
+                else{
+                    var class1 = '';
+                    var class2 = '';
+                    var innerClass = '';
+                    var styleAspectRatio = '';
+                    var innerWidth = 560;
+                    var innerheight = 'auto';
+                }
+                row = row + '<div class="px-4">';
+                    row = row + '<div class="md:flex -mx-8 mb-10">';
+                        row = row + '<div class="md:w-3/4 mx-8">';
+                            row = row + '<div class="videos">';
+                                row = row + '<div class="'+ class1 +'">';
+                                    row = row + '<div class="'+ class2 +'">';
+                                        row = row + '<h2 class="text-xl font-semibold mb-4 px-2 py-2 video-title" style="background-color: {{$project_color}}; color: white; border-radius: 5px;">'+ value.title + '</h2>';
+                                        row = row + '<div class="video-container '+  innerClass +'" style="'+ styleAspectRatio +'">';
+                                            row = row + '<video class="video" playsinline controls controlsList="nodownload" data-poster="poster.jpg" width="'+ innerWidth +'" height="'+ innerHeight +'">';
+                                                row = row + '<source src="'+ videoPath +'" type="video/mp4"/>';
+                                            row = row + '</video>';
+                                        row = row + '</div>';
+                                    row = row + '</div>';
+                                row = row + '</div>';
+                            row = row + '</div>';
+                            row = row + '<ul class="flex space-x-4 icons" style="color:{{ $info['color'] }};">';
+                                row = row + '@if(Auth::user())';
+                                    row = row + '<li><a href="/project/preview/video/edit/'+ value.id +'" class="color-primary underline flex mt-4">Edit<svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg></a></li>';
+                                    row = row + '<li><a href="/project/preview/video/delete/'+ value.id +'" class="color-primary underline flex mt-4">Delete<svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></li>';
+                                row = row + '@endif';
+                                    row = row + '<li><a href="'+ videoPath +'" class="color-primary underline flex mt-4" download>Download<svg class="w-6 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg></a></li>';
+                            row = row + '</ul>';
+                        row = row + '</div>';
+
+                        row = row + '<div class="md:w-1/4 mx-8" style="margin-top: 5rem;">';
+                            row = row + '<h2 class="text-xl font-semibold" style="text-decoration: underline;">Specifications:</h2>';
+                            row = row + '<table class="table w-full mt-2">';
+                                row = row + '<tbody>';
+                                    row = row + '<tr>';
+                                        row = row + '<td style="text-align: left;">Aspect Ratio:</td>';
+                                        row = row + '<td style="text-align: right;">'+ value.aspect_ratio +'</td>';
+                                    row = row + '</tr>';
+                                    row = row + '<tr>';
+                                        row = row + '<td style="text-align: left;">Resolution (WxH):</td>';
+                                        row = row + '<td style="text-align: right;">'+ value.width + 'x' + value.height +'</td>';
+                                    row = row + '</tr>';
+                                    row = row + '<tr>';
+                                        row = row + '<td style="text-align: left;">Codec:</td>';
+                                        row = row + '<td style="text-align: right;">'+ value.codec +'</td>';
+                                    row = row + '</tr>';
+                                    row = row + '<tr>';
+                                        row = row + '<td style="text-align: left;">Framerate:</td>';
+                                        row = row + '<td style="text-align: right;">'+ value.fps +'</td>';
+                                    row = row + '</tr>';
+                                    row = row + '<tr>';
+                                        row = row + '<td style="text-align: left;">Size:</td>';
+                                        row = row + '<td style="text-align: right;">'+ value.size +'</td>';
+                                    row = row + '</tr>';
+                                row = row + '</tbody>';
+                            row = row + '</table>';
+
+                        if(value.poster_path){
+                            row = row + '<div class="mt-4">';
+                                row = row + '<div class="companion-banner">';
+                                    row = row + '<h2 class="text-xl font-semibold mb-4" style="text-decoration: underline;">Companion Banner</h2>';
+
+                                    row = row + '<img class="block companion-img" src="'+ posterPath +'" alt="companion banner">';
+                                    row = row + '<div class="flex items-center space-x-4 mt-2 justify-center">';
+                                        row = row + ' <a href="'+ posterPath +'" class="color-primary underline flex" download style="text-align: center;">Download Banner';
+                                            row = row + '<svg class="w-6 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>'
+                                        row = row + '</a>';
+                                    row = row + '</div>';
+                                row = row + '</div>';
+                            row = row + '</div>';
+                        }
+                        row = row + '</div>';
+                    row = row + '</div>';
+                row = row + '</div>';
+            });
+
+            $('#bannerShowcase').html(row);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
+        .finally(function(){
+            document.getElementById('loaderArea').style.display = 'none';
+        })
     }
 
     function getGifData(){

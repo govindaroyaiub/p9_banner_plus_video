@@ -30,9 +30,9 @@
                 <div class="mb-4">
                     <div>
                         <label class="text-primary font-light block">Select Project Type</label>
-                        <select name="project_type" id="project_type"
+                        <select name="project_type" id="project_type" required
                             class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
-                            <option value="0" class="py-2">Select Option</option>
+                            <option value="">Select Option</option>
                             <option value="1">Banner</option>
                             <option value="2">Video</option>
                             <option value="3">Gif</option>
@@ -75,7 +75,7 @@
                             <small class="text-xs text-red-500">(Default selected: PlanetNine)</small>
                             <select name="logo_id" id="logo_id"
                                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
-                                <option value="0" class="py-2">Select Option</option>
+                                <option value="">Select Option</option>
                                 @foreach($logo_list as $logo)
                                 <option value="{{ $logo->id }}" @if(Auth::user()->company_id == $logo->id) selected
                                     @endif class="py-2">{{ $logo->name }}</option>
@@ -85,10 +85,11 @@
                         <div>
                             <label class="text-primary font-light block">Show Footer?</label>
                             <small class="text-xs text-red-500">(Only for Planetnine Footer will show)</small>
-                            <select name="is_footer" id="is_footer"
+                            <select name="is_footer" id="is_footer" required
                                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
-                                <option value="1" class="py-2">YES</option>
-                                <option value="2" class="py-2">NO</option>
+                                <option value="">Select Option</option>
+                                <option value="1" selected>YES</option>
+                                <option value="2">NO</option>
                             </select>
                         </div>
                     </div>
@@ -139,9 +140,9 @@
     
                     <div class="mb-2">
                         <label class="text-primary font-light block">Advertising Format</label>
-                        <select name="video_size_id" id="video_size_id"
-                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" required>
-                            <option value="0" class="py-2">Select Size</option>
+                        <select name="video_size_id" id="video_size_id" required
+                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
+                            <option value="">Select Option</option>
                             @foreach($video_sizes as $size)
                             <option value="{{ $size->id }}" class="py-2">{{ $size->name }} - {{ $size->width }}x{{ $size->height }}
                             </option>
@@ -311,7 +312,7 @@
                     rows = rows + '<td class="text-center py-4">';
                     rows = rows + '<div class="mb-4">';
                     rows = rows + '<select name="banner_size_id[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="banner_size_id" required>';
-                    rows = rows + '<option value="0" class="py-2">Select Option</option>';
+                    rows = rows + '<option value="">Select Option</option>';
                     @foreach ($size_list as $size)
                         rows = rows + '<option value='+ {{$size->width}} + 'x' + {{$size->height}} +' class="py-2">'+ {{$size->width}} + 'x' + {{$size->height}} +'</option>';
                     @endforeach
