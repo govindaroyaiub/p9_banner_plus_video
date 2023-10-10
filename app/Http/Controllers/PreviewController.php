@@ -24,7 +24,6 @@ use App\BannerSizes;
 class PreviewController extends Controller
 {
     function viewPreviews(){
-
         $data = newPreview::orderBy('created_at', 'ASC')->get();
         return view('newpreview.previews', compact('data'));
     }
@@ -239,6 +238,7 @@ class PreviewController extends Controller
 
             $version_info = newVersion::where('id', $banner_info['version_id'])->first();
             $feedback_info = newFeedback::where('id', $version_info['feedback_id'])->first();
+            $project_info = newPreview::where('id', $feedback_info['project_id'])->first();
             $size_info = BannerSizes::where('id', $request->banner_size_id)->first();
             $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
     
@@ -337,6 +337,15 @@ class PreviewController extends Controller
         return view('newpreview.banner.bannerversionaddon', compact('size_list', 'version', 'feedback', 'versionCount', 'version_id'));
     }
 
+    function videoAddVersionView($id){
+        $version_id = $id;
+        $version = newVersion::find($id);
+        $feedback = newFeedback::where('id', $version['feedback_id'])->first();
+        $video_sizes = Sizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        $versionCount = newVersion::where('feedback_id', $feedback['id'])->count();
+        return view('newpreview.video.videoversionaddon', compact('video_sizes', 'version', 'feedback', 'versionCount', 'version_id'));
+    }
+
     function bannerAddVersionPost(Request $request, $id){
         $version_id = $id;
         $version = newVersion::find($id);
@@ -408,12 +417,87 @@ class PreviewController extends Controller
         return redirect('/project/preview/view/'.$project_id);
     }
 
+    function videoAddVersionPost(Request $request, $id){
+        $validator = $request->validate([
+            'poster' => 'mimes:jpeg,png,jpg,gif',
+            'video' => 'required|mimes:mp4',
+            'video_size_id' => 'required'
+        ]);
+
+        $version_id = $id;
+        $version = newVersion::find($id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        $project_id = $feedback['project_id'];
+        $project = newPreview::find($project_id);
+        $project_name = str_replace(" ", "_", $project['name']);
+
+        if($request->version_request == 1){
+            $version_id = $id;
+        }
+        else if($request->version_request == 2){
+            $version = new newVersion;
+            $version->name = $request->version_name;
+            $version->feedback_id = $feedback['id'];
+            $version->is_active = 1;
+            $version->save();
+
+            $version_id = $version->id;
+
+            $exceptionVersions = newVersion::select('id')->where('id', '!=', $version_id)->where('feedback_id', $feedback['id'])->get()->toArray();
+            newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+        }
+        else{
+            return back()->with('danger', 'Please Select Correct Option!');
+        }
+
+        $size_info = Sizes::where('id', $request->video_size_id)->first();
+        $sub_project_name = $project_name.'_'.$size_info['width'].'x'.$size_info['height'];
+
+        if($request->has('poster')){
+            $poster_name = $sub_project_name.'_'.time().'.'.$request->poster->extension();
+            $request->poster->move(public_path('new_posters'), $poster_name);
+        }
+        else{
+            $poster_name = NULL;
+        }
+
+        $video_name = $sub_project_name.'_'.time().'.'.$request->video->extension();
+        $request->video->move(public_path('new_videos'), $video_name);
+        $video_bytes = filesize(public_path('/new_videos/'.$video_name));
+
+        $label = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB' );
+        for( $i = 0; $video_bytes >= 1024 && $i < ( count( $label ) -1 ); $video_bytes /= 1024, $i++ );
+        $video_size = round( $video_bytes, 2 ) . " " . $label[$i];
+
+        $video = new newVideo;
+        $video->name = $sub_project_name;
+        $video->title = $request->video_title;
+        $video->size_id = $request->video_size_id;
+        $video->codec = $request->codec;
+        $video->aspect_ratio = $request->aspect_ratio;
+        $video->fps = $request->fps;
+        $video->size = $video_size;
+        $video->poster_path = $poster_name;
+        $video->video_path = $video_name;
+        $video->version_id = $version_id;
+        $video->save();
+
+        return redirect('/project/preview/view/'.$project_id);
+    }
+
     function bannerEditVersionView($id){
         $version = newVersion::find($id);
         $feedback = newFeedback::find($version['feedback_id']);
         $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
         return view('newpreview.banner.bannerversionedit', compact('version', 'feedback', 'size_list'));
         
+    }
+
+    function videoEditVersionView($id){
+        $version = newVersion::find($id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        $video_sizes = Sizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        return view('newpreview.video.videoversionedit', compact('version', 'feedback', 'video_sizes'));
     }
 
     function bannerEditVersionPost(Request $request, $id){
@@ -478,6 +562,18 @@ class PreviewController extends Controller
             }
         }
 
+        return redirect('/project/preview/view/'.$project_id);
+    }
+
+    function videoEditVersionPost(Request $request, $id){
+        $version_id = $id;
+        $version = newVersion::find($version_id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        $project_id = $feedback['project_id'];
+        $project = newPreview::find($project_id);
+        $project_name = str_replace(" ", "_", $project['name']);
+        
+        newVersion::where('id', $version_id)->update(['name' => $request->version_name]);
         return redirect('/project/preview/view/'.$project_id);
     }
 
@@ -566,7 +662,48 @@ class PreviewController extends Controller
         }
         else if($request->project_type == 2){
             //this is video upload method
-            dd('this is video');
+            $validator = $request->validate([
+                'poster' => 'mimes:jpeg,png,jpg,gif',
+                'video' => 'required|mimes:mp4',
+                'video_size_id' => 'required'
+            ]);
+
+            $size_info = Sizes::where('id', $request->video_size_id)->first();
+            $sub_project_name = $project_name.'_'.$size_info['width'].'x'.$size_info['height'];
+
+            if($request->has('poster'))
+            {
+                $poster_name = $sub_project_name.'_'.time().'.'.$request->poster->extension();
+                $request->poster->move(public_path('new_posters'), $poster_name);
+            }
+            else
+            {
+                $poster_name = NULL;
+            }
+
+
+            $video_name = $sub_project_name.'_'.time().'.'.$request->video->extension();
+            $request->video->move(public_path('new_videos'), $video_name);
+            $video_bytes = filesize(public_path('/new_videos/'.$video_name));
+
+            $label = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB' );
+            for( $i = 0; $video_bytes >= 1024 && $i < ( count( $label ) -1 ); $video_bytes /= 1024, $i++ );
+            $video_size = round( $video_bytes, 2 ) . " " . $label[$i];
+
+            $video = new newVideo;
+            $video->name = $sub_project_name;
+            $video->title = $request->video_title;
+            $video->size_id = $request->video_size_id;
+            $video->codec = $request->codec;
+            $video->aspect_ratio = $request->aspect_ratio;
+            $video->fps = $request->fps;
+            $video->size = $video_size;
+            $video->poster_path = $poster_name;
+            $video->video_path = $video_name;
+            $video->version_id = $version->id;
+            $video->save();
+
+            return redirect('/project/preview/view/'.$id);
         }
         else if($request->project_type == 3){
             //this is gif upload method
@@ -579,6 +716,7 @@ class PreviewController extends Controller
         else{
             return back()->with('danger', 'Pleae select correct project type');
         }
+        
     }
 
     function feedbackEditView($id){
@@ -592,5 +730,83 @@ class PreviewController extends Controller
         newFeedback::where('id', $id)->update(['name' => $request->feedback_name, 'description' => $request->feedback_description]);
 
         return redirect('/project/preview/view/'.$feedback['project_id']);
+    }
+
+    function videoEditView($id){
+        $sub_project_id = $id;
+        $sub_project_info = newVideo::where('id', $id)->first();
+        $size_list = Sizes::orderBy('width', 'DESC')->get();
+        return view('newpreview.video.video_edit', compact('sub_project_info', 'size_list', 'sub_project_id'));
+    }
+
+    function videoEditPost(Request $request, $id){
+        $validator = $request->validate([
+            'poster' => 'mimes:jpeg,png,jpg,gif',
+            'video' => 'mimes:mp4',
+        ]);
+
+        if($request->video_size_id != 0){
+            $sub_project_id = $id;
+            $sub_project_info = newVideo::find($id);
+            $size_info = Sizes::where('id', $request->video_size_id)->first();
+            $version_info = newVersion::where('id', $sub_project_info['version_id'])->first();
+            $feedback_info = newFeedback::where('id', $version_info['feedback_id'])->first();
+            $main_project_info = newPreview::where('id', $feedback_info['project_id'])->first();
+            $sub_project_name = $main_project_info['name'].'_'.$size_info['width'].'x'.$size_info['height'];
+
+            if($request->video != NULL){
+                $poster_name = $sub_project_info['poster_path'];
+                $video_path = public_path('new_videos/').$sub_project_info['video_path'];
+                if (file_exists($video_path)) {
+                    @unlink($video_path);
+                }
+
+                $video_name = $sub_project_name.'_'.time().'.'.$request->video->extension();
+                $request->video->move(public_path('new_videos'), $video_name);
+                $video_bytes = filesize(public_path('/new_videos/'.$video_name));
+
+                $label = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB' );
+                for( $i = 0; $video_bytes >= 1024 && $i < ( count( $label ) -1 ); $video_bytes /= 1024, $i++ );
+                $video_size = round( $video_bytes, 2 ) . " " . $label[$i];
+            }
+            else if($request->poster != NULL)
+            {
+                $video_name = $sub_project_info['video_path'];
+                $video_size = $sub_project_info['size'];
+                if($sub_project_info['poster_path'] == NULL){
+                    $poster_name = $sub_project_name.'_'.time().'.'.$request->poster->extension();
+                    $request->poster->move(public_path('new_posters'), $poster_name);
+                }
+                else{
+                    $poster_path = public_path('new_posters/').$sub_project_info['poster_path'];
+                    if (file_exists($poster_path)) {
+                        @unlink($poster_path);
+                    }
+                    //then add the new one
+                    $poster_name = $sub_project_name.'_'.time().'.'.$request->poster->extension();
+                    $request->poster->move(public_path('new_posters'), $poster_name);
+                }
+            }
+            else{
+                $poster_name = $sub_project_info['poster_path'];
+                $video_name = $sub_project_info['video_path'];
+                $video_size = $sub_project_info['size'];
+            }
+
+            $sub_project_details = [
+                'name' => $sub_project_name,
+                'title' => $request->title,
+                'codec' => $request->codec,
+                'size_id' => $request->video_size_id,
+                'aspect_ratio' => $request->aspect_ratio,
+                'fps' => $request->fps,
+                'size' => $video_size,
+                'poster_path' => $poster_name,
+                'video_path' => $video_name
+            ];
+
+            newVideo::where('id', $sub_project_id)->update($sub_project_details);
+            return redirect('/project/preview/view/'.$main_project_info->id);
+        }
     }
 }

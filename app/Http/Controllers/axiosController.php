@@ -78,6 +78,34 @@ class axiosController extends Controller
         ];
     }
 
+    function deleteVideo(Request $request, $id){
+        $video = newVideo::where('id', $id)->first();
+        $version = $video['version_id'];
+        $file_path = public_path() . '/new_videos/' . $video['video_path'];
+        if(file_exists($file_path)){
+            @unlink($file_path);
+        }
+        newVideo::where('id', $id)->delete();
+        
+        return $data = [
+            'version_id' => $version
+        ];
+    }
+
+    function deleteVideoPoster($id){
+        $video = newVideo::where('id', $id)->first();
+        $version = $video['version_id'];
+        $file_path = public_path() . '/new_poster/' . $video['poster_path'];
+        if(file_exists($file_path)){
+            @unlink($file_path);
+        }
+        newVideo::where('id', $id)->update(['poster_path' => '']);
+        
+        return $data = [
+            'version_id' => $version
+        ];
+    }
+
     function getVersionsFromFeedback(Request $request, $id){
         $versions = newVersion::where('feedback_id', $id)->get();
         $versionCount = $versions->count();
@@ -103,6 +131,20 @@ class axiosController extends Controller
         ];
     }
 
+    function setVideoActiveVersion(Request $request, $id){
+        $version = newVersion::find($id);
+        $feedback = newFeedback::where('id', $version['feedback_id'])->first();
+        newVersion::where('id', $id)->update(['is_active' => 1]);
+        $exceptionVersions = newVersion::select('id')->where('id', '!=', $id)->where('feedback_id', $feedback['id'])->get()->toArray();
+        newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+        $versions = newVersion::where('feedback_id', $feedback['id'])->get();
+
+        return $data = [
+            'versions' => $versions,
+            'activeVersion_id' => $id
+        ];
+    }
+
     function deleteBannerVersion($id){
         $banners = newBanner::where('version_id', $id)->get();
         $version = newVersion::find($id);
@@ -115,6 +157,34 @@ class axiosController extends Controller
                 $files = File::deleteDirectory($file_path);
             }
             newBanner::where('id', $banner->id)->delete();
+        }
+
+        newVersion::where('id', $id)->delete();
+        
+        $lastVersion = newVersion::where('feedback_id', $feedback_id)->orderBy('id', 'DESC')->first();
+        newVersion::where('id', $lastVersion['id'])->update(['is_active' => 1]);
+
+        return $data = [
+            'feedback_id' => $feedback_id
+        ];
+    }
+
+    function deleteVideoVersion($id){
+        $videos = newVideo::where('version_id', $id)->get();
+        $version = newVersion::find($id);
+        $feedback_id = $version['feedback_id'];
+
+        $videos = newVideo::where('version_id', $version['id'])->get();
+        foreach ($videos as $video) {
+            $video_path = public_path() . '/new_videos/' . $video['video_path'];
+            if(file_exists($video_path)){
+                @unlink($video_path);
+            }
+            $poster_path = public_path() . '/new_posters/' . $video['poster_path'];
+            if(file_exists($poster_path)){
+                @unlink($poster_path);
+            }
+            newVideo::where('id', $video->id)->delete();
         }
 
         newVersion::where('id', $id)->delete();
@@ -184,13 +254,31 @@ class axiosController extends Controller
             }
         }
         else if($feedback['project_type'] == 2){
+            $versions = newVersion::where('feedback_id', $id)->get();
 
+            foreach($versions as $version){
+                $videos = newVideo::where('version_id', $version['id'])->get();
+                foreach ($videos as $video) {
+                    $video_path = public_path() . '/new_videos/' . $video['video_path'];
+                    if(file_exists($video_path)){
+                        @unlink($video_path);
+                    }
+                    $poster_path = public_path() . '/new_posters/' . $video['poster_path'];
+                    if(file_exists($poster_path)){
+                        @unlink($poster_path);
+                    }
+                    newVideo::where('id', $video->id)->delete();
+                }
+            }
         }
         else if($feedback['project_type'] == 3){
 
         }
-        else{
+        else if($feedback['project_type'] == 4){
 
+        }
+        else{
+            return 'Something went wrong';
         }
 
         newVersion::where('feedback_id', $id)->delete();

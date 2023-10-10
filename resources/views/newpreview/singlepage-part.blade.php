@@ -111,7 +111,7 @@
 
     function setBannerDisplayOfActiveVersion(activeVersion_id){
         document.getElementById('loaderArea').style.display = 'flex';
-        axios.get('/getActiveVwersionBannerData/'+ activeVersion_id)
+        axios.get('/getActiveVersionBannerData/'+ activeVersion_id)
         .then(function (response){
             console.log(response);
             var row = '';
@@ -226,7 +226,7 @@
                 else{
                     isActive = '';
                 }
-                row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateBannerActiveVersion('+ value.id +')" style="margin-left: 2px; margin-right: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
+                row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateVideoActiveVersion('+ value.id +')" style="margin-left: 2px; margin-right: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
             });
         }
         else{
@@ -359,7 +359,7 @@
                                     row = row + '<div class="'+ class2 +'">';
                                         row = row + '<h2 class="text-xl font-semibold mb-4 px-2 py-2 video-title" style="background-color: {{$project_color}}; color: white; border-radius: 5px;">'+ value.title + '</h2>';
                                         row = row + '<div class="video-container '+  innerClass +'" style="'+ styleAspectRatio +'">';
-                                            row = row + '<video class="video" muted playsinline controls controlsList="nodownload" data-poster="poster.jpg" width="'+ innerWidth +'" height="'+ innerHeight +'">';
+                                            row = row + '<video class="video" muted playsinline controls controlsList="nodownload" data-poster="poster.jpg" width="'+ innerWidth +'" height="'+ innerHeight +'" style="border-radius: 8px;">';
                                                 row = row + '<source src="'+ videoPath +'" type="video/mp4"/>';
                                             row = row + '</video>';
                                         row = row + '</div>';
@@ -369,13 +369,13 @@
                             row = row + '<ul class="flex space-x-4 icons" style="color:{{ $info['color'] }};">';
                                 row = row + '@if(Auth::user())';
                                     row = row + '<li><a href="/project/preview/video/edit/'+ value.id +'" class="color-primary underline flex mt-4">Edit<svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg></a></li>';
-                                    row = row + '<li><a href="/project/preview/video/delete/'+ value.id +'" class="color-primary underline flex mt-4">Delete<svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></li>';
+                                    row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteVideo('+ value.id +')" class="color-primary underline flex mt-4">Delete<svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></li>';
                                 row = row + '@endif';
                                     row = row + '<li><a href="'+ videoPath +'" class="color-primary underline flex mt-4" download>Download<svg class="w-6 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg></a></li>';
                             row = row + '</ul>';
                         row = row + '</div>';
 
-                        row = row + '<div class="md:w-1/4 mx-8">';
+                        row = row + '<div class="md:w-1/4 mx-8" style="margin-top: 5rem;">';
                             row = row + '<h2 class="text-xl font-semibold" style="text-decoration: underline;">Specifications:</h2>';
                             row = row + '<table class="table w-full mt-2">';
                                 row = row + '<tbody>';
@@ -409,6 +409,11 @@
 
                                     row = row + '<img class="block companion-img" src="'+ posterPath +'" alt="companion banner">';
                                     row = row + '<div class="flex items-center space-x-4 mt-2 justify-center">';
+                                        row = row + '@if(Auth::user())';
+                                        row = row + ' <a href="javascript:void(0)" onclick="return confirmDeleteVideoPoster('+ value.id +')"  class="color-primary underline flex" style="text-align: center;">Delete';
+                                            row = row + '<svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>'
+                                        row = row + '</a>';
+                                        row = row + '@endif';
                                         row = row + ' <a href="'+ posterPath +'" class="color-primary underline flex" download style="text-align: center;">Download Banner';
                                             row = row + '<svg class="w-6 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>'
                                         row = row + '</a>';
@@ -428,6 +433,108 @@
         })
         .finally(function(){
             document.getElementById('loaderArea').style.display = 'none';
+        })
+    }
+
+    function confirmDeleteVideo(id) {
+        Swal.fire({
+            title: 'Are you sure you want to delete this video?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Thinking....`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteVideo/'+ id)
+                .then(function (response){
+                    setVideoDisplayOfActiveVersion(response.data.version_id);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Video Has Been Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
+        })
+    }
+
+    function confirmDeleteVideoPoster(id){
+        Swal.fire({
+            title: 'Are you sure you want to delete this poster?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Thinking....`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteVideoPoster/'+ id)
+                .then(function (response){
+                    setVideoDisplayOfActiveVersion(response.data.version_id);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Poster Has Been Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
+        })
+    }
+
+    function updateVideoActiveVersion(version_id){
+        axios.get('/setVideoActiveVersion/' + version_id)
+        .then(function (response){
+            setVideoFeedbackVersions(response.data.versions);
+            setVideoActiveVersionSettings(response.data.activeVersion_id);
+            setVideoDisplayOfActiveVersion(response.data.activeVersion_id);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    function confirmVideoVersionDelete(version_id){
+        Swal.fire({
+            title: 'Are you sure you want to delete this version?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Thinking....`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteVideoVersion/'+ version_id)
+                .then(function (response){
+                    checkFeedbackType();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Version Has Been Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
         })
     }
 

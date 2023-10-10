@@ -243,10 +243,18 @@ Route::get('/project/preview/banner/edit/{id}', 'PreviewController@bannerEditVie
 Route::post('/project/preview/banner/edit/{id}', 'PreviewController@bannerEditPost');
 Route::get('/project/preview/banner/download/{id}', 'PreviewController@bannerDownload');
 
+Route::get('/project/preview/video/edit/{id}', 'PreviewController@videoEditView');
+Route::post('/project/preview/video/edit/{id}', 'PreviewController@videoEditPost');
+
 Route::get('/project/preview/banner/add/version/{id}', 'PreviewController@bannerAddVersionView');
 Route::post('/project/preview/banner/add/version/{id}', 'PreviewController@bannerAddVersionPost');
 Route::get('/project/preview/banner/edit/version/{id}', 'PreviewController@bannerEditVersionView');
 Route::post('/project/preview/banner/edit/version/{id}', 'PreviewController@bannerEditVersionPost');
+
+Route::get('/project/preview/video/add/version/{id}', 'PreviewController@videoAddVersionView');
+Route::post('/project/preview/video/add/version/{id}', 'PreviewController@videoAddVersionPost');
+Route::get('/project/preview/video/edit/version/{id}', 'PreviewController@videoEditVersionView');
+Route::post('/project/preview/video/edit/version/{id}', 'PreviewController@videoEditVersionPost');
 
 Route::get('/project/preview/edit/feedback/{id}', 'PreviewController@feedbackEditView');
 Route::post('/project/preview/edit/feedback/{id}', 'PreviewController@feedbackEditPost');
@@ -259,9 +267,13 @@ Route::get('/getFeedbackType/{id}', 'axiosController@getFeedbackType');
 Route::get('/getActiveVersionBannerData/{id}', 'axiosController@getActiveVwersionBannerData');
 Route::get('/getActiveVersionVideoData/{id}', 'axiosController@getActiveVersionVideoData');
 Route::get('/deleteBanner/{id}', 'axiosController@deleteBanner');
+Route::get('/deleteVideo/{id}', 'axiosController@deleteVideo');
+Route::get('/deleteVideoPoster/{id}', 'axiosController@deleteVideoPoster');
 Route::get('/getVersionsFromFeedback/{id}', 'axiosController@getVersionsFromFeedback');
 Route::get('/setBannerActiveVersion/{id}', 'axiosController@setBannerActiveVersion');
+Route::get('/setVideoActiveVersion/{id}', 'axiosController@setBannerActiveVersion');
 Route::get('/deleteBannerVersion/{id}', 'axiosController@deleteBannerVersion');
+Route::get('/deleteVideoVersion/{id}', 'axiosController@deleteVideoVersion');
 Route::get('/getActiveFeedbackProjectType/{id}', 'axiosController@getActiveFeedbackProjectType');
 
 Route::get('/getAllFeedbacks/{project_id}', 'axiosController@getAllFeedbacks');

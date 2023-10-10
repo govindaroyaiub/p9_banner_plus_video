@@ -13,6 +13,9 @@ yarn-error.log
 /public/banner_videos
 /public/images
 /public/videos
+/public/new_videos
+/public/new_posters
+/public/new_banner_collection
 /public/poster_images
 /public/banner_collection
 /public/gif_collection
