@@ -121,8 +121,8 @@ class axiosController extends Controller
         $version = newVersion::find($id);
         $feedback = newFeedback::where('id', $version['feedback_id'])->first();
         newVersion::where('id', $id)->update(['is_active' => 1]);
-        $exceptionVersions = newVersion::select('id')->where('id', '!=', $id)->where('feedback_id', $feedback['id'])->get()->toArray();
-        newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+        $exceptionVersions = newVersion::select('id')->where('feedback_id', $feedback['id'])->where('id', '!=', $id)->get()->toArray();
+        newVersion::whereIn('id', $exceptionVersions)->where('feedback_id', $feedback['id'])->update(['is_active' => 0]);
         $versions = newVersion::where('feedback_id', $feedback['id'])->get();
 
         return $data = [
@@ -135,8 +135,8 @@ class axiosController extends Controller
         $version = newVersion::find($id);
         $feedback = newFeedback::where('id', $version['feedback_id'])->first();
         newVersion::where('id', $id)->update(['is_active' => 1]);
-        $exceptionVersions = newVersion::select('id')->where('id', '!=', $id)->where('feedback_id', $feedback['id'])->get()->toArray();
-        newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+        $exceptionVersions = newVersion::select('id')->where('feedback_id', $feedback['id'])->where('id', '!=', $id)->get()->toArray();
+        newVersion::whereIn('id', $exceptionVersions)->where('feedback_id', $feedback['id'])->update(['is_active' => 0]);
         $versions = newVersion::where('feedback_id', $feedback['id'])->get();
 
         return $data = [
@@ -223,8 +223,8 @@ class axiosController extends Controller
     function updateActiveFeedback($id){
         $feedback = newFeedback::find($id);
         newFeedback::where('id', $id)->update(['is_active' => 1]);
-        $exceptionFeedbacks = newFeedback::select('id')->where('id', '!=', $id)->get()->toArray();
-        newFeedback::whereIn('id', $exceptionFeedbacks)->update(['is_active' => 0]);
+        $exceptionFeedbacks = newFeedback::select('id')->where('project_id', $feedback['project_id'])->where('id', '!=', $id)->get()->toArray();
+        newFeedback::whereIn('id', $exceptionFeedbacks)->where('project_id', $feedback['project_id'])->update(['is_active' => 0]);
 
         $feedbacks = newFeedback::where('project_id', $feedback['project_id'])->get();
 

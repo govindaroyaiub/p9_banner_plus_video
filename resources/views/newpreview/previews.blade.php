@@ -29,10 +29,11 @@
                 <thead>
                     <tr>
                         <th data-priority="1">No</th>
-                        <th data-priority="2">Project Name</th>
-                        <th data-priority="3" width="140px" max-width="160px">Client Name</th>
-                        <th data-priority="4" width="110px" max-width="135px">Uploader</th>
-                        <th data-priority="5" width="270px" max-width="290px">Actions</th>
+                        <th data-priority="2">Name</th>
+                        <th data-priority="3">Client</th>
+                        <th data-priority="4">Tags</th>
+                        <th data-priority="5">Uploader</th>
+                        <th data-priority="6">Actions</th>
                     </tr>
                 </thead>
                 <?php $i=1; ?>
@@ -43,15 +44,41 @@
                         <td class="border px-4 py-2">
                             {{ $row->name }}
                         </td>
-                        <td class="border px-4 py-2" width="140px" max-width="160px">{{ $row->client_name }}</td>
+                        <td class="border px-4 py-2">{{ $row->client_name }}</td>
+                        <td class="border px-4 py-2">
+                            <div style="display: flex; justify-content: space-evenly;">
+                                <?php
+                                $data = Helper::getProjectTags($row->id);
+                                foreach ($data as $key => $tag) {
+                                        # code...
+                                        if($tag == 'Banner'){
+                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #1abc9c; color: white;">Banner</div>';
+                                        }
+                                        else if($tag == 'Video'){
+                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #2ecc71; color: white;">Video</div>';
+                                        }
+                                        else if($tag == 'Gif'){
+                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #3498db; color: white;">Gif</div>';
+                                        }
+                                        else if($tag == 'Social'){
+                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #9b59b6; color: white;">Social</div>';
+                                        }
+                                        else{
+                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #c0392b; color: white;">ERROR</div>';
+                                        }
+                                    }
+                                ?>
+                            </div>
+                            
+                        </td>
                         @if(Auth::user()->company_id == 1)
-                        <td class="border px-4 py-2" width="110px" max-width="135px" style="font-size: 15px;">
+                        <td class="border px-4 py-2">
                             <label class="text-red-500 font-semibold">{{ Helper::getUsername($row->uploaded_by_user_id) }}</label>
                             <hr>
                             <label class="text-red-500 font-semibold">{{ \Carbon\Carbon::parse($row->created_at)->format('d F Y') }}</label>
                         </td>
                         @endif
-                        <td class="border px-4 py-2"  width="270px" max-width="290px">
+                        <td class="border py-2">
                             <a href="/project/preview/view/{{$row->id}}" target="_blank">
                                 <button type="button"
                                     class="bg-primary text-gray-200 rounded px-4 py-2 focus:outline-none">
@@ -78,18 +105,7 @@
                                         <path strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
                                 </button>
-                            </a>
-
-                            @if(Auth::user()->company_id == 1)
-                            <a href="{{ Helper::getWebsiteOfLogo($row->logo_id) }}/project/banner-showcase/view/{{$row->id}}" target="_blank">
-                                <button type="button"
-                                    class="bg-green-500 text-gray-200 rounded hover:bg-green-400 px-4 py-2 focus:outline-none">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
-                                      </svg>                                      
-                                </button>
-                            </a>
-                            @endif --}}
+                            </a>--}}
                         </td>
                     </tr>
                     @endforeach

@@ -19,6 +19,12 @@ use App\AllGifs;
 use App\AllSocials;
 use App\CreativeCategories;
 use App\newPreview;
+use App\newFeedback;
+use App\newBanner;
+use App\newVideo;
+use App\newGif;
+use App\newSocial;
+use App\newVersion;
 
 class Helper
 {
@@ -225,5 +231,28 @@ class Helper
     public static function getWebsiteOfLogo($id){
         $logo = Logo::where('id', $id)->first();
         return $logo['website'];
+    }
+
+    public static function getProjectTags($id){
+        $feedbacks = newFeedback::where('project_id', $id)->get();
+
+        $data = [];
+
+        foreach($feedbacks as $key => $feedback){
+            if($feedback['project_type'] == 1){
+                array_push($data, 'Banner');
+            }
+            if($feedback['project_type'] == 2){
+                array_push($data, 'Video');
+            }
+            if($feedback['project_type'] == 3){
+                array_push($data, 'Gif');
+            }
+            if($feedback['project_type'] == 4){
+                array_push($data, 'Social');
+            }
+        }
+
+        return array_reverse($data);
     }
 }
