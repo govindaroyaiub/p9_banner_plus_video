@@ -367,7 +367,7 @@ class PreviewController extends Controller
             $version_id = $version->id;
 
             $exceptionVersions = newVersion::select('id')->where('id', '!=', $version_id)->where('feedback_id', $feedback['id'])->get()->toArray();
-            newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+            newVersion::whereIn('id', $exceptionVersions)->where('feedback_id', $feedback['id'])->update(['is_active' => 0]);
         }
         else{
             return back()->with('danger', 'Please Select Correct Option!');
@@ -444,7 +444,7 @@ class PreviewController extends Controller
             $version_id = $version->id;
 
             $exceptionVersions = newVersion::select('id')->where('id', '!=', $version_id)->where('feedback_id', $feedback['id'])->get()->toArray();
-            newVersion::whereIn('id', $exceptionVersions)->update(['is_active' => 0]);
+            newVersion::whereIn('id', $exceptionVersions)->where('feedback_id', $feedback['id'])->update(['is_active' => 0]);
         }
         else{
             return back()->with('danger', 'Please Select Correct Option!');
@@ -600,8 +600,8 @@ class PreviewController extends Controller
         $feedback->is_active = 1;
         $feedback->save();
 
-        $exceptionFeedbacks = newFeedback::select('id')->where('id', '!=', $feedback->id)->get()->toArray();
-        newFeedback::whereIn('id', $exceptionFeedbacks)->update(['is_active' => 0]);
+        $exceptionFeedbacks = newFeedback::select('id')->where('project_id', $project['id'])->where('id', '!=', $feedback->id)->get()->toArray();
+        newFeedback::whereIn('id', $exceptionFeedbacks)->where('project_id', $project['id'])->update(['is_active' => 0]);
 
         $version = new newVersion;
         $version->name = $request->version_name;
