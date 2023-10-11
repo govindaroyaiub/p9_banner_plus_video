@@ -16,6 +16,9 @@ class NewSocialTable extends Migration
         Schema::create('new_social_table', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('width');
+            $table->integer('height');
+            $table->string('size');
             $table->string('file_path');
             $table->bigInteger('version_id');
             $table->timestamps();

@@ -253,6 +253,6 @@ class Helper
             }
         }
 
-        return array_reverse($data);
+        return array_unique(array_reverse($data));
     }
 }

@@ -173,11 +173,72 @@ class PreviewController extends Controller
         }
         else if($request->project_type == 3){
             //this is gif upload method
-            dd('this is gif');
+            if($request->hasfile('gifupload')){
+                $gif_size = $request->gif_size_id;
+                $gifupload = $request->gifupload;
+
+                foreach($gif_size as $index => $size){
+                    $removeX = explode("x", $size);
+                    $request_width = $removeX[0];
+                    $request_height = $removeX[1];
+                    $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                    $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
+            
+                    $file_name = $sub_project_name . '_' . time() . rand() . '.' . $gifupload[$index]->extension();
+                    $gifupload[$index]->move(public_path('new_gifs/'), $file_name);
+                    $file_bytes = filesize(public_path('new_gifs/' . $file_name));
+            
+                    $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                    for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                    $file_size = round($file_bytes, 2) . " " . $label[$i];
+            
+                    $gif = new newGif;
+                    $gif->name = $sub_project_name;
+                    $gif->size = $file_size;
+                    $gif->file_path = $file_name;
+                    $gif->size_id = $size_info['id'];
+                    $gif->version_id = $version->id;
+                    $gif->save();
+                }
+            }
         }
         else if($request->project_type == 4){
             //this is social upload method
-            dd('this is social');
+            if($request->hasfile('socialupload')){
+
+                $validator = $request->validate([
+                    'socialupload' => 'required',
+                    'socialupload.*' => 'mimes:jpeg,jpg,png'
+                ]);
+    
+                $platforms = $request->platform; 
+                $uploads = $request->socialupload;
+    
+                foreach($platforms as $index => $platform)
+                {
+                    $original_file_name = $uploads[$index]->getClientOriginalName();
+                    $name = explode('.',$original_file_name);
+    
+                    $file_name = $project_name . '_' . $name[0] . '_' . time() . '.' . $uploads[$index]->extension();
+                    $uploads[$index]->move(public_path('new_socials'), $file_name);
+
+                    list($width, $height) = getimagesize(public_path('new_socials/'.$file_name));
+
+                    $file_bytes = filesize(public_path('new_socials/'.$file_name));
+                    $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                    for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                    $file_size = round($file_bytes, 2) . " " . $label[$i];
+    
+                    $social = new newSocial;
+                    $social->name = $project_name .'_' . $platform . '_' . $name[0];
+                    $social->width = $width;
+                    $social->height = $height;
+                    $social->size = $file_size;
+                    $social->version_id = $version->id;
+                    $social->file_path = $file_name;
+                    $social->save();
+                }
+            }
         }
         else{
             return back()->with('danger', 'Pleae select correct project type');
@@ -346,6 +407,15 @@ class PreviewController extends Controller
         return view('newpreview.video.videoversionaddon', compact('video_sizes', 'version', 'feedback', 'versionCount', 'version_id'));
     }
 
+    function gifAddVersionView($id){
+        $version_id = $id;
+        $version = newVersion::find($id);
+        $feedback = newFeedback::where('id', $version['feedback_id'])->first();
+        $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        $versionCount = newVersion::where('feedback_id', $feedback['id'])->count();
+        return view('newpreview.gif.gifversionaddon', compact('size_list', 'version', 'feedback', 'versionCount', 'version_id'));
+    }
+
     function bannerAddVersionPost(Request $request, $id){
         $version_id = $id;
         $version = newVersion::find($id);
@@ -485,6 +555,64 @@ class PreviewController extends Controller
         return redirect('/project/preview/view/'.$project_id);
     }
 
+    function gifAddVersionPost(Request $request, $id){
+        $version_id = $id;
+        $version = newVersion::find($id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        $project_id = $feedback['project_id'];
+        $project = newPreview::find($project_id);
+        $project_name = str_replace(" ", "_", $project['name']);
+
+        if($request->version_request == 1){
+            $version_id = $id;
+        }
+        else if($request->version_request == 2){
+            $version = new newVersion;
+            $version->name = $request->version_name;
+            $version->feedback_id = $feedback['id'];
+            $version->is_active = 1;
+            $version->save();
+
+            $version_id = $version->id;
+
+            $exceptionVersions = newVersion::select('id')->where('id', '!=', $version_id)->where('feedback_id', $feedback['id'])->get()->toArray();
+            newVersion::whereIn('id', $exceptionVersions)->where('feedback_id', $feedback['id'])->update(['is_active' => 0]);
+        }
+        else{
+            return back()->with('danger', 'Please Select Correct Option!');
+        }
+
+        if($request->hasfile('gifupload')){
+            $gif_size = $request->gif_size_id;
+            $gifupload = $request->gifupload;
+
+            foreach($gif_size as $index => $size){
+                $removeX = explode("x", $size);
+                $request_width = $removeX[0];
+                $request_height = $removeX[1];
+                $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
+        
+                $file_name = $sub_project_name . '_' . time() . rand() . '.' . $gifupload[$index]->extension();
+                $gifupload[$index]->move(public_path('new_gifs/'), $file_name);
+                $file_bytes = filesize(public_path('new_gifs/' . $file_name));
+        
+                $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                $file_size = round($file_bytes, 2) . " " . $label[$i];
+        
+                $gif = new newGif;
+                $gif->name = $sub_project_name;
+                $gif->size = $file_size;
+                $gif->file_path = $file_name;
+                $gif->size_id = $size_info['id'];
+                $gif->version_id = $version_id;
+                $gif->save();
+            }
+        }
+        return redirect('/project/preview/view/'.$project_id);
+    }
+
     function bannerEditVersionView($id){
         $version = newVersion::find($id);
         $feedback = newFeedback::find($version['feedback_id']);
@@ -498,6 +626,14 @@ class PreviewController extends Controller
         $feedback = newFeedback::find($version['feedback_id']);
         $video_sizes = Sizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
         return view('newpreview.video.videoversionedit', compact('version', 'feedback', 'video_sizes'));
+    }
+
+    function gifEditVersionView($id){
+        $version = newVersion::find($id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        $size_list = BannerSizes::orderBy('width', 'ASC')->orderBy('height', 'ASC')->get();
+        return view('newpreview.gif.gifversionedit', compact('version', 'feedback', 'size_list'));
+        
     }
 
     function bannerEditVersionPost(Request $request, $id){
@@ -577,6 +713,58 @@ class PreviewController extends Controller
         return redirect('/project/preview/view/'.$project_id);
     }
 
+    function gifEditVersionPost(Request $request, $id){
+        $version_id = $id;
+        $version = newVersion::find($version_id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        $project_id = $feedback['project_id'];
+        $project = newPreview::find($project_id);
+        $project_name = str_replace(" ", "_", $project['name']);
+        
+        newVersion::where('id', $version_id)->update(['name' => $request->version_name]);
+
+        if($request->hasfile('gifupload')){
+            $gifs = newGif::where('version_id', $version_id)->get();
+            foreach ($gifs as $gif) {
+                $file_path = public_path() . '/new_gif/' . $gif['file_path'];
+                if(file_exists($file_path)){
+                    // unlink('banner_collection/' . $sub_project['file_path']);
+                    @unlink($file_path);
+                }
+                newGif::where('id', $gif->id)->delete();
+            }
+
+            $gif_size = $request->gif_size_id;
+            $gifupload = $request->gifupload;
+
+            foreach($gif_size as $index => $size){
+                $removeX = explode("x", $size);
+                $request_width = $removeX[0];
+                $request_height = $removeX[1];
+                $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
+        
+                $file_name = $sub_project_name . '_' . time() . rand() . '.' . $gifupload[$index]->extension();
+                $gifupload[$index]->move(public_path('new_gifs/'), $file_name);
+                $file_bytes = filesize(public_path('new_gifs/' . $file_name));
+        
+                $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                $file_size = round($file_bytes, 2) . " " . $label[$i];
+        
+                $gif = new newGif;
+                $gif->name = $sub_project_name;
+                $gif->size = $file_size;
+                $gif->file_path = $file_name;
+                $gif->size_id = $size_info['id'];
+                $gif->version_id = $version_id;
+                $gif->save();
+            }
+        }
+
+        return redirect('/project/preview/view/'.$project_id);
+    }
+
     function addFeedbackOrProjectTypeView($id){
         $project = newPreview::find($id);
         $logo_list = Logo::get();
@@ -584,7 +772,7 @@ class PreviewController extends Controller
         $video_sizes = Sizes::orderBy('width', 'DESC')->get();
         $company_details = Logo::where('id', Auth::user()->company_id)->first();
         $color = $company_details['default_color'];
-        return view('newpreview.banner.addprojecttype', compact('logo_list', 'size_list', 'color', 'project', 'video_sizes'));
+        return view('newpreview.addprojecttype', compact('logo_list', 'size_list', 'color', 'project', 'video_sizes'));
     }
 
     function addFeedbackOrProjectTypePost(Request $request, $id){
@@ -707,7 +895,36 @@ class PreviewController extends Controller
         }
         else if($request->project_type == 3){
             //this is gif upload method
-            dd('this is gif');
+            if($request->hasfile('gifupload')){
+                $gif_size = $request->gif_size_id;
+                $gifupload = $request->gifupload;
+
+                foreach($gif_size as $index => $size){
+                    $removeX = explode("x", $size);
+                    $request_width = $removeX[0];
+                    $request_height = $removeX[1];
+                    $size_info = BannerSizes::where('width', $request_width)->where('height', $request_height)->first();
+                    $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
+            
+                    $file_name = $sub_project_name . '_' . time() . rand() . '.' . $gifupload[$index]->extension();
+                    $gifupload[$index]->move(public_path('new_gifs/'), $file_name);
+                    $file_bytes = filesize(public_path('new_gifs/' . $file_name));
+            
+                    $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                    for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                    $file_size = round($file_bytes, 2) . " " . $label[$i];
+            
+                    $gif = new newGif;
+                    $gif->name = $sub_project_name;
+                    $gif->size = $file_size;
+                    $gif->file_path = $file_name;
+                    $gif->size_id = $size_info['id'];
+                    $gif->version_id = $version->id;
+                    $gif->save();
+                }
+            }
+
+            return redirect('/project/preview/view/'.$id);
         }
         else if($request->project_type == 4){
             //this is social upload method
@@ -716,7 +933,6 @@ class PreviewController extends Controller
         else{
             return back()->with('danger', 'Pleae select correct project type');
         }
-        
     }
 
     function feedbackEditView($id){
@@ -738,6 +954,14 @@ class PreviewController extends Controller
         $size_list = Sizes::orderBy('width', 'DESC')->get();
         return view('newpreview.video.video_edit', compact('sub_project_info', 'size_list', 'sub_project_id'));
     }
+
+    function gifEditView($id){
+        $sub_project_id = $id;
+        $sub_project_info = newGif::where('id', $id)->first();
+        $size_list = BannerSizes::orderBy('width', 'ASC')->get();
+        return view('newpreview.gif.gif_edit', compact('sub_project_info', 'size_list', 'sub_project_id'));
+    }
+    
 
     function videoEditPost(Request $request, $id){
         $validator = $request->validate([
@@ -807,6 +1031,52 @@ class PreviewController extends Controller
 
             newVideo::where('id', $sub_project_id)->update($sub_project_details);
             return redirect('/project/preview/view/'.$main_project_info->id);
+        }
+    }
+
+    function gifEditPost(Request $request, $id){
+        $validator = $request->validate([
+            'upload' => 'required|mimes:gif'
+        ]);
+
+        if($request->gif_size_id != 0)
+        {
+            $gif_id = $id;
+            $gif_info = newGif::where('id', $gif_id)->first();
+            $old_file_directory = public_path() . '/new_gifs/' . $gif_info['file_path'];
+            
+            if(file_exists($old_file_directory)){
+                @unlink($old_file_directory);
+            }
+
+            $version_info = newVersion::where('id', $gif_info['version_id'])->first();
+            $feedback_info = newFeedback::where('id', $version_info['feedback_id'])->first();
+            $project_info = newPreview::where('id', $feedback_info['project_id'])->first();
+            $size_info = BannerSizes::where('id', $request->gif_size_id)->first();
+            $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
+    
+            $file_name = $sub_project_name . '_' . time() . rand() . '.' . $request->upload->extension();
+            $request->upload->move(public_path('new_gifs'), $file_name);
+            $file_bytes = filesize(public_path('/new_gifs/' . $file_name));
+    
+            $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+            for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+            $file_size = round($file_bytes, 2) . " " . $label[$i];
+    
+            $sub_project_details = [
+                'name' => $sub_project_name,
+                'size_id' => $request->gif_size_id,
+                'size' => $file_size,
+                'file_path' => $file_name
+            ];
+    
+            newGif::where('id', $gif_id)->update($sub_project_details);
+
+            return redirect('/project/preview/view/' . $project_info['id']);
+        }
+        else
+        {
+            return back()->with('danger', 'Please Select Size First!');
         }
     }
 }

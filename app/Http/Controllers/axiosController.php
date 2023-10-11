@@ -92,6 +92,20 @@ class axiosController extends Controller
         ];
     }
 
+    function deleteGif(Request $request, $id){
+        $gif = newGif::where('id', $id)->first();
+        $version = $gif['version_id'];
+        $file_path = public_path() . '/new_gifs/' . $gif['file_path'];
+        if(file_exists($file_path)){
+            @unlink($file_path);
+        }
+        newGif::where('id', $id)->delete();
+        
+        return $data = [
+            'version_id' => $version
+        ];
+    }
+
     function deleteVideoPoster($id){
         $video = newVideo::where('id', $id)->first();
         $version = $video['version_id'];
@@ -145,6 +159,20 @@ class axiosController extends Controller
         ];
     }
 
+    function setGifActiveVersion(Request $request, $id){
+        $version = newVersion::find($id);
+        $feedback = newFeedback::where('id', $version['feedback_id'])->first();
+        newVersion::where('id', $id)->update(['is_active' => 1]);
+        $exceptionVersions = newVersion::select('id')->where('feedback_id', $feedback['id'])->where('id', '!=', $id)->get()->toArray();
+        newVersion::whereIn('id', $exceptionVersions)->where('feedback_id', $feedback['id'])->update(['is_active' => 0]);
+        $versions = newVersion::where('feedback_id', $feedback['id'])->get();
+
+        return $data = [
+            'versions' => $versions,
+            'activeVersion_id' => $id
+        ];
+    }
+
     function deleteBannerVersion($id){
         $banners = newBanner::where('version_id', $id)->get();
         $version = newVersion::find($id);
@@ -185,6 +213,29 @@ class axiosController extends Controller
                 @unlink($poster_path);
             }
             newVideo::where('id', $video->id)->delete();
+        }
+
+        newVersion::where('id', $id)->delete();
+        
+        $lastVersion = newVersion::where('feedback_id', $feedback_id)->orderBy('id', 'DESC')->first();
+        newVersion::where('id', $lastVersion['id'])->update(['is_active' => 1]);
+
+        return $data = [
+            'feedback_id' => $feedback_id
+        ];
+    }
+
+    function deleteGifVersion($id){
+        $gifs = newGif::where('version_id', $id)->get();
+        $version = newVersion::find($id);
+        $feedback_id = $version['feedback_id'];
+
+        foreach ($gifs as $gif) {
+            $file_path = public_path() . '/new_gifs/' . $gif['file_path'];
+            if(file_exists($file_path)){
+                @unlink($file_path);
+            }
+            newGif::where('id', $gif->id)->delete();
         }
 
         newVersion::where('id', $id)->delete();
@@ -315,5 +366,24 @@ class axiosController extends Controller
                             ->where('new_video_table.version_id', $id)
                             ->get();
         return $videos;
+    }
+
+    function getActiveVersionGifData($id){
+        $gifs = newGif::join('banner_sizes', 'banner_sizes.id', 'new_gif_table.size_id')
+                            ->select(
+                                'new_gif_table.id', 
+                                'banner_sizes.width', 
+                                'banner_sizes.height', 
+                                'new_gif_table.size',
+                                'new_gif_table.file_path',
+                                'new_gif_table.version_id')
+                            ->where('new_gif_table.version_id', $id)
+                            ->get();
+        return $gifs;
+    }
+
+    function getActiveVersionSocialData(Request $request, $id){
+        $socials = newSocial::where('version_id', $id)->get();
+        return $socials;
     }
 }

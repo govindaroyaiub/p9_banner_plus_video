@@ -246,6 +246,9 @@ Route::get('/project/preview/banner/download/{id}', 'PreviewController@bannerDow
 Route::get('/project/preview/video/edit/{id}', 'PreviewController@videoEditView');
 Route::post('/project/preview/video/edit/{id}', 'PreviewController@videoEditPost');
 
+Route::get('/project/preview/gif/edit/{id}', 'PreviewController@gifEditView');
+Route::post('/project/preview/gif/edit/{id}', 'PreviewController@gifEditPost');
+
 Route::get('/project/preview/banner/add/version/{id}', 'PreviewController@bannerAddVersionView');
 Route::post('/project/preview/banner/add/version/{id}', 'PreviewController@bannerAddVersionPost');
 Route::get('/project/preview/banner/edit/version/{id}', 'PreviewController@bannerEditVersionView');
@@ -255,6 +258,11 @@ Route::get('/project/preview/video/add/version/{id}', 'PreviewController@videoAd
 Route::post('/project/preview/video/add/version/{id}', 'PreviewController@videoAddVersionPost');
 Route::get('/project/preview/video/edit/version/{id}', 'PreviewController@videoEditVersionView');
 Route::post('/project/preview/video/edit/version/{id}', 'PreviewController@videoEditVersionPost');
+
+Route::get('/project/preview/gif/add/version/{id}', 'PreviewController@gifAddVersionView');
+Route::post('/project/preview/gif/add/version/{id}', 'PreviewController@gifAddVersionPost');
+Route::get('/project/preview/gif/edit/version/{id}', 'PreviewController@gifEditVersionView');
+Route::post('/project/preview/gif/edit/version/{id}', 'PreviewController@gifEditVersionPost');
 
 Route::get('/project/preview/edit/feedback/{id}', 'PreviewController@feedbackEditView');
 Route::post('/project/preview/edit/feedback/{id}', 'PreviewController@feedbackEditPost');
@@ -266,14 +274,19 @@ Route::post('/project/preview/add/FeedbackOrProjectType/{id}', 'PreviewControlle
 Route::get('/getFeedbackType/{id}', 'axiosController@getFeedbackType');
 Route::get('/getActiveVersionBannerData/{id}', 'axiosController@getActiveVwersionBannerData');
 Route::get('/getActiveVersionVideoData/{id}', 'axiosController@getActiveVersionVideoData');
+Route::get('/getActiveVersionGifData/{id}', 'axiosController@getActiveVersionGifData');
+Route::get('/getActiveVersionSocialData/{id}', 'axiosController@getActiveVersionSocialData');
 Route::get('/deleteBanner/{id}', 'axiosController@deleteBanner');
 Route::get('/deleteVideo/{id}', 'axiosController@deleteVideo');
+Route::get('/deleteGif/{id}', 'axiosController@deleteGif');
 Route::get('/deleteVideoPoster/{id}', 'axiosController@deleteVideoPoster');
 Route::get('/getVersionsFromFeedback/{id}', 'axiosController@getVersionsFromFeedback');
 Route::get('/setBannerActiveVersion/{id}', 'axiosController@setBannerActiveVersion');
 Route::get('/setVideoActiveVersion/{id}', 'axiosController@setBannerActiveVersion');
+Route::get('/setGifActiveVersion/{id}', 'axiosController@setGifActiveVersion');
 Route::get('/deleteBannerVersion/{id}', 'axiosController@deleteBannerVersion');
 Route::get('/deleteVideoVersion/{id}', 'axiosController@deleteVideoVersion');
+Route::get('/deleteGifVersion/{id}', 'axiosController@deleteGifVersion');
 Route::get('/getActiveFeedbackProjectType/{id}', 'axiosController@getActiveFeedbackProjectType');
 
 Route::get('/getAllFeedbacks/{project_id}', 'axiosController@getAllFeedbacks');

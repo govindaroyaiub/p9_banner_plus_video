@@ -52,19 +52,19 @@
                                 foreach ($data as $key => $tag) {
                                         # code...
                                         if($tag == 'Banner'){
-                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #1abc9c; color: white;">Banner</div>';
+                                            echo '<div style="width: 60px; padding: 5px; border-radius: 5px; background-color: #1abc9c; color: white;">Banner</div>';
                                         }
                                         else if($tag == 'Video'){
-                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #2ecc71; color: white;">Video</div>';
+                                            echo '<div style="width: 60px; padding: 5px; border-radius: 5px; background-color: #2ecc71; color: white;">Video</div>';
                                         }
                                         else if($tag == 'Gif'){
-                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #3498db; color: white;">Gif</div>';
+                                            echo '<div style="width: 60px; padding: 5px; border-radius: 5px; background-color: #3498db; color: white;">Gif</div>';
                                         }
                                         else if($tag == 'Social'){
-                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #9b59b6; color: white;">Social</div>';
+                                            echo '<div style="width: 60px; padding: 5px; border-radius: 5px; background-color: #9b59b6; color: white;">Social</div>';
                                         }
                                         else{
-                                            echo '<div style="padding: 5px; border-radius: 5px; background-color: #c0392b; color: white;">ERROR</div>';
+                                            echo '<div style="width: 60px; padding: 5px; border-radius: 5px; background-color: #c0392b; color: white;">ERROR</div>';
                                         }
                                     }
                                 ?>

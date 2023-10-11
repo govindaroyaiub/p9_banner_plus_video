@@ -6,7 +6,7 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h3 class="text-xl font-semibold tracking-wide mt-2">Edit Banner To Version</h3>
+            <h3 class="text-xl font-semibold tracking-wide mt-2">Edit Video To Version</h3>
             <br>
 
             <h3 class="text-xl font-semibold tracking-wide" style="color: red;">Updating Banners into {{ $feedback['name'] }} > {{ $version['name'] }}</h3>

@@ -137,6 +137,7 @@
 
     $(document).ready(function () {
         $('#banner_size_id').select2();
+        $('#gif_size_id').select2();
         $('#size_id').select2();
         $('#company_id').select2();
     });

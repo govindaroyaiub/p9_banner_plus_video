@@ -181,16 +181,12 @@
 
                 <div id="gif-upload-area" class="hidden">
                     <span style="color: red;">Gif Upload Area</span>
-                </div>
-
-                <div id="social-upload-area" class="hidden">
-                    <span style="color: red;">Social Upload Area</span>
                     <div
                         class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
-                        <input name="socialupload[]" id="socialupload" type="file" multiple="multiple" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
+                        <input name="gifupload[]" id="gifupload" type="file" multiple="multiple" accept="gif">
                     </div>
 
-                    <div id="fileDisplaySection" style="display: none;">
+                    <div id="gifDisplaySection" style="display: none;">
                         <br>
                         <div class="bg-white rounded-lg shadow-lg py-6">
                             <div class="block overflow-x-auto mx-6">
@@ -202,7 +198,35 @@
                                             <th class="px-4 py-3">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody style="text-align: center;" id="fileTable">
+                                    <tbody style="text-align: center;" id="gifFileTable">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="social-upload-area" class="hidden">
+                    <span style="color: red;">Social Upload Area</span>
+                    <div
+                        class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
+                        <input name="socialupload[]" id="socialupload" type="file" multiple="multiple" accept="image/*">
+                    </div>
+
+                    <div id="socialDisplaySection" style="display: none;">
+                        <br>
+                        <div class="bg-white rounded-lg shadow-lg py-6">
+                            <div class="block overflow-x-auto mx-6">
+                                <table class="w-full text-left rounded-lg">
+                                    <thead>
+                                        <tr class="text-gray-800 border border-b-0">
+                                            <th class="px-4 py-3">#</th>
+                                            <th class="px-4 py-3">File Name</th>
+                                            <th class="px-4 py-3">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="text-align: center;" id="socialFileTable">
                                         
                                     </tbody>
                                 </table>
@@ -323,6 +347,34 @@
                 }
             });
 
+            $("#gifupload").change(function() {
+                var rows = '';
+                var select = '';
+                var rowNumber = 1;
+                var files = $("#gifupload")[0].files;
+                console.log(files);
+                for (var i = 0; i < files.length; i++) {
+                    var fileName = files[i].name;
+
+                    document.getElementById('gifDisplaySection').style.display = 'block';
+
+                    rows = rows + '<tr class="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
+                    rows = rows + '<td class="px-4 py-4">'+ rowNumber++ +'</td>';
+                    rows = rows + '<td class="px-4 py-4">'+ fileName +'</td>';
+                    rows = rows + '<td class="text-center py-4">';
+                    rows = rows + '<div class="mb-4">';
+                    rows = rows + '<select name="gif_size_id[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="gif_size_id" required>';
+                    rows = rows + '<option value="0">Select Option</option>';
+                    @foreach ($size_list as $size)
+                        rows = rows + '<option value='+ {{$size->width}} + 'x' + {{$size->height}} +' class="py-2">'+ {{$size->width}} + 'x' + {{$size->height}} +'</option>';
+                    @endforeach
+                    rows = rows + '</select>';
+                    rows = rows + '</td>';
+                    rows = rows + '</tr>';
+                    $('#gifFileTable').html(rows);
+                }
+            });
+
             $("#socialupload").change(function() {
                 var rows = '';
                 var select = '';
@@ -331,7 +383,7 @@
                 for (var i = 0; i < files.length; i++) {
                     var fileName = files[i].name;
 
-                    document.getElementById('fileDisplaySection').style.display = 'block';
+                    document.getElementById('socialDisplaySection').style.display = 'block';
 
                     rows = rows + '<tr class="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
                     rows = rows + '<td class="px-4 py-4">'+ rowNumber++ +'</td>';
@@ -340,6 +392,7 @@
                     rows = rows + '<div class="mb-4">';
                     rows = rows + '<select name="platform[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="banner_size_id" required>';
                     rows = rows + '<option value="0" class="py-2">Select Option</option>';
+                    rows = rows + '<option value='+ 'Social' +' class="py-2">'+ 'Social (Standard)' +'</option>';
                     rows = rows + '<option value='+ 'Facebook' +' class="py-2">'+ 'Facebook' +'</option>';
                     rows = rows + '<option value='+ 'Youtube' +' class="py-2">'+ 'Youtube' +'</option>';
                     rows = rows + '<option value='+ 'Whatsapp' +' class="py-2">'+ 'Whatsapp' +'</option>';
@@ -353,7 +406,7 @@
                     rows = rows + '</select>';
                     rows = rows + '</td>';
                     rows = rows + '</tr>';
-                    $('#fileTable').html(rows);
+                    $('#socialFileTable').html(rows);
                 }
             });
         });
