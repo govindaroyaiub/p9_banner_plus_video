@@ -96,8 +96,8 @@ class PreviewController extends Controller
                     $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
             
                     $file_name = $sub_project_name . '_' . time() . rand() . '.' . $bannerupload[$index]->extension();
-                    $bannerupload[$index]->move(public_path('new_showcase_collection/'), $file_name);
-                    $file_bytes = filesize(public_path('new_showcase_collection/' . $file_name));
+                    $bannerupload[$index]->move(public_path('new_banners/'), $file_name);
+                    $file_bytes = filesize(public_path('new_banners/' . $file_name));
             
                     $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
                     for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
@@ -114,14 +114,14 @@ class PreviewController extends Controller
     
                     $zip = new ZipArchive();
                     $file_path = str_replace(".zip", "", $file_name);
-                    $directory = 'new_showcase_collection/' . $file_path;
+                    $directory = 'new_banners/' . $file_path;
                     if (!is_dir($directory)) {
-                        if ($zip->open('new_showcase_collection/' . $file_name) === TRUE) {
+                        if ($zip->open('new_banners/' . $file_name) === TRUE) {
                             // Unzip Path
                             $zip->extractTo($directory);
                             $zip->close();
                         }
-                        unlink('new_showcase_collection/' . $file_name);
+                        unlink('new_banners/' . $file_name);
                     }
                 }
             }
@@ -290,7 +290,7 @@ class PreviewController extends Controller
         {
             $banner_id = $id;
             $banner_info = newBanner::where('id', $banner_id)->first();
-            $old_file_directory = public_path() . '/new_showcase_collection/' . $banner_info['file_path'];
+            $old_file_directory = public_path() . '/new_banners/' . $banner_info['file_path'];
             
             if(file_exists($old_file_directory)){
                 // unlink('banner_collection/' . $banner_info['file_path']);
@@ -304,8 +304,8 @@ class PreviewController extends Controller
             $sub_project_name = $project_info['name'] . '_' . $size_info['width'] . 'x' . $size_info['height'];
     
             $file_name = $sub_project_name . '_' . time() . rand() . '.' . $request->upload->extension();
-            $request->upload->move(public_path('new_showcase_collection'), $file_name);
-            $file_bytes = filesize(public_path('/new_showcase_collection/' . $file_name));
+            $request->upload->move(public_path('new_banners'), $file_name);
+            $file_bytes = filesize(public_path('/new_banners/' . $file_name));
     
             $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
             for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
@@ -324,14 +324,14 @@ class PreviewController extends Controller
     
             $zip = new ZipArchive();
             $file_path = str_replace(".zip", "", $file_name);
-            $directory = 'new_showcase_collection/' . $file_path;
+            $directory = 'new_banners/' . $file_path;
             if (!is_dir($directory)) {
-                if ($zip->open('new_showcase_collection/' . $file_name) === TRUE) {
+                if ($zip->open('new_banners/' . $file_name) === TRUE) {
                     // Unzip Path
                     $zip->extractTo($directory);
                     $zip->close();
                 }
-                unlink('new_showcase_collection/' . $file_name);
+                unlink('new_banners/' . $file_name);
             }
             return redirect('/project/preview/view/' . $project_info['id']);
         }
@@ -344,10 +344,10 @@ class PreviewController extends Controller
     public function bannerDownload($id){
         $banner = newBanner::where('id', $id)->first();
         $file_name = $banner['file_path'].'.zip';
-        $source = public_path('new_showcase_collection/'.$banner['file_path']);
+        $source = public_path('new_banners/'.$banner['file_path']);
         $destination = $source;
         $zipcreation = $this->zip_creation($source, $destination);
-        return response()->download(public_path('new_showcase_collection/'.$file_name))->deleteFileAfterSend(true);
+        return response()->download(public_path('new_banners/'.$file_name))->deleteFileAfterSend(true);
     }
 
     public function zip_creation($source, $destination){
@@ -416,6 +416,14 @@ class PreviewController extends Controller
         return view('newpreview.gif.gifversionaddon', compact('size_list', 'version', 'feedback', 'versionCount', 'version_id'));
     }
 
+    function socialAddVersionView($id){
+        $version_id = $id;
+        $version = newVersion::find($id);
+        $feedback = newFeedback::where('id', $version['feedback_id'])->first();
+        $versionCount = newVersion::where('feedback_id', $feedback['id'])->count();
+        return view('newpreview.social.socialversionaddon', compact('version', 'feedback', 'versionCount', 'version_id'));
+    }
+
     function bannerAddVersionPost(Request $request, $id){
         $version_id = $id;
         $version = newVersion::find($id);
@@ -455,8 +463,8 @@ class PreviewController extends Controller
                 $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
         
                 $file_name = $sub_project_name . '_' . time() . rand() . '.' . $bannerupload[$index]->extension();
-                $bannerupload[$index]->move(public_path('new_showcase_collection/'), $file_name);
-                $file_bytes = filesize(public_path('new_showcase_collection/' . $file_name));
+                $bannerupload[$index]->move(public_path('new_banners/'), $file_name);
+                $file_bytes = filesize(public_path('new_banners/' . $file_name));
         
                 $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
                 for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
@@ -473,14 +481,14 @@ class PreviewController extends Controller
 
                 $zip = new ZipArchive();
                 $file_path = str_replace(".zip", "", $file_name);
-                $directory = 'new_showcase_collection/' . $file_path;
+                $directory = 'new_banners/' . $file_path;
                 if (!is_dir($directory)) {
-                    if ($zip->open('new_showcase_collection/' . $file_name) === TRUE) {
+                    if ($zip->open('new_banners/' . $file_name) === TRUE) {
                         // Unzip Path
                         $zip->extractTo($directory);
                         $zip->close();
                     }
-                    unlink('new_showcase_collection/' . $file_name);
+                    unlink('new_banners/' . $file_name);
                 }
             }
         }
@@ -613,6 +621,71 @@ class PreviewController extends Controller
         return redirect('/project/preview/view/'.$project_id);
     }
 
+    function socialAddVersionPost(Request $request, $id){
+        $version_id = $id;
+        $version = newVersion::find($id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        $project_id = $feedback['project_id'];
+        $project = newPreview::find($project_id);
+        $project_name = str_replace(" ", "_", $project['name']);
+
+        if($request->version_request == 1){
+            $version_id = $id;
+        }
+        else if($request->version_request == 2){
+            $version = new newVersion;
+            $version->name = $request->version_name;
+            $version->feedback_id = $feedback['id'];
+            $version->is_active = 1;
+            $version->save();
+
+            $version_id = $version->id;
+
+            $exceptionVersions = newVersion::select('id')->where('id', '!=', $version_id)->where('feedback_id', $feedback['id'])->get()->toArray();
+            newVersion::whereIn('id', $exceptionVersions)->where('feedback_id', $feedback['id'])->update(['is_active' => 0]);
+        }
+        else{
+            return back()->with('danger', 'Please Select Correct Option!');
+        }
+
+        if($request->hasfile('socialupload')){
+
+            $validator = $request->validate([
+                'socialupload' => 'required',
+                'socialupload.*' => 'mimes:jpeg,jpg,png'
+            ]);
+
+            $platforms = $request->platform; 
+            $uploads = $request->socialupload;
+
+            foreach($platforms as $index => $platform)
+            {
+                $original_file_name = $uploads[$index]->getClientOriginalName();
+                $name = explode('.',$original_file_name);
+
+                $file_name = $project_name . '_' . $name[0] . '_' . time() . '.' . $uploads[$index]->extension();
+                $uploads[$index]->move(public_path('new_socials'), $file_name);
+
+                list($width, $height) = getimagesize(public_path('new_socials/'.$file_name));
+
+                $file_bytes = filesize(public_path('new_socials/'.$file_name));
+                $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                $file_size = round($file_bytes, 2) . " " . $label[$i];
+
+                $social = new newSocial;
+                $social->name = $project_name .'_' . $platform . '_' . $name[0];
+                $social->width = $width;
+                $social->height = $height;
+                $social->size = $file_size;
+                $social->version_id = $version->id;
+                $social->file_path = $file_name;
+                $social->save();
+            }
+        }
+        return redirect('/project/preview/view/'.$project_id);
+    }
+
     function bannerEditVersionView($id){
         $version = newVersion::find($id);
         $feedback = newFeedback::find($version['feedback_id']);
@@ -636,6 +709,13 @@ class PreviewController extends Controller
         
     }
 
+    function socialEditVersionView($id){
+        $version = newVersion::find($id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        return view('newpreview.social.socialversionedit', compact('version', 'feedback'));
+        
+    }
+
     function bannerEditVersionPost(Request $request, $id){
         $version_id = $id;
         $version = newVersion::find($version_id);
@@ -649,7 +729,7 @@ class PreviewController extends Controller
         if($request->hasfile('bannerupload')){
             $banners = newBanner::where('version_id', $version_id)->get();
             foreach ($banners as $banner) {
-                $file_path = public_path() . '/new_showcase_collection/' . $banner['file_path'];
+                $file_path = public_path() . '/new_banners/' . $banner['file_path'];
                 if(file_exists($file_path)){
                     // unlink('banner_collection/' . $sub_project['file_path']);
                     $files = File::deleteDirectory($file_path);
@@ -668,8 +748,8 @@ class PreviewController extends Controller
                 $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
         
                 $file_name = $sub_project_name . '_' . time() . rand() . '.' . $bannerupload[$index]->extension();
-                $bannerupload[$index]->move(public_path('new_showcase_collection/'), $file_name);
-                $file_bytes = filesize(public_path('new_showcase_collection/' . $file_name));
+                $bannerupload[$index]->move(public_path('new_banners/'), $file_name);
+                $file_bytes = filesize(public_path('new_banners/' . $file_name));
         
                 $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
                 for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
@@ -686,14 +766,14 @@ class PreviewController extends Controller
 
                 $zip = new ZipArchive();
                 $file_path = str_replace(".zip", "", $file_name);
-                $directory = 'new_showcase_collection/' . $file_path;
+                $directory = 'new_banners/' . $file_path;
                 if (!is_dir($directory)) {
-                    if ($zip->open('new_showcase_collection/' . $file_name) === TRUE) {
+                    if ($zip->open('new_banners/' . $file_name) === TRUE) {
                         // Unzip Path
                         $zip->extractTo($directory);
                         $zip->close();
                     }
-                    unlink('new_showcase_collection/' . $file_name);
+                    unlink('new_banners/' . $file_name);
                 }
             }
         }
@@ -765,6 +845,59 @@ class PreviewController extends Controller
         return redirect('/project/preview/view/'.$project_id);
     }
 
+    function socialEditVersionPost(Request $request, $id){
+        $version_id = $id;
+        $version = newVersion::find($version_id);
+        $feedback = newFeedback::find($version['feedback_id']);
+        $project_id = $feedback['project_id'];
+        $project = newPreview::find($project_id);
+        $project_name = str_replace(" ", "_", $project['name']);
+        
+        newVersion::where('id', $version_id)->update(['name' => $request->version_name]);
+
+        if($request->hasfile('socialupload')){
+            $socials = newSocial::where('version_id', $version_id)->get();
+            foreach ($socials as $social) {
+                $file_path = public_path() . '/new_social/' . $social['file_path'];
+                if(file_exists($file_path)){
+                    // unlink('banner_collection/' . $sub_project['file_path']);
+                    @unlink($file_path);
+                }
+                newSocial::where('id', $social->id)->delete();
+            }
+
+            $platforms = $request->platform; 
+            $uploads = $request->socialupload;
+    
+            foreach($platforms as $index => $platform)
+            {
+                $original_file_name = $uploads[$index]->getClientOriginalName();
+                $name = explode('.',$original_file_name);
+
+                $file_name = $project_name . '_' . $name[0] . '_' . time() . '.' . $uploads[$index]->extension();
+                $uploads[$index]->move(public_path('new_socials'), $file_name);
+
+                list($width, $height) = getimagesize(public_path('new_socials/'.$file_name));
+
+                $file_bytes = filesize(public_path('new_socials/'.$file_name));
+                $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                $file_size = round($file_bytes, 2) . " " . $label[$i];
+
+                $social = new newSocial;
+                $social->name = $project_name .'_' . $platform . '_' . $name[0];
+                $social->width = $width;
+                $social->height = $height;
+                $social->size = $file_size;
+                $social->version_id = $version->id;
+                $social->file_path = $file_name;
+                $social->save();
+            }
+        }
+
+        return redirect('/project/preview/view/'.$project_id);
+    }
+
     function addFeedbackOrProjectTypeView($id){
         $project = newPreview::find($id);
         $logo_list = Logo::get();
@@ -816,8 +949,8 @@ class PreviewController extends Controller
                     $sub_project_name = $project_name . '_' . $size_info['width'] . 'x' . $size_info['height'];
             
                     $file_name = $sub_project_name . '_' . time() . rand() . '.' . $bannerupload[$index]->extension();
-                    $bannerupload[$index]->move(public_path('new_showcase_collection/'), $file_name);
-                    $file_bytes = filesize(public_path('new_showcase_collection/' . $file_name));
+                    $bannerupload[$index]->move(public_path('new_banners/'), $file_name);
+                    $file_bytes = filesize(public_path('new_banners/' . $file_name));
             
                     $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
                     for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
@@ -834,19 +967,17 @@ class PreviewController extends Controller
     
                     $zip = new ZipArchive();
                     $file_path = str_replace(".zip", "", $file_name);
-                    $directory = 'new_showcase_collection/' . $file_path;
+                    $directory = 'new_banners/' . $file_path;
                     if (!is_dir($directory)) {
-                        if ($zip->open('new_showcase_collection/' . $file_name) === TRUE) {
+                        if ($zip->open('new_banners/' . $file_name) === TRUE) {
                             // Unzip Path
                             $zip->extractTo($directory);
                             $zip->close();
                         }
-                        unlink('new_showcase_collection/' . $file_name);
+                        unlink('new_banners/' . $file_name);
                     }
                 }
             }
-
-            return redirect('/project/preview/view/'.$id);
         }
         else if($request->project_type == 2){
             //this is video upload method
@@ -890,8 +1021,6 @@ class PreviewController extends Controller
             $video->video_path = $video_name;
             $video->version_id = $version->id;
             $video->save();
-
-            return redirect('/project/preview/view/'.$id);
         }
         else if($request->project_type == 3){
             //this is gif upload method
@@ -923,16 +1052,50 @@ class PreviewController extends Controller
                     $gif->save();
                 }
             }
-
-            return redirect('/project/preview/view/'.$id);
         }
         else if($request->project_type == 4){
             //this is social upload method
-            dd('this is social');
+            if($request->hasfile('socialupload')){
+
+                $validator = $request->validate([
+                    'socialupload' => 'required',
+                    'socialupload.*' => 'mimes:jpeg,jpg,png'
+                ]);
+    
+                $platforms = $request->platform; 
+                $uploads = $request->socialupload;
+    
+                foreach($platforms as $index => $platform)
+                {
+                    $original_file_name = $uploads[$index]->getClientOriginalName();
+                    $name = explode('.',$original_file_name);
+    
+                    $file_name = $project_name . '_' . $name[0] . '_' . time() . '.' . $uploads[$index]->extension();
+                    $uploads[$index]->move(public_path('new_socials'), $file_name);
+
+                    list($width, $height) = getimagesize(public_path('new_socials/'.$file_name));
+
+                    $file_bytes = filesize(public_path('new_socials/'.$file_name));
+                    $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+                    for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+                    $file_size = round($file_bytes, 2) . " " . $label[$i];
+    
+                    $social = new newSocial;
+                    $social->name = $project_name .'_' . $platform . '_' . $name[0];
+                    $social->width = $width;
+                    $social->height = $height;
+                    $social->size = $file_size;
+                    $social->version_id = $version->id;
+                    $social->file_path = $file_name;
+                    $social->save();
+                }
+            }
         }
         else{
             return back()->with('danger', 'Pleae select correct project type');
         }
+
+        return redirect('/project/preview/view/'.$id);
     }
 
     function feedbackEditView($id){
@@ -961,7 +1124,12 @@ class PreviewController extends Controller
         $size_list = BannerSizes::orderBy('width', 'ASC')->get();
         return view('newpreview.gif.gif_edit', compact('sub_project_info', 'size_list', 'sub_project_id'));
     }
-    
+
+    function socialEditView($id){
+        $sub_project_id = $id;
+        $sub_project_info = newSocial::where('id', $id)->first();
+        return view('newpreview.social.social_edit', compact('sub_project_info', 'sub_project_id'));
+    }
 
     function videoEditPost(Request $request, $id){
         $validator = $request->validate([
@@ -1078,5 +1246,146 @@ class PreviewController extends Controller
         {
             return back()->with('danger', 'Please Select Size First!');
         }
+    }
+
+    function socialEditPost(Request $request, $id){
+        $validator = $request->validate([
+            'socialupload' => 'required',
+            'socialupload.*' => 'mimes:jpeg,jpg,png'
+        ]);
+
+        $social_id = $id;
+        $social_info = newSocial::where('id', $social_id)->first();
+        $old_file_directory = public_path() . '/new_socials/' . $social_info['file_path'];
+        
+        if(file_exists($old_file_directory)){
+            @unlink($old_file_directory);
+        }
+
+        $version_info = newVersion::where('id', $social_info['version_id'])->first();
+        $feedback_info = newFeedback::where('id', $version_info['feedback_id'])->first();
+        $project_info = newPreview::where('id', $feedback_info['project_id'])->first();
+        $project_name = $project_info['name'];
+
+        $platforms = $request->platform; 
+        $uploads = $request->socialupload;
+
+        $original_file_name = $uploads->getClientOriginalName();
+        $name = explode('.',$original_file_name);
+
+        $file_name = $project_name . '_' . $name[0] . '_' . time() . '.' . $uploads->extension();
+        $uploads->move(public_path('new_socials'), $file_name);
+
+        list($width, $height) = getimagesize(public_path('new_socials/'.$file_name));
+
+        $file_bytes = filesize(public_path('new_socials/'.$file_name));
+        $label = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+        for ($i = 0; $file_bytes >= 1024 && $i < (count($label) - 1); $file_bytes /= 1024, $i++) ;
+        $file_size = round($file_bytes, 2) . " " . $label[$i];
+
+        $sub_project_details = [
+            'name' => $project_name .'_' . $platforms . '_' . $name[0],
+            'width' => $width,
+            'height' => $height,
+            'size' => $file_size,
+            'file_path' => $file_name
+        ];
+
+        newSocial::where('id', $social_id)->update($sub_project_details);
+
+        return redirect('/project/preview/view/' . $project_info['id']);
+    }
+
+    function deletePreview($id){
+        $feedbacks = newFeedback::where('project_id', $id)->get();
+
+        foreach($feedbacks as $feedback){
+            if($feedback['project_type'] == 1){
+                $versions = newVersion::where('feedback_id', $feedback->id)->get();
+                
+                if($versions != NULL){
+                    foreach($versions as $version){
+                        $banners = newBanner::where('version_id', $version->id)->get();
+
+                        foreach ($banners as $banner) {
+                            $file_path = public_path() . '/new_banners/' . $banner['file_path'];
+                            if(file_exists($file_path)){
+                                // unlink('banner_collection/' . $sub_project['file_path']);
+                                $files = File::deleteDirectory($file_path);
+                            }
+                            newBanner::where('id', $banner->id)->delete();
+                        }
+                        newVersion::where('id', $version->id)->delete();
+                    }
+                }
+            }
+            else if($feedback['project_type'] == 2){
+                $versions = newVersion::where('feedback_id', $feedback->id)->get();
+                
+                if($versions != NULL){
+                    foreach($versions as $version){
+                        $videos = newVideo::where('version_id', $version->id)->get();
+
+                        foreach ($videos as $video) {
+                            $video_path = public_path() . '/new_videos/' . $video['video_path'];
+                            if(file_exists($video_path)){
+                                @unlink($video_path);
+                            }
+                            $poster_path = public_path() . '/new_posters/' . $video['poster_path'];
+                            if(file_exists($poster_path)){
+                                @unlink($poster_path);
+                            }
+                            newVideo::where('id', $video->id)->delete();
+                        }
+                        newVersion::where('id', $version->id)->delete();
+                    }
+                }
+            }
+            else if($feedback['project_type'] == 3){
+                $versions = newVersion::where('feedback_id', $feedback->id)->get();
+
+                if($versions != NULL){
+                    foreach($versions as $version){
+                        $gifs = newGif::where('version_id', $version->id)->get();
+
+                        foreach ($gifs as $gif) {
+                            $file_path = public_path() . '/new_gifs/' . $gif['file_path'];
+                            if(file_exists($file_path)){
+                                @unlink($file_path);
+                            }
+                            newGif::where('id', $gif->id)->delete();
+                        }
+                        newVersion::where('id', $version->id)->delete();
+                    }
+                }
+            }
+            else if($feedback['project_type'] == 4){
+                $versions = newVersion::where('feedback_id', $feedback->id)->get();
+
+                if($versions != NULL){
+                    foreach($versions as $version){
+                        $socials = newSocial::where('version_id', $version->id)->get();
+
+                        foreach ($socials as $social) {
+                            $file_path = public_path() . '/new_socials/' . $social['file_path'];
+                            if(file_exists($file_path)){
+                                @unlink($file_path);
+                            }
+                            newSocial::where('id', $social->id)->delete();
+                        }
+                        newVersion::where('id', $version->id)->delete();
+                    }
+                }
+            }
+            else{
+                dd('Getting another project type. Something is not right');
+            }
+
+            newFeedback::where('id', $feedback->id)->delete();
+        }
+
+        newPreview::where('id', $id)->delete();
+
+        return redirect('/view-previews')->with('warning', 'Preview has been deleted!');
     }
 }

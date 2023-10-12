@@ -27,6 +27,12 @@
 </head>
 
 <body class="font-body">
+    @if($info['logo_id'] == 7)
+        @if(!Auth::user())
+            @include('partials.login')
+        @endif
+    @endif
+    @if(Auth::user())
     <div id="loaderArea">
         <span class="loader"></span>
     </div>
@@ -34,8 +40,8 @@
         <div id="preview-shapes">
             <div id="left-shapes" style="position: fixed; top: 30%; left: 0%; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
                 <div class="left-shape-left left-shape-left-right" style="display: flex; position: relative; top: -90%; left: -90%;">
-                    <div id="left-shape11" style="position: relative; left: -2rem; width: 200px; height: 45px; background: {{ $info['color'] }};"></div>
-                    <div id="left-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $info['color'] }}; border-radius: 50%; left: -3.5rem;"></div>
+                    <div id="left-shape11" style="position: relative; left: -2rem; width: 200px; height: 45px; background: #4b4e6d;"></div>
+                    <div id="left-shape12" style="position: relative; width: 45px; height: 45px; background: #4b4e6d; border-radius: 50%; left: -3.5rem;"></div>
                 </div>
                 <div class="left-shape-right left-shape-left-right" style="display: flex; margin-top: 8px; position: relative; top: -90%; left: -90%;">
                     <div id="left-shape21" style="position: relative; left: -4rem; width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
@@ -45,8 +51,8 @@
 
             <div id="right-shapes" style="position: fixed; bottom: 17%; right: 0%; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(135deg);">
                 <div class="right-shape-left right-shape-left-right" style="display: flex; position: relative; bottom: 90%; right: 90%;">
-                    <div id="right-shape11" style="position: relative; right: 6rem; width: 200px; height: 45px; background: {{ $info['color'] }};"></div>
-                    <div id="right-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $info['color'] }}; border-radius: 50%; left: -7.5rem;"></div>
+                    <div id="right-shape11" style="position: relative; right: 6rem; width: 200px; height: 45px; background: #4b4e6d;"></div>
+                    <div id="right-shape12" style="position: relative; width: 45px; height: 45px; background: #4b4e6d; border-radius: 50%; left: -7.5rem;"></div>
                 </div>
                 <div class="right-shape-right right-shape-left-right" style="display: flex; margin-top: 8px; position: relative; bottom: 90%; right: 90%;">
                     <div id="right-shape21" style="position: relative; right: 8rem; width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
@@ -57,7 +63,7 @@
         <section id="top">
             <div class="container mx-auto px-4 py-4 flex justify-center content">
                 <div id="topDetails">
-                    <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-3"
+                    <img src="{{ asset('logo_images/DIRK_1663580003.png') }}" id="planetnineLogo" class="py-3"
                         alt="planetnineLogo">
                     <h1>Client Name: <span class="font-semibold">{{ $info['client_name'] }}</span></h1>
                     <h1>Project Name: <span lass="font-semibold">{{ $info['name'] }}</span></h1>
@@ -134,6 +140,7 @@
                 - <?= Date('Y') ?></div>
         </footer>
     </main>
+    @endif
 </body>
 
 <script type="text/javascript">

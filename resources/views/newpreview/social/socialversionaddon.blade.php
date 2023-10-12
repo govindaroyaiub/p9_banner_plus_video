@@ -6,14 +6,14 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h3 class="text-xl font-semibold tracking-wide mt-2">Add Gif To Version</h3>
+            <h3 class="text-xl font-semibold tracking-wide mt-2">Add Social To Version</h3>
             <br>
 
-            <h3 class="text-xl font-semibold tracking-wide" style="color: red;">Inserting Gifs into {{ $feedback['name'] }} > {{ $version['name'] }}</h3>
+            <h3 class="text-xl font-semibold tracking-wide" style="color: red;">Inserting Socials into {{ $feedback['name'] }} > {{ $version['name'] }}</h3>
             <br>
 
             <form id="project-add-form" class="max-w-xl" method="POST"
-                action="/project/preview/gif/add/version/{{ $version_id }}" enctype="multipart/form-data">
+                action="/project/preview/social/add/version/{{ $version_id }}" enctype="multipart/form-data">
                 @csrf
                 {{-- Drag and Drop --}}
                 <div>
@@ -30,12 +30,13 @@
                                class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary hidden"
                                required/>
 
+                <span style="color: red;">Social Upload Area</span>
                 <div
                     class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
-                    <input name="gifupload[]" id="gifupload" type="file" multiple="multiple" accept="gif">
+                    <input name="socialupload[]" id="socialupload" type="file" multiple="multiple" accept="image/*">
                 </div>
 
-                <div id="gifDisplaySection" style="display: none;">
+                <div id="socialDisplaySection" style="display: none;">
                     <br>
                     <div class="bg-white rounded-lg shadow-lg py-6">
                         <div class="block overflow-x-auto mx-6">
@@ -47,7 +48,7 @@
                                         <th class="px-4 py-3">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody style="text-align: center;" id="gifFileTable">
+                                <tbody style="text-align: center;" id="socialFileTable">
                                     
                                 </tbody>
                             </table>
@@ -91,33 +92,39 @@
             }
         });
 
-        $("#gifupload").change(function() {
+        $("#socialupload").change(function() {
             var rows = '';
             var select = '';
             var rowNumber = 1;
-            var files = $("#gifupload")[0].files;
-            console.log(files);
+            var files = $("#socialupload")[0].files;
             for (var i = 0; i < files.length; i++) {
                 var fileName = files[i].name;
 
-                document.getElementById('gifDisplaySection').style.display = 'block';
+                document.getElementById('socialDisplaySection').style.display = 'block';
 
                 rows = rows + '<tr class="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
                 rows = rows + '<td class="px-4 py-4">'+ rowNumber++ +'</td>';
                 rows = rows + '<td class="px-4 py-4">'+ fileName +'</td>';
                 rows = rows + '<td class="text-center py-4">';
                 rows = rows + '<div class="mb-4">';
-                rows = rows + '<select name="gif_size_id[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="gif_size_id" required>';
-                rows = rows + '<option value="0">Select Option</option>';
-                @foreach ($size_list as $size)
-                    rows = rows + '<option value='+ {{$size->width}} + 'x' + {{$size->height}} +' class="py-2">'+ {{$size->width}} + 'x' + {{$size->height}} +'</option>';
-                @endforeach
+                rows = rows + '<select name="platform[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="banner_size_id" required>';
+                rows = rows + '<option value="0" class="py-2">Select Option</option>';
+                rows = rows + '<option value='+ 'Social' +' class="py-2">'+ 'Social (Standard)' +'</option>';
+                rows = rows + '<option value='+ 'Facebook' +' class="py-2">'+ 'Facebook' +'</option>';
+                rows = rows + '<option value='+ 'Youtube' +' class="py-2">'+ 'Youtube' +'</option>';
+                rows = rows + '<option value='+ 'Whatsapp' +' class="py-2">'+ 'Whatsapp' +'</option>';
+                rows = rows + '<option value='+ 'Instagram' +' class="py-2">'+ 'Instagram' +'</option>';
+                rows = rows + '<option value='+ 'Facebook-Messenger' +' class="py-2">'+ 'Facebook Messenger' +'</option>';
+                rows = rows + '<option value='+ 'WeChat' +' class="py-2">'+ 'WeChat' +'</option>';
+                rows = rows + '<option value='+ 'Tiktok' +' class="py-2">'+ 'Tiktok' +'</option>';
+                rows = rows + '<option value='+ 'LinkedIn' +' class="py-2">'+ 'LinkedIn' +'</option>';
+                rows = rows + '<option value='+ 'Snapchat' +' class="py-2">'+ 'Snapchat' +'</option>';
+                rows = rows + '<option value='+ 'Twitter' +' class="py-2">'+ 'Twitter' +'</option>';
                 rows = rows + '</select>';
                 rows = rows + '</td>';
                 rows = rows + '</tr>';
-                $('#gifFileTable').html(rows);
+                $('#socialFileTable').html(rows);
             }
         });
     });
-
 </script>

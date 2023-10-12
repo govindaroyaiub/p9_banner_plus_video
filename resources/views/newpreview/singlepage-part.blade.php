@@ -88,29 +88,35 @@
     }
 
     function setBannerActiveVersionSettings(activeVersion_id){
-        var countVersions = {{ $versionCount }};
-        if(countVersions == 1){
-            var display = 'display: none;';
-        }
-        else{
-            var display = 'display: block;';
-        }
-        rows = '';
-            
-        rows = rows + '<div>';
-            rows = rows + '@if(Auth::check())';
-                rows = rows + '@if(Auth::user()->company_id == 7) ';
-                rows = rows + '@else';
-                    rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
-                        rows = rows + '<a href="/project/preview/banner/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
-                        rows = rows + '<a href="/project/preview/banner/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
-                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
-                    rows = rows + '</div>';
-                rows = rows + '@endif';
-            rows = rows + '@endif';
-        rows = rows + '</div>';
+        axios.get('/checkVersionCount/'+ activeVersion_id)
+        .then(function (response){
+            if(response.data == 1){
+                var display = 'display: none;';
+            }
+            else{
+                var display = 'display: block;';
+            }
 
-        $('#feedbackSettings').html(rows);
+            rows = '';
+            
+            rows = rows + '<div>';
+                rows = rows + '@if(Auth::check())';
+                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@else';
+                        rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                            rows = rows + '<a href="/project/preview/banner/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
+                            rows = rows + '<a href="/project/preview/banner/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
+                            rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                        rows = rows + '</div>';
+                    rows = rows + '@endif';
+                rows = rows + '@endif';
+            rows = rows + '</div>';
+    
+            $('#feedbackSettings').html(rows);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
     }
 
     function setBannerDisplayOfActiveVersion(activeVersion_id){
@@ -122,7 +128,7 @@
 
             $.each(response.data, function (key, value) {
                 var resolution = value.size_id;
-                var bannerPath = '/new_showcase_collection/' + value.file_path + '/index.html';
+                var bannerPath = '/new_banners/' + value.file_path + '/index.html';
                 var bannerReloadID = value.id;
                 
                 row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
@@ -240,29 +246,35 @@
     }
 
     function setVideoActiveVersionSettings(activeVersion_id){
-        var countVersions = {{ $versionCount }};
-        if(countVersions == 1){
-            var display = 'display: none;';
-        }
-        else{
-            var display = 'display: block;';
-        }
-        rows = '';
-            
-        rows = rows + '<div>';
-            rows = rows + '@if(Auth::check())';
-                rows = rows + '@if(Auth::user()->company_id == 7) ';
-                rows = rows + '@else';
-                    rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
-                        rows = rows + '<a href="/project/preview/video/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
-                        rows = rows + '<a href="/project/preview/video/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
-                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmVideoVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
-                    rows = rows + '</div>';
-                rows = rows + '@endif';
-            rows = rows + '@endif';
-        rows = rows + '</div>';
+        axios.get('/checkVersionCount/'+ activeVersion_id)
+        .then(function (response){
+            if(response.data == 1){
+                var display = 'display: none;';
+            }
+            else{
+                var display = 'display: block;';
+            }
 
-        $('#feedbackSettings').html(rows);
+            rows = '';
+            
+            rows = rows + '<div>';
+                rows = rows + '@if(Auth::check())';
+                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@else';
+                        rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                            rows = rows + '<a href="/project/preview/video/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
+                            rows = rows + '<a href="/project/preview/video/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
+                            rows = rows + '<a href="javascript:void(0)" onclick="return confirmVideoVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                        rows = rows + '</div>';
+                    rows = rows + '@endif';
+                rows = rows + '@endif';
+            rows = rows + '</div>';
+    
+            $('#feedbackSettings').html(rows);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
     }
 
     function setVideoDisplayOfActiveVersion(activeVersion_id){
@@ -565,29 +577,35 @@
     }
 
     function setGifActiveVersionSettings(activeVersion_id){
-        var countVersions = {{ $versionCount }};
-        if(countVersions == 1){
-            var display = 'display: none;';
-        }
-        else{
-            var display = 'display: block;';
-        }
-        rows = '';
-            
-        rows = rows + '<div>';
-            rows = rows + '@if(Auth::check())';
-                rows = rows + '@if(Auth::user()->company_id == 7) ';
-                rows = rows + '@else';
-                    rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
-                        rows = rows + '<a href="/project/preview/gif/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
-                        rows = rows + '<a href="/project/preview/gif/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
-                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmGifVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
-                    rows = rows + '</div>';
-                rows = rows + '@endif';
-            rows = rows + '@endif';
-        rows = rows + '</div>';
+        axios.get('/checkVersionCount/'+ activeVersion_id)
+        .then(function (response){
+            if(response.data == 1){
+                var display = 'display: none;';
+            }
+            else{
+                var display = 'display: block;';
+            }
 
-        $('#feedbackSettings').html(rows);
+            rows = '';
+            
+            rows = rows + '<div>';
+                rows = rows + '@if(Auth::check())';
+                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@else';
+                        rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                            rows = rows + '<a href="/project/preview/gif/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
+                            rows = rows + '<a href="/project/preview/gif/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
+                            rows = rows + '<a href="javascript:void(0)" onclick="return confirmGifVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                        rows = rows + '</div>';
+                    rows = rows + '@endif';
+                rows = rows + '@endif';
+            rows = rows + '</div>';
+    
+            $('#feedbackSettings').html(rows);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
     }
 
     function setGifDisplayOfActiveVersion(activeVersion_id){
@@ -725,36 +743,41 @@
     }
 
     function setSocialActiveVersionSettings(activeVersion_id){
-        var countVersions = {{ $versionCount }};
-        if(countVersions == 1){
-            var display = 'display: none;';
-        }
-        else{
-            var display = 'display: block;';
-        }
-        rows = '';
-            
-        rows = rows + '<div>';
-            rows = rows + '@if(Auth::check())';
-                rows = rows + '@if(Auth::user()->company_id == 7) ';
-                rows = rows + '@else';
-                    rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
-                        rows = rows + '<a href="/project/preview/social/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
-                        rows = rows + '<a href="/project/preview/social/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
-                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmSocialVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
-                    rows = rows + '</div>';
-                rows = rows + '@endif';
-            rows = rows + '@endif';
-        rows = rows + '</div>';
+        axios.get('/checkVersionCount/'+ activeVersion_id)
+        .then(function (response){
+            if(response.data == 1){
+                var display = 'display: none;';
+            }
+            else{
+                var display = 'display: block;';
+            }
 
-        $('#feedbackSettings').html(rows);
+            rows = '';
+            
+            rows = rows + '<div>';
+                rows = rows + '@if(Auth::check())';
+                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@else';
+                        rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                            rows = rows + '<a href="/project/preview/social/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
+                            rows = rows + '<a href="/project/preview/social/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
+                            rows = rows + '<a href="javascript:void(0)" onclick="return confirmSocialVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                        rows = rows + '</div>';
+                    rows = rows + '@endif';
+                rows = rows + '@endif';
+            rows = rows + '</div>';
+    
+            $('#feedbackSettings').html(rows);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
     }
 
     function setSocialDisplayOfActiveVersion(activeVersion_id){
         document.getElementById('loaderArea').style.display = 'flex';
         axios.get('/getActiveVersionSocialData/'+ activeVersion_id)
         .then(function (response){
-            console.log(response);
             var row = '';
 
             row = row + '<div style="text-align:center; ">';
@@ -771,13 +794,13 @@
                     var displayWidth = value.width;
                 }
 
-                row = row + '<div class="columnSocial">';
+                row = row + '<div class="columnSocial" style="margin-top: 10px;">';
                     row = row + '<div style="display: flex; justify-content: space-between; background-color: #F15A29; padding: 5px; color: white; border-radius: 5px;">';
                         row = row + '<small style="float: left;">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right;">'+ value.size +'</small>';
                     row = row + '</div>';
 
-                    row = row + '<img src="'+ file_path +'" alt="'+ value.name +'" onclick="myFunction(this, '+ value.width +', '+ value.height +');" class="imagesSocial" style="width: '+ displayWidth +'px; height: auto;">';
+                    row = row + '<img src="'+ file_path +'" alt="'+ value.name +'" onclick="myFunction(this, '+ value.width +', '+ value.height +');" class="imagesSocial" style="margin-top: 2px; width: '+ displayWidth +'px; height: auto;">';
 
                     row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';
                         row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
@@ -847,6 +870,78 @@
                 modal.style.display = "none";
             }
         }
+    }
+
+    function updateSocialActiveVersion(version_id){
+        axios.get('/setSocialActiveVersion/' + version_id)
+        .then(function (response){
+            setSocialFeedbackVersions(response.data.versions);
+            setSocialActiveVersionSettings(response.data.activeVersion_id);
+            setSocialDisplayOfActiveVersion(response.data.activeVersion_id);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    function confirmSocialVersionDelete(version_id){
+        Swal.fire({
+            title: 'Are you sure you want to delete this version?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Thinking....`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteSocialVersion/'+ version_id)
+                .then(function (response){
+                    checkFeedbackType();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Version Has Been Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
+        })
+    }
+
+    function confirmDeleteSocial(id){
+        Swal.fire({
+            title: 'Are you sure you want to delete this social?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Thinking....`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteSocial/'+ id)
+                .then(function (response){
+                    setSocialDisplayOfActiveVersion(response.data.version_id);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Social Has Been Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
+        })
     }
     
 </script>

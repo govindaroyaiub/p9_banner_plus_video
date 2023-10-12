@@ -390,7 +390,7 @@
                     rows = rows + '<td class="px-4 py-4">'+ fileName +'</td>';
                     rows = rows + '<td class="text-center py-4">';
                     rows = rows + '<div class="mb-4">';
-                    rows = rows + '<select name="platform[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="banner_size_id" required>';
+                    rows = rows + '<select name="platform[]" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary id="social_id" required>';
                     rows = rows + '<option value="0" class="py-2">Select Option</option>';
                     rows = rows + '<option value='+ 'Social' +' class="py-2">'+ 'Social (Standard)' +'</option>';
                     rows = rows + '<option value='+ 'Facebook' +' class="py-2">'+ 'Facebook' +'</option>';

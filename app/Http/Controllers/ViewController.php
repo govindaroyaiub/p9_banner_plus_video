@@ -48,12 +48,23 @@ class ViewController extends Controller
 
         // dd($versionCount);
 
-        return view('newpreview.index', compact(
-            'info',
-            'main_project_id',
-            'feedbacks',
-            'activeFeedback',
-            'versionCount'
-        ));
+        if($info['logo_id'] == 7){
+            return view('newpreview.dirk-index', compact(
+                'info',
+                'main_project_id',
+                'feedbacks',
+                'activeFeedback',
+                'versionCount'
+            ));
+        }
+        else{
+            return view('newpreview.index', compact(
+                'info',
+                'main_project_id',
+                'feedbacks',
+                'activeFeedback',
+                'versionCount'
+            ));
+        }
     }
 }

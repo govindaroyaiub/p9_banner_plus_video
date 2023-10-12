@@ -9,7 +9,7 @@
             <h3 class="text-xl font-semibold tracking-wide mt-2">Add Video To Version</h3>
             <br>
 
-            <h3 class="text-xl font-semibold tracking-wide" style="color: red;">Inserting Banners into {{ $feedback['name'] }} > {{ $version['name'] }}</h3>
+            <h3 class="text-xl font-semibold tracking-wide" style="color: red;">Inserting Videos into {{ $feedback['name'] }} > {{ $version['name'] }}</h3>
             <br>
 
             <form id="project-add-form" class="max-w-xl" method="POST"

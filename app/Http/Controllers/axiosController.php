@@ -66,7 +66,7 @@ class axiosController extends Controller
     function deleteBanner(Request $request, $id){
         $banner = newBanner::where('id', $id)->first();
         $version = $banner['version_id'];
-        $file_path = public_path() . '/new_showcase_collection/' . $banner['file_path'];
+        $file_path = public_path() . '/new_banners/' . $banner['file_path'];
         if(file_exists($file_path)){
             // unlink('banner_collection/' . $sub_project['file_path']);
             $files = File::deleteDirectory($file_path);    
@@ -114,6 +114,20 @@ class axiosController extends Controller
             @unlink($file_path);
         }
         newVideo::where('id', $id)->update(['poster_path' => '']);
+        
+        return $data = [
+            'version_id' => $version
+        ];
+    }
+
+    function deleteSocial(Request $request, $id){
+        $social = newSocial::where('id', $id)->first();
+        $version = $social['version_id'];
+        $file_path = public_path() . '/new_socials/' . $social['file_path'];
+        if(file_exists($file_path)){
+            @unlink($file_path);
+        }
+        newSocial::where('id', $id)->delete();
         
         return $data = [
             'version_id' => $version
@@ -173,13 +187,27 @@ class axiosController extends Controller
         ];
     }
 
+    function setSocialActiveVersion(Request $request, $id){
+        $version = newVersion::find($id);
+        $feedback = newFeedback::where('id', $version['feedback_id'])->first();
+        newVersion::where('id', $id)->update(['is_active' => 1]);
+        $exceptionVersions = newVersion::select('id')->where('feedback_id', $feedback['id'])->where('id', '!=', $id)->get()->toArray();
+        newVersion::whereIn('id', $exceptionVersions)->where('feedback_id', $feedback['id'])->update(['is_active' => 0]);
+        $versions = newVersion::where('feedback_id', $feedback['id'])->get();
+
+        return $data = [
+            'versions' => $versions,
+            'activeVersion_id' => $id
+        ];
+    }
+
     function deleteBannerVersion($id){
         $banners = newBanner::where('version_id', $id)->get();
         $version = newVersion::find($id);
         $feedback_id = $version['feedback_id'];
 
         foreach ($banners as $banner) {
-            $file_path = public_path() . '/new_showcase_collection/' . $banner['file_path'];
+            $file_path = public_path() . '/new_banners/' . $banner['file_path'];
             if(file_exists($file_path)){
                 // unlink('banner_collection/' . $sub_project['file_path']);
                 $files = File::deleteDirectory($file_path);
@@ -248,6 +276,29 @@ class axiosController extends Controller
         ];
     }
 
+    function deleteSocialVersion($id){
+        $socials = newSocial::where('version_id', $id)->get();
+        $version = newVersion::find($id);
+        $feedback_id = $version['feedback_id'];
+
+        foreach ($socials as $social) {
+            $file_path = public_path() . '/new_socials/' . $social['file_path'];
+            if(file_exists($file_path)){
+                @unlink($file_path);
+            }
+            newSocial::where('id', $social->id)->delete();
+        }
+
+        newVersion::where('id', $id)->delete();
+        
+        $lastVersion = newVersion::where('feedback_id', $feedback_id)->orderBy('id', 'DESC')->first();
+        newVersion::where('id', $lastVersion['id'])->update(['is_active' => 1]);
+
+        return $data = [
+            'feedback_id' => $feedback_id
+        ];
+    }
+
     function getActiveFeedbackProjectType($id){
         $feedback = newFeedback::find($id);
         $projectType = newPreviewType::where('id', $feedback['type_id'])->first();
@@ -295,7 +346,7 @@ class axiosController extends Controller
             foreach($versions as $version){
                 $banners = newBanner::where('version_id', $version['id'])->get();
                 foreach ($banners as $banner) {
-                    $file_path = public_path() . '/new_showcase_collection/' . $banner['file_path'];
+                    $file_path = public_path() . '/new_banners/' . $banner['file_path'];
                     if(file_exists($file_path)){
                         // unlink('banner_collection/' . $sub_project['file_path']);
                         $files = File::deleteDirectory($file_path);
@@ -323,10 +374,34 @@ class axiosController extends Controller
             }
         }
         else if($feedback['project_type'] == 3){
+            $versions = newVersion::where('feedback_id', $id)->get();
 
+            foreach($versions as $version){
+                $videos = newGif::where('version_id', $version['id'])->get();
+                foreach ($gifs as $gif) {
+                    $file_path = public_path() . '/new_gifs/' . $video['file_path'];
+                    if(file_exists($file_path)){
+                        @unlink($file_path);
+                    }
+                    
+                    newGif::where('id', $gif->id)->delete();
+                }
+            }
         }
         else if($feedback['project_type'] == 4){
+            $versions = newVersion::where('feedback_id', $id)->get();
 
+            foreach($versions as $version){
+                $socials = newSocial::where('version_id', $version['id'])->get();
+                foreach ($socials as $social) {
+                    $file_path = public_path() . '/new_socials/' . $social['file_path'];
+                    if(file_exists($file_path)){
+                        @unlink($file_path);
+                    }
+                    
+                    newSocial::where('id', $version->id)->delete();
+                }
+            }
         }
         else{
             return 'Something went wrong';

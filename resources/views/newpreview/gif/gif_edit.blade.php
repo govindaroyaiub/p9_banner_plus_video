@@ -6,7 +6,7 @@
         @include('sidebar')
         <div class="w-3/4 mx-4">
             @include('alert')
-            <h3 class="text-xl font-semibold tracking-wide">Edit Banner</h3>
+            <h3 class="text-xl font-semibold tracking-wide">Edit Gif</h3>
             <br>
             <form id="project-add-form" class="max-w-xl" method="POST" action="/project/preview/gif/edit/{{ $sub_project_id }}"
                 enctype="multipart/form-data">

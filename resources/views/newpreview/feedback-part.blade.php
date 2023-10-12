@@ -81,13 +81,15 @@
         .catch(function (error) {
             console.log(error);
         })
+        .finally(function(){
+            document.getElementById('menuClick').click();
+        })
     }
 
     function updateActiveFeedback(feedback_id){
+        document.getElementById('menuClick').click();
         axios.get('/updateActiveFeedback/'+ feedback_id)
         .then(function (response){
-            document.getElementById('menuClick').click();
-
             var active;
             var row = '';
             $.each(response.data.feedbacks, function (key, value) {
@@ -140,7 +142,10 @@
             }
             else{
                 //project_type 4 or else == social
-                getSocialData();
+                setSocialFeedbackVersions(response.data.versions);
+                setSocialActiveVersionSettings(response.data.activeVersion_id);
+                setSocialActiveFeedbackSettings(activeFeedback_id);
+                setSocialDisplayOfActiveVersion(response.data.activeVersion_id);
             }
         })
         .catch(function (error) {
@@ -249,7 +254,7 @@
 
             $.each(response.data, function (key, value) {
                 var resolution = value.size_id;
-                var bannerPath = '/new_showcase_collection/' + value.file_path + '/index.html';
+                var bannerPath = '/new_banners/' + value.file_path + '/index.html';
                 var bannerReloadID = value.id;
                 
                 row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
@@ -933,8 +938,246 @@
         $('#feedbackSettings').html(rows);
     }
 
-    function getSocialData(){
-        console.log('Social');
+    function setSocialFeedbackVersions(versions){
+        var versionCount = versions.length;
+        var isActive;
+
+        if(versionCount > 1){
+            var row = '';
+            $.each(versions, function (key, value) {
+                if(value.is_active == 1){
+                    isActive = ' versionTabActive';
+                }
+                else{
+                    isActive = '';
+                }
+                row = row + '<div id="versionTab'+ value.id +'" class="versionTab'+ isActive +'" onclick="updateSocialActiveVersion('+ value.id +')" style="margin-left: 2px; margin-right: 2px; padding: 5px 25px 0 25px; border-top-left-radius: 17px; border-top-right-radius: 17px;">'+ value.name +'</div>';
+            });
+        }
+        else{
+            var row = '';
+        }
+        $('.versions').html(row);
+    }
+
+    function setSocialActiveVersionSettings(activeVersion_id){
+        axios.get('/checkVersionCount/'+ activeVersion_id)
+        .then(function (response){
+            if(response.data == 1){
+                var display = 'display: none;';
+            }
+            else{
+                var display = 'display: block;';
+            }
+
+            rows = '';
+            
+            rows = rows + '<div>';
+                rows = rows + '@if(Auth::check())';
+                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@else';
+                        rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                            rows = rows + '<a href="/project/preview/social/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
+                            rows = rows + '<a href="/project/preview/social/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
+                            rows = rows + '<a href="javascript:void(0)" onclick="return confirmSocialVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
+                        rows = rows + '</div>';
+                    rows = rows + '@endif';
+                rows = rows + '@endif';
+            rows = rows + '</div>';
+    
+            $('#versionSettings').html(rows);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
+    }
+
+    function setSocialDisplayOfActiveVersion(activeVersion_id){
+        document.getElementById('loaderArea').style.display = 'flex';
+        axios.get('/getActiveVersionSocialData/'+ activeVersion_id)
+        .then(function (response){
+            var row = '';
+
+            row = row + '<div style="text-align:center; ">';
+                row = row + '<strong>Click on the images below</strong>';
+            row = row + '</div>';
+            row = row + '<div class="rowSocial" style="margin-top: 15px;">';
+
+            $.each(response.data, function (key, value) {
+                var file_path = '/new_socials/'+ value.file_path;
+                if(value.width >= 1000){
+                    var displayWidth = value.width/2.75;
+                }
+                else{
+                    var displayWidth = value.width;
+                }
+
+                row = row + '<div class="columnSocial" style="margin-top: 10px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #F15A29; padding: 5px; color: white; border-radius: 5px;">';
+                        row = row + '<small style="float: left;">'+ value.width + 'x' + value.height +'</small>';
+                        row = row + '<small class="float: right;">'+ value.size +'</small>';
+                    row = row + '</div>';
+
+                    row = row + '<img src="'+ file_path +'" alt="'+ value.name +'" onclick="myFunction(this, '+ value.width +', '+ value.height +');" class="imagesSocial" style="margin-top: 2px; width: '+ displayWidth +'px; height: auto;">';
+
+                    row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';
+                        row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
+                            row = row + '<li><a href="/project/preview/social/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                            row = row + '<li><a href="'+ file_path +'" download><i class="fa-solid fa-circle-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                            row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteSocial('+ value.id +')"><i class="fa-solid fa-trash-can" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
+                        row = row + '@endif';
+                        row = row + '@endif';
+                    row = row + '</ul>';
+                row = row + '</div>';
+            });
+
+                row = row + '<div id="myModal" class="modalSocial">';
+                    row = row + '<span class="closeSocial">&times;</span>';
+                    row = row + '<img class="modal-contentSocial" id="img01">';
+                    row = row + '<div id="captionSocial"></div>';
+                row = row + '</div>';
+
+            row = row + '</div>';
+
+            $('#bannerShowcase').html(row);
+        })
+        .catch(function (error){
+            console.log(error);
+        })
+        .finally(function(){
+            document.getElementById('loaderArea').style.display = 'none';
+        })
+    }
+
+    $(".imagesSocial").wrap('<div class="alt-wrapSocial"/>');
+    $(".imagesSocial").each(function () {
+        $(this).after('<p class="alt">' + $(this).attr('alt') + '</p>');
+    });
+
+    function myFunction(imgs, imageWidth, imageHeight) {
+        console.log(imageWidth + ' ' + imageHeight);
+
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("captionSocial");
+        var anotherCaptionText = document.getElementById("anotherCaptionSocial");
+        modal.style.display = "block";
+        modalImg.src = imgs.src;
+
+        if(imageWidth >= 1000){
+            modalImg.style.width = null;
+            modalImg.style.height = null;
+        }
+        else{
+            modalImg.style.width = imageWidth + 'px';
+            modalImg.style.height = imageHeight + 'px';
+        }
+
+        captionText.innerHTML = imgs.alt;
+
+        var span = document.getElementsByClassName("closeSocial")[0];
+        var modal = document.getElementsByClassName("modalSocial")[0];
+        var except = document.getElementById('img01');
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        modal.onclick = function (e) {
+            if ( !except.contains(e.target) ) { //if the clicked element is the feedback div then it wont disappear
+                modal.style.display = "none";
+            }
+        }
+    }
+
+    function updateSocialActiveVersion(version_id){
+        axios.get('/setSocialActiveVersion/' + version_id)
+        .then(function (response){
+            setSocialFeedbackVersions(response.data.versions);
+            setSocialActiveVersionSettings(response.data.activeVersion_id);
+            setSocialDisplayOfActiveVersion(response.data.activeVersion_id);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    function confirmSocialVersionDelete(version_id){
+        Swal.fire({
+            title: 'Are you sure you want to delete this version?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Thinking....`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteSocialVersion/'+ version_id)
+                .then(function (response){
+                    checkFeedbackType();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Version Has Been Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
+        })
+    }
+
+    function confirmDeleteSocial(id){
+        Swal.fire({
+            title: 'Are you sure you want to delete this social?!',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Thinking....`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.get('/deleteSocial/'+ id)
+                .then(function (response){
+                    setSocialDisplayOfActiveVersion(response.data.version_id);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Social Has Been Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                })
+                .catch(function (error){
+                    console.log(error);
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Thanks for using your brain', '', 'info')
+            }
+        })
+    }
+
+    function setSocialActiveFeedbackSettings(activeFeedback_id){
+        rows = '';
+            
+        rows = rows + '<div>';
+            rows = rows + '@if(Auth::check())';
+                rows = rows + '@if(Auth::user()->company_id == 7) ';
+                rows = rows + '@else';
+                    rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                        rows = rows + '<a href="/project/preview/edit/feedback/'+ activeFeedback_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
+                        rows = rows + '<a href="javascript:void(0)" onclick="return confirmFeedbackDelete('+ activeFeedback_id +')" style="margin-right: 0.5rem;"><i class="fa-solid fa-circle-minus"></i></a>';
+                    rows = rows + '</div>';
+                rows = rows + '@endif';
+            rows = rows + '@endif';
+        rows = rows + '</div>';
+
+        $('#feedbackSettings').html(rows);
     }
     
 </script>
