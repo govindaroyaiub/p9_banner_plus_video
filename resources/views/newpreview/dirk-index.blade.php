@@ -27,7 +27,7 @@
 </head>
 
 <body class="font-body">
-    @if($info['logo_id'] == 7)
+    @if($info['logo_id'] == 10)
         @if(!Auth::user())
             @include('partials.login')
         @endif
@@ -63,8 +63,9 @@
         <section id="top">
             <div class="container mx-auto px-4 py-4 flex justify-center content">
                 <div id="topDetails">
-                    <img src="{{ asset('logo_images/DIRK_1663580003.png') }}" id="planetnineLogo" class="py-3"
-                        alt="planetnineLogo">
+                    <?php $logo_path = Helper::getLogoForPreview($logo_id); ?>
+                    <img src="{{ asset($logo_path) }}" id="clientLogo" class="py-3"
+                        alt="clientLogo">
                     <h1>Client Name: <span class="font-semibold">{{ $info['client_name'] }}</span></h1>
                     <h1>Project Name: <span lass="font-semibold">{{ $info['name'] }}</span></h1>
                     <h1>Date: <span

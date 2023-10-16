@@ -255,4 +255,10 @@ class Helper
 
         return array_unique(array_reverse($data));
     }
+
+    public static function getLogoForPreview($id){
+        $logo = Logo::where('id', $id)->first();
+
+        return 'logo_images/'.$logo['path'];
+    }
 }

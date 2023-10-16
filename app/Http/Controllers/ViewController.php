@@ -45,16 +45,18 @@ class ViewController extends Controller
         $feedbacks = newFeedback::where('project_id', $id)->get();
         $activeFeedback = newFeedback::where('project_id', $id)->where('is_active', 1)->first();
         $versionCount = newVersion::where('feedback_id', $activeFeedback['id'])->count();
+        $logo_id = $info['logo_id'];
 
         // dd($versionCount);
 
-        if($info['logo_id'] == 7){
+        if($info['logo_id'] == 10){
             return view('newpreview.dirk-index', compact(
                 'info',
                 'main_project_id',
                 'feedbacks',
                 'activeFeedback',
-                'versionCount'
+                'versionCount',
+                'logo_id'
             ));
         }
         else{
@@ -63,7 +65,8 @@ class ViewController extends Controller
                 'main_project_id',
                 'feedbacks',
                 'activeFeedback',
-                'versionCount'
+                'versionCount',
+                'logo_id'
             ));
         }
     }

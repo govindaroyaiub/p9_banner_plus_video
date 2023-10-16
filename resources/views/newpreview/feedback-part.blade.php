@@ -210,7 +210,7 @@
             
             rows = rows + '<div>';
                 rows = rows + '@if(Auth::check())';
-                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@if(Auth::user()->company_id == 10) ';
                     rows = rows + '@else';
                         rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                             rows = rows + '<a href="/project/preview/banner/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
@@ -233,7 +233,7 @@
             
         rows = rows + '<div>';
             rows = rows + '@if(Auth::check())';
-                rows = rows + '@if(Auth::user()->company_id == 7) ';
+                rows = rows + '@if(Auth::user()->company_id == 10) ';
                 rows = rows + '@else';
                     rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                         rows = rows + '<a href="/project/preview/edit/feedback/'+ activeFeedback_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
@@ -265,7 +265,7 @@
                     row = row + '<iframe style="margin-top: 2px;" src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
                     row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';
                         row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-arrows-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
-                            row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
+                            row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 10) @else'
                                 row = row + '<li><a href="/project/preview/banner/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                                 row = row + '<li><a href="/project/preview/banner/download/'+ value.id +'"><i class="fa-solid fa-circle-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                                 row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteBanner('+ value.id +')"><i class="fa-solid fa-trash-can" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
@@ -408,7 +408,7 @@
             
             rows = rows + '<div>';
                 rows = rows + '@if(Auth::check())';
-                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@if(Auth::user()->company_id == 10) ';
                     rows = rows + '@else';
                         rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                             rows = rows + '<a href="/project/preview/video/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
@@ -678,7 +678,7 @@
             
         rows = rows + '<div>';
             rows = rows + '@if(Auth::check())';
-                rows = rows + '@if(Auth::user()->company_id == 7) ';
+                rows = rows + '@if(Auth::user()->company_id == 10) ';
                 rows = rows + '@else';
                     rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                         rows = rows + '<a href="/project/preview/edit/feedback/'+ activeFeedback_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
@@ -758,7 +758,7 @@
             
             rows = rows + '<div>';
                 rows = rows + '@if(Auth::check())';
-                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@if(Auth::user()->company_id == 10) ';
                     rows = rows + '@else';
                         rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                             rows = rows + '<a href="/project/preview/gif/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
@@ -796,7 +796,7 @@
                     row = row + '<iframe style="margin-top: 2px; border: 1px solid #dedede;" src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
                     row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';
                         row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-arrows-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
-                            row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
+                            row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 10) @else'
                                 row = row + '<li><a href="/project/preview/gif/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                                 row = row + '<li><a href="'+ bannerPath +'" download><i class="fa-solid fa-circle-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                                 row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteGif('+ value.id +')"><i class="fa-solid fa-trash-can" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
@@ -902,7 +902,7 @@
             
             rows = rows + '<div>';
                 rows = rows + '@if(Auth::check())';
-                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@if(Auth::user()->company_id == 10) ';
                     rows = rows + '@else';
                         rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                             rows = rows + '<a href="/project/preview/gif/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
@@ -925,7 +925,7 @@
             
         rows = rows + '<div>';
             rows = rows + '@if(Auth::check())';
-                rows = rows + '@if(Auth::user()->company_id == 7) ';
+                rows = rows + '@if(Auth::user()->company_id == 10) ';
                 rows = rows + '@else';
                     rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                         rows = rows + '<a href="/project/preview/edit/feedback/'+ activeFeedback_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
@@ -974,7 +974,7 @@
             
             rows = rows + '<div>';
                 rows = rows + '@if(Auth::check())';
-                    rows = rows + '@if(Auth::user()->company_id == 7) ';
+                    rows = rows + '@if(Auth::user()->company_id == 10) ';
                     rows = rows + '@else';
                         rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                             rows = rows + '<a href="/project/preview/social/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
@@ -1021,7 +1021,7 @@
                     row = row + '<img src="'+ file_path +'" alt="'+ value.name +'" onclick="myFunction(this, '+ value.width +', '+ value.height +');" class="imagesSocial" style="margin-top: 2px; width: '+ displayWidth +'px; height: auto;">';
 
                     row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';
-                        row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 7) @else'
+                        row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 10) @else'
                             row = row + '<li><a href="/project/preview/social/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                             row = row + '<li><a href="'+ file_path +'" download><i class="fa-solid fa-circle-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                             row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteSocial('+ value.id +')"><i class="fa-solid fa-trash-can" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
@@ -1167,7 +1167,7 @@
             
         rows = rows + '<div>';
             rows = rows + '@if(Auth::check())';
-                rows = rows + '@if(Auth::user()->company_id == 7) ';
+                rows = rows + '@if(Auth::user()->company_id == 10) ';
                 rows = rows + '@else';
                     rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
                         rows = rows + '<a href="/project/preview/edit/feedback/'+ activeFeedback_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-pen-to-square"></i></a>';
