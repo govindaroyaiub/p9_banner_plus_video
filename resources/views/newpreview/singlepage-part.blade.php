@@ -846,13 +846,20 @@
         modal.style.display = "block";
         modalImg.src = imgs.src;
 
-        if(imageWidth >= 1000){
+        if(imageWidth >= 2200){
             modalImg.style.width = null;
             modalImg.style.height = null;
+            modalImg.style.maxWidth = "1200px";
+        }
+        else if(imageWidth >= 1000){
+            modalImg.style.width = null;
+            modalImg.style.height = null;
+            modalImg.style.maxWidth = "700px";
         }
         else{
             modalImg.style.width = imageWidth + 'px';
             modalImg.style.height = imageHeight + 'px';
+            modalImg.style.maxWidth = "700px";
         }
 
         captionText.innerHTML = imgs.alt;
