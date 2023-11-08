@@ -208,7 +208,7 @@ class PreviewController extends Controller
 
                 $validator = $request->validate([
                     'socialupload' => 'required',
-                    'socialupload.*' => 'mimes:jpeg,jpg,png'
+                    'socialupload.*' => 'mimes:jpeg,jpg,png,gif'
                 ]);
     
                 $platforms = $request->platform; 
@@ -652,7 +652,7 @@ class PreviewController extends Controller
 
             $validator = $request->validate([
                 'socialupload' => 'required',
-                'socialupload.*' => 'mimes:jpeg,jpg,png'
+                'socialupload.*' => 'mimes:jpeg,jpg,png,gif'
             ]);
 
             $platforms = $request->platform; 
@@ -1059,7 +1059,7 @@ class PreviewController extends Controller
 
                 $validator = $request->validate([
                     'socialupload' => 'required',
-                    'socialupload.*' => 'mimes:jpeg,jpg,png'
+                    'socialupload.*' => 'mimes:jpeg,jpg,png,gif'
                 ]);
     
                 $platforms = $request->platform; 
@@ -1251,7 +1251,7 @@ class PreviewController extends Controller
     function socialEditPost(Request $request, $id){
         $validator = $request->validate([
             'socialupload' => 'required',
-            'socialupload.*' => 'mimes:jpeg,jpg,png'
+            'socialupload.*' => 'mimes:jpeg,jpg,png,gif'
         ]);
 
         $social_id = $id;

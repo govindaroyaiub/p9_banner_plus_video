@@ -40,7 +40,7 @@
         </div>
     
         <div id="feedbackInfo"><label for="feedbackInfo" id="feedbackLabel"></label></div>
-        <div style="position: relative; top: 15px; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; justify-content: center; padding: 10px;">
+        <div style="position: relative; top: 65px; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; justify-content: center; padding: 10px;">
             <div id="versionSettings"></div>
             <div id="feedbackSettings" style="position: absolute; right: 2%;"></div>
         </div>
@@ -100,6 +100,9 @@
     }
 
     function updateActiveFeedback(feedback_id){
+        var feedbackLabel = gsap.timeline();
+        feedbackLabel
+        .to('#feedbackInfo', {duration: 0.5, y: -30, ease: 'power2.in'});
         document.getElementById('menuClick').click();
         axios.get('/updateActiveFeedback/'+ feedback_id)
         .then(function (response){
@@ -202,6 +205,9 @@
     }
     
     function setFeedbackName(feedback_name){
+        var feedbackLabel = gsap.timeline();
+        feedbackLabel
+        .to('#feedbackInfo', {duration: 1, y: 0, ease: 'power2.out'}, '=+0.5');
         $('#feedbackLabel').html(feedback_name);
     }
 
@@ -272,7 +278,7 @@
                 var bannerReloadID = value.id;
                 
                 row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #F15A29; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #427D9D; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
                         row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right; id="bannerSize">'+ value.size +'</small>';
                     row = row + '</div>';
@@ -803,7 +809,7 @@
                 var bannerReloadID = value.id;
                 
                 row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #F15A29; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #427D9D; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
                         row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right; id="bannerSize">'+ value.size +'</small>';
                     row = row + '</div>';
@@ -1027,7 +1033,7 @@
                 }
 
                 row = row + '<div class="columnSocial" style="margin-top: 10px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #F15A29; padding: 5px; color: white; border-radius: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #427D9D; padding: 5px; color: white; border-radius: 5px;">';
                         row = row + '<small style="float: left;">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right;">'+ value.size +'</small>';
                     row = row + '</div>';

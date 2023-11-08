@@ -20,6 +20,7 @@ class Logo extends Migration
             $table->string('company_website');
             $table->string('favicon');
             $table->string('path');
+            $table->string('colored_path');
             $table->string('default_color');
             $table->timestamps();
         });

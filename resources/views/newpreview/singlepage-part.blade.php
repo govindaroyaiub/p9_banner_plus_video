@@ -84,6 +84,9 @@
     }
     
     function setFeedbackName(feedback_name){
+        var feedbackLabel = gsap.timeline();
+        feedbackLabel
+        .to('#feedbackInfo', {duration: 1, y: 0, ease: 'power2.out'}, '=+0.5');
         $('#feedbackLabel').html(feedback_name);
     }
 
@@ -103,7 +106,7 @@
                 rows = rows + '@if(Auth::check())';
                     rows = rows + '@if(Auth::user()->company_id == 10) ';
                     rows = rows + '@else';
-                        rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                        rows = rows + '<div style="display: flex; color: #4b4e6d; font-size:25px;">';
                             rows = rows + '<a href="/project/preview/banner/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
                             rows = rows + '<a href="/project/preview/banner/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
                             rows = rows + '<a href="javascript:void(0)" onclick="return confirmBannerVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
@@ -132,12 +135,12 @@
                 var bannerReloadID = value.id;
                 
                 row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #F15A29; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #427D9D; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
                         row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right; id="bannerSize">'+ value.size +'</small>';
                     row = row + '</div>';
                     row = row + '<iframe style="margin-top: 2px;" src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>';
-                    row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';
+                    row = row + '<ul style="display: flex; color: #4b4e6d; flex-direction: row;">';
                         row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-arrows-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
                             row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 10) @else'
                                 row = row + '<li><a href="/project/preview/banner/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
@@ -261,7 +264,7 @@
                 rows = rows + '@if(Auth::check())';
                     rows = rows + '@if(Auth::user()->company_id == 10) ';
                     rows = rows + '@else';
-                        rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                        rows = rows + '<div style="display: flex; color: #4b4e6d; font-size:25px;">';
                             rows = rows + '<a href="/project/preview/video/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
                             rows = rows + '<a href="/project/preview/video/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
                             rows = rows + '<a href="javascript:void(0)" onclick="return confirmVideoVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
@@ -382,7 +385,7 @@
                                     row = row + '</div>';
                                 row = row + '</div>';
                             row = row + '</div>';
-                            row = row + '<ul class="flex space-x-4 icons" style="color:{{ $info['color'] }};">';
+                            row = row + '<ul class="flex space-x-4 icons" style="color: #4b4e6d;">';
                                 row = row + '@if(Auth::user())';
                                     row = row + '<li><a href="/project/preview/video/edit/'+ value.id +'" class="color-primary underline flex mt-4">Edit<svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg></a></li>';
                                     row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteVideo('+ value.id +')" class="color-primary underline flex mt-4">Delete<svg class="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></li>';
@@ -592,7 +595,7 @@
                 rows = rows + '@if(Auth::check())';
                     rows = rows + '@if(Auth::user()->company_id == 10) ';
                     rows = rows + '@else';
-                        rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                        rows = rows + '<div style="display: flex; color: #4b4e6d; font-size:25px;">';
                             rows = rows + '<a href="/project/preview/gif/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
                             rows = rows + '<a href="/project/preview/gif/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
                             rows = rows + '<a href="javascript:void(0)" onclick="return confirmGifVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
@@ -621,12 +624,12 @@
                 var bannerReloadID = value.id;
                 
                 row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #F15A29; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #427D9D; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
                         row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right; id="bannerSize">'+ value.size +'</small>';
                     row = row + '</div>';
                     row = row + '<iframe style="margin-top: 2px; border: 1px solid #dedede;" src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
-                    row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';
+                    row = row + '<ul style="display: flex; color: #4b4e6d; flex-direction: row;">';
                         row = row + '<li><i id="relBt'+ value.id +'" onClick="reload('+ bannerReloadID +')" class="fa-solid fa-arrows-rotate" style="display: flex; margin-top: 0.5rem; cursor: pointer; font-size:20px;"></i></li>';
                             row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 10) @else'
                                 row = row + '<li><a href="/project/preview/gif/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
@@ -758,7 +761,7 @@
                 rows = rows + '@if(Auth::check())';
                     rows = rows + '@if(Auth::user()->company_id == 10) ';
                     rows = rows + '@else';
-                        rows = rows + '<div style="display: flex; color:{{ $info['color'] }}; font-size:25px;">';
+                        rows = rows + '<div style="display: flex; color: #4b4e6d; font-size:25px;">';
                             rows = rows + '<a href="/project/preview/social/add/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-folder-plus"></i></a>';
                             rows = rows + '<a href="/project/preview/social/edit/version/'+ activeVersion_id +'" style="margin-right: 0.5rem;"><i class="fa-solid fa-square-pen"></i></a>';
                             rows = rows + '<a href="javascript:void(0)" onclick="return confirmSocialVersionDelete('+ activeVersion_id +')" style="'+ display +' margin-right: 0.5rem;"><i class="fa-solid fa-square-minus"></i></a>';
@@ -795,14 +798,14 @@
                 }
 
                 row = row + '<div class="columnSocial" style="margin-top: 10px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #F15A29; padding: 5px; color: white; border-radius: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #427D9D; padding: 5px; color: white; border-radius: 5px;">';
                         row = row + '<small style="float: left;">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right;">'+ value.size +'</small>';
                     row = row + '</div>';
 
                     row = row + '<img src="'+ file_path +'" alt="'+ value.name +'" onclick="myFunction(this, '+ value.width +', '+ value.height +');" class="imagesSocial" style="margin-top: 2px; width: '+ displayWidth +'px; height: auto;">';
 
-                    row = row + '<ul style="display: flex; color:{{ $info['color'] }}; flex-direction: row;">';
+                    row = row + '<ul style="display: flex; color: #4b4e6d; flex-direction: row;">';
                         row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 10) @else'
                             row = row + '<li><a href="/project/preview/social/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                             row = row + '<li><a href="'+ file_path +'" download><i class="fa-solid fa-circle-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';

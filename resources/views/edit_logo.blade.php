@@ -44,6 +44,13 @@
                     </div>
                     <br>
 
+                    <div
+                        class="drop-zone border-2 border-dotted border-indigo-400 rounded-lg p-6 cursor-pointer flex justify-center items-center font-2xl font-semibold text-indigo-400">
+                        <span class="drop-zone__prompt">Drop Company Logo Here or Click to Upload</span>
+                        <input type="file" name="colored_logo" class="drop-zone__input hidden">
+                    </div>
+                    <br>
+
                     <div class="flex space-x-4">
                         <button type="submit"
                                 class="w-full mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">

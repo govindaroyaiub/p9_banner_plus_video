@@ -131,12 +131,8 @@
                     <div class="versions" style="display: flex; justify-content: center; flex-direction: row;"></div>
                 </div>
             </div>
-            <div id="showcase"  style="border-radius: 6px; width: 100%; height: auto; overflow: hidden;">
-                @if($info['is_version'] == 0)
-                    @include('newpreview.singlepage-part')
-                @else
-                    @include('newpreview.feedback-part-v2')
-                @endif
+            <div id="showcase">
+                @include('newpreview.feedback-part-v2')
             </div>
         </div>
 

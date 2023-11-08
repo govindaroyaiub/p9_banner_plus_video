@@ -391,13 +391,10 @@ section::before {
 #bannershowCustom {
     width: 100%;
     height: auto;
-    overflow: hidden;
     min-height: 320px;
     position: relative;
     background: #fff;
-    z-index: 999;
     display: flex;
-    border: 2px solid #4b4e6d;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -416,15 +413,31 @@ section::before {
     margin: 0 auto;
     background-color: #4b4e6d;
     border-color: #4b4e6d;
+    transform: translateY(-30px);
+    -webkit-transform: translateY(-30px);
+    -moz-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    -o-transform: translateY(-30px);
 }
 
 #feedbackLabel {
-    padding: 20px;
+    padding: 40px;
     word-break: break-word;
 }
 
+#showcase{
+    position: relative;
+    border-radius: 6px; 
+    width: 100%; 
+    height: auto; 
+    overflow: hidden; 
+    border: 3px solid #4b4e6d; 
+    z-index: 999;
+    background: #fff;
+}
+
 #bannerShowcase {
-    margin-top: 10px;
+    margin-top: 50px;
     width: 100%;
     height: auto;
     text-align: center;
@@ -446,8 +459,9 @@ section::before {
 
 #feedbackArea{
     position: absolute; 
-    top: 145px; 
+    top: 10px; 
     right: 0px;
+    z-index: 99;
 }
 
 #feedbackCLick{

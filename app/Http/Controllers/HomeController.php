@@ -646,10 +646,14 @@ class HomeController extends Controller
     {
         $request->validate([
             'logo_file' => 'required|image|mimes:jpeg,png,jpg,svg',
+            'colored_logo' => 'required|image|mimes:jpeg,png,jpg,svg',
         ]);
 
         $imageName = $request->company_name.'_'.time().'.'.$request->logo_file->extension();
         $request->logo_file->move(public_path('logo_images'), $imageName);
+
+        $coloredImageName = $request->company_name.'_'.time().'1.'.$request->colored_logo->extension();
+        $request->colored_logo->move(public_path('logo_images'), $coloredImageName);
 
         $logo = new Logo;
         $logo->name = $request->company_name;
@@ -658,6 +662,7 @@ class HomeController extends Controller
         $logo->website = $request->website;
         $logo->company_website = $request->company_website;
         $logo->path = $imageName;
+        $logo->colored_path = $coloredImageName;
         $logo->save();
 
         return redirect('/logo')->with('success', 'Logo for '.$request->company_name.' has been uploaded!');
@@ -676,6 +681,8 @@ class HomeController extends Controller
 
         if($request->logo_file != NULL)
         {
+            $coloredImageName = $logo['colored_path'];
+
             $request->validate([
                 'logo_file' => 'required|image|mimes:jpeg,png,jpg,svg,gif',
             ]);
@@ -691,9 +698,26 @@ class HomeController extends Controller
             $imageName = $request->company_name.'_'.time().'.'.$request->logo_file->extension();
             $request->logo_file->move(public_path('logo_images'), $imageName);
         }
+        else if($request->colored_logo != NULL){
+            $imageName = $logo['path'];
+
+            $request->validate([
+                'colored_logo' => 'required|image|mimes:jpeg,png,jpg,svg,gif',
+            ]);
+
+            $colored_path = public_path('logo_images/').$logo['colored_path'];
+            if (file_exists($colored_path)) 
+            {
+                @unlink($colored_path);
+            }
+
+            $coloredImageName = $request->company_name.'_'.time().'1.'.$request->colored_logo->extension();
+            $request->colored_logo->move(public_path('logo_images'), $coloredImageName);
+        }
         else
         {
             $imageName = $logo['path'];
+            $coloredImageName = $logo['colored_path'];
         }
 
         $details = [
@@ -702,7 +726,8 @@ class HomeController extends Controller
             'company_website' => $request->company_website,
             'favicon' => $request->favicon,
             'default_color' => $request->default_color,
-            'path' => $imageName
+            'path' => $imageName,
+            'colored_path' => $coloredImageName
         ];
 
         Logo::where('id', $id)->update($details);
@@ -719,6 +744,12 @@ class HomeController extends Controller
         if (file_exists($image_path)) {
             @unlink($image_path);
         }
+
+        $image_path = public_path('logo_images/').$logo_info['colored_path'];
+        if (file_exists($image_path)) {
+            @unlink($image_path);
+        }
+
         return redirect('/logo')->with('danger', $logo_info['name'].' logo has been deleted!');
     }
 
