@@ -261,4 +261,10 @@ class Helper
 
         return 'logo_images/'.$logo['path'];
     }
+
+    public static function getColoredLogo($id){
+        $colored_logo = Logo::where('id', $id)->first();
+
+        return 'logo_images/'.$colored_logo['colored_path'];
+    }
 }

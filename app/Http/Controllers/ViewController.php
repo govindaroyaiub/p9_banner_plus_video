@@ -46,6 +46,7 @@ class ViewController extends Controller
         $activeFeedback = newFeedback::where('project_id', $id)->where('is_active', 1)->first();
         $versionCount = newVersion::where('feedback_id', $activeFeedback['id'])->count();
         $logo_id = $info['logo_id'];
+        $show_logo = $info['is_logo'];
 
         // dd($versionCount);
 
@@ -56,7 +57,8 @@ class ViewController extends Controller
                 'feedbacks',
                 'activeFeedback',
                 'versionCount',
-                'logo_id'
+                'logo_id',
+                'show_logo'
             ));
         }
         else{
@@ -66,7 +68,8 @@ class ViewController extends Controller
                 'feedbacks',
                 'activeFeedback',
                 'versionCount',
-                'logo_id'
+                'logo_id',
+                'show_logo'
             ));
         }
     }

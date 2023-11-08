@@ -34,8 +34,8 @@
         <div id="preview-shapes">
             <div id="left-shapes" style="position: fixed; top: 30%; left: 0%; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
                 <div class="left-shape-left left-shape-left-right" style="display: flex; position: relative; top: -90%; left: -90%;">
-                    <div id="left-shape11" style="position: relative; left: -2rem; width: 200px; height: 45px; background: {{ $info['color'] }};"></div>
-                    <div id="left-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $info['color'] }}; border-radius: 50%; left: -3.5rem;"></div>
+                    <div id="left-shape11" style="position: relative; left: -2rem; width: 200px; height: 45px; background: #4b4e6d;"></div>
+                    <div id="left-shape12" style="position: relative; width: 45px; height: 45px; background: #4b4e6d; border-radius: 50%; left: -3.5rem;"></div>
                 </div>
                 <div class="left-shape-right left-shape-left-right" style="display: flex; margin-top: 8px; position: relative; top: -90%; left: -90%;">
                     <div id="left-shape21" style="position: relative; left: -4rem; width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
@@ -43,10 +43,10 @@
                 </div>
             </div>
 
-            <div id="right-shapes" style="position: fixed; bottom: 17%; right: 0%; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(135deg);">
+            <div id="right-shapes" style="position: fixed; bottom: 3%; right: 0%; display: flex; flex-direction: column; transform-origin: center top; transform: rotate(135deg);">
                 <div class="right-shape-left right-shape-left-right" style="display: flex; position: relative; bottom: 90%; right: 90%;">
-                    <div id="right-shape11" style="position: relative; right: 6rem; width: 200px; height: 45px; background: {{ $info['color'] }};"></div>
-                    <div id="right-shape12" style="position: relative; width: 45px; height: 45px; background: {{ $info['color'] }}; border-radius: 50%; left: -7.5rem;"></div>
+                    <div id="right-shape11" style="position: relative; right: 6rem; width: 200px; height: 45px; background: #4b4e6d;"></div>
+                    <div id="right-shape12" style="position: relative; width: 45px; height: 45px; background: #4b4e6d; border-radius: 50%; left: -7.5rem;"></div>
                 </div>
                 <div class="right-shape-right right-shape-left-right" style="display: flex; margin-top: 8px; position: relative; bottom: 90%; right: 90%;">
                     <div id="right-shape21" style="position: relative; right: 8rem; width: 160px; height: 20px; background-color: rgb(217, 218, 227);"></div>
@@ -58,8 +58,8 @@
             <div class="container mx-auto px-4 py-4 flex justify-center content">
                 <div id="topDetails">
                     <?php $logo_path = Helper::getLogoForPreview($logo_id); ?>
-                    <img src="{{ asset($logo_path) }}" id="clientLogo" class="py-3"
-                        alt="clientLogo">
+                    <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-3"
+                        alt="planetnineLogo">
                     <h1>Client Name: <span class="font-semibold">{{ $info['client_name'] }}</span></h1>
                     <h1>Project Name: <span lass="font-semibold">{{ $info['name'] }}</span></h1>
                     <h1>Date: <span
@@ -116,13 +116,26 @@
 
         <br>
 
+        @if($show_logo != 2)
+            <div class="flex row justify-center clientMobileLogo py-2 mb-2">
+                <?php $logo_path = Helper::getColoredLogo($logo_id); ?>
+                <img src="{{ asset($logo_path) }}" class="py-3"
+                    alt="clientLogo" style="width: 150px; margin: 0 auto;">
+            </div>
+        @endif
+
         <div id="showcase-section" class="mx-auto container mt-2">
-            <div class="versions" style="display: flex; justify-content: center; flex-direction: row;"></div>
-            <div id="showcase"  style="border: 2px solid #4b4e6d; border-radius: 6px; width: 100%; height: auto; overflow: hidden;">
+            <div class="flex row">
+                <div class="version-blank-space" style="width: 200px;"></div>
+                <div style="flex: 1;">
+                    <div class="versions" style="display: flex; justify-content: center; flex-direction: row;"></div>
+                </div>
+            </div>
+            <div id="showcase"  style="border-radius: 6px; width: 100%; height: auto; overflow: hidden;">
                 @if($info['is_version'] == 0)
                     @include('newpreview.singlepage-part')
                 @else
-                    @include('newpreview.feedback-part')
+                    @include('newpreview.feedback-part-v2')
                 @endif
             </div>
         </div>
