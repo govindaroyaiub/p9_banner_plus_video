@@ -729,6 +729,18 @@ section::before {
     width: 200px; /* Adjust the width as needed */
     background-color: #4b4e6d;
     color: #fff;
+    /* padding: 20px; */
+}
+
+#clientLogoSection{
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    border-right: 3px solid #4b4e6d;
+    margin-bottom: 10px;
+}
+
+#creative-list{
     padding: 20px;
 }
 

@@ -10,13 +10,14 @@
     </nav>
     <div class="navbar tabDesktopShowcase" id="navbar">
         @if($show_logo != 2)
-            <?php $logo_path = Helper::getLogoForPreview($logo_id); ?>
+        <div id="clientLogoSection">
+            <?php $logo_path = Helper::getColoredLogo($logo_id); ?>
             <img src="{{ asset($logo_path) }}" class="py-3"
-                alt="clientLogo" style="width: 200px;">
+                alt="clientLogo" style="width: 150px;">
+        </div>
         @endif
         
         <h2 style="font-size: 20px; text-decoration: underline; text-align: center;">Creative List</h2>
-        <br>
         <div id="creative-list"></div>
     </div>
     
