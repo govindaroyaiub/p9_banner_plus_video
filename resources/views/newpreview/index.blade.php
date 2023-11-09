@@ -27,10 +27,14 @@
 </head>
 
 <body class="font-body">
+    
     <div id="loaderArea">
         <span class="loader"></span>
     </div>
     <main class="main">
+        <div class="viewMessage">
+            For better View Please Use Laptop or Desktop
+        </div>
         <div id="preview-shapes">
             <div id="left-shapes" style="position: fixed; top: 30%; left: 0%; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
                 <div class="left-shape-left left-shape-left-right" style="display: flex; position: relative; top: -90%; left: -90%;">

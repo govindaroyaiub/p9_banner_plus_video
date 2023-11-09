@@ -48,6 +48,8 @@ class ViewController extends Controller
         $logo_id = $info['logo_id'];
         $show_logo = $info['is_logo'];
 
+        $uploadedByCompany = $info['uploaded_by_company_id'];
+
         // dd($versionCount);
 
         if($info['logo_id'] == 10){
@@ -58,7 +60,8 @@ class ViewController extends Controller
                 'activeFeedback',
                 'versionCount',
                 'logo_id',
-                'show_logo'
+                'show_logo',
+                'uploadedByCompany'
             ));
         }
         else{
@@ -69,7 +72,8 @@ class ViewController extends Controller
                 'activeFeedback',
                 'versionCount',
                 'logo_id',
-                'show_logo'
+                'show_logo',
+                'uploadedByCompany'
             ));
         }
     }

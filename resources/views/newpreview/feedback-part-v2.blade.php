@@ -51,6 +51,8 @@
 </div>
 
 <script>
+    const userCompanyID = {{ $uploadedByCompany }};
+
     $(document).ready(function(){
         getAllFeedbacks();
     });
@@ -140,29 +142,45 @@
             if(response.data.project_type == 1){
                 //project_type 1 == banner
                 setBannerFeedbackVersions(response.data.versions);
-                setBannerActiveVersionSettings(response.data.activeVersion_id);
-                setBannerActiveFeedbackSettings(activeFeedback_id);
+
+                if(userCompanyID == 1){
+                    setBannerActiveVersionSettings(response.data.activeVersion_id);
+                    setBannerActiveFeedbackSettings(activeFeedback_id);
+                }
+                
                 setBannerDisplayOfActiveVersion(response.data.activeVersion_id);
             }
             else if(response.data.project_type == 2){
                 //project_type 2 == video
                 setVideoFeedbackVersions(response.data.versions);
-                setVideoActiveVersionSettings(response.data.activeVersion_id);
-                setVideoActiveFeedbackSettings(activeFeedback_id);
+
+                if(userCompanyID == 1){
+                    setVideoActiveVersionSettings(response.data.activeVersion_id);
+                    setVideoActiveFeedbackSettings(activeFeedback_id);
+                }
+
                 setVideoDisplayOfActiveVersion(response.data.activeVersion_id);
             }
             else if(response.data.project_type == 3){
                 //project_type 3 == gif
                 setGifFeedbackVersions(response.data.versions);
-                setGifActiveVersionSettings(response.data.activeVersion_id);
-                setGifActiveFeedbackSettings(activeFeedback_id);
+
+                if(userCompanyID == 1){
+                    setGifActiveVersionSettings(response.data.activeVersion_id);
+                    setGifActiveFeedbackSettings(activeFeedback_id);
+                }
+
                 setGifDisplayOfActiveVersion(response.data.activeVersion_id);
             }
             else{
                 //project_type 4 or else == social
                 setSocialFeedbackVersions(response.data.versions);
-                setSocialActiveVersionSettings(response.data.activeVersion_id);
-                setSocialActiveFeedbackSettings(activeFeedback_id);
+
+                if(userCompanyID == 1){
+                    setSocialActiveVersionSettings(response.data.activeVersion_id);
+                    setSocialActiveFeedbackSettings(activeFeedback_id);
+                }
+                
                 setSocialDisplayOfActiveVersion(response.data.activeVersion_id);
             }
         })
@@ -1033,7 +1051,7 @@
                     var displayWidth = value.width;
                 }
 
-                row = row + '<div class="columnSocial" style="margin-top: 10px;">';
+                row = row + '<div class="columnSocial" style="margin: 20px;">';
                     row = row + '<div style="display: flex; justify-content: space-between; background-color: #427D9D; padding: 5px; color: white; border-radius: 5px;">';
                         row = row + '<small style="float: left;">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right;">'+ value.size +'</small>';
@@ -1042,9 +1060,9 @@
                     row = row + '<img src="'+ file_path +'" alt="'+ value.name +'" onclick="myFunction(this, '+ value.width +', '+ value.height +');" class="imagesSocial" style="margin-top: 2px; width: '+ displayWidth +'px; height: auto;">';
 
                     row = row + '<ul style="display: flex; color:#4b4e6d; flex-direction: row;">';
+                        row = row + '<li><a href="'+ file_path +'" download><i class="fa-solid fa-circle-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                         row = row + '@if(Auth::check()) @if(Auth::user()->company_id == 10) @else'
                             row = row + '<li><a href="/project/preview/social/edit/'+ value.id +'"><i class="fa-solid fa-gear" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
-                            row = row + '<li><a href="'+ file_path +'" download><i class="fa-solid fa-circle-down" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                             row = row + '<li><a href="javascript:void(0)" onclick="return confirmDeleteSocial('+ value.id +')"><i class="fa-solid fa-trash-can" style="display: flex; margin-top: 0.5rem; margin-left: 0.5rem; font-size:20px;"></i></a></li>';
                         row = row + '@endif';
                         row = row + '@endif';
