@@ -9,15 +9,15 @@
         </div>
     </nav>
     <div class="navbar tabDesktopShowcase" id="navbar">
-        @if($show_logo != 2)
+        @if($show_logo == 1)
         <div id="clientLogoSection">
-            <?php $logo_path = Helper::getColoredLogo($logo_id); ?>
+            <?php $logo_path = Helper::getLogoForPreview($logo_id); ?>
             <img src="{{ asset($logo_path) }}" class="py-3"
                 alt="clientLogo" style="width: 150px;">
         </div>
         @endif
         
-        <h2 style="font-size: 20px; text-decoration: underline; text-align: center;">Creative List</h2>
+        <h2 style="padding-top: 10px; font-size: 24px; text-decoration: underline; text-align: center;">Creative List</h2>
         <div id="creative-list"></div>
     </div>
     
@@ -1124,17 +1124,14 @@
         if(imageWidth >= 2200){
             modalImg.style.width = null;
             modalImg.style.height = null;
-            modalImg.style.maxWidth = "1200px";
         }
         else if(imageWidth >= 1000){
             modalImg.style.width = null;
             modalImg.style.height = null;
-            modalImg.style.maxWidth = "700px";
         }
         else{
             modalImg.style.width = imageWidth + 'px';
             modalImg.style.height = imageHeight + 'px';
-            modalImg.style.maxWidth = "700px";
         }
 
         captionText.innerHTML = imgs.alt;

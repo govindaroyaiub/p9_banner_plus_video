@@ -120,9 +120,9 @@
 
         <br>
 
-        @if($show_logo != 2)
+        @if($show_logo == 1)
             <div class="flex row justify-center clientMobileLogo py-2 mb-2">
-                <?php $logo_path = Helper::getColoredLogo($logo_id); ?>
+                <?php $logo_path = Helper::getLogoForPreview($logo_id); ?>
                 <img src="{{ asset($logo_path) }}" class="py-3"
                     alt="clientLogo" style="width: 150px; margin: 0 auto;">
             </div>

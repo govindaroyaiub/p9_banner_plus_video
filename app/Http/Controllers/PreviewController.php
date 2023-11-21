@@ -56,12 +56,19 @@ class PreviewController extends Controller
 
         $goTo = Helper::getWebsiteOfLogo($request->logo_id);
 
+        if($request->logo_id == 1){ // if logo_id == 1 as in Planet Nine then show no logo
+            $is_logo = 2;
+        }
+        else{
+            $is_logo = 1;
+        }
+
         $main_project = new newPreview;
         $main_project->name = $pro_name;
         $main_project->client_name = $request->client_name;
         $main_project->logo_id = $request->logo_id;
         $main_project->color = $logo_details['default_color'];
-        $main_project->is_logo = 1;
+        $main_project->is_logo = $is_logo;
         $main_project->is_footer = $request->is_footer;
         $main_project->is_version = 0;
         $main_project->uploaded_by_user_id = Auth::user()->id;

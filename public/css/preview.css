@@ -769,7 +769,7 @@ section::before {
 
 .viewMessage{
     text-align: center;
-    background: rgb(0, 0, 0, 0.75);
+    background: rgba(247, 76, 76);
     color: white;
     height: 50px;
     display: flex;

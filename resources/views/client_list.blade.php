@@ -45,7 +45,6 @@
                             {{ $logo->name }}
                             <hr>
                             <img src="{{url('/logo_images/').'/'.$logo->path}}" class="py-2">
-                            <img src="{{url('/logo_images/').'/'.$logo->colored_path}}" class="py-2">
                         </td>
                         <td class="border px-4 py-2">
                             Preview: <a href="{{ $logo->website }}" target="_blank" style="color:#4299e1; text-decoration: underline;">{{ $logo->website }}</a>
