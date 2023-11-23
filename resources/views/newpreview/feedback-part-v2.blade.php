@@ -1130,8 +1130,8 @@
             modalImg.style.height = null;
         }
         else{
-            modalImg.style.width = imageWidth + 'px';
-            modalImg.style.height = imageHeight + 'px';
+            modalImg.style.width = imageWidth * 1.25 + 'px';
+            modalImg.style.height = imageHeight * 1.25 + 'px';
         }
 
         captionText.innerHTML = imgs.alt;

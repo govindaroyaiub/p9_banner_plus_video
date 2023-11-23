@@ -27,7 +27,7 @@
 </head>
 
 <body class="font-body">
-    @if($info['logo_id'] == 10)
+    @if($info['logo_id'] == 10 || $info['logo_id'] == 7)
         @if(!Auth::user())
             @include('partials.login')
         @endif
