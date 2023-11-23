@@ -21,9 +21,10 @@
     <link href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 <style>
-    #datatable_wrapper{
+    #datatable_wrapper {
         padding: 30px;
     }
+
 </style>
 <?php 
     if(Auth::check()){
@@ -117,110 +118,18 @@
                         <div class="mdc-layout-grid__inner">
                             <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8">
                                 <div class="mdc-card">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h4 class="card-title mb-2 mb-sm-0">DEMO DATA</h4>
-                                        <div class="d-flex justtify-content-between align-items-center">
-                                            <p class="d-none d-sm-block text-muted tx-12 mb-0 mr-2">Goal reached</p>
-                                            <i class="material-icons options-icon">more_vert</i>
-                                        </div>
-                                    </div>
-                                    <div class="d-block d-sm-flex justify-content-between align-items-center">
-                                        <h6 class="card-sub-title mb-0">Sales performance revenue based by country</h6>
-                                        <div class="mdc-tab-wrapper revenue-tab mdc-tab--secondary">
-                                            <div class="mdc-tab-bar" role="tablist">
-                                                <div class="mdc-tab-scroller">
-                                                    <div class="mdc-tab-scroller__scroll-area">
-                                                        <div class="mdc-tab-scroller__scroll-content">
-                                                            <button class="mdc-tab mdc-tab--active" role="tab"
-                                                                aria-selected="true" tabindex="0">
-                                                                <span class="mdc-tab__content">
-                                                                    <span class="mdc-tab__text-label">1W</span>
-                                                                </span>
-                                                                <span
-                                                                    class="mdc-tab-indicator mdc-tab-indicator--active">
-                                                                    <span
-                                                                        class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                                                </span>
-                                                                <span class="mdc-tab__ripple"></span>
-                                                            </button>
-                                                            <button class="mdc-tab mdc-tab" role="tab"
-                                                                aria-selected="true" tabindex="0">
-                                                                <span class="mdc-tab__content">
-                                                                    <span class="mdc-tab__text-label">1M</span>
-                                                                </span>
-                                                                <span class="mdc-tab-indicator mdc-tab-indicator">
-                                                                    <span
-                                                                        class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                                                </span>
-                                                                <span class="mdc-tab__ripple"></span>
-                                                            </button>
-                                                            <button class="mdc-tab mdc-tab" role="tab"
-                                                                aria-selected="true" tabindex="0">
-                                                                <span class="mdc-tab__content">
-                                                                    <span class="mdc-tab__text-label">3M</span>
-                                                                </span>
-                                                                <span class="mdc-tab-indicator mdc-tab-indicator">
-                                                                    <span
-                                                                        class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                                                </span>
-                                                                <span class="mdc-tab__ripple"></span>
-                                                            </button>
-                                                            <button class="mdc-tab mdc-tab" role="tab"
-                                                                aria-selected="true" tabindex="0">
-                                                                <span class="mdc-tab__content">
-                                                                    <span class="mdc-tab__text-label">1Y</span>
-                                                                </span>
-                                                                <span class="mdc-tab-indicator mdc-tab-indicator">
-                                                                    <span
-                                                                        class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                                                </span>
-                                                                <span class="mdc-tab__ripple"></span>
-                                                            </button>
-                                                            <button class="mdc-tab mdc-tab" role="tab"
-                                                                aria-selected="true" tabindex="0">
-                                                                <span class="mdc-tab__content">
-                                                                    <span class="mdc-tab__text-label">ALL</span>
-                                                                </span>
-                                                                <span class="mdc-tab-indicator mdc-tab-indicator">
-                                                                    <span
-                                                                        class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                                                </span>
-                                                                <span class="mdc-tab__ripple"></span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="content content--active">
-                                            </div>
-                                            <div class="content">
-                                            </div>
-                                            <div class="content">
-                                            </div>
-                                            <div class="content">
-                                            </div>
-                                            <div class="content">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="chart-container mt-4">
-                                        <canvas id="revenue-chart" height="260"></canvas>
-                                    </div>
+                                    <h6 class="card-title">Banner Projects Per Month</h6>
+                                    <canvas id="barChart"></canvas>
                                 </div>
                             </div>
+                            
                             <div
                                 class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-8-tablet">
                                 <div class="mdc-card">
-                                    <div class="d-flex d-lg-block d-xl-flex justify-content-between">
-                                        <div>
-                                            <h4 class="card-title">DEMO DATA</h4>
-                                            <h6 class="card-sub-title">Customers 58.39k</h6>
-                                        </div>
-                                        <div id="sales-legend" class="d-flex flex-wrap"></div>
-                                    </div>
-                                    <div class="chart-container mt-4">
-                                        <canvas id="chart-sales" height="260"></canvas>
-                                    </div>
+                                    <h6 class="card-title">Total Creative Projects</h6>
+                                    <canvas id="doughnutChart" style="position: relative;
+                                    top: 50%;
+                                    transform: translateY(-50%);"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -273,9 +182,10 @@
                                                 </a>
                                                 <a href="/user/delete/{{$user->id}}"
                                                     onclick="return confirm('Are you sure you want to delete this user?');">
-                                                    <button class="mdc-button mdc-button--raised filled-button--warning">
+                                                    <button
+                                                        class="mdc-button mdc-button--raised filled-button--warning">
                                                         Delete
-                                                      </button>
+                                                    </button>
                                                 </a>
                                             </td>
                                             @endif
@@ -312,14 +222,129 @@
     <script>
         $(document).ready(function () {
             var table = $('#datatable').DataTable({
-                responsive: true,
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
-                ]
-            })
+                    responsive: true,
+                    "lengthMenu": [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "All"]
+                    ]
+                })
                 .columns.adjust();
         });
+
+    </script>
+
+    <script>
+        $(function () {
+            var data = {
+                labels: ["Jan", "Feb", "March", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [{{$jan}}, {{$feb}}, {{$mar}}, {{$apr}}, {{$may}}, {{$jun}}, {{$jul}}, {{$aug}}, {{$sep}}, {{$oct}}, {{$nov}}, {{$dec}}],
+                    backgroundColor: [
+                        'rgba(255, 66, 15, 0.7)',
+                        'rgba(0, 187, 221, 0.7)',
+                        'rgba(255, 193, 7, 0.7)',
+                        'rgba(0, 182, 122, 0.7)',
+                        'rgba(255, 66, 15, 0.7)',
+                        'rgba(0, 187, 221, 0.7)',
+                        'rgba(255, 193, 7, 0.7)',
+                        'rgba(0, 182, 122, 0.7)',
+                        'rgba(255, 66, 15, 0.7)',
+                        'rgba(0, 187, 221, 0.7)',
+                        'rgba(255, 193, 7, 0.7)',
+                        'rgba(0, 182, 122, 0.7)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 66, 15, 1)',
+                        'rgba(0, 187, 221, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(0, 182, 122, 1)',
+                        'rgba(255, 66, 15, 1)',
+                        'rgba(0, 187, 221, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(0, 182, 122, 1)',
+                        'rgba(255, 66, 15, 1)',
+                        'rgba(0, 187, 221, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(0, 182, 122, 1)',
+                    ],
+                    borderWidth: 1,
+                    fill: false
+                }]
+            };
+            var options = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                }
+
+            };
+            var doughnutPieData = {
+                datasets: [{
+                    data: [{{ $total_banner_projects_count }}, {{ $total_video_projects }}, {{ $total_gif_projects }}, {{ $total_social_projects }}],
+                    backgroundColor: [
+                        'rgba(255, 66, 15, 0.8)',
+                        'rgba(0, 187, 221, 0.8)',
+                        'rgba(255, 193, 7, 0.8)',
+                        'rgba(0, 182, 122, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 66, 15,1)',
+                        'rgba(0, 187, 221, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(0, 182, 122, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                }],
+
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: [
+                    'Banners',
+                    'Videos',
+                    'Gifs',
+                    'Socials'
+                ]
+            };
+            var doughnutPieOptions = {
+                responsive: true,
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            };
+            if ($("#barChart").length) {
+                var barChartCanvas = $("#barChart").get(0).getContext("2d");
+                // This will get the first returned node in the jQuery collection.
+                var barChart = new Chart(barChartCanvas, {
+                    type: 'bar',
+                    data: data,
+                    options: options
+                });
+            }
+            if ($("#doughnutChart").length) {
+                var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+                var doughnutChart = new Chart(doughnutChartCanvas, {
+                    type: 'doughnut',
+                    data: doughnutPieData,
+                    options: doughnutPieOptions
+                });
+            }
+        });
+
     </script>
 </body>
 
