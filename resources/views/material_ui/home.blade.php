@@ -238,7 +238,7 @@
             var data = {
                 labels: ["Jan", "Feb", "March", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: '# of Votes',
+                    label: 'Amount',
                     data: [{{$jan}}, {{$feb}}, {{$mar}}, {{$apr}}, {{$may}}, {{$jun}}, {{$jul}}, {{$aug}}, {{$sep}}, {{$oct}}, {{$nov}}, {{$dec}}],
                     backgroundColor: [
                         'rgba(255, 66, 15, 0.7)',
