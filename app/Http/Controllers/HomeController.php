@@ -195,7 +195,7 @@ class HomeController extends Controller
             $fusionlab_banners = MainProject::join('users', 'users.company_id', 'main_project.uploaded_by_company_id')->where('users.company_id', 5)->where('main_project.project_type', 0)->get()->count();
 
             try{
-                return view('home', compact(
+                return view('material_ui/home', compact(
                     'user_list', 
                     'total_banners', 
                     'total_videos',
