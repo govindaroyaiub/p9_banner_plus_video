@@ -377,9 +377,9 @@ class axiosController extends Controller
             $versions = newVersion::where('feedback_id', $id)->get();
 
             foreach($versions as $version){
-                $videos = newGif::where('version_id', $version['id'])->get();
+                $gifs = newGif::where('version_id', $version['id'])->get();
                 foreach ($gifs as $gif) {
-                    $file_path = public_path() . '/new_gifs/' . $video['file_path'];
+                    $file_path = public_path() . '/new_gifs/' . $gif['file_path'];
                     if(file_exists($file_path)){
                         @unlink($file_path);
                     }

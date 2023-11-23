@@ -775,6 +775,7 @@ section::before {
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
 }
 
 /* Extra small devices (phones, 600px and down) */

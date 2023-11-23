@@ -12,6 +12,7 @@ Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('config:clear');
     $exitCode = Artisan::call('route:clear');
     $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('optimize:clear');
 
     return '<h2 style="color: red;">Cache, View, Config, Route cleared!</h2>';
 });

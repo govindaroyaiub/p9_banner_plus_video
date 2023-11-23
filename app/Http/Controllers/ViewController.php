@@ -52,7 +52,7 @@ class ViewController extends Controller
 
         // dd($versionCount);
 
-        if($info['logo_id'] == 10){
+        if($info['logo_id'] == 10 || $info['logo_id'] == 7){
             return view('newpreview.dirk-index', compact(
                 'info',
                 'main_project_id',
