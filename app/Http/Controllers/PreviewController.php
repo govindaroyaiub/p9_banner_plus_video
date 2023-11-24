@@ -25,7 +25,7 @@ class PreviewController extends Controller
 {
     function viewPreviews(){
         $data = newPreview::orderBy('created_at', 'ASC')->get();
-        return view('newpreview.previews', compact('data'));
+        return view('material_ui.preview', compact('data'));
     }
 
     function addPreviewsView(){
