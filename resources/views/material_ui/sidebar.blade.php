@@ -26,7 +26,7 @@
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link {{ request()->is('p9_transfer') || request()->is('p9_transfer/*') ? 'active' : '' }}" href="/banner-showcase">
+                    <a class="mdc-drawer-link {{ request()->is('p9_transfer') || request()->is('p9_transfer/*') ? 'active' : '' }}" href="/p9_transfer">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"
                             aria-hidden="true">attach_file</i>
                         Files Transfer
@@ -36,7 +36,7 @@
                     <a class="mdc-drawer-link {{ request()->is('bills') || request()->is('bills/*') ? 'active' : '' }}" href="/bills">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"
                         aria-hidden="true">attach_money</i>
-                        Bills (For Limon Bhai)
+                        Bills
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">

@@ -20,7 +20,7 @@ class PDFController extends Controller
 
     public function billing_list(){
         $bills = MainProject::where('project_type', 5)->orderBy('created_at', 'DESC')->get();
-        return view('pdf/billing_list', compact('bills'));
+        return view('material_ui/bill/bills', compact('bills'));
     }
 
     public function create_billing(){

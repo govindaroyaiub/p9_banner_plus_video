@@ -40,7 +40,7 @@
                     <?php $i=1; ?>
                     <tbody>
                         @foreach ($data as $row)
-                        <tr style="text-align: center;">
+                        <tr>
                             <td style="text-align: center;">{{ $i++ }}</td>
                             <td style="text-align: center;">
                                 {{ $row->name }}

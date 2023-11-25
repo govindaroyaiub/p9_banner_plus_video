@@ -26,7 +26,7 @@ class TransferController extends Controller
         if(Auth::user()->company_id == 1)
         {
             $transfers = Transfer::orderBy('created_at', 'DESC')->get();
-            return view('transfer.index', compact('transfers'));
+            return view('material_ui.transfer.transfers', compact('transfers'));
         }
         else
         {
