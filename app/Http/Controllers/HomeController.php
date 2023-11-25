@@ -620,7 +620,7 @@ class HomeController extends Controller
         if(Auth::user()->company_id == 1)
         {
             $logo_list = Logo::get();
-            return view('client_list', compact('logo_list'));
+            return view('material_ui.client.clients', compact('logo_list'));
         }
         else
         {
