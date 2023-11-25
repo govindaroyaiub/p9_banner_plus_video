@@ -1,4 +1,4 @@
-@extends('material_ui.app')
+@extends('material_ui.layouts.app')
 
 @section('content')
 

@@ -72,18 +72,18 @@
     <script src="{{ asset('material_ui/assets/js/preloader.js') }}"></script>
     <div class="body-wrapper">
         <!-- partial:partials/_sidebar.html -->
-        @include('material_ui.sidebar')
+        @include('material_ui.layouts.sidebar')
         <!-- partial -->
         <div class="main-wrapper mdc-drawer-app-content">
             <!-- partial:partials/_navbar.html -->
-            @include('material_ui.header')
+            @include('material_ui.layouts.header')
             <!-- partial -->
             <div class="page-wrapper mdc-toolbar-fixed-adjust">
                 <main class="content-wrapper">
                     @yield('content')
                 </main>
                 <!-- partial:partials/_footer.html -->
-                @include('material_ui.footer')
+                @include('material_ui.layouts.footer')
                 <!-- partial -->
             </div>
         </div>
