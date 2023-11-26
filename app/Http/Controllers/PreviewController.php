@@ -259,7 +259,7 @@ class PreviewController extends Controller
         $naming_convention = str_replace(" ", "_", $project_name['name']);
         $logo_list = Logo::get();
         $project_info = newPreview::where('id', $project_id)->first();
-        return view('newpreview.editpreviews', compact('logo_list', 'project_info', 'project_id', 'naming_convention'));
+        return view('material_ui.preview.editpreview', compact('logo_list', 'project_info', 'project_id', 'naming_convention'));
     }
 
     function editPreviewPost(Request $request, $project_id){

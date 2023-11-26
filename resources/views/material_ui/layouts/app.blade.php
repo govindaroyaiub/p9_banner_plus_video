@@ -34,11 +34,11 @@
     <script src="{{ asset('material_ui/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
     <!-- End plugin js for this page-->
     <!-- inject:js -->
-    <script src="{{ asset('material_ui/assets/js/material.js') }}"></script>
-    <script src="{{ asset('material_ui/assets/js/misc.js') }}"></script>
+    <script src="{{ asset('material_ui/assets/js/material.js') }}" defer></script>
+    <script src="{{ asset('material_ui/assets/js/misc.js') }}" defer></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script src="{{ asset('material_ui/assets/js/dashboard.js') }}"></script>
+    <script src="{{ asset('material_ui/assets/js/dashboard.js') }}" defer></script>
     <!-- End custom js for this page-->
     <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script>
