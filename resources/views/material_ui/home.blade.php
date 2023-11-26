@@ -5,7 +5,7 @@
 <div class="mdc-layout-grid">
     <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8">
-            <div class="mdc-card">
+            <div class="mdc-card rounded-lg">
                 <h6 class="card-title">Banner Projects Per Month</h6>
                 <canvas id="barChart"></canvas>
             </div>
@@ -13,7 +13,7 @@
         
         <div
             class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-8-tablet">
-            <div class="mdc-card">
+            <div class="mdc-card rounded-xl">
                 <h6 class="card-title">Total Creative Projects</h6>
                 <canvas id="doughnutChart" style="position: relative;
                 top: 50%;

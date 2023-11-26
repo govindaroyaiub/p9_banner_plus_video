@@ -1,6 +1,6 @@
 <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
     <div class="mdc-drawer__header">
-        <a href="index.html" class="brand-logo">
+        <a href="/" class="brand-logo">
             <img src="{{ asset('logo_images/planetnine.gif') }}" alt="logo" style="width: 93%;">
         </a>
     </div>
@@ -129,6 +129,20 @@
                     </div>
                 </div>
             </nav>
+        </div>
+        <div class="profile-actions">
+            <a href="/change-password">Change Password</a>
+            <span class="divider"></span>
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                class="hidden">
+                @csrf
+            </form>
         </div>
     </div>
 </aside>

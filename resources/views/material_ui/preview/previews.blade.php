@@ -23,7 +23,7 @@
     </div>
 
     <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-        <div class="mdc-card p-0">
+        <div class="mdc-card p-0 rounded-lg">
             <h3 class="card-title card-padding pb-2">Previews</h3>
             <div class="table-responsive">
                 <table id="datatable" class="table table-hoverable">

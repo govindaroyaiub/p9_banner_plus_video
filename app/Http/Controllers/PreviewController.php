@@ -37,7 +37,7 @@ class PreviewController extends Controller
             $video_sizes = Sizes::orderBy('width', 'DESC')->get();
             $company_details = Logo::where('id', Auth::user()->company_id)->first();
             $color = $company_details['default_color'];
-            return view('newpreview.addpreviews', compact('logo_list', 'size_list', 'color', 'video_sizes'));
+            return view('material_ui.preview.addpreview', compact('logo_list', 'size_list', 'color', 'video_sizes'));
         }
         else
         {
