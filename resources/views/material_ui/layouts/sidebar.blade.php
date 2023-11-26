@@ -120,6 +120,11 @@
                                     Clients
                                 </a>
                             </div>
+                            <div class="mdc-list-item mdc-drawer-item">
+                                <a class="mdc-drawer-link {{ request()->is('users') || request()->is('users/*') ? 'active' : '' }}" href="/users">
+                                    Users
+                                </a>
+                            </div>
                         </nav>
                     </div>
                 </div>

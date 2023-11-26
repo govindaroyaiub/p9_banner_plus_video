@@ -51,50 +51,6 @@ class HomeController extends Controller
             }
             
             $company_id = Auth::user()->company_id;
-
-            if(url('/') != 'http://localhost:8000' && url('/') != "https://creative.planetnine.com")
-            {
-                $user_list = User::select(
-                                    'id', 
-                                    'name as username', 
-                                    'email', 
-                                    'is_send_mail',
-                                    'is_admin')
-                                ->where('company_id', $company_id)
-                                ->where('is_deleted', 0)
-                                ->orderBy('name', 'ASC')
-                                ->get();
-            }
-            else
-            {
-                if($company_id != 1){
-                    $user_list = User::select(
-                        'id', 
-                        'name as username', 
-                        'email', 
-                        'is_send_mail',
-                        'is_admin')
-                    ->where('company_id', $company_id)
-                    ->where('is_deleted', 0)
-                    ->orderBy('name', 'ASC')
-                    ->get();
-                }
-                else{
-                    $user_list = User::join('logo', 'logo.id', 'users.company_id')
-                    ->select(
-                        'users.id',
-                        'users.name as username',
-                        'users.email',
-                        'users.is_send_mail',
-                        'users.is_admin',
-                        'logo.name as logoname'
-                        )
-                    ->orderBy('users.name', 'ASC')
-                    ->where('users.is_deleted', 0)
-                    ->get();
-                }
-                
-            }
             // $total_comments = Comments::get()->count();
 
             $video_sizes = SubProject::join('main_project', 'main_project.id', 'sub_project.project_id')
@@ -196,7 +152,6 @@ class HomeController extends Controller
 
             try{
                 return view('material_ui/home', compact(
-                    'user_list', 
                     'total_banners', 
                     'total_videos',
                     'total_gifs',
@@ -876,5 +831,55 @@ class HomeController extends Controller
         else{
             return 'oops!';
         }
+    }
+
+    public function user_list(){
+        $company_id = Auth::user()->company_id;
+
+            if(url('/') != 'http://localhost:8000' && url('/') != "https://creative.planetnine.com")
+            {
+                $user_list = User::select(
+                                    'id', 
+                                    'name as username', 
+                                    'email', 
+                                    'is_send_mail',
+                                    'is_admin')
+                                ->where('company_id', $company_id)
+                                ->where('is_deleted', 0)
+                                ->orderBy('name', 'ASC')
+                                ->get();
+            }
+            else
+            {
+                if($company_id != 1){
+                    $user_list = User::select(
+                        'id', 
+                        'name as username', 
+                        'email', 
+                        'is_send_mail',
+                        'is_admin')
+                    ->where('company_id', $company_id)
+                    ->where('is_deleted', 0)
+                    ->orderBy('name', 'ASC')
+                    ->get();
+                }
+                else{
+                    $user_list = User::join('logo', 'logo.id', 'users.company_id')
+                    ->select(
+                        'users.id',
+                        'users.name as username',
+                        'users.email',
+                        'users.is_send_mail',
+                        'users.is_admin',
+                        'logo.name as logoname'
+                        )
+                    ->orderBy('users.name', 'ASC')
+                    ->where('users.is_deleted', 0)
+                    ->get();
+                }
+                
+            }
+
+            return view('material_ui.user.users', compact('user_list'));
     }
 }

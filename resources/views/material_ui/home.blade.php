@@ -22,68 +22,7 @@
         </div>
     </div>
 </div>
-<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-    <div class="mdc-card p-0">
-        <h6 class="card-title card-padding pb-0">Users</h6>
-        <div class="table-responsive">
-            <table id="datatable" class="table table-hoverable">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">#</th>
-                        <th style="text-align: center;">Name</th>
-                        <th style="text-align: center;">Email</th>
-                        <th style="text-align: center;">Coompany</th>
-                        <th style="text-align: center;">Status</th>
-                        <th style="text-align: center;">Action</th>
-                    </tr>
-                </thead>
-                <?php $i=1; ?>
-                <tbody>
-                    @foreach($user_list as $user)
-                    <tr>
-                        <td style="text-align: center;">{{$i++}}</td>
-                        <td style="text-align: center;">{{ $user->username }}</td>
-                        <td style="text-align: center;">{{ $user->email }}</td>
-                        @if(url('/') == 'http://localhost:8000' || url('/') ==
-                        'https://creative.planetnine.com')
-                        <td style="text-align: center;">{{ $user->logoname }}</td>
-                        @endif
-                        @if(Auth::user()->is_admin == 1)
-                        @if($user->is_admin == 1)
-                        <td style="text-align: center;">
-                            <span class="mdc-button mdc-button--raised filled-button--secondary">
-                                Admin
-                            </span>
-                        </td>
-                        @else
-                        <td style="text-align: center;">
-                            <span class="mdc-button mdc-button--raised filled-button--success">
-                                User
-                            </span>
-                        </td>
-                        @endif
-                        <td style="text-align: center;">
-                            <a href="/user/edit/{{$user->id}}">
-                                <button class="mdc-button mdc-button--raised filled-button--info">
-                                    Edit
-                                </button>
-                            </a>
-                            <a href="/user/delete/{{$user->id}}"
-                                onclick="return confirm('Are you sure you want to delete this user?');">
-                                <button
-                                    class="mdc-button mdc-button--raised filled-button--warning">
-                                    Delete
-                                </button>
-                            </a>
-                        </td>
-                        @endif
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+
 
 <script>
     $(function () {

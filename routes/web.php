@@ -190,7 +190,9 @@ Route::get('bills/view/{id}', 'PDFController@view_bills')->name('view_bills');
 Route::get('/bills/delete/{id}', 'PDFController@delete_bill')->name('delete_bill');
 //planetnine billing function ends
 
-
+//planetnine users function starts
+Route::get('/users', 'HomeController@user_list')->name('user_list');
+//planetnine users function ends
 
 
 //video showcase function starts
