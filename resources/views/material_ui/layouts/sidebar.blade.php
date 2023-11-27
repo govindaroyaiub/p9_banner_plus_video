@@ -19,6 +19,13 @@
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
+                    <a class="mdc-drawer-link {{ request()->is('/dashboard2') || request()->is('dashboard2/*') ? 'active' : '' }}" href="/dashboard2">
+                        <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"
+                            aria-hidden="true">home</i>
+                        Dashboard 2
+                    </a>
+                </div>
+                <div class="mdc-list-item mdc-drawer-item">
                     <a class="mdc-drawer-link {{ request()->is('view-previews') || request()->is('project/preview/*') ? 'active' : '' }}" href="/view-previews">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"
                             aria-hidden="true">fiber_new</i>

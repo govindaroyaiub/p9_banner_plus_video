@@ -55,6 +55,7 @@ Route::domain('https://creative.me-preview.nl')->group(function () {
 
 Auth::routes(['register' => false]);
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('dashboard2', 'DashboardController@dashboard2')->name('dashboard2');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user/add', 'HomeController@add_user')->name('add_user');
 Route::post('/user/add', 'HomeController@add_user_post')->name('add_user_post');
