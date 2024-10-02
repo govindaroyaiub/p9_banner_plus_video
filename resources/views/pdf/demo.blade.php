@@ -215,7 +215,7 @@
         <div class="footer_text3">
             Contact<br>
             (+31) 653459211<br>
-            production@planetnine.com
+            production@planetnine.com<br>
             taco@planetnine.com
         </div>
     </div>
