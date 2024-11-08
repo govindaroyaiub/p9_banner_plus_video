@@ -31,7 +31,7 @@
             position: relative;
             top: 0;
             right: 0px;
-            font-size: 45px;
+            font-size: 50px;
             color: #4b4e6d;
         }
 
@@ -105,15 +105,15 @@
             border-left: 1px solid black;
             position: absolute;
             /* display: block; */
-            bottom: 5px;
-            left: 120px;
+            bottom: 8px;
+            left: 100px;
         }
 
         .footer_text1{
             position: absolute;
             /* display: block; */
-            bottom: 5px;
-            left: 150px;
+            bottom: 10px;
+            left: 130px;
             font-size: 10px;
             line-height: 2;
             color: rgb(77, 77, 79);
@@ -121,8 +121,8 @@
 
         .footer_text2{
             position: absolute;
-            bottom: 5px;
-            left: 280px;
+            bottom: 10px;
+            left: 260px;
             font-size: 10px;
             line-height: 2;
             color: rgb(77, 77, 79);
@@ -134,14 +134,14 @@
             border-left: 1px solid black;
             position: absolute;
             /* display: block; */
-            bottom: 5px;
-            left: 445px;
+            bottom: 10px;
+            left: 405px;
         }
 
         .footer_text3{
             position: absolute;
-            bottom: 5px;
-            left: 460px;
+            bottom: 10px;
+            left: 440px;
             font-size: 10px;
             line-height: 2;
             color: rgb(77, 77, 79);
@@ -153,7 +153,7 @@
 <body>
     <div class="bill">
         <div class="logo1">
-            <img src="{{ public_path('logo_images/p9_logo2.png') }}" alt="p9_logo2.png" style="width: 215px; height: auto;">
+            <img src="{{ public_path('logo_images/planetnine_logo.png') }}" alt="planetnine_black_logo">
         </div>
         <div class="invoice">
             <div id="invoice">
@@ -193,16 +193,16 @@
             </div>
         </div>
 
-        {{-- <div class="footer">
+        <div class="footer">
             <img src="{{ public_path('logo_images/planetnine_logo_vertical.png') }}" alt="planetnine_logo_vertical"
                 id="vertial_logo">
             
-        </div> --}}
+        </div>
         <div class="footer_line1"></div>
         <div class="footer_text1">
             Amsterdam Office<br>
-            Vrijburglaan 39<br>
-            2051LB Overveen<br>
+            H. Figeeweg 3F<br>
+            2031BJ, Haarlem<br>
             The Netherlands
         </div>
         <div class="footer_text2">
@@ -214,9 +214,9 @@
         <div class="footer_line2"></div>
         <div class="footer_text3">
             Contact<br>
-            (+31) 653459211<br>
-            production@planetnine.com<br>
-            taco@planetnine.com
+            (+31) 6 14 7978 01<br>
+            (+880) 186 991 6379<br>
+            maarten@planetnine.com
         </div>
     </div>
 </body>
