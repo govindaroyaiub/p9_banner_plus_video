@@ -13,7 +13,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
-                        <label class="text-primary font-light block">Project Name</label>
+                        <label class="text-primary font-bold block">Project Name</label>
                         <small class="text-x text-red-500">(Please refrain from using special type characters: * / ? ~ ! %
                             etc)</small>
                             <input type='text' placeholder="Enter Project Name" name="project_name"
@@ -23,7 +23,7 @@
                     </div>
     
                     <div class="mb-4">
-                        <label class="text-primary font-light">Client Name</label><br>
+                        <label class="text-primary font-bold">Client Name</label><br>
                         <input type='text' placeholder="Enter Client Name" name="client_name"
                             value="{{ $project_info['client_name'] }}"
                             class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
@@ -32,7 +32,7 @@
     
                     <div class="mb-4">
                         @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
-                        <label class="text-primary font-light">Select Logo</label><br>
+                        <label class="text-primary font-bold">Select Logo</label><br>
                         <select name="logo_id"
                             class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                             required>
@@ -45,7 +45,7 @@
                     </div>
     
                     <div class="mb-4">
-                        <label class="text-teal-600 font-light">Naming Convention</label><br>
+                        <label class="text-teal-600 font-bold">Naming Convention</label><br>
                         <div class="flex">
                             <input type='text' value="{{ $naming_convention }}_" id="naming_convention"
                                 class="w-full mr-4 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
@@ -65,7 +65,7 @@
                         @endif
                     </div>
     
-                    <label class="text-primary font-light">Show Logo?</label><br>
+                    <label class="text-primary font-bold">Show Logo?</label><br>
                     <select class="w-full border bg-white rounded px-3 py-2 outline-none" name="is_logo">
                         <option value="0" class="py-2">Select Option</option>
                         <option value="1" class="py-1" @if($project_info['is_logo']==1) selected @endif>Yes</option>
@@ -74,7 +74,7 @@
                     <br>
                     <br>
     
-                    <label class="text-primary font-light">Show Footer?</label><br>
+                    <label class="text-primary font-bold">Show Footer?</label><br>
                     <select class="w-full border bg-white rounded px-3 py-2 outline-none" name="is_footer">
                         <option value="0" class="py-2">Select Option</option>
                         <option value="1" class="py-1" @if($project_info['is_footer']==1) selected @endif>Yes</option>
@@ -83,7 +83,7 @@
                     <br>
                     <br>
     
-                    <label class="text-primary font-light">Select Color</label><br>
+                    <label class="text-primary font-bold">Select Color</label><br>
                     <input type='color' name="color" value="{{ $project_info['color'] }}"
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg" />
                     <br>

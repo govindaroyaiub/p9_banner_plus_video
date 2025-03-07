@@ -11,19 +11,25 @@
                     enctype="multipart/form-data" style="width: 100%;">
                     @csrf
     
-                    <div class="mb-4">
-                        <label class="text-primary font-light block">Billing Title</label>
-                        <input type='text' placeholder="Enter Billings Title" name="project_name"
-                            class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                            required />
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <!-- Billing Title -->
+                        <div class="w-full md:w-1/2">
+                            <label class="text-primary font-bold block">Billing Title</label>
+                            <input type='text' placeholder="Enter Billing Title" name="project_name"
+                                class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                                required />
+                        </div>
+                    
+                        <!-- Billing Date -->
+                        <div class="w-full md:w-1/2">
+                            <label class="text-primary font-bold block">Billing Date</label>
+                            <input type='datetime-local' name="created_at"
+                                class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
+                                required />
+                        </div>
                     </div>
-    
-                    <div class="mb-4">
-                        <label class="text-primary font-light block">Billing Date</label>
-                        <input type='datetime-local' name="created_at"
-                            class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                            required />
-                    </div>
+
+                    <br>
     
                     <input type="hidden" name="logo_id" id="logo_id" value="{{ Auth::user()->company_id }}">
                     <input type="hidden" name="color" id="color" value="#4b4e6d">

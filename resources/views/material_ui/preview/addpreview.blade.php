@@ -14,7 +14,7 @@
                 @csrf
     
                 <div class="mb-4">
-                    <label class="text-primary font-light block">Project Name</label>
+                    <label class="text-primary font-bold block">Project Name</label>
                     <small class="text-x text-red-500">(Please refrain from using special type characters: * / ? ~ ! % etc)</small>
                     <input type='text' placeholder="Enter Project Name" name="project_name"
                         class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
@@ -22,7 +22,7 @@
                 </div>
     
                 <div class="mb-4">
-                    <label class="text-primary font-light block">Client Name</label>
+                    <label class="text-primary font-bold block">Client Name</label>
                     <input type='text' placeholder="Enter Client Name" name="client_name"
                         class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
@@ -30,9 +30,9 @@
     
                 <div class="mb-4">
                     <div>
-                        <label class="text-primary font-light block">Select Project Type</label>
+                        <label class="text-primary font-bold block">Select Project Type</label>
                         <select name="project_type" id="project_type" required
-                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
+                            class="top-selects w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                             <option value="">Select Option</option>
                             <option value="1">Banner</option>
                             <option value="2">Video</option>
@@ -48,21 +48,21 @@
                 </div>
     
                 <div class="mb-4 hidden" id="feedback_round_title">
-                    <label class="text-primary font-light block">Feedback Round Title</label>
+                    <label class="text-primary font-bold block">Feedback Round Title</label>
                     <input type='text' placeholder="Master Creative" name="feedback_name" value="Master Creative"
                         class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
                 </div>
     
                 <div class="mb-4 hidden" id="feedback_description">
-                    <label class="text-primary font-light block">Feedback Description</label>
+                    <label class="text-primary font-bold block">Feedback Description</label>
                     <input type='text' placeholder="Master Development Started" name="feedback_description" value="Master Development Started"
                         class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
                 </div>
     
                 <div class="mb-4 hidden" id="version_name">
-                    <label class="text-primary font-light block">Version Name</label>
+                    <label class="text-primary font-bold block">Version Name</label>
                     <input type='text' placeholder="Default" name="version_name" value="Default"
                         class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                         required />
@@ -72,7 +72,7 @@
                 <div class="mb-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="text-primary font-light block">Select Logo/Company</label>
+                            <label class="text-primary font-bold block">Select Logo/Company</label>
                             <small class="text-xs text-red-500">(Default selected: PlanetNine)</small>
                             <select name="logo_id" id="logo_id"
                                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
@@ -84,7 +84,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="text-primary font-light block">Show Footer?</label>
+                            <label class="text-primary font-bold block">Show Footer?</label>
                             <small class="text-xs text-red-500">(Show Footer Or Not)</small>
                             <select name="is_footer" id="is_footer" required
                                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
@@ -131,7 +131,7 @@
                 <div id="video-upload-area" class="hidden">
                     <span style="color: red;">Video Upload Area</span>
                     <div class="mb-2">
-                        <label class="text-primary font-light block">Video Title (example: Pre-Roll/Bumper Interstitial
+                        <label class="text-primary font-bold block">Video Title (example: Pre-Roll/Bumper Interstitial
                             for
                             Youtube)</label>
                         <input type='text' placeholder="Enter Video Title" name="video_title" value="Demo Video Title"
@@ -140,7 +140,7 @@
                     </div>
     
                     <div class="mb-2">
-                        <label class="text-primary font-light block">Advertising Format</label>
+                        <label class="text-primary font-bold block">Advertising Format</label>
                         <select name="video_size_id" id="video_size_id" required
                             class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                             <option value="0">Select Option</option>
@@ -150,9 +150,8 @@
                             @endforeach
                         </select>
                         <br>
-                            <label class="text-primary font-light block mb-3"> If the required size is not listed, Click <a href="/sizes" class="text-red-500" target="_blank">Here</a></label>
+                            <label class="text-primary font-bold block mb-3"> If the required size is not listed, Click <a href="/sizes" class="text-red-500" target="_blank">Here</a></label>
                     </div>
-                    <br>
     
                     <div class="flex space-x-2">
                         <input type='text' placeholder="Enter Codec" name="codec" value="H264"
@@ -331,7 +330,7 @@
 
                     document.getElementById('fileDisplaySection').style.display = 'block';
 
-                    rows = rows + '<tr class="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
+                    rows = rows + '<tr class="w-full font-bold text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
                     rows = rows + '<td class="px-4 py-4">'+ rowNumber++ +'</td>';
                     rows = rows + '<td class="px-4 py-4">'+ fileName +'</td>';
                     rows = rows + '<td class="text-center py-4">';
@@ -359,7 +358,7 @@
 
                     document.getElementById('gifDisplaySection').style.display = 'block';
 
-                    rows = rows + '<tr class="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
+                    rows = rows + '<tr class="w-full font-bold text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
                     rows = rows + '<td class="px-4 py-4">'+ rowNumber++ +'</td>';
                     rows = rows + '<td class="px-4 py-4">'+ fileName +'</td>';
                     rows = rows + '<td class="text-center py-4">';
@@ -386,7 +385,7 @@
 
                     document.getElementById('socialDisplaySection').style.display = 'block';
 
-                    rows = rows + '<tr class="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
+                    rows = rows + '<tr class="w-full font-bold text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
                     rows = rows + '<td class="px-4 py-4">'+ rowNumber++ +'</td>';
                     rows = rows + '<td class="px-4 py-4">'+ fileName +'</td>';
                     rows = rows + '<td class="text-center py-4">';

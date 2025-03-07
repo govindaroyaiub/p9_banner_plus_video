@@ -41,6 +41,11 @@
     <script src="{{ asset('material_ui/assets/js/dashboard.js') }}" defer></script>
     <!-- End custom js for this page-->
     <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/filesize/10.0.0/filesize.min.js"></script>
+
+    <style></style>
+
     <script>
         $(document).ready(function () {
             var table = $('#datatable').DataTable({
