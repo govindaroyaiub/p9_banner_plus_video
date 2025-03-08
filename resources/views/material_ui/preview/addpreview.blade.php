@@ -7,10 +7,8 @@
         <div class="mdc-card p-8 flex align-items-center rounded-lg">
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide mb-4">Add Preview Project</h3>
-            <br>
-            <div>
-                <form id="project-add-form" class="max-w-6xl" method="POST" action="/project/preview/add"
-                enctype="multipart/form-data">
+                <form id="project-add-form" class="max-w-4xl" method="POST" action="/project/preview/add"
+                enctype="multipart/form-data" style="width: 100%;">
                 @csrf
     
                 <div class="mb-4">
@@ -21,18 +19,20 @@
                         required />
                 </div>
     
-                <div class="mb-4">
-                    <label class="text-primary font-bold block">Client Name</label>
-                    <input type='text' placeholder="Enter Client Name" name="client_name"
-                        class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                        required />
-                </div>
-    
-                <div class="mb-4">
-                    <div>
+                <div class="flex flex-col md:flex-row gap-4 mb-4">
+                    <!-- Client Name -->
+                    <div class="w-full md:w-1/2">
+                        <label class="text-primary font-bold block">Client Name</label>
+                        <input type="text" placeholder="Enter Client Name" name="client_name"
+                            class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary h-12"
+                            required />
+                    </div>
+                
+                    <!-- Select Project Type -->
+                    <div class="w-full md:w-1/2">
                         <label class="text-primary font-bold block">Select Project Type</label>
                         <select name="project_type" id="project_type" required
-                            class="top-selects w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
+                            class="top-selects w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary h-12">
                             <option value="">Select Option</option>
                             <option value="1">Banner</option>
                             <option value="2">Video</option>
@@ -111,7 +111,7 @@
                         <br>
                         <div class="bg-white rounded-lg shadow-lg py-6">
                             <div class="block overflow-x-auto mx-6">
-                                <table class="w-full text-left rounded-lg">
+                                <table class="w-full text-center rounded-lg">
                                     <thead>
                                         <tr class="text-gray-800 border border-b-0">
                                             <th class="px-4 py-3">#</th>
@@ -130,27 +130,34 @@
     
                 <div id="video-upload-area" class="hidden">
                     <span style="color: red;">Video Upload Area</span>
-                    <div class="mb-2">
-                        <label class="text-primary font-bold block">Video Title (example: Pre-Roll/Bumper Interstitial
-                            for
-                            Youtube)</label>
-                        <input type='text' placeholder="Enter Video Title" name="video_title" value="Demo Video Title"
-                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                            required />
-                    </div>
-    
-                    <div class="mb-2">
-                        <label class="text-primary font-bold block">Advertising Format</label>
-                        <select name="video_size_id" id="video_size_id" required
-                            class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
-                            <option value="0">Select Option</option>
-                            @foreach($video_sizes as $size)
-                            <option value="{{ $size->id }}" class="py-2">{{ $size->name }} - {{ $size->width }}x{{ $size->height }}
-                            </option>
-                            @endforeach
-                        </select>
-                        <br>
-                            <label class="text-primary font-bold block mb-3"> If the required size is not listed, Click <a href="/sizes" class="text-red-500" target="_blank">Here</a></label>
+                    <div class="flex flex-col md:flex-row gap-4 mb-4">
+                        <!-- Video Title -->
+                        <div class="w-full md:w-1/2">
+                            <label class="text-primary font-bold block">
+                                Video Title
+                            </label>
+                            <input type="text" placeholder="Enter Video Title" name="video_title" value="Pre-Roll/Bumper Interstitial for Youtube"
+                                class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary h-12"
+                                required />
+                        </div>
+                    
+                        <!-- Advertising Format -->
+                        <div class="w-full md:w-1/2">
+                            <label class="text-primary font-bold block">Advertising Format</label>
+                            <select name="video_size_id" id="video_size_id" required
+                                class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary h-12">
+                                <option value="0">Select Option</option>
+                                @foreach($video_sizes as $size)
+                                <option value="{{ $size->id }}" class="py-2">
+                                    {{ $size->name }} - {{ $size->width }}x{{ $size->height }}
+                                </option>
+                                @endforeach
+                            </select>
+                            <label class="text-primary font-bold block mt-2">
+                                If the required size is not listed, Click
+                                <a href="/sizes" class="text-red-500" target="_blank">Here</a>
+                            </label>
+                        </div>
                     </div>
     
                     <div class="flex space-x-2">
@@ -246,10 +253,7 @@
                         BACK
                     </button>
                 </div>
-    
             </form>
-            </div>
-    
         </div>
     </div>
 </div>

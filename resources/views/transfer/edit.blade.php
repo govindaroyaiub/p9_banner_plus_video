@@ -7,7 +7,7 @@
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide mb-4">Edit Transfer Link: {{ $transfer_name }}</h3>
 
-            <form id="project-add-form" class="max-w-6xl" action="{{ route('p9_transfer.update', $id) }}" method="POST"
+            <form id="project-add-form" class="max-w-4xl" action="{{ route('p9_transfer.update', $id) }}" method="POST"
                 enctype="multipart/form-data" style="width: 100%;">
                 @csrf
 

@@ -8,9 +8,8 @@
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide mb-4">Edit Preview Project</h3>
             <br>
-            <div>
-                <form class="max-w-6xl" method="POST" action="/project/preview/edit/{{$project_id}}"
-                    enctype="multipart/form-data">
+                <form class="max-w-4xl" method="POST" action="/project/preview/edit/{{$project_id}}"
+                    enctype="multipart/form-data" style="width: 100%;">
                     @csrf
                     <div class="mb-4">
                         <label class="text-primary font-bold block">Project Name</label>
@@ -97,7 +96,6 @@
     
                 </form>
             </div>
-    
         </div>
     </div>
 </div>

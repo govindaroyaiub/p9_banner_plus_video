@@ -1,10 +1,9 @@
-@extends('layouts.app')
+@extends('material_ui.layouts.app')
 
 @section('content')
 <div class="container mx-auto px-4">
-    <div class="flex -mx-4">
-        @include('sidebar')
-        <div class="w-3/4 mx-4">
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="mdc-card p-8 flex align-items-center rounded-lg">
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide mt-2">Add Video To Version</h3>
             <br>
@@ -12,12 +11,12 @@
             <h3 class="text-xl font-semibold tracking-wide" style="color: red;">Inserting Videos into {{ $feedback['name'] }} > {{ $version['name'] }}</h3>
             <br>
 
-            <form id="project-add-form" class="max-w-xl" method="POST"
-                action="/project/preview/video/add/version/{{ $version_id }}" enctype="multipart/form-data">
+            <form id="project-add-form" class="max-w-4xl" method="POST"
+                action="/project/preview/video/add/version/{{ $version_id }}" enctype="multipart/form-data" style="width: 100%;">
                 @csrf
                 {{-- Drag and Drop --}}
                 <div>
-                    <label class="text-primary font-light block">Select Option to Upload</label>
+                    <label class="text-primary font-bold block">Select Option to Upload</label>
                     <select name="version_request" id="version_request" required
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                         <option value="0" class="py-2">Select Option</option>
@@ -32,7 +31,7 @@
 
                 <span style="color: red;">Video Upload Area</span>
                 <div class="mb-2">
-                    <label class="text-primary font-light block">Video Title (example: Pre-Roll/Bumper Interstitial
+                    <label class="text-primary font-bold block">Video Title (example: Pre-Roll/Bumper Interstitial
                         for
                         Youtube)</label>
                     <input type='text' placeholder="Enter Video Title" name="video_title" value="Demo Video Title"
@@ -41,7 +40,7 @@
                 </div>
 
                 <div class="mb-2">
-                    <label class="text-primary font-light block">Advertising Format</label>
+                    <label class="text-primary font-bold block">Advertising Format</label>
                     <select name="video_size_id" id="video_size_id" required
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                         <option value="">Select Option</option>
@@ -51,7 +50,7 @@
                         @endforeach
                     </select>
                     <br>
-                        <label class="text-primary font-light block mb-3"> If the required size is not listed, Click <a href="/sizes" class="text-red-500" target="_blank">Here</a></label>
+                        <label class="text-primary font-bold block mb-3"> If the required size is not listed, Click <a href="/sizes" class="text-red-500" target="_blank">Here</a></label>
                 </div>
                 <br>
 
