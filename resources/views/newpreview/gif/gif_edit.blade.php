@@ -1,15 +1,14 @@
-@extends('layouts.app')
+@extends('material_ui.layouts.app')
 
 @section('content')
 <div class="container mx-auto px-4">
-    <div class="flex -mx-4">
-        @include('sidebar')
-        <div class="w-3/4 mx-4">
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="mdc-card p-8 flex align-items-center rounded-lg">
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide">Edit Gif</h3>
             <br>
-            <form id="project-add-form" class="max-w-xl" method="POST" action="/project/preview/gif/edit/{{ $sub_project_id }}"
-                enctype="multipart/form-data">
+            <form id="project-add-form" class="max-w-4xl" method="POST" action="/project/preview/gif/edit/{{ $sub_project_id }}"
+                enctype="multipart/form-data" style="width: 100%;">
                 @csrf
                 <div class="mb-4">
                     <label class="text-primary font-light block mb-3">Select Width X Height</label>

@@ -15,32 +15,41 @@
                         <label class="text-primary font-bold block">Project Name</label>
                         <small class="text-x text-red-500">(Please refrain from using special type characters: * / ? ~ ! %
                             etc)</small>
-                            <input type='text' placeholder="Enter Project Name" name="project_name"
+                        <input type='text' placeholder="Enter Project Name" name="project_name"
                             value="{{ $project_info['name'] }}"
                             class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                             required />
                     </div>
     
-                    <div class="mb-4">
-                        <label class="text-primary font-bold">Client Name</label><br>
-                        <input type='text' placeholder="Enter Client Name" name="client_name"
-                            value="{{ $project_info['client_name'] }}"
-                            class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                            required />
-                    </div>
-    
-                    <div class="mb-4">
-                        @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
-                        <label class="text-primary font-bold">Select Logo</label><br>
-                        <select name="logo_id"
-                            class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
-                            required>
-                            <option value="0" class="py-2">Select Logo</option>
-                            @foreach($logo_list as $logo)
-                            <option value="{{ $logo->id }}" @if($project_info['logo_id']==$logo->id) selected @endif
-                                class="py-2">{{ $logo->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="flex flex-col md:flex-row gap-4 mb-4">
+                        <!-- Client Name -->
+                        <div class="w-full md:w-1/2">
+                            <label class="text-primary font-bold">Client Name</label>
+                            <input type="text" placeholder="Enter Client Name" name="client_name"
+                                value="{{ $project_info['client_name'] }}"
+                                class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary h-12"
+                                required />
+                        </div>
+                    
+                        <!-- Select Logo -->
+                        <div class="w-full md:w-1/2">
+                            @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
+                                <label class="text-primary font-bold">Select Logo</label>
+                                <select name="logo_id"
+                                    class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary h-12"
+                                    required>
+                                    <option value="0" class="py-2">Select Logo</option>
+                                    @foreach($logo_list as $logo)
+                                        <option value="{{ $logo->id }}" @if($project_info['logo_id'] == $logo->id) selected @endif
+                                            class="py-2">
+                                            {{ $logo->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @else
+                                <input type="hidden" name="logo_id" value="{{ Auth::user()->company_id }}">
+                            @endif
+                        </div>
                     </div>
     
                     <div class="mb-4">
@@ -59,39 +68,49 @@
                                 </svg>
                             </button>
                         </div>
-                        @else
-                        <input type="hidden" name="logo_id" value="{{ Auth::user()->company_id }}">
-                        @endif
                     </div>
     
-                    <label class="text-primary font-bold">Show Logo?</label><br>
-                    <select class="w-full border bg-white rounded px-3 py-2 outline-none" name="is_logo">
-                        <option value="0" class="py-2">Select Option</option>
-                        <option value="1" class="py-1" @if($project_info['is_logo']==1) selected @endif>Yes</option>
-                        <option value="2" class="py-1" @if($project_info['is_logo']==2) selected @endif>No</option>
-                    </select>
-                    <br>
-                    <br>
+                    <div class="flex flex-wrap gap-4">
+                        <!-- Show Logo -->
+                        <div class="w-full md:w-1/2">
+                            <label class="text-primary font-bold">Show Logo?</label>
+                            <select class="w-full mt-2 border bg-white rounded px-3 py-2 outline-none h-12" name="is_logo">
+                                <option value="0" class="py-2">Select Option</option>
+                                <option value="1" class="py-1" @if($project_info['is_logo'] == 1) selected @endif>Yes</option>
+                                <option value="2" class="py-1" @if($project_info['is_logo'] == 2) selected @endif>No</option>
+                            </select>
+                        </div>
+                    
+                        <!-- Show Footer -->
+                        <div class="w-full md:w-1/2">
+                            <label class="text-primary font-bold">Show Footer?</label>
+                            <select class="w-full mt-2 border bg-white rounded px-3 py-2 outline-none h-12" name="is_footer">
+                                <option value="0" class="py-2">Select Option</option>
+                                <option value="1" class="py-1" @if($project_info['is_footer'] == 1) selected @endif>Yes</option>
+                                <option value="2" class="py-1" @if($project_info['is_footer'] == 2) selected @endif>No</option>
+                            </select>
+                        </div>
     
-                    <label class="text-primary font-bold">Show Footer?</label><br>
-                    <select class="w-full border bg-white rounded px-3 py-2 outline-none" name="is_footer">
-                        <option value="0" class="py-2">Select Option</option>
-                        <option value="1" class="py-1" @if($project_info['is_footer']==1) selected @endif>Yes</option>
-                        <option value="2" class="py-1" @if($project_info['is_footer']==2) selected @endif>No</option>
-                    </select>
-                    <br>
-                    <br>
-    
-                    <label class="text-primary font-bold">Select Color</label><br>
-                    <input type='color' name="color" value="{{ $project_info['color'] }}"
-                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg" />
-                    <br>
+                        <!-- Color Picker -->
+                        <div class="w-full md:w-1/3">
+                            <label class="text-primary font-bold">Pick Color</label>
+                            <div class="flex items-center space-x-2 mt-2">
+                                <input type="color" name="color" value="{{ $project_info['color'] }}"
+                                    class="w-12 h-12 border rounded-md cursor-pointer appearance-none"
+                                    oninput="document.getElementById('colorPreview').value = this.value" />
+                                
+                                <input type="text" id="colorPreview" name="color_hex" 
+                                    value="{{ $project_info['color'] }}" 
+                                    class="px-3 py-2 border rounded-md w-24 text-gray-700 focus:outline-none focus:border-primary" />
+                            </div>
+                        </div>
+                    </div>
     
                     <div class="flex space-x-4 mt-4">
                         <button type="submit"
-                            class="w-1/3 mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-3 focus:outline-none">SAVE</button>
+                            class="w-1/2 mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-3 focus:outline-none">SAVE</button>
                         <button type="button" onclick="window.location.href ='/banner-showcase'"
-                            class="w-1/3 mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-3 focus:outline-none">BACK</button>
+                            class="w-1/2 mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-3 focus:outline-none">BACK</button>
                     </div>
     
                 </form>

@@ -1,15 +1,14 @@
-@extends('layouts.app')
+@extends('material_ui.layouts.app')
 
 @section('content')
 <div class="container mx-auto px-4">
-    <div class="flex -mx-4">
-        @include('sidebar')
-        <div class="w-3/4 mx-4">
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="mdc-card p-8 flex align-items-center rounded-lg">
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide">Edit Social</h3>
             <br>
-            <form id="project-add-form" class="max-w-xl" method="POST" action="/project/preview/social/edit/{{ $sub_project_id }}"
-                enctype="multipart/form-data">
+            <form id="project-add-form" class="max-w-4xl" method="POST" action="/project/preview/social/edit/{{ $sub_project_id }}"
+                enctype="multipart/form-data" style="width: 100%;">
                 @csrf
                 <div class="mb-4">
                     <select name="platform" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" id="social_id" required>

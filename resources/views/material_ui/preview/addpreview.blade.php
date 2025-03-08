@@ -69,7 +69,6 @@
                 </div>
     
                 @if(url('/') == 'http://localhost:8000' || url('/') == 'https://creative.planetnine.com')
-                <div class="mb-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="text-primary font-bold block">Select Logo/Company</label>
@@ -94,7 +93,6 @@
                             </select>
                         </div>
                     </div>
-                </div>
                 @else
                     <input type="hidden" name="logo_id" id="logo_id" value="{{ Auth::user()->company_id }}">
                     <input type="hidden" name="color" id="color" value="{{ $color }}">
@@ -243,7 +241,7 @@
                 </div>
     
     
-                <div class="flex space-x-4 mt-4">
+                <div class="flex space-x-4">
                     <button type="submit"
                         class="w-full mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-2 focus:outline-none">
                         CREATE

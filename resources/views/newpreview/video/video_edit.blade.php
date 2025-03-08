@@ -1,15 +1,14 @@
-@extends('layouts.app')
+@extends('material_ui.layouts.app')
 
 @section('content')
 <div class="container mx-auto px-4">
-    <div class="flex -mx-4">
-        @include('sidebar')
-        <div class="w-3/4 mx-4">
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="mdc-card p-8 flex align-items-center rounded-lg">
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide">Edit Video</h3>
             <h3 class="text-xl font-semibold tracking-wide text-red-500">Just Edit What You Need to Edit Or Replace The Assets</h3>
             <br>
-            <form method="POST" action="/project/preview/video/edit/{{ $sub_project_id }}" enctype="multipart/form-data">
+            <form method="POST" action="/project/preview/video/edit/{{ $sub_project_id }}" enctype="multipart/form-data" class="max-w-4xl" style="width: 100%;">
                 @csrf
                 <label class="text-primary font-light">Video Title (example: Pre-Roll/Bumper Interstitial for Youtube)</label><br>
                 <input type='text' placeholder="Enter Video Title" name="title" value="{{ $sub_project_info['title'] }}"
