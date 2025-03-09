@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Creative Planet Nine</title>
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Dosis:300,400,500');
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @-moz-keyframes rocket-movement { 100% {-moz-transform: translate(1200px,-600px);} }
 @-webkit-keyframes rocket-movement {100% {-webkit-transform: translate(1200px,-600px); } }
@@ -57,8 +57,10 @@ html, body{
     margin: 0;
     width: 100%;
     height: 100%;
-    font-family: 'Dosis', sans-serif;
-    font-weight: 300;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
     -webkit-user-select: none; /* Safari 3.1+ */
     -moz-user-select: none; /* Firefox 2+ */
     -ms-user-select: none; /* IE 10+ */
@@ -312,15 +314,14 @@ li a:hover {
             <div class="inner-header">
                 <div class="bg-white shadow-sm p-3 max-w-md mx-auto rounded-lg" style="box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%); border-radius: 8px;">
             
-                    <h3 class="text-2xl font-bold text-center mb-1">{{ __('Login') }}</h3>
+                    <h3 class="text-2xl font-bold text-center mb-6">{{ __('Login') }}</h3>
                     @include('alert')
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
             
-                        <div class="mb-4">
-                            <label for="email" class="font-semibold mb-2 block">{{ __('E-Mail Address') }}</label>
+                        <div class="mb-6">
             
-                            <input id="email" type="email"
+                            <input id="email" type="email" placeholder="Enter your email"
                                 class="w-full border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary rounded-lg @error('email') is-invalid @enderror"
                                 name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
             
@@ -331,11 +332,9 @@ li a:hover {
                             @enderror
                         </div>
             
-                        <div class="mb-4">
-                            <label for="password" class="font-semibold mb-2 block">{{ __('Password') }}</label>
+                        <div class="mb-6">
             
-            
-                            <input id="password" type="password"
+                            <input id="password" type="password" placeholder="Enter your password"
                                 class="w-full border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary rounded-lg @error('password') is-invalid @enderror"
                                 name="password" required autocomplete="current-password">
             
