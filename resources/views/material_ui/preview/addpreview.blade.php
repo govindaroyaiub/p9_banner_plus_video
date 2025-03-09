@@ -7,7 +7,7 @@
         <div class="mdc-card p-8 flex align-items-center rounded-lg">
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide mb-4">Add Preview Project</h3>
-                <form id="project-add-form" class="max-w-4xl" method="POST" action="/project/preview/add"
+            <form id="project-add-form" class="max-w-4xl" method="POST" action="/project/preview/add"
                 enctype="multipart/form-data" style="width: 100%;">
                 @csrf
     
@@ -256,8 +256,7 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js"
         integrity="sha512-/Q6t3CASm04EliI1QyIDAA/nDo9R8FQ/BULoUFyN4n/BDdyIxeH7u++Z+eobdmr11gG5D/6nPFyDlnisDwhpYA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
