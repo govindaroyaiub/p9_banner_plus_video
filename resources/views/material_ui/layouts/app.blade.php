@@ -55,6 +55,14 @@
                 })
                 .columns.adjust();
         });
+
+        function copy_text() {
+            var copyText = document.getElementById("naming_convention");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999)
+            document.execCommand("copy");
+            alert("Copied the text: " + copyText.value);
+        }
     
     </script>
 </head>
@@ -75,7 +83,7 @@
     <script src="{{ asset('material_ui/assets/js/preloader.js') }}"></script>
     <div class="body-wrapper">
         <!-- partial:partials/_sidebar.html -->
-        @include('material_ui.layouts.sidebar')
+        @include('material_ui.layouts.sidebar2')
         <!-- partial -->
         <div class="main-wrapper mdc-drawer-app-content">
             <!-- partial:partials/_navbar.html -->

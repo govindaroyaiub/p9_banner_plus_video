@@ -109,7 +109,7 @@
                     <div class="flex space-x-4 mt-4">
                         <button type="submit"
                             class="w-1/2 mt-2 mb-6 bg-blue-600 text-gray-200 text-lg rounded hover:bg-blue-500 px-6 py-3 focus:outline-none">SAVE</button>
-                        <button type="button" onclick="window.location.href ='/banner-showcase'"
+                        <button type="button" onclick="window.location.href ='/view-previews'"
                             class="w-1/2 mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-3 focus:outline-none">BACK</button>
                     </div>
     

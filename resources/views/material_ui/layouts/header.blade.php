@@ -28,26 +28,6 @@
                                 </h6>
                             </div>
                         </li>
-                        <li class="mdc-list-item" role="menuitem">
-                            <div class="item-thumbnail item-thumbnail-icon-only">
-                                <i class="mdi mdi-logout text-primary"></i>
-                            </div>
-                            <div
-                                class="item-content d-flex align-items-start flex-column justify-content-center">
-                                <h6 class="item-subject font-weight-normal">
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="hidden">
-                                        @csrf
-                                    </form>
-                                </h6>
-                            </div>
-                        </li>
                     </ul>
                 </div>
             </div>
