@@ -24,7 +24,7 @@ use App\BannerSizes;
 class PreviewController extends Controller
 {
     function viewPreviews(){
-        $data = newPreview::orderBy('created_at', 'ASC')->get();
+        $data = newPreview::orderBy('created_at', 'DESC')->get();
         return view('material_ui.preview.previews', compact('data'));
     }
 
