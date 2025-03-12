@@ -1,14 +1,23 @@
-@extends('material_ui.layouts.app')
+@extends('layouts.app')
+
+@section('styles')
+<style>
+    .file-upload.active {
+       border-color: #4b4e6d;
+     }
+</style>
+@endsection
 
 @section('content')
 <div class="container mx-auto px-4">
-    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
-        <div class="mdc-card p-8 flex align-items-center rounded-lg">
+    <div class="flex -mx-4">
+        @include('sidebar')
+        <div class="w-3/5 mx-4">
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide mb-4">Edit Transfer Link: {{ $transfer_name }}</h3>
-
-            <form id="project-add-form" class="max-w-4xl" action="{{ route('p9_transfer.update', $id) }}" method="POST"
-                enctype="multipart/form-data" style="width: 100%;">
+            <br>
+            <form id="project-add-form" class="max-w-xl" action="{{ route('p9_transfer.update', $id) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
 
                 @method('PUT')
@@ -82,10 +91,10 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+    @endsection
 
-</div>
-@endsection
-
-@section('script')
-<script src="https://cdn.filesizejs.com/filesize.min.js"></script>
-@endsection
+    @section('script')
+    <script src="https://cdn.filesizejs.com/filesize.min.js"></script>
+    @endsection
