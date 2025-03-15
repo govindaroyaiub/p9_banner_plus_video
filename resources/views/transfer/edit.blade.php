@@ -1,23 +1,14 @@
-@extends('layouts.app')
-
-@section('styles')
-<style>
-    .file-upload.active {
-       border-color: #4b4e6d;
-     }
-</style>
-@endsection
+@extends('material_ui.layouts.app')
 
 @section('content')
 <div class="container mx-auto px-4">
-    <div class="flex -mx-4">
-        @include('sidebar')
-        <div class="w-3/5 mx-4">
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="mdc-card p-8 flex align-items-center rounded-lg">
             @include('alert')
             <h3 class="text-xl font-semibold tracking-wide mb-4">Edit Transfer Link: {{ $transfer_name }}</h3>
             <br>
-            <form id="project-add-form" class="max-w-xl" action="{{ route('p9_transfer.update', $id) }}" method="POST"
-                enctype="multipart/form-data">
+            <form id="project-add-form" class="max-w-4xl" action="{{ route('p9_transfer.update', $id) }}" method="POST"
+                enctype="multipart/form-data" style="width: 100%;">
                 @csrf
 
                 @method('PUT')
@@ -29,7 +20,7 @@
                         required />
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-2">
                     <label class="text-primary font-light block">Client Name (Optional)</label>
                     <input type='text' placeholder="Enter Client Name" name="client_name"
                         value="{{ $transfer_client_name }}"
