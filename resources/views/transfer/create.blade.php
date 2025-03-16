@@ -12,14 +12,14 @@
             @csrf
             
             <div class="mb-4">
-                <label class="text-primary font-light block">Name</label>
+                <label class="text-primary font-bold block">Transfer Name</label>
                 <input type='text' placeholder="Enter Name" name="name"
                 class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary"
                 required />
             </div>
             
             <div class="mb-2">
-                <label class="text-primary font-light block">Client Name (Optional)</label>
+                <label class="text-primary font-bold block">Client Name (Optional)</label>
                 <input type='text' placeholder="Enter Client Name" name="client_name"
                 class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" />
             </div>

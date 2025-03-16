@@ -10,8 +10,9 @@
             <form id="project-add-form" class="max-w-4xl" method="POST" action="/project/preview/social/edit/{{ $sub_project_id }}"
                 enctype="multipart/form-data" style="width: 100%;">
                 @csrf
-                <div class="mb-4">
-                    <select name="platform" class="w-full mt-4 mb px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" id="social_id" required>
+                <div class="mb-2">
+                    <label class="text-primary font-bold block">Select Format</label>
+                    <select name="platform" class="w-full mt-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" id="social_id" required>
                         <option value="">Select Option</option>
                         <option value="Social">Social (Standard)</option>
                         <option value="Facebook">Facebook</option>

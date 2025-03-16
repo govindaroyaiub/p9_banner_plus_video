@@ -16,7 +16,7 @@
                 @csrf
                 {{-- Drag and Drop --}}
                 <div>
-                    <label class="text-primary font-light block">Select Option to Upload</label>
+                    <label class="text-primary font-bold block">Select Option to Upload</label>
                     <select name="version_request" id="version_request" required
                         class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary">
                         <option value="0" class="py-2">Select Option</option>
@@ -101,7 +101,7 @@
 
                 document.getElementById('gifDisplaySection').style.display = 'block';
 
-                rows = rows + '<tr class="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
+                rows = rows + '<tr class="w-full font-bold text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">';
                 rows = rows + '<td class="px-4 py-4">'+ rowNumber++ +'</td>';
                 rows = rows + '<td class="px-4 py-4">'+ fileName +'</td>';
                 rows = rows + '<td class="text-center py-4">';

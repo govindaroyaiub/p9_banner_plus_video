@@ -132,6 +132,9 @@ class PreviewController extends Controller
                     }
                 }
             }
+            else{
+                return back()->with('danger', 'Pleae upload banners and their sizes!');
+            }
 
         }
         else if($request->project_type == 2){
@@ -208,6 +211,9 @@ class PreviewController extends Controller
                     $gif->save();
                 }
             }
+            else{
+                return back()->with('danger', 'Pleae upload gifs and their sizes!');
+            }
         }
         else if($request->project_type == 4){
             //this is social upload method
@@ -245,6 +251,9 @@ class PreviewController extends Controller
                     $social->file_path = $file_name;
                     $social->save();
                 }
+            }
+            else{
+                return back()->with('danger', 'Pleae upload social images and their sizes!');
             }
         }
         else{
@@ -985,6 +994,9 @@ class PreviewController extends Controller
                     }
                 }
             }
+            else{
+                return back()->with('danger', 'Pleae upload banners and select their sizes!');
+            }
         }
         else if($request->project_type == 2){
             //this is video upload method
@@ -1059,6 +1071,9 @@ class PreviewController extends Controller
                     $gif->save();
                 }
             }
+            else{
+                return back()->with('danger', 'Pleae upload gifs and select their sizes!');
+            }
         }
         else if($request->project_type == 4){
             //this is social upload method
@@ -1096,6 +1111,9 @@ class PreviewController extends Controller
                     $social->file_path = $file_name;
                     $social->save();
                 }
+            }
+            else{
+                return back()->with('danger', 'Pleae upload social images and select their sizes!');
             }
         }
         else{

@@ -10,10 +10,10 @@
             <form id="project-add-form" class="max-w-4xl" method="POST" action="/project/preview/gif/edit/{{ $sub_project_id }}"
                 enctype="multipart/form-data" style="width: 100%;">
                 @csrf
-                <div class="mb-4">
-                    <label class="text-primary font-light block mb-3">Select Width X Height</label>
+                <div class="mb-2">
+                    <label class="text-primary font-bold block">Select Width X Height</label>
                     <select name="gif_size_id"
-                        class="w-full mt-2 mb-6 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" id="gif_size_id">
+                        class="w-full mt-2 mb-2 px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-primary" id="gif_size_id">
                         <option value="0" class="py-2">Select Option</option>
                         @foreach($size_list as $size)
                         <option value="{{ $size->id }}" class="py-2" 
@@ -24,9 +24,8 @@
                         @endforeach
                     </select>
                     <br>
-                    <label class="text-primary font-light block mb-3"> If the required size is not listed, Click <a href="/banner_sizes" class="text-red-500" target="_blank">Here</a></label>
+                    <label class="text-primary font-bold block mb-2"> If the required size is not listed, Click <a href="/banner_sizes" class="text-red-500" target="_blank">Here</a></label>
                 </div>
-                <br>
                 
                 {{-- Drag and Drop --}}
                 <div
