@@ -26,7 +26,6 @@
                     <br>
                     <label class="text-primary font-bold block mb-3"> If the required size is not listed, Click <a href="/banner_sizes" class="text-red-500" target="_blank">Here</a></label>
                 </div>
-                <br>
                 
                 {{-- Drag and Drop --}}
                 <div

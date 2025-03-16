@@ -414,7 +414,8 @@
                         title: 'Version Has Been Deleted!',
                         showConfirmButton: false,
                         timer: 1500
-                    })
+                    });
+                    location.reload();
                 })
                 .catch(function (error){
                     console.log(error);
@@ -767,7 +768,8 @@
                         title: 'Version Has Been Deleted!',
                         showConfirmButton: false,
                         timer: 1500
-                    })
+                    });
+                    location.reload();
                 })
                 .catch(function (error){
                     console.log(error);
@@ -904,7 +906,8 @@
                         title: 'Version Has Been Deleted!',
                         showConfirmButton: false,
                         timer: 1500
-                    })
+                    });
+                    location.reload();
                 })
                 .catch(function (error){
                     console.log(error);
@@ -1182,7 +1185,8 @@
                         title: 'Version Has Been Deleted!',
                         showConfirmButton: false,
                         timer: 1500
-                    })
+                    });
+                    location.reload();
                 })
                 .catch(function (error){
                     console.log(error);
