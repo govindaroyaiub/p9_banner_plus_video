@@ -72,7 +72,7 @@
     
                     <div class="flex flex-wrap gap-4">
                         <!-- Show Logo -->
-                        <div class="w-full md:w-1/2">
+                        <div class="w-full md:w-1/3">
                             <label class="text-primary font-bold">Show Logo?</label>
                             <select class="w-full mt-2 border bg-white rounded px-3 py-2 outline-none h-12" name="is_logo">
                                 <option value="0" class="py-2">Select Option</option>
@@ -82,7 +82,7 @@
                         </div>
                     
                         <!-- Show Footer -->
-                        <div class="w-full md:w-1/2">
+                        <div class="w-full md:w-1/3">
                             <label class="text-primary font-bold">Show Footer?</label>
                             <select class="w-full mt-2 border bg-white rounded px-3 py-2 outline-none h-12" name="is_footer">
                                 <option value="0" class="py-2">Select Option</option>
@@ -92,7 +92,7 @@
                         </div>
     
                         <!-- Color Picker -->
-                        <div class="w-full md:w-1/3">
+                        <div class="w-full md:w-1/4">
                             <label class="text-primary font-bold">Pick Color</label>
                             <div class="flex items-center space-x-2 mt-2">
                                 <input type="color" name="color" value="{{ $project_info['color'] }}"
@@ -112,7 +112,6 @@
                         <button type="button" onclick="window.location.href ='/view-previews'"
                             class="w-1/2 mt-2 mb-6 bg-red-600 text-gray-100 text-lg rounded hover:bg-red-500 px-6 py-3 focus:outline-none">BACK</button>
                     </div>
-    
                 </form>
             </div>
         </div>
