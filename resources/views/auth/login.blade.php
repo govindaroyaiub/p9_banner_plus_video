@@ -68,10 +68,7 @@ html, body{
 }
 
 .bg-purple{
-    background: url(http://salehriaz.com/404Page/img/bg_purple.png);
-    background-repeat: repeat-x;
-    background-size: cover;
-    background-position: left top;
+    background: linear-gradient(135deg, #411472, #2f0452);
     height: 100%;
     overflow: hidden;
     
