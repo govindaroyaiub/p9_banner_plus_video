@@ -18,7 +18,16 @@
         @endif
         
         <h2 style="padding-top: 10px; font-size: 24px; text-decoration: underline; text-align: center;">Creative List</h2>
-        <div id="creative-list"></div>
+
+        <div id="creative-list2">
+            <div class="feedback-row active">
+                <span class="active">Preview 1</span>
+            </div>
+            <div class="feedback-row">
+                <span>Preview 2</span>
+            </div>
+        </div>
+        {{-- <div id="creative-list"></div> --}}
     </div>
     
     <div class="right-column">
@@ -93,20 +102,33 @@
         axios.get('/getAllFeedbacks/'+ {{ $main_project_id }})
         .then(function (response){
             var active;
+            var feedbackActive;
+            var spanActive;
             var row = '';
+            var row2 = '';
 
             $.each(response.data.feedbacks, function (key, value) {
                 if(value.is_active == 1){
                     active = 'menuToggleActive';
+                    feedbackActive = 'feedback-active';
+                    spanActive = 'span-active';
                 }
                 else{
                     active = '';
+                    feedbackActive = '';
+                    spanActive = '';
                 }
+
+                row2 = row2 + '<div class="feedback-row '+ feedbackActive +'" onclick="return updateActiveFeedback('+ value.id +')" id="feedback'+value.id+'">'
+                    row2 = row2 + '<span class="'+ spanActive +'">'+ value.name +'</span>'
+                row2 = row2 + '</div>';
+
                 row = row + '<a href="javascript:void(0)" class="nav-link feedbacks" onclick="return updateActiveFeedback('+ value.id +')" id="feedback'+value.id+'">'
                     row = row + '<li class="'+ active +'">'+ value.name +'</li>'
                 row = row + '</a>';
             });
 
+            $('#creative-list2').html(row2);
             $('#creative-list').html(row);
             $('#menu').html(row);
 
@@ -128,19 +150,33 @@
         axios.get('/updateActiveFeedback/'+ feedback_id)
         .then(function (response){
             var active;
+            var feedbackActive;
+            var spanActive;
             var row = '';
+            var row2 = '';
+
             $.each(response.data.feedbacks, function (key, value) {
                 if(value.is_active == 1){
                     active = 'menuToggleActive';
+                    feedbackActive = 'feedback-active';
+                    spanActive = 'span-active';
                 }
                 else{
                     active = '';
+                    feedbackActive = '';
+                    spanActive = '';
                 }
+
+                row2 = row2 + '<div class="feedback-row '+ feedbackActive +'" onclick="return updateActiveFeedback('+ value.id +')" id="feedback'+value.id+'">'
+                    row2 = row2 + '<span class="'+ spanActive +'">'+ value.name +'</span>'
+                row2 = row2 + '</div>';
+
                 row = row + '<a href="javascript:void(0)" class="feedbacks nav-link" onclick="return updateActiveFeedback('+ value.id +')" id="feedback'+value.id+'">'
                     row = row + '<li class="'+ active +'">'+ value.name +'</li>'
                 row = row + '</a>';
             });
 
+            $('#creative-list2').html(row2);
             $('#creative-list').html(row);
             $('#menu').html(row);
 

@@ -35,7 +35,7 @@
         <div class="viewMessage">
             For better View Please Use Laptop or Desktop
         </div>
-        <div id="preview-shapes">
+        {{-- <div id="preview-shapes">
             <div id="left-shapes" style="position: fixed; top: 30%; left: 0%; display: flex; flex-direction: column; transform-origin: center bottom; transform: rotate(-45deg);">
                 <div class="left-shape-left left-shape-left-right" style="display: flex; position: relative; top: -90%; left: -90%;">
                     <div id="left-shape11" style="position: relative; left: -2rem; width: 200px; height: 45px; background: #4b4e6d;"></div>
@@ -57,7 +57,7 @@
                     <div id="right-shape22" style="position: relative; width: 20px; height: 20px; background-color: rgb(217, 218, 227); border-radius: 50%; left: -8.5rem;"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <section id="top">
             <div class="container mx-auto px-4 py-4 flex justify-center content">
                 <div id="topDetails">
@@ -151,36 +151,36 @@
 </body>
 
 <script type="text/javascript">
-    var masterTimeline = gsap.timeline();
+    // var masterTimeline = gsap.timeline();
 
-    masterTimeline
+    // masterTimeline
 
-    .add('f1', '+=2')
-    .to('.left-shape-left-right', {duration: 0.75, top: '30%', left: 0, ease: 'power2.out', stagger: 0.2}, 'f1')
-    .to('.right-shape-left-right', {duration: 0.75, bottom: '17%', right: 0, ease: 'power2.out', stagger: 0.2}, 'f1')
+    // .add('f1', '+=2')
+    // .to('.left-shape-left-right', {duration: 0.75, top: '30%', left: 0, ease: 'power2.out', stagger: 0.2}, 'f1')
+    // .to('.right-shape-left-right', {duration: 0.75, bottom: '17%', right: 0, ease: 'power2.out', stagger: 0.2}, 'f1')
 
     $(document).ready(function () {
         console.log($(window).width()); // New width
         var screenWidth = $(window).width();
 
-        if(screenWidth < 1560){
-                $('#preview-shapes').css('display', 'none');
-            }
-            else{
-                $('#preview-shapes').css('display', 'block');
-            }
+        // if(screenWidth < 1560){
+        //         $('#preview-shapes').css('display', 'none');
+        //     }
+        //     else{
+        //         $('#preview-shapes').css('display', 'block');
+        //     }
 
-        $(window).resize(function() {
-            // This will execute whenever the window is resized
-            var screenWidth = $(window).width();
+        // $(window).resize(function() {
+        //     // This will execute whenever the window is resized
+        //     var screenWidth = $(window).width();
 
-            if(screenWidth < 1560){
-                $('#preview-shapes').css('display', 'none');
-            }
-            else{
-                $('#preview-shapes').css('display', 'block');
-            }
-        });
+        //     if(screenWidth < 1560){
+        //         $('#preview-shapes').css('display', 'none');
+        //     }
+        //     else{
+        //         $('#preview-shapes').css('display', 'block');
+        //     }
+        // });
 
         $("#top").mouseover(function () {
             $('#top').mousemove(function (e) {
