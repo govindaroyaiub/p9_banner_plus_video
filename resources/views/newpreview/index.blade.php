@@ -6,7 +6,6 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <title>{{ $info['name'] }}</title>
     <link rel="shortcut icon" href="{{ Helper::getFavicon($info['uploaded_by_company_id']) }}"
         type="image/x-icon">
@@ -64,9 +63,9 @@
                     <?php $logo_path = Helper::getLogoForPreview($logo_id); ?>
                     <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-3"
                         alt="planetnineLogo">
-                    <h1 style="font-size: 1.25rem;">Client Name: <span>{{ $info['client_name'] }}</span></h1>
-                    <h1 style="font-size: 1.25rem;">Project Name: <span>{{ $info['name'] }}</span></h1>
-                    <h1 style="font-size: 1.25rem;" class="font-semibold">Date: <span>{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate2($main_project_id))->format('d F Y') }}</span>
+                    <h1 style="font-size: 1rem;">Client Name: <span>{{ $info['client_name'] }}</span></h1>
+                    <h1 style="font-size: 1rem;">Project Name: <span>{{ $info['name'] }}</span></h1>
+                    <h1 style="font-size: 1rem;" class="font-semibold">Date: <span>{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate2($main_project_id))->format('d F Y') }}</span>
                     </h1>
                 </div>
                 {{-- <div>

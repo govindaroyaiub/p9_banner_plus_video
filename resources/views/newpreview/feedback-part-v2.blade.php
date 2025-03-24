@@ -17,7 +17,7 @@
         </div>
         @endif
         
-        <h2 style="padding-top: 10px; font-size: 24px; text-decoration: underline; text-align: center;">Creative List</h2>
+        <h2 style="padding-top: 10px; font-size: 24px; text-decoration: underline; text-align: center;">Creative Index</h2>
 
         <div id="creative-list2"></div>
         {{-- <div id="creative-list"></div> --}}
