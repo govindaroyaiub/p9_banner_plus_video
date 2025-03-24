@@ -59,22 +59,22 @@
             </div>
         </div> --}}
         <section id="top">
-            <div class="container mx-auto px-4 py-4 flex justify-center content">
+            <div class="px-4 py-4 flex justify-center content text-center relative">
                 <div id="topDetails">
                     <?php $logo_path = Helper::getLogoForPreview($logo_id); ?>
                     <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-3"
                         alt="planetnineLogo">
-                    <h1>Client Name: <span class="font-semibold">{{ $info['client_name'] }}</span></h1>
-                    <h1>Project Name: <span lass="font-semibold">{{ $info['name'] }}</span></h1>
-                    <h1>Date: <span
-                            class="font-semibold">{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate2($main_project_id))->format('d F Y') }}</span>
+                    <h1 style="font-size: 1.25rem;">Client Name: <span>{{ $info['client_name'] }}</span></h1>
+                    <h1 style="font-size: 1.25rem;">Project Name: <span>{{ $info['name'] }}</span></h1>
+                    <h1 style="font-size: 1.25rem;" class="font-semibold">Date: <span>{{ \Carbon\Carbon::parse(Helper::getProjectCreationDate2($main_project_id))->format('d F Y') }}</span>
                     </h1>
                 </div>
-                <div>
+                {{-- <div>
                     <img src="{{ asset('logo_images/polygon.png') }}" alt="polygon" id="polygon">
-                </div>
+                </div> --}}
             </div>
         </section>
+        <br>
         <div class="container mx-auto px-4 py-4 flex justify-center">
             {{-- If the user is authenticated, then the user can do these actions --}}
             @if(Auth::check())
@@ -128,7 +128,7 @@
             </div>
         @endif
 
-        <div id="showcase-section" class="mx-auto container mt-2">
+        <div id="showcase-section" class="mx-auto custom-container mt-2 px-2">
             <div class="flex row">
                 <div class="version-blank-space" style="width: 200px;"></div>
                 <div style="flex: 1;">
