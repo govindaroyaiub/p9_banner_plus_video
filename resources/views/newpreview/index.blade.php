@@ -118,8 +118,6 @@
             @endif
         </div>
 
-        <br>
-
         @if($show_logo == 1)
             <div class="flex row justify-center clientMobileLogo py-2 mb-2">
                 <?php $logo_path = Helper::getLogoForPreview($logo_id); ?>
@@ -130,7 +128,7 @@
 
         <div id="showcase-section" class="mx-auto custom-container mt-2 px-2">
             <div class="flex row">
-                <div class="version-blank-space" style="width: 200px;"></div>
+                <div class="version-blank-space" style="width: 250px;"></div>
                 <div style="flex: 1;">
                     <div class="versions" style="display: flex; justify-content: center; flex-direction: row;"></div>
                 </div>

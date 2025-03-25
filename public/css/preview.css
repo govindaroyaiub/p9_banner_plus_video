@@ -67,7 +67,7 @@ section::before {
     /* transform: scaleX(1.3); */
     background-image: url('../logo_images/preview_header.png');
     background-size: cover;
-    background-position: center;
+    background-position: bottom center;
     background-repeat: no-repeat;
 }
 
@@ -417,12 +417,12 @@ section::before {
 }
 
 .versionTabActive{
-    background-color: #1b283b;
+    background-color: #F15A29;
 }
 
 #feedbackArea{
     position: absolute; 
-    top: 10px; 
+    top: 25px; 
     right: 0px;
     z-index: 99;
 }

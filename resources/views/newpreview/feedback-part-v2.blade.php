@@ -17,7 +17,7 @@
         </div>
         @endif
         
-        <h2 style="padding-top: 10px; font-size: 24px; text-decoration: underline; text-align: center;">Index</h2>
+        <h2 style="margin-top: 10px; margin-left: 15px; font-size: 1.75rem; text-decoration: underline; text-align: center;">Index</h2>
 
         <div id="creative-list2"></div>
         {{-- <div id="creative-list"></div> --}}
@@ -344,7 +344,7 @@
                 var bannerReloadID = value.id;
                 
                 row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
-                    row = row + '<div style="display: flex; justify-content: center; background-color: #427D9D; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: center; background-color: #3999B6; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
                         row = row + '<small style="font-size: 1rem;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
                     row = row + '</div>';
                     row = row + '<iframe style="margin-top: 2px;" src="'+ bannerPath +'" width="'+ value.width +'" height="'+ value.height +'" frameBorder="0" scrolling="no" id='+ "rel" + value.id +'></iframe>'
@@ -887,7 +887,7 @@
                 var bannerReloadID = value.id;
                 
                 row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #427D9D; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #3999B6; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
                         row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right; id="bannerSize">'+ value.size +'</small>';
                     row = row + '</div>';
@@ -1112,7 +1112,7 @@
                 }
 
                 row = row + '<div class="columnSocial" style="margin: 20px;">';
-                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #427D9D; padding: 5px; color: white; border-radius: 5px;">';
+                    row = row + '<div style="display: flex; justify-content: space-between; background-color: #3999B6; padding: 5px; color: white; border-radius: 5px;">';
                         row = row + '<small style="float: left;">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right;">'+ value.size +'</small>';
                     row = row + '</div>';
