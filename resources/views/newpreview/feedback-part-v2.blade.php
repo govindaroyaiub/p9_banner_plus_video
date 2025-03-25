@@ -343,7 +343,7 @@
                 var bannerPath = '/new_banners/' + value.file_path + '/index.html';
                 var bannerReloadID = value.id;
                 
-                row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
+                row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 1rem;">';
                     row = row + '<div style="display: flex; justify-content: center; background-color: #3999B6; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
                         row = row + '<small style="font-size: 1rem;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
                     row = row + '</div>';
@@ -886,7 +886,7 @@
                 var bannerPath = '/new_gifs/' + value.file_path;
                 var bannerReloadID = value.id;
                 
-                row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 5px;">';
+                row = row + '<div style="display: inline-block; width: '+ value.width +'px; margin-right: 1rem;">';
                     row = row + '<div style="display: flex; justify-content: space-between; background-color: #3999B6; padding: 5px; color: white; border-top-left-radius: 5px; border-top-right-radius: 5px;">';
                         row = row + '<small style="float: left;" id="bannerRes">'+ value.width + 'x' + value.height +'</small>';
                         row = row + '<small class="float: right; id="bannerSize">'+ value.size +'</small>';
