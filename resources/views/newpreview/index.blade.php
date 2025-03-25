@@ -7,6 +7,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $info['name'] }}</title>
+    <link rel="shortcut icon" href="https://www.planetnine.com/logo/new_favicon.png">
     <link rel="shortcut icon" href="{{ Helper::getFavicon($info['uploaded_by_company_id']) }}"
         type="image/x-icon">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
@@ -61,7 +62,7 @@
             <div class="px-4 py-4 flex justify-center content text-center relative">
                 <div id="topDetails">
                     <?php $logo_path = Helper::getLogoForPreview($logo_id); ?>
-                    <img src="{{ asset('logo_images/logo.png') }}" id="planetnineLogo" class="py-3"
+                    <img src="{{ asset('logo_images/p9_logo.svg') }}" id="planetnineLogo" class="py-3"
                         alt="planetnineLogo">
                     <h1 style="font-size: 1rem;">Client Name: <span>{{ $info['client_name'] }}</span></h1>
                     <h1 style="font-size: 1rem;">Project Name: <span>{{ $info['name'] }}</span></h1>
@@ -141,9 +142,9 @@
 
         <br>
         <footer class="footer">
-            <div class="container mx-auto px-4 py-4 text-white text-center">&copy; All Right Reserved. <a
-                    href="{{ Helper::getCompanyWebsite($info->uploaded_by_company_id) }}" target="_blank"
-                    style="text-decoration: underline;">{{ Helper::getTitle($info->uploaded_by_company_id) }}</a>
+            <div class="container mx-auto px-4 py-4 text-white text-center">&copy; All Rights Reserved. <a
+                    href="https://www.planetninecom" target="_blank"
+                    style="text-decoration: underline;">Planet Nine</a>
                 - <?= Date('Y') ?></div>
         </footer>
     </main>
