@@ -74,7 +74,6 @@
                 </div> --}}
             </div>
         </section>
-        <br>
         <div class="container mx-auto px-4 py-4 flex justify-center">
             {{-- If the user is authenticated, then the user can do these actions --}}
             @if(Auth::check())
@@ -88,7 +87,7 @@
                                 d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                             </path>
                         </svg>
-                        <span>Dashboard</span>
+                        {{-- <span>Dashboard</span> --}}
                     </a>
                 </li>
                 <li>
@@ -99,7 +98,7 @@
                                 d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                             </path>
                         </svg>
-                        <span>Add More</span>
+                        {{-- <span>Add More</span> --}}
                     </a>
                 </li>
                 <li>
@@ -110,7 +109,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
-                        <span>Delete All</span>
+                        {{-- <span>Delete All</span> --}}
                     </a>
                 </li>
             </ul>
