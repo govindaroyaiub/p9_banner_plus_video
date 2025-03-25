@@ -7,6 +7,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $info['name'] }}</title>
+    <link rel="preload" as="image" href="{{ asset('logo_images/preview_header.png') }}">
     <link rel="shortcut icon" href="https://www.planetnine.com/logo/new_favicon.png">
     <link rel="shortcut icon" href="{{ Helper::getFavicon($info['uploaded_by_company_id']) }}"
         type="image/x-icon">
