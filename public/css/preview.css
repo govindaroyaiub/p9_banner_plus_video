@@ -886,6 +886,7 @@ section::before {
     transition: right 0.5s ease-in-out;
     border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
+    border-bottom: 4px solid rgb(161, 110, 14);
     z-index: 0;
     color: #1b283b;
 }
@@ -901,6 +902,7 @@ section::before {
     transition: right 0.5s ease-in-out;
     border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
+    border-bottom: 4px solid rgb(161, 110, 14);
     z-index: 0;
 }
 
@@ -910,6 +912,7 @@ section::before {
 
 .feedback-row.feedback-active::before {
     right: 0;
+    border-bottom: 4px solid rgb(161, 110, 14);
 }
 
 .feedback-row.feedback-active span.span-active{
